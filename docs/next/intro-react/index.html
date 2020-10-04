@@ -459,7 +459,7 @@
 <li>it creates a “state variable” with an initial value—in this case the state variable is <code>isHungry</code> and its initial value is <code>true</code></li>
 <li>it creates a function to set that state variable’s value—<code>setIsHungry</code></li>
 </ul>
-<p>It doesn’t matter what names you use. But it can be handy to think of the pattern as <code>[&lt;getter&gt;, &lt;setter&gt;] = useState(&lt;initialValue&gt;)</code>.</p>
+<p>取什么名字并不重要。但脑海中应该形成这样一种模式：<code>[&lt;取值&gt;, &lt;设值&gt;] = useState(&lt;initialValue&gt;)</code>.</p>
 <p>下面我们添加一个按钮<a href="button"><code>Button</code></a>组件，并给它一个<code>onPress</code>的prop：</p>
 <pre><code class="hljs css language-jsx"><span class="token operator">&lt;</span>Button
   onPress<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
@@ -468,7 +468,7 @@
   <span class="token comment">//..</span>
 <span class="token operator">/</span><span class="token operator">></span>
 </code></pre>
-<p>现在当用户点击按钮时，<code>onPress</code>函数会被触发，从而调用<code>setIsHungry(false)</code>。此时状态变量<code>isHungry</code>就被设为了<code>false</code>。When <code>isHungry</code> is false, the <code>Button</code>’s <code>disabled</code> prop is set to <code>true</code> and its <code>title</code> also changes:</p>
+<p>现在当用户点击按钮时，<code>onPress</code>函数会被触发，从而调用<code>setIsHungry(false)</code>。此时状态变量<code>isHungry</code>就被设为了<code>false</code>。当<code>isHungry</code>为false的时候，<code>Button</code>的<code>disabled</code>属性就变成了<code>true</code> ，其<code>title</code>也相应变化：</p>
 <pre><code class="hljs css language-jsx"><span class="token operator">&lt;</span>Button
   <span class="token comment">//..</span>
   disabled<span class="token operator">=</span><span class="token punctuation">{</span><span class="token operator">!</span>isHungry<span class="token punctuation">}</span>
@@ -493,7 +493,7 @@
 <span class="hljs-keyword">import</span> { Button, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
 <span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Cat</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   state = { <span class="hljs-attr">isHungry</span>: <span class="hljs-literal">true</span> };
-  render(props) {
+  render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>
@@ -526,7 +526,7 @@
 </code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
         data-snack-name="State and Class Components"
         data-snack-description="Example usage"
-        data-snack-code="import%20React%2C%20%7B%20Component%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20Button%2C%20Text%2C%20View%20%7D%20from%20%22react-native%22%3B%0Aexport%20class%20Cat%20extends%20Component%20%7B%0A%20%20state%20%3D%20%7B%20isHungry%3A%20true%20%7D%3B%0A%20%20render(props)%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CView%3E%0A%20%20%20%20%20%20%20%20%3CText%3E%0A%20%20%20%20%20%20%20%20%20%20I%20am%20%7Bthis.props.name%7D%2C%20and%20I%20am%0A%20%20%20%20%20%20%20%20%20%20%7Bthis.state.isHungry%20%3F%20%22%20hungry%22%20%3A%20%22%20full%22%7D!%0A%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3CButton%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.setState(%7B%20isHungry%3A%20false%20%7D)%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%7D%0A%20%20%20%20%20%20%20%20%20%20disabled%3D%7B!this.state.isHungry%7D%0A%20%20%20%20%20%20%20%20%20%20title%3D%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.state.isHungry%20%3F%20%22Pour%20me%20some%20milk%2C%20please!%22%20%3A%20%22Thank%20you!%22%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0Aexport%20default%20class%20Cafe%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3C%3E%0A%20%20%20%20%20%20%20%20%3CCat%20name%3D%22Munkustrap%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CCat%20name%3D%22Spot%22%20%2F%3E%0A%20%20%20%20%20%20%3C%2F%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A"
+        data-snack-code="import%20React%2C%20%7B%20Component%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20Button%2C%20Text%2C%20View%20%7D%20from%20%22react-native%22%3B%0Aexport%20class%20Cat%20extends%20Component%20%7B%0A%20%20state%20%3D%20%7B%20isHungry%3A%20true%20%7D%3B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CView%3E%0A%20%20%20%20%20%20%20%20%3CText%3E%0A%20%20%20%20%20%20%20%20%20%20I%20am%20%7Bthis.props.name%7D%2C%20and%20I%20am%0A%20%20%20%20%20%20%20%20%20%20%7Bthis.state.isHungry%20%3F%20%22%20hungry%22%20%3A%20%22%20full%22%7D!%0A%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3CButton%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.setState(%7B%20isHungry%3A%20false%20%7D)%3B%0A%20%20%20%20%20%20%20%20%20%20%7D%7D%0A%20%20%20%20%20%20%20%20%20%20disabled%3D%7B!this.state.isHungry%7D%0A%20%20%20%20%20%20%20%20%20%20title%3D%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20this.state.isHungry%20%3F%20%22Pour%20me%20some%20milk%2C%20please!%22%20%3A%20%22Thank%20you!%22%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0Aexport%20default%20class%20Cafe%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3C%3E%0A%20%20%20%20%20%20%20%20%3CCat%20name%3D%22Munkustrap%22%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CCat%20name%3D%22Spot%22%20%2F%3E%0A%20%20%20%20%20%20%3C%2F%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A"
         data-snack-platform="web"
         data-snack-preview="true"
         style="

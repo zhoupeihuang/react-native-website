@@ -138,6 +138,9 @@
 <li><code>anchor</code> (number) - the node to which the action sheet should be anchored (used for iPad)</li>
 <li><code>tintColor</code> (字符串) - 指定删除性质的按钮的文字的<a href="/docs/next/colors">颜色</a></li>
 </ul>
+<ul>
+<li><code>disabledButtonIndices</code> (array of numbers) - a list of button indices which should be disabled</li>
+</ul>
 <p>'callback'函数则仅接受一个参数，即所点击按钮的索引。</p>
 <p>一个例子：</p>
 <pre><code class="hljs"><span class="hljs-string">ActionSheetIOS.showActionSheetWithOptions({</span>
@@ -160,7 +163,7 @@
 <li><code>subject</code> （字符串） - 要分享的信息主题</li>
 <li><code>excludedActivityTypes</code> （数组） - 指定在 actionsheet 中不显示的活动</li>
 </ul>
-<p>注：如果<code>url</code>指向本地文件，或者是一个 base64 编码的 url，则会直接读取并分享相应的文件。你可以用这样的方式来分享图片、视频以及 PDF 文件等。</p>
+<p>注：如果<code>url</code>指向本地文件，或者是一个 base64 编码的 url，则会直接读取并分享相应的文件。你可以用这样的方式来分享图片、视频以及 PDF 文件等。If <code>url</code> points to a remote file or address it must conform to URL format as described in <a href="https://www.ietf.org/rfc/rfc2396.txt">RFC 2396</a>. For example, a web URL without a proper protocol (HTTP/HTTPS) will not be shared.</p>
 <p>'failureCallback'函数仅接受一个错误对象参数。此对象中仅包含一个可选的<code>stack</code>属性，类型为字符串。</p>
 <p>'successCallback'函数接受两个参数：</p>
 <ul>
