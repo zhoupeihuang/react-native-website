@@ -136,8 +136,44 @@
           height: 514px;
           width: 100%;
         "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="百分比宽高"></a><a href="#百分比宽高" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>百分比宽高</h2>
+<p>If you want to fill a certain portion of the screen, but you <em>don't</em> want to use the <code>flex</code> layout, you <em>can</em> use <strong>percentage values</strong> in the component's style. Similar to flex dimensions, percentage dimensions require parent with a defined size.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> { View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<span class="hljs-keyword">const</span> PercentageDimensionsBasics = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-comment">// Try removing the `height: '100%'` on the parent View.</span>
+  <span class="hljs-comment">// The parent will not have dimensions, so the children can't expand.</span>
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">height:</span> '<span class="hljs-attr">100</span>%' }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">height:</span> '<span class="hljs-attr">15</span>%', <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">powderblue</span>'
+      }} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">width:</span> '<span class="hljs-attr">66</span>%', <span class="hljs-attr">height:</span> '<span class="hljs-attr">35</span>%', <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">skyblue</span>'
+      }} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+        <span class="hljs-attr">width:</span> '<span class="hljs-attr">33</span>%', <span class="hljs-attr">height:</span> '<span class="hljs-attr">50</span>%', <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">steelblue</span>'
+      }} /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+};
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> PercentageDimensionsBasics;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Percentage Dimensions"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%20from%20'react'%3B%0Aimport%20%7B%20View%20%7D%20from%20'react-native'%3B%0Aconst%20PercentageDimensionsBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20%2F%2F%20Try%20removing%20the%20%60height%3A%20'100%25'%60%20on%20the%20parent%20View.%0A%20%20%2F%2F%20The%20parent%20will%20not%20have%20dimensions%2C%20so%20the%20children%20can't%20expand.%0A%20%20return%20(%0A%20%20%20%20%3CView%20style%3D%7B%7B%20height%3A%20'100%25'%20%7D%7D%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20height%3A%20'15%25'%2C%20backgroundColor%3A%20'powderblue'%0A%20%20%20%20%20%20%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20width%3A%20'66%25'%2C%20height%3A%20'35%25'%2C%20backgroundColor%3A%20'skyblue'%0A%20%20%20%20%20%20%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20width%3A%20'33%25'%2C%20height%3A%20'50%25'%2C%20backgroundColor%3A%20'steelblue'%0A%20%20%20%20%20%20%7D%7D%20%2F%3E%0A%20%20%20%20%3C%2FView%3E%0A%20%20)%3B%0A%7D%3B%0Aexport%20default%20PercentageDimensionsBasics%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
       ></div></div></div><p>当你熟练掌握了如何控制组件的尺寸后，下一步可以<a href="/docs/next/flexbox">学习如何在屏幕上排列组件了</a>。</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/style"><span class="arrow-prev">← </span><span>样式</span></a><a class="docs-next button" href="/docs/next/flexbox"><span>使用Flexbox布局</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#指定宽高">指定宽高</a></li><li><a href="#弹性（flex）宽高">弹性（Flex）宽高</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright"><p style="color:inherit">React Native中文网 © 2020 武汉青罗网络科技有限公司</p><p style="color:inherit"><a href="http://beian.miit.gov.cn/">鄂ICP备20002031号</a><img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="鄂公网安备 42011202001821号"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011202001821">鄂公网安备 42011202001821号</a></p></section><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/style"><span class="arrow-prev">← </span><span>样式</span></a><a class="docs-next button" href="/docs/next/flexbox"><span>使用Flexbox布局</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#指定宽高">指定宽高</a></li><li><a href="#弹性（flex）宽高">弹性（Flex）宽高</a></li><li><a href="#百分比宽高">百分比宽高</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright"><p style="color:inherit">React Native中文网 © 2020 武汉青罗网络科技有限公司</p><p style="color:inherit"><a href="http://beian.miit.gov.cn/">鄂ICP备20002031号</a><img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="鄂公网安备 42011202001821号"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011202001821">鄂公网安备 42011202001821号</a></p></section><script>
         (function(){
           var c = document.createElement("div");
           c.setAttribute("id", "lv-container");

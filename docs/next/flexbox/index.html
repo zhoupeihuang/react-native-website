@@ -79,28 +79,158 @@
 <h3><a class="anchor" aria-hidden="true" id="flex"></a><a href="#flex" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex</h3>
 <p><a href="layout-props#flex"><code>flex</code></a> 属性决定元素在主轴上如何<strong>填满</strong>可用区域。整个区域会根据每个元素设置的 flex 属性值被分割成多个部分。</p>
 <p>在下面的例子中，在设置了<code>flex: 1</code>的容器 view 中，有红色，黄色和绿色三个子 view。红色 view 设置了<code>flex: 1</code>，黄色 view 设置了<code>flex: 2</code>，绿色 view 设置了<code>flex: 3</code>。<strong>1+2+3 = 6</strong>，这意味着红色 view 占据整个区域的<code>1/6</code>，黄色 view 占据整个区域的<code>2/6</code>，绿色 view 占据整个区域的<code>3/6</code>。</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*PhCFmO5tYX_sZSyCd4vO3w.png" alt="Flex"></p>
-<h3><a class="anchor" aria-hidden="true" id="flex-direction"></a><a href="#flex-direction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Direction</h3>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { StyleSheet, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> Flex = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.container,</span> {
+      // <span class="hljs-attr">Try</span> <span class="hljs-attr">setting</span> `<span class="hljs-attr">flexDirection</span>` <span class="hljs-attr">to</span> `"<span class="hljs-attr">row</span>"`<span class="hljs-attr">.</span>
+      <span class="hljs-attr">flexDirection:</span> "<span class="hljs-attr">column</span>"
+    }]}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">red</span>" }} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">flex:</span> <span class="hljs-attr">2</span>, <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">darkorange</span>" }} /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">flex:</span> <span class="hljs-attr">3</span>, <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">green</span>" }} /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">padding</span>: <span class="hljs-number">20</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Flex;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Flex Example"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%20from%20%22react%22%3B%0Aimport%20%7B%20StyleSheet%2C%20Text%2C%20View%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20Flex%20%3D%20()%20%3D%3E%20%7B%0A%20%20return%20(%0A%20%20%20%20%3CView%20style%3D%7B%5Bstyles.container%2C%20%7B%0A%20%20%20%20%20%20%2F%2F%20Try%20setting%20%60flexDirection%60%20to%20%60%22row%22%60.%0A%20%20%20%20%20%20flexDirection%3A%20%22column%22%0A%20%20%20%20%7D%5D%7D%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%20flex%3A%201%2C%20backgroundColor%3A%20%22red%22%20%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%20flex%3A%202%2C%20backgroundColor%3A%20%22darkorange%22%20%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%20flex%3A%203%2C%20backgroundColor%3A%20%22green%22%20%7D%7D%20%2F%3E%0A%20%20%20%20%3C%2FView%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20padding%3A%2020%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20Flex%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h3><a class="anchor" aria-hidden="true" id="flex-direction"></a><a href="#flex-direction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Direction</h3>
 <p>在组件的<code>style</code>中指定<code>flexDirection</code>可以决定布局的<strong>主轴</strong>。子元素是应该沿着<strong>水平轴(<code>row</code>)</strong>方向排列，还是沿着<strong>竖直轴(<code>column</code>)</strong>方向排列呢？默认值是<strong>竖直轴(<code>column</code>)</strong>方向。</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<p>You can learn more <a href="https://yogalayout.com/docs/flex-direction">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { StyleSheet, Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
 
 <span class="hljs-keyword">const</span> FlexDirectionBasics = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-comment">// 尝试把`flexDirection`改为`column`看看</span>
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{flex:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">flexDirection:</span> '<span class="hljs-attr">row</span>'}}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">powderblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">skyblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">steelblue</span>'}} /&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
-    );
+  <span class="hljs-keyword">const</span> [flexDirection, setflexDirection] = useState(<span class="hljs-string">"column"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"flexDirection"</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">column</span>", "<span class="hljs-attr">row</span>", "<span class="hljs-attr">row-reverse</span>", "<span class="hljs-attr">column-reverse</span>"]}
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{flexDirection}</span>
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setflexDirection}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
 };
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp; <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.container,</span> { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> }]}&gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FlexDirectionBasics;
 </code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
         data-snack-name="Flex Direction"
         data-snack-description="Example usage"
-        data-snack-code="import%20React%20from%20'react'%3B%0Aimport%20%7B%20View%20%7D%20from%20'react-native'%3B%0A%0Aconst%20FlexDirectionBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%2F%2F%20%E5%B0%9D%E8%AF%95%E6%8A%8A%60flexDirection%60%E6%94%B9%E4%B8%BA%60column%60%E7%9C%8B%E7%9C%8B%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7Bflex%3A%201%2C%20flexDirection%3A%20'row'%7D%7D%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'powderblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'skyblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'steelblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%7D%3B%0A%0Aexport%20default%20FlexDirectionBasics%3B%0A"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20StyleSheet%2C%20Text%2C%20TouchableOpacity%2C%20View%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20FlexDirectionBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BflexDirection%2C%20setflexDirection%5D%20%3D%20useState(%22column%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22flexDirection%22%0A%20%20%20%20%20%20values%3D%7B%5B%22column%22%2C%20%22row%22%2C%20%22row-reverse%22%2C%20%22column-reverse%22%5D%7D%0A%20%20%20%20%20%20selectedValue%3D%7BflexDirection%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetflexDirection%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22powderblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22steelblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7B%5Bstyles.container%2C%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%5D%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20FlexDirectionBasics%3B%0A"
         data-snack-platform="web"
         data-snack-preview="true"
         style="
@@ -111,39 +241,258 @@
           height: 514px;
           width: 100%;
         "
-      ></div></div></div><p><img src="https://cdn-images-1.medium.com/max/800/1*rA7IbuUsJWsx6evKAsabVw.png" alt="Flex Direction"></p>
-<h2><a class="anchor" aria-hidden="true" id="layout-direction"></a><a href="#layout-direction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Layout Direction</h2>
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="layout-direction"></a><a href="#layout-direction" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Layout Direction</h2>
 <p>Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge <code>start</code> and <code>end</code> refer to. By default React Native lays out with LTR layout direction. In this mode <code>start</code> refers to left and <code>end</code> refers to right.</p>
 <ul>
 <li><p><code>LTR</code> (<strong>default value</strong>) Text and children and laid out from left to right. Margin and padding applied the start of an element are applied on the left side.</p></li>
 <li><p><code>RTL</code> Text and children and laid out from right to left. Margin and padding applied the start of an element are applied on the right side.</p></li>
 </ul>
-<h2><a class="anchor" aria-hidden="true" id="justify-content"></a><a href="#justify-content" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Justify Content</h2>
-<p>在组件的 style 中指定<code>justifyContent</code>可以决定其子元素沿着<strong>主轴</strong>的<strong>排列方式</strong>。子元素是应该靠近主轴的起始端还是末尾段分布呢？亦或应该均匀分布？对应的这些可选项有：<code>flex-start</code>、<code>center</code>、<code>flex-end</code>、<code>space-around</code>、<code>space-between</code>以及<code>space-evenly</code>。</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { View, TouchableOpacity, Text, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> DirectionLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [direction, setDirection] = useState(<span class="hljs-string">"ltr"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"direction"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{direction}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">ltr</span>", "<span class="hljs-attr">rtl</span>"]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setDirection}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp; <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.container,</span> { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> }]}&gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> DirectionLayout;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Flex Direction"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20View%2C%20TouchableOpacity%2C%20Text%2C%20StyleSheet%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20DirectionLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bdirection%2C%20setDirection%5D%20%3D%20useState(%22ltr%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22direction%22%0A%20%20%20%20%20%20selectedValue%3D%7Bdirection%7D%0A%20%20%20%20%20%20values%3D%7B%5B%22ltr%22%2C%20%22rtl%22%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetDirection%7D%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22powderblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22steelblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7B%5Bstyles.container%2C%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%5D%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20DirectionLayout%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="justify-content"></a><a href="#justify-content" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Justify Content</h2>
+<p>在组件的 style 中指定<code>justifyContent</code>可以决定其子元素沿着<strong>主轴</strong>的<strong>排列方式</strong>。子元素是应该靠近主轴的起始端还是末尾段分布呢？亦或应该均匀分布？可用的选项有：</p>
+<ul>
+<li><p><code>flex-start</code>(<strong>默认值</strong>) Align children of a container to the start of the container's main axis.</p></li>
+<li><p><code>flex-end</code> Align children of a container to the end of the container's main axis.</p></li>
+<li><p><code>center</code> Align children of a container in the center of the container's main axis.</p></li>
+<li><p><code>space-between</code> Evenly space off children across the container's main axis, distributing the remaining space between the children.</p></li>
+<li><p><code>space-around</code> Evenly space off children across the container's main axis, distributing the remaining space around the children. Compared to <code>space-between</code>, using <code>space-around</code> will result in space being distributed to the beginning of the first child and end of the last child.</p></li>
+<li><p><code>space-evenly</code> Evenly distribute children within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.</p></li>
+</ul>
+<p>You can learn more <a href="https://yogalayout.com/docs/justify-content">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { View, TouchableOpacity, Text, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
 
 <span class="hljs-keyword">const</span> JustifyContentBasics = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-comment">// 尝试把`justifyContent`改为`center`看看</span>
-      <span class="hljs-comment">// 尝试把`flexDirection`改为`row`看看</span>
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span>,
-        <span class="hljs-attr">flexDirection:</span> '<span class="hljs-attr">column</span>',
-        <span class="hljs-attr">justifyContent:</span> '<span class="hljs-attr">space-between</span>',
-      }}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">powderblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">skyblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">steelblue</span>'}} /&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
-    );
+  <span class="hljs-keyword">const</span> [justifyContent, setJustifyContent] = useState(<span class="hljs-string">"flex-start"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"justifyContent"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{justifyContent}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>
+        "<span class="hljs-attr">flex-start</span>",
+        "<span class="hljs-attr">flex-end</span>",
+        "<span class="hljs-attr">center</span>",
+        "<span class="hljs-attr">space-between</span>",
+        "<span class="hljs-attr">space-around</span>",
+        "<span class="hljs-attr">space-evenly</span>",
+      ]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setJustifyContent}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
 };
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[styles.button, selectedValue === value &amp;&amp; styles.selected]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp; <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.container,</span> { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> }]}&gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> JustifyContentBasics;
 </code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
         data-snack-name="Justify Content"
         data-snack-description="Example usage"
-        data-snack-code="import%20React%20from%20'react'%3B%0Aimport%20%7B%20View%20%7D%20from%20'react-native'%3B%0A%0Aconst%20JustifyContentBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%2F%2F%20%E5%B0%9D%E8%AF%95%E6%8A%8A%60justifyContent%60%E6%94%B9%E4%B8%BA%60center%60%E7%9C%8B%E7%9C%8B%0A%20%20%20%20%20%20%2F%2F%20%E5%B0%9D%E8%AF%95%E6%8A%8A%60flexDirection%60%E6%94%B9%E4%B8%BA%60row%60%E7%9C%8B%E7%9C%8B%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20flex%3A%201%2C%0A%20%20%20%20%20%20%20%20flexDirection%3A%20'column'%2C%0A%20%20%20%20%20%20%20%20justifyContent%3A%20'space-between'%2C%0A%20%20%20%20%20%20%7D%7D%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'powderblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'skyblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'steelblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%7D%3B%0A%0Aexport%20default%20JustifyContentBasics%3B%0A"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20View%2C%20TouchableOpacity%2C%20Text%2C%20StyleSheet%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20JustifyContentBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BjustifyContent%2C%20setJustifyContent%5D%20%3D%20useState(%22flex-start%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22justifyContent%22%0A%20%20%20%20%20%20selectedValue%3D%7BjustifyContent%7D%0A%20%20%20%20%20%20values%3D%7B%5B%0A%20%20%20%20%20%20%20%20%22flex-start%22%2C%0A%20%20%20%20%20%20%20%20%22flex-end%22%2C%0A%20%20%20%20%20%20%20%20%22center%22%2C%0A%20%20%20%20%20%20%20%20%22space-between%22%2C%0A%20%20%20%20%20%20%20%20%22space-around%22%2C%0A%20%20%20%20%20%20%20%20%22space-evenly%22%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetJustifyContent%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22powderblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22steelblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.button%2C%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7B%5Bstyles.container%2C%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%5D%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20JustifyContentBasics%3B%0A"
         data-snack-platform="web"
         data-snack-preview="true"
         style="
@@ -154,38 +503,155 @@
           height: 514px;
           width: 100%;
         "
-      ></div></div></div><p><img src="https://cdn-images-1.medium.com/max/800/1*i5TVlme-TisAVvD5ax2yPA.png" alt="Justify Content"></p>
-<h3><a class="anchor" aria-hidden="true" id="align-items"></a><a href="#align-items" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Items</h3>
-<p>在组件的 style 中指定<code>alignItems</code>可以决定其子元素沿着<strong>次轴</strong>（与主轴垂直的轴，比如若主轴方向为<code>row</code>，则次轴方向为<code>column</code>）的<strong>排列方式</strong>。子元素是应该靠近次轴的起始端还是末尾段分布呢？亦或应该均匀分布？对应的这些可选项有：<code>flex-start</code>、<code>center</code>、<code>flex-end</code>以及<code>stretch</code>。</p>
+      ></div></div></div><h3><a class="anchor" aria-hidden="true" id="align-items"></a><a href="#align-items" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Items</h3>
+<p>在组件的 style 中指定<code>alignItems</code>可以决定其子元素沿着<strong>次轴</strong>（与主轴垂直的轴，比如若主轴方向为<code>row</code>，则次轴方向为<code>column</code>）的<strong>排列方式</strong>。子元素是应该靠近次轴的起始端还是末尾段分布呢？亦或应该均匀分布？可用的选项有：</p>
+<ul>
+<li><p><code>stretch</code> (<strong>默认值</strong>) Stretch children of a container to match the <code>height</code> of the container's cross axis.</p></li>
+<li><p><code>flex-start</code> Align children of a container to the start of the container's cross axis.</p></li>
+<li><p><code>flex-end</code> Align children of a container to the end of the container's cross axis.</p></li>
+<li><p><code>center</code> Align children of a container in the center of the container's cross axis.</p></li>
+<li><p><code>baseline</code> Align children of a container along a common baseline. Individual children can be set to be the reference baseline for their parents.</p></li>
+</ul>
 <blockquote>
 <p>注意：要使<code>stretch</code>选项生效的话，子元素在次轴方向上不能有固定的尺寸。以下面的代码为例：只有将子元素样式中的<code>width: 50</code>去掉之后，<code>alignItems: 'stretch'</code>才能生效。</p>
 </blockquote>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<p>You can learn more <a href="https://yogalayout.com/docs/align-items">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
 
-<span class="hljs-keyword">const</span> AlignItemsBasics = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-comment">// Try setting `alignItems` to 'flex-start'</span>
-      <span class="hljs-comment">// Try setting `justifyContent` to `flex-end`.</span>
-      <span class="hljs-comment">// Try setting `flexDirection` to `row`.</span>
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-        <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span>,
-        <span class="hljs-attr">flexDirection:</span> '<span class="hljs-attr">column</span>',
-        <span class="hljs-attr">justifyContent:</span> '<span class="hljs-attr">center</span>',
-        <span class="hljs-attr">alignItems:</span> '<span class="hljs-attr">stretch</span>',
-      }}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">powderblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">skyblue</span>'}} /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{height:</span> <span class="hljs-attr">100</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">steelblue</span>'}} /&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
-    );
+<span class="hljs-keyword">const</span> AlignItemsLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [alignItems, setAlignItems] = useState(<span class="hljs-string">"stretch"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"alignItems"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{alignItems}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>
+        "<span class="hljs-attr">stretch</span>",
+        "<span class="hljs-attr">flex-start</span>",
+        "<span class="hljs-attr">flex-end</span>",
+        "<span class="hljs-attr">center</span>",
+        "<span class="hljs-attr">baseline</span>",
+      ]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setAlignItems}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+          <span class="hljs-attr">styles.box</span>,
+          {
+            <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>",
+            <span class="hljs-attr">width:</span> "<span class="hljs-attr">auto</span>",
+            <span class="hljs-attr">minWidth:</span> <span class="hljs-attr">50</span>,
+          },
+        ]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
 };
 
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AlignitemsBasics;
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp;
+                <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+        <span class="hljs-attr">styles.container</span>,
+        { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> },
+      ]}
+    &gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+    <span class="hljs-attr">minHeight</span>: <span class="hljs-number">200</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AlignItemsLayout;
 </code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
         data-snack-name="Align Items"
         data-snack-description="Example usage"
-        data-snack-code="import%20React%20from%20'react'%3B%0Aimport%20%7B%20View%20%7D%20from%20'react-native'%3B%0A%0Aconst%20AlignItemsBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%2F%2F%20Try%20setting%20%60alignItems%60%20to%20'flex-start'%0A%20%20%20%20%20%20%2F%2F%20Try%20setting%20%60justifyContent%60%20to%20%60flex-end%60.%0A%20%20%20%20%20%20%2F%2F%20Try%20setting%20%60flexDirection%60%20to%20%60row%60.%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20flex%3A%201%2C%0A%20%20%20%20%20%20%20%20flexDirection%3A%20'column'%2C%0A%20%20%20%20%20%20%20%20justifyContent%3A%20'center'%2C%0A%20%20%20%20%20%20%20%20alignItems%3A%20'stretch'%2C%0A%20%20%20%20%20%20%7D%7D%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%2C%20backgroundColor%3A%20'powderblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bheight%3A%2050%2C%20backgroundColor%3A%20'skyblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%20style%3D%7B%7Bheight%3A%20100%2C%20backgroundColor%3A%20'steelblue'%7D%7D%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%7D%3B%0A%0Aexport%20default%20AlignitemsBasics%3B%0A"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%0A%20%20View%2C%0A%20%20TouchableOpacity%2C%0A%20%20Text%2C%0A%20%20StyleSheet%2C%0A%7D%20from%20%22react-native%22%3B%0A%0Aconst%20AlignItemsLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BalignItems%2C%20setAlignItems%5D%20%3D%20useState(%22stretch%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22alignItems%22%0A%20%20%20%20%20%20selectedValue%3D%7BalignItems%7D%0A%20%20%20%20%20%20values%3D%7B%5B%0A%20%20%20%20%20%20%20%20%22stretch%22%2C%0A%20%20%20%20%20%20%20%20%22flex-start%22%2C%0A%20%20%20%20%20%20%20%20%22flex-end%22%2C%0A%20%20%20%20%20%20%20%20%22center%22%2C%0A%20%20%20%20%20%20%20%20%22baseline%22%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetAlignItems%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22powderblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22steelblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20%22auto%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20minWidth%3A%2050%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%0A%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20styles.container%2C%0A%20%20%20%20%20%20%20%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20minHeight%3A%20200%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20AlignItemsLayout%3B%0A"
         data-snack-platform="web"
         data-snack-preview="true"
         style="
@@ -196,54 +662,991 @@
           height: 514px;
           width: 100%;
         "
-      ></div></div></div><p><img src="https://cdn-images-1.medium.com/max/800/1*evkM7zfxt-9p-HJ1M0Bh2g.png" alt="Align Items"></p>
-<h2><a class="anchor" aria-hidden="true" id="align-self"></a><a href="#align-self" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Self</h2>
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="align-self"></a><a href="#align-self" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Self</h2>
 <p><a href="layout-props#alignself"><code>alignSelf</code></a> has the same options and effect as <code>alignItems</code> but instead of affecting the children within a container, you can apply this property to a single child to change its alignment within its parent. <code>alignSelf</code> overrides any option set by the parent with <code>alignItems</code>.</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*J1JCoKwLCokX9JXVBvP71g.png" alt="Align Self"></p>
-<h2><a class="anchor" aria-hidden="true" id="align-content"></a><a href="#align-content" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Content</h2>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { View, TouchableOpacity, Text, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> AlignSelfLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [alignSelf, setAlignSelf] = useState(<span class="hljs-string">"stretch"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"alignSelf"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{alignSelf}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">stretch</span>", "<span class="hljs-attr">flex-start</span>", "<span class="hljs-attr">flex-end</span>", "<span class="hljs-attr">center</span>", "<span class="hljs-attr">baseline</span>"]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setAlignSelf}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> {
+            <span class="hljs-attr">alignSelf</span>,
+            <span class="hljs-attr">width:</span> "<span class="hljs-attr">auto</span>",
+            <span class="hljs-attr">minWidth:</span> <span class="hljs-attr">50</span>,
+            <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>",
+          }]}
+        /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp;
+                <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+    <span class="hljs-attr">minHeight</span>: <span class="hljs-number">200</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AlignSelfLayout;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Align Self"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20View%2C%20TouchableOpacity%2C%20Text%2C%20StyleSheet%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20AlignSelfLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BalignSelf%2C%20setAlignSelf%5D%20%3D%20useState(%22stretch%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22alignSelf%22%0A%20%20%20%20%20%20selectedValue%3D%7BalignSelf%7D%0A%20%20%20%20%20%20values%3D%7B%5B%22stretch%22%2C%20%22flex-start%22%2C%20%22flex-end%22%2C%20%22center%22%2C%20%22baseline%22%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetAlignSelf%7D%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20alignSelf%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20width%3A%20%22auto%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20minWidth%3A%2050%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22powderblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22steelblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.container%7D%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20minHeight%3A%20200%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20AlignSelfLayout%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="align-content"></a><a href="#align-content" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Align Content</h2>
 <p><a href="layout-props#aligncontent">alignContent</a> defines the distribution of lines along the cross-axis. This only has effect when items are wrapped to multiple lines using <code>flexWrap</code>.</p>
 <ul>
 <li><p><code>flex-start</code> (<strong>default value</strong>) Align wrapped lines to the start of the container's cross axis.</p></li>
 <li><p><code>flex-end</code> Align wrapped lines to the end of the container's cross axis.</p></li>
-<li><p><code>stretch</code> wrapped lines to match the height of the container's cross axis.</p></li>
+<li><p><code>stretch</code> Stretch wrapped lines to match the height of the container's cross axis.</p></li>
 <li><p><code>center</code> Align wrapped lines in the center of the container's cross axis.</p></li>
-<li><p><code>space-between</code> Evenly space wrapped lines across the container's main axis, distributing remaining space between the lines.</p></li>
-<li><p><code>space-around</code> Evenly space wrapped lines across the container's main axis, distributing remaining space around the lines. Compared to space between using space around will result in space being distributed to the begining of the first lines and end of the last line.</p></li>
-<li><p><code>space-evenly</code> Evenly distributed within the alignment container along the main axis. The spacing between each pair of adjacent items, the main-start edge and the first item, and the main-end edge and the last item, are all exactly the same.</p></li>
+<li><p><code>space-between</code> Evenly space wrapped lines across the container's main axis, distributing the remaining space between the lines.</p></li>
+<li><p><code>space-around</code> Evenly space wrapped lines across the container's main axis, distributing the remaining space around the lines. Compared to <code>space-between</code>, using <code>space-around</code> will result in space being distributed to the beginning of the first line and the end of the last line.</p></li>
 </ul>
-<p>LEARN MORE <a href="https://yogalayout.com/docs/align-content">HERE</a></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*cC2XFyCF_igp20Ombt4wBw.png" alt="Align Content"></p>
-<h2><a class="anchor" aria-hidden="true" id="flex-wrap"></a><a href="#flex-wrap" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Wrap</h2>
-<p>The <a href="layout-props#flexwrap"><code>flexWrap</code></a> property is set on containers and controls what happens when children overflow the size of the container along the main axis. By default children are forced into a single line (which can shrink elements). If wrapping is allowed items are wrapped into multiple lines along the main axis if needed.</p>
-<p>When wrapping lines <code>alignContent</code> can be used to specify how the lines are placed in the container. learn more <a href="https://yogalayout.com/docs/flex-wrap">here</a></p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*_7v4uQhSsuCn1cfeOMVfrA.png" alt="Flex Wrap"></p>
-<h2><a class="anchor" aria-hidden="true" id="flex-basis-grow-and-shrink"></a><a href="#flex-basis-grow-and-shrink" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Basis, Grow, and Shrink</h2>
+<p>You can learn more <a href="https://yogalayout.com/docs/align-content">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { View, TouchableOpacity, Text, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> AlignContentLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [alignContent, setAlignContent] = useState(<span class="hljs-string">"flex-start"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"alignContent"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{alignContent}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>
+        "<span class="hljs-attr">flex-start</span>",
+        "<span class="hljs-attr">flex-end</span>",
+        "<span class="hljs-attr">stretch</span>",
+        "<span class="hljs-attr">center</span>",
+        "<span class="hljs-attr">space-between</span>",
+        "<span class="hljs-attr">space-around</span>",
+      ]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setAlignContent}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">orangered</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">orange</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumseagreen</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">deepskyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumturquoise</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumslateblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">purple</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp;
+                <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+        <span class="hljs-attr">styles.container</span>,
+        { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> },
+      ]}
+    &gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+    <span class="hljs-attr">maxHeight</span>: <span class="hljs-number">400</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">80</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> AlignContentLayout;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Align Content"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20View%2C%20TouchableOpacity%2C%20Text%2C%20StyleSheet%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20AlignContentLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BalignContent%2C%20setAlignContent%5D%20%3D%20useState(%22flex-start%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22alignContent%22%0A%20%20%20%20%20%20selectedValue%3D%7BalignContent%7D%0A%20%20%20%20%20%20values%3D%7B%5B%0A%20%20%20%20%20%20%20%20%22flex-start%22%2C%0A%20%20%20%20%20%20%20%20%22flex-end%22%2C%0A%20%20%20%20%20%20%20%20%22stretch%22%2C%0A%20%20%20%20%20%20%20%20%22center%22%2C%0A%20%20%20%20%20%20%20%20%22space-between%22%2C%0A%20%20%20%20%20%20%20%20%22space-around%22%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetAlignContent%7D%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22orangered%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22orange%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumseagreen%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22deepskyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumturquoise%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumslateblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22purple%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%0A%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20styles.container%2C%0A%20%20%20%20%20%20%20%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20maxHeight%3A%20400%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2080%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20AlignContentLayout%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="flex-wrap"></a><a href="#flex-wrap" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Wrap</h2>
+<p>The <a href="layout-props#flexwrap"><code>flexWrap</code></a> property is set on containers and it controls what happens when children overflow the size of the container along the main axis. By default, children are forced into a single line (which can shrink elements). If wrapping is allowed, items are wrapped into multiple lines along the main axis if needed.</p>
+<p>When wrapping lines, <code>alignContent</code> can be used to specify how the lines are placed in the container. Learn more <a href="https://yogalayout.com/docs/flex-wrap">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { View, TouchableOpacity, Text, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> FlexWrapLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [flexWrap, setFlexWrap] = useState(<span class="hljs-string">"wrap"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"flexWrap"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{flexWrap}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">wrap</span>", "<span class="hljs-attr">no-wrap</span>"]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setFlexWrap}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">orangered</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">orange</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumseagreen</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">deepskyblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumturquoise</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">mediumslateblue</span>" }]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">purple</span>" }]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp;
+                <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+        <span class="hljs-attr">styles.container</span>,
+        { [<span class="hljs-attr">label</span>]<span class="hljs-attr">:</span> <span class="hljs-attr">selectedValue</span> },
+      ]}
+    &gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+    <span class="hljs-attr">maxHeight</span>: <span class="hljs-number">400</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">80</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> FlexWrapLayout;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Flex Wrap"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%20View%2C%20TouchableOpacity%2C%20Text%2C%20StyleSheet%20%7D%20from%20%22react-native%22%3B%0A%0Aconst%20FlexWrapLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BflexWrap%2C%20setFlexWrap%5D%20%3D%20useState(%22wrap%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22flexWrap%22%0A%20%20%20%20%20%20selectedValue%3D%7BflexWrap%7D%0A%20%20%20%20%20%20values%3D%7B%5B%22wrap%22%2C%20%22no-wrap%22%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetFlexWrap%7D%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22orangered%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22orange%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumseagreen%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22deepskyblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumturquoise%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22mediumslateblue%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5Bstyles.box%2C%20%7B%20backgroundColor%3A%20%22purple%22%20%7D%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%0A%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20styles.container%2C%0A%20%20%20%20%20%20%20%20%7B%20%5Blabel%5D%3A%20selectedValue%20%7D%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%7Bchildren%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20maxHeight%3A%20400%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2080%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20FlexWrapLayout%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="flex-basis-grow-and-shrink"></a><a href="#flex-basis-grow-and-shrink" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Flex Basis, Grow, and Shrink</h2>
 <ul>
 <li><p><a href="layout-props#flexgrow"><code>flexGrow</code></a> describes how any space within a container should be distributed among its children along the main axis. After laying out its children, a container will distribute any remaining space according to the flex grow values specified by its children.</p>
-<p>flexGrow accepts any floating point value &gt;= 0, with 0 being the default value. A container will distribute any remaining space among its children weighted by the child’s flex grow value.</p></li>
-<li><p><a href="layout-props#flexshrink"><code>flexShrink</code></a> describes how to shrink children along the main axis in the case that the total size of the children overflow the size of the container on the main axis. Flex shrink is very similar to flex grow and can be thought of in the same way if any overflowing size is considered to be negative remaining space. These two properties also work well together by allowing children to grow and shrink as needed.</p>
-<p>Flex shrink accepts any floating point value &gt;= 0, with 1 being the default value. A container will shrink its children weighted by the child’s flex shrink value.</p></li>
-<li><p><a href="layout-props#flexbasis"><code>flexBasis</code></a> is an axis-independent way of providing the default size of an item along the main axis. Setting the flex basis of a child is similar to setting the <code>width</code> of that child if its parent is a container with <code>flexDirection: row</code> or setting the <code>height</code> of a child if its parent is a container with <code>flexDirection: column</code>. The flex basis of an item is the default size of that item, the size of the item before any flex grow and flex shrink calculations are performed.</p></li>
+<p><code>flexGrow</code> accepts any floating point value &gt;= 0, with 0 being the default value. A container will distribute any remaining space among its children weighted by the children’s <code>flexGrow</code> values.</p></li>
+<li><p><a href="layout-props#flexshrink"><code>flexShrink</code></a> describes how to shrink children along the main axis in the case in which the total size of the children overflows the size of the container on the main axis. <code>flexShrink</code> is very similar to <code>flexGrow</code> and can be thought of in the same way if any overflowing size is considered to be negative remaining space. These two properties also work well together by allowing children to grow and shrink as needed.</p>
+<p><code>flexShrink</code> accepts any floating point value &gt;= 0, with 1 being the default value. A container will shrink its children weighted by the children’s <code>flexShrink</code> values.</p></li>
+<li><p><a href="layout-props#flexbasis"><code>flexBasis</code></a> is an axis-independent way of providing the default size of an item along the main axis. Setting the <code>flexBasis</code> of a child is similar to setting the <code>width</code> of that child if its parent is a container with <code>flexDirection: row</code> or setting the <code>height</code> of a child if its parent is a container with <code>flexDirection: column</code>. The <code>flexBasis</code> of an item is the default size of that item, the size of the item before any <code>flexGrow</code> and <code>flexShrink</code> calculations are performed.</p></li>
 </ul>
-<p>LEARN MORE <a href="https://yogalayout.com/docs/flex">HERE</a></p>
-<h2><a class="anchor" aria-hidden="true" id="width-and-height"></a><a href="#width-and-height" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Width and Height</h2>
-<p>The <code>width</code> property in Yoga specifies the width of the element's content area. Similarly height property specifies the <code>height</code> of the element's content area.</p>
-<p>Both <code>width</code> and <code>height</code> can take following values:</p>
+<p>You can learn more <a href="https://yogalayout.com/docs/flex">here</a>.</p>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [powderblue, setPowderblue] = useState({
+    <span class="hljs-attr">flexGrow</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">flexShrink</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexBasis</span>: <span class="hljs-string">"auto"</span>,
+  });
+  <span class="hljs-keyword">const</span> [skyblue, setSkyblue] = useState({
+    <span class="hljs-attr">flexGrow</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexShrink</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">flexBasis</span>: <span class="hljs-number">100</span>,
+  });
+  <span class="hljs-keyword">const</span> [steelblue, setSteelblue] = useState({
+    <span class="hljs-attr">flexGrow</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">flexShrink</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexBasis</span>: <span class="hljs-number">200</span>,
+  });
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+          <span class="hljs-attr">styles.container</span>,
+          {
+            <span class="hljs-attr">flexDirection:</span> "<span class="hljs-attr">row</span>",
+            <span class="hljs-attr">alignContent:</span> "<span class="hljs-attr">space-between</span>",
+          },
+        ]}
+      &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">BoxInfo</span>
+          <span class="hljs-attr">color</span>=<span class="hljs-string">"powderblue"</span>
+          {<span class="hljs-attr">...powderblue</span>}
+          <span class="hljs-attr">setStyle</span>=<span class="hljs-string">{setPowderblue}</span>
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">BoxInfo</span>
+          <span class="hljs-attr">color</span>=<span class="hljs-string">"skyblue"</span>
+          {<span class="hljs-attr">...skyblue</span>}
+          <span class="hljs-attr">setStyle</span>=<span class="hljs-string">{setSkyblue}</span>
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">BoxInfo</span>
+          <span class="hljs-attr">color</span>=<span class="hljs-string">"steelblue"</span>
+          {<span class="hljs-attr">...steelblue</span>}
+          <span class="hljs-attr">setStyle</span>=<span class="hljs-string">{setSteelblue}</span>
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.previewContainer}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            {
+              <span class="hljs-attr">flexBasis:</span> <span class="hljs-attr">powderblue.flexBasis</span>,
+              <span class="hljs-attr">flexGrow:</span> <span class="hljs-attr">powderblue.flexGrow</span>,
+              <span class="hljs-attr">flexShrink:</span> <span class="hljs-attr">powderblue.flexShrink</span>,
+              <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>",
+            },
+          ]}
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            {
+              <span class="hljs-attr">flexBasis:</span> <span class="hljs-attr">skyblue.flexBasis</span>,
+              <span class="hljs-attr">flexGrow:</span> <span class="hljs-attr">skyblue.flexGrow</span>,
+              <span class="hljs-attr">flexShrink:</span> <span class="hljs-attr">skyblue.flexShrink</span>,
+              <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>",
+            },
+          ]}
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            {
+              <span class="hljs-attr">flexBasis:</span> <span class="hljs-attr">steelblue.flexBasis</span>,
+              <span class="hljs-attr">flexGrow:</span> <span class="hljs-attr">steelblue.flexGrow</span>,
+              <span class="hljs-attr">flexShrink:</span> <span class="hljs-attr">steelblue.flexShrink</span>,
+              <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>",
+            },
+          ]}
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> BoxInfo = ({
+  color,
+  flexBasis,
+  flexShrink,
+  setStyle,
+  flexGrow,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.row,</span> { <span class="hljs-attr">flexDirection:</span> "<span class="hljs-attr">column</span>" }]}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+        <span class="hljs-attr">styles.boxLabel</span>,
+        {
+          <span class="hljs-attr">backgroundColor:</span> <span class="hljs-attr">color</span>,
+        },
+      ]}
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+          <span class="hljs-attr">color:</span> "#<span class="hljs-attr">fff</span>",
+          <span class="hljs-attr">fontWeight:</span> <span class="hljs-attr">500</span>,
+          <span class="hljs-attr">textAlign:</span> "<span class="hljs-attr">center</span>",
+        }}
+      &gt;</span>
+        Box
+      <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>flexBasis<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{flexBasis}</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.input}</span>
+      <span class="hljs-attr">onChangeText</span>=<span class="hljs-string">{(fB)</span> =&gt;</span>
+        setStyle((value) =&gt; ({
+          ...value,
+          flexBasis: isNaN(parseInt(fB))
+            ? "auto"
+            : parseInt(fB),
+        }))
+      }
+    /&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>flexShrink<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{flexShrink}</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.input}</span>
+      <span class="hljs-attr">onChangeText</span>=<span class="hljs-string">{(fS)</span> =&gt;</span>
+        setStyle((value) =&gt; ({
+          ...value,
+          flexShrink: isNaN(parseInt(fS))
+            ? ""
+            : parseInt(fS),
+        }))
+      }
+    /&gt;
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>flexGrow<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
+      <span class="hljs-attr">value</span>=<span class="hljs-string">{flexGrow}</span>
+      <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.input}</span>
+      <span class="hljs-attr">onChangeText</span>=<span class="hljs-string">{(fG)</span> =&gt;</span>
+        setStyle((value) =&gt; ({
+          ...value,
+          flexGrow: isNaN(parseInt(fG))
+            ? ""
+            : parseInt(fG),
+        }))
+      }
+    /&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">10</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">boxLabel</span>: {
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-number">80</span>,
+    <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">16</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"100"</span>,
+  },
+  <span class="hljs-attr">previewContainer</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+  },
+  <span class="hljs-attr">input</span>: {
+    <span class="hljs-attr">borderBottomWidth</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Flex Basis, Grow, and Shrink"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%0A%20%20View%2C%0A%20%20Text%2C%0A%20%20TextInput%2C%0A%20%20StyleSheet%2C%0A%7D%20from%20%22react-native%22%3B%0A%0Aconst%20App%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bpowderblue%2C%20setPowderblue%5D%20%3D%20useState(%7B%0A%20%20%20%20flexGrow%3A%200%2C%0A%20%20%20%20flexShrink%3A%201%2C%0A%20%20%20%20flexBasis%3A%20%22auto%22%2C%0A%20%20%7D)%3B%0A%20%20const%20%5Bskyblue%2C%20setSkyblue%5D%20%3D%20useState(%7B%0A%20%20%20%20flexGrow%3A%201%2C%0A%20%20%20%20flexShrink%3A%200%2C%0A%20%20%20%20flexBasis%3A%20100%2C%0A%20%20%7D)%3B%0A%20%20const%20%5Bsteelblue%2C%20setSteelblue%5D%20%3D%20useState(%7B%0A%20%20%20%20flexGrow%3A%200%2C%0A%20%20%20%20flexShrink%3A%201%2C%0A%20%20%20%20flexBasis%3A%20200%2C%0A%20%20%7D)%3B%0A%20%20return%20(%0A%20%20%20%20%3CView%20style%3D%7Bstyles.container%7D%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20styles.container%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20alignContent%3A%20%22space-between%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%3CBoxInfo%0A%20%20%20%20%20%20%20%20%20%20color%3D%22powderblue%22%0A%20%20%20%20%20%20%20%20%20%20%7B...powderblue%7D%0A%20%20%20%20%20%20%20%20%20%20setStyle%3D%7BsetPowderblue%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CBoxInfo%0A%20%20%20%20%20%20%20%20%20%20color%3D%22skyblue%22%0A%20%20%20%20%20%20%20%20%20%20%7B...skyblue%7D%0A%20%20%20%20%20%20%20%20%20%20setStyle%3D%7BsetSkyblue%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CBoxInfo%0A%20%20%20%20%20%20%20%20%20%20color%3D%22steelblue%22%0A%20%20%20%20%20%20%20%20%20%20%7B...steelblue%7D%0A%20%20%20%20%20%20%20%20%20%20setStyle%3D%7BsetSteelblue%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%20%20%3CView%20style%3D%7Bstyles.previewContainer%7D%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexBasis%3A%20powderblue.flexBasis%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexGrow%3A%20powderblue.flexGrow%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexShrink%3A%20powderblue.flexShrink%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22powderblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexBasis%3A%20skyblue.flexBasis%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexGrow%3A%20skyblue.flexGrow%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexShrink%3A%20skyblue.flexShrink%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22skyblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexBasis%3A%20steelblue.flexBasis%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexGrow%3A%20steelblue.flexGrow%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20flexShrink%3A%20steelblue.flexShrink%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22steelblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3C%2FView%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20BoxInfo%20%3D%20(%7B%0A%20%20color%2C%0A%20%20flexBasis%2C%0A%20%20flexShrink%2C%0A%20%20setStyle%2C%0A%20%20flexGrow%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%5Bstyles.row%2C%20%7B%20flexDirection%3A%20%22column%22%20%7D%5D%7D%3E%0A%20%20%20%20%3CView%0A%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20styles.boxLabel%2C%0A%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20color%2C%0A%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20%20%20color%3A%20%22%23fff%22%2C%0A%20%20%20%20%20%20%20%20%20%20fontWeight%3A%20500%2C%0A%20%20%20%20%20%20%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20%20%20%20%20%7D%7D%0A%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20Box%0A%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3EflexBasis%3C%2FText%3E%0A%20%20%20%20%3CTextInput%0A%20%20%20%20%20%20value%3D%7BflexBasis%7D%0A%20%20%20%20%20%20style%3D%7Bstyles.input%7D%0A%20%20%20%20%20%20onChangeText%3D%7B(fB)%20%3D%3E%0A%20%20%20%20%20%20%20%20setStyle((value)%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%20%20...value%2C%0A%20%20%20%20%20%20%20%20%20%20flexBasis%3A%20isNaN(parseInt(fB))%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22auto%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20parseInt(fB)%2C%0A%20%20%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%2F%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3EflexShrink%3C%2FText%3E%0A%20%20%20%20%3CTextInput%0A%20%20%20%20%20%20value%3D%7BflexShrink%7D%0A%20%20%20%20%20%20style%3D%7Bstyles.input%7D%0A%20%20%20%20%20%20onChangeText%3D%7B(fS)%20%3D%3E%0A%20%20%20%20%20%20%20%20setStyle((value)%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%20%20...value%2C%0A%20%20%20%20%20%20%20%20%20%20flexShrink%3A%20isNaN(parseInt(fS))%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20parseInt(fS)%2C%0A%20%20%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%2F%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3EflexGrow%3C%2FText%3E%0A%20%20%20%20%3CTextInput%0A%20%20%20%20%20%20value%3D%7BflexGrow%7D%0A%20%20%20%20%20%20style%3D%7Bstyles.input%7D%0A%20%20%20%20%20%20onChangeText%3D%7B(fG)%20%3D%3E%0A%20%20%20%20%20%20%20%20setStyle((value)%20%3D%3E%20(%7B%0A%20%20%20%20%20%20%20%20%20%20...value%2C%0A%20%20%20%20%20%20%20%20%20%20flexGrow%3A%20isNaN(parseInt(fG))%0A%20%20%20%20%20%20%20%20%20%20%20%20%3F%20%22%22%0A%20%20%20%20%20%20%20%20%20%20%20%20%3A%20parseInt(fG)%2C%0A%20%20%20%20%20%20%20%20%7D))%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%2F%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20paddingHorizontal%3A%2010%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%20%20width%3A%2050%2C%0A%20%20%7D%2C%0A%20%20boxLabel%3A%20%7B%0A%20%20%20%20minWidth%3A%2080%2C%0A%20%20%20%20padding%3A%208%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20marginTop%3A%206%2C%0A%20%20%20%20fontSize%3A%2016%2C%0A%20%20%20%20fontWeight%3A%20%22100%22%2C%0A%20%20%7D%2C%0A%20%20previewContainer%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%20%20alignItems%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%7D%2C%0A%20%20input%3A%20%7B%0A%20%20%20%20borderBottomWidth%3A%201%2C%0A%20%20%20%20paddingVertical%3A%203%2C%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20App%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="宽度与高度"></a><a href="#宽度与高度" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>宽度与高度</h2>
+<p>The <code>width</code> property specifies the width of an element's content area. Similarly, the <code>height</code> property specifies the height of an element's content area.</p>
+<p>Both <code>width</code> and <code>height</code> can take the following values:</p>
 <ul>
-<li><p><code>auto</code> Is the <strong>default Value</strong>, React Native calculates the width/height for the element based on its content, whether that is other children, text, or an image.</p></li>
+<li><p><code>auto</code> (<strong>default value</strong>) React Native calculates the width/height for the element based on its content, whether that is other children, text, or an image.</p></li>
 <li><p><code>pixels</code> Defines the width/height in absolute pixels. Depending on other styles set on the component, this may or may not be the final dimension of the node.</p></li>
-<li><p><code>percentage</code> Defines the width or height in percentage of its parent's width or height respectively.</p></li>
+<li><p><code>percentage</code> Defines the width or height in percentage of its parent's width or height, respectively.</p></li>
 </ul>
-<h2><a class="anchor" aria-hidden="true" id="绝对与相对定位"></a><a href="#绝对与相对定位" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>绝对与相对定位</h2>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> WidthHeightBasics = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [widthType, setWidthType] = useState(<span class="hljs-string">"auto"</span>);
+  <span class="hljs-keyword">const</span> [heightType, setHeightType] = useState(<span class="hljs-string">"auto"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">widthType</span>=<span class="hljs-string">{widthType}</span>
+      <span class="hljs-attr">heightType</span>=<span class="hljs-string">{heightType}</span>
+      <span class="hljs-attr">widthValues</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">auto</span>", <span class="hljs-attr">300</span>, "<span class="hljs-attr">80</span>%"]}
+      <span class="hljs-attr">heightValues</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">auto</span>", <span class="hljs-attr">200</span>, "<span class="hljs-attr">60</span>%"]}
+      <span class="hljs-attr">setWidthType</span>=<span class="hljs-string">{setWidthType}</span>
+      <span class="hljs-attr">setHeightType</span>=<span class="hljs-string">{setHeightType}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
+          <span class="hljs-attr">alignSelf:</span> "<span class="hljs-attr">flex-start</span>",
+          <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">aliceblue</span>",
+          <span class="hljs-attr">height:</span> <span class="hljs-attr">heightType</span>,
+          <span class="hljs-attr">width:</span> <span class="hljs-attr">widthType</span>,
+          <span class="hljs-attr">padding:</span> <span class="hljs-attr">15</span>,
+        }}
+      &gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>" },
+          ]}
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>" },
+          ]}
+        /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+          <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+            <span class="hljs-attr">styles.box</span>,
+            { <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>" },
+          ]}
+        /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  children,
+  widthType,
+  heightType,
+  widthValues,
+  heightValues,
+  setWidthType,
+  setHeightType,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>width <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+      {widthValues.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setWidthType(value)}
+          style={[
+            styles.button,
+            widthType === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">widthType</span> === <span class="hljs-string">value</span> &amp;&amp; <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>height <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+      {heightValues.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setHeightType(value)}
+          style={[
+            styles.button,
+            heightType === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">heightType</span> === <span class="hljs-string">value</span> &amp;&amp; <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    {children}
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginRight</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">shadowOpacity</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> WidthHeightBasics;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Width and Height"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%0A%20%20View%2C%0A%20%20SafeAreaView%2C%0A%20%20TouchableOpacity%2C%0A%20%20Text%2C%0A%20%20StyleSheet%2C%0A%7D%20from%20%22react-native%22%3B%0A%0Aconst%20WidthHeightBasics%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5BwidthType%2C%20setWidthType%5D%20%3D%20useState(%22auto%22)%3B%0A%20%20const%20%5BheightType%2C%20setHeightType%5D%20%3D%20useState(%22auto%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20widthType%3D%7BwidthType%7D%0A%20%20%20%20%20%20heightType%3D%7BheightType%7D%0A%20%20%20%20%20%20widthValues%3D%7B%5B%22auto%22%2C%20300%2C%20%2280%25%22%5D%7D%0A%20%20%20%20%20%20heightValues%3D%7B%5B%22auto%22%2C%20200%2C%20%2260%25%22%5D%7D%0A%20%20%20%20%20%20setWidthType%3D%7BsetWidthType%7D%0A%20%20%20%20%20%20setHeightType%3D%7BsetHeightType%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%7B%0A%20%20%20%20%20%20%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20height%3A%20heightType%2C%0A%20%20%20%20%20%20%20%20%20%20width%3A%20widthType%2C%0A%20%20%20%20%20%20%20%20%20%20padding%3A%2015%2C%0A%20%20%20%20%20%20%20%20%7D%7D%0A%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20backgroundColor%3A%20%22powderblue%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20backgroundColor%3A%20%22skyblue%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%7B%20backgroundColor%3A%20%22steelblue%22%20%7D%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20children%2C%0A%20%20widthType%2C%0A%20%20heightType%2C%0A%20%20widthValues%2C%0A%20%20heightValues%2C%0A%20%20setWidthType%2C%0A%20%20setHeightType%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20flex%3A%201%2C%20padding%3A%2010%20%7D%7D%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3Ewidth%20%3C%2FText%3E%0A%20%20%20%20%20%20%7BwidthValues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setWidthType(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20widthType%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20widthType%20%3D%3D%3D%20value%20%26%26%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3Eheight%20%3C%2FText%3E%0A%20%20%20%20%20%20%7BheightValues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setHeightType(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20heightType%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20heightType%20%3D%3D%3D%20value%20%26%26%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%7Bchildren%7D%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20padding%3A%208%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginRight%3A%2010%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20shadowOpacity%3A%200%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20WidthHeightBasics%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="绝对与相对定位"></a><a href="#绝对与相对定位" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>绝对与相对定位</h2>
 <p>The <code>position</code> type of an element defines how it is positioned within its parent.</p>
-<p><code>relative</code> (<strong>default value</strong>) By default an element is positioned relatively. This means an element is positioned according to the normal flow of the layout, and then offset relative to that position based on the values of <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code>. The offset does not affect the position of any sibling or parent elements.</p>
-<p><code>absolute</code> When positioned absolutely an element doesn't take part in the normal layout flow. It is instead laid out independent of its siblings. The position is determined based on the <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code> values.</p>
-<p><img src="https://cdn-images-1.medium.com/max/800/1*NlPeRQCQK3Vb5nyjL0Mqxw.png" alt="Absolute &amp; Relative Layout"></p>
-<h2><a class="anchor" aria-hidden="true" id="深入学习"></a><a href="#深入学习" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>深入学习</h2>
+<ul>
+<li><p><code>relative</code> (<strong>default value</strong>) By default, an element is positioned relatively. This means an element is positioned according to the normal flow of the layout, and then offset relative to that position based on the values of <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code>. The offset does not affect the position of any sibling or parent elements.</p></li>
+<li><p><code>absolute</code> When positioned absolutely, an element doesn't take part in the normal layout flow. It is instead laid out independent of its siblings. The position is determined based on the <code>top</code>, <code>right</code>, <code>bottom</code>, and <code>left</code> values.</p></li>
+</ul>
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+
+<span class="hljs-keyword">const</span> PositionLayout = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-keyword">const</span> [position, setPosition] = useState(<span class="hljs-string">"relative"</span>);
+
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">PreviewLayout</span>
+      <span class="hljs-attr">label</span>=<span class="hljs-string">"position"</span>
+      <span class="hljs-attr">selectedValue</span>=<span class="hljs-string">{position}</span>
+      <span class="hljs-attr">values</span>=<span class="hljs-string">{[</span>"<span class="hljs-attr">relative</span>", "<span class="hljs-attr">absolute</span>"]}
+      <span class="hljs-attr">setSelectedValue</span>=<span class="hljs-string">{setPosition}</span>
+    &gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+          <span class="hljs-attr">styles.box</span>,
+          {
+            <span class="hljs-attr">top:</span> <span class="hljs-attr">25</span>,
+            <span class="hljs-attr">left:</span> <span class="hljs-attr">25</span>,
+            <span class="hljs-attr">position</span>,
+            <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">powderblue</span>",
+          },
+        ]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+          <span class="hljs-attr">styles.box</span>,
+          {
+            <span class="hljs-attr">top:</span> <span class="hljs-attr">50</span>,
+            <span class="hljs-attr">left:</span> <span class="hljs-attr">50</span>,
+            <span class="hljs-attr">position</span>,
+            <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">skyblue</span>",
+          },
+        ]}
+      /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span>
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+          <span class="hljs-attr">styles.box</span>,
+          {
+            <span class="hljs-attr">top:</span> <span class="hljs-attr">75</span>,
+            <span class="hljs-attr">left:</span> <span class="hljs-attr">75</span>,
+            <span class="hljs-attr">position</span>,
+            <span class="hljs-attr">backgroundColor:</span> "<span class="hljs-attr">steelblue</span>",
+          },
+        ]}
+      /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">PreviewLayout</span>&gt;</span></span>
+  );
+};
+
+<span class="hljs-keyword">const</span> PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) =&gt; (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">padding:</span> <span class="hljs-attr">10</span>, <span class="hljs-attr">flex:</span> <span class="hljs-attr">1</span> }}&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.label}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.row}</span>&gt;</span>
+      {values.map((value) =&gt; (
+        <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>
+          <span class="hljs-attr">key</span>=<span class="hljs-string">{value}</span>
+          <span class="hljs-attr">onPress</span>=<span class="hljs-string">{()</span> =&gt;</span> setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value &amp;&amp; styles.selected,
+          ]}
+        &gt;
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
+            <span class="hljs-attr">style</span>=<span class="hljs-string">{[</span>
+              <span class="hljs-attr">styles.buttonLabel</span>,
+              <span class="hljs-attr">selectedValue</span> === <span class="hljs-string">value</span> &amp;&amp;
+                <span class="hljs-attr">styles.selectedLabel</span>,
+            ]}
+          &gt;</span>
+            {value}
+          <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span>
+      ))}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>{children}<span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
+);
+
+<span class="hljs-keyword">const</span> styles = StyleSheet.create({
+  <span class="hljs-attr">container</span>: {
+    <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
+    <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"aliceblue"</span>,
+    <span class="hljs-attr">minHeight</span>: <span class="hljs-number">200</span>,
+  },
+  <span class="hljs-attr">box</span>: {
+    <span class="hljs-attr">width</span>: <span class="hljs-number">50</span>,
+    <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
+  },
+  <span class="hljs-attr">row</span>: {
+    <span class="hljs-attr">flexDirection</span>: <span class="hljs-string">"row"</span>,
+    <span class="hljs-attr">flexWrap</span>: <span class="hljs-string">"wrap"</span>,
+  },
+  <span class="hljs-attr">button</span>: {
+    <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"oldlace"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"flex-start"</span>,
+    <span class="hljs-attr">marginHorizontal</span>: <span class="hljs-string">"1%"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">6</span>,
+    <span class="hljs-attr">minWidth</span>: <span class="hljs-string">"48%"</span>,
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+  },
+  <span class="hljs-attr">selected</span>: {
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"coral"</span>,
+    <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">0</span>,
+  },
+  <span class="hljs-attr">buttonLabel</span>: {
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"500"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"coral"</span>,
+  },
+  <span class="hljs-attr">selectedLabel</span>: {
+    <span class="hljs-attr">color</span>: <span class="hljs-string">"white"</span>,
+  },
+  <span class="hljs-attr">label</span>: {
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
+    <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">fontSize</span>: <span class="hljs-number">24</span>,
+  },
+});
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> PositionLayout;
+</code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div
+        data-snack-name="Absolute & Relative Layout"
+        data-snack-description="Example usage"
+        data-snack-code="import%20React%2C%20%7B%20useState%20%7D%20from%20%22react%22%3B%0Aimport%20%7B%0A%20%20View%2C%0A%20%20SafeAreaView%2C%0A%20%20TouchableOpacity%2C%0A%20%20Text%2C%0A%20%20StyleSheet%2C%0A%7D%20from%20%22react-native%22%3B%0A%0Aconst%20PositionLayout%20%3D%20()%20%3D%3E%20%7B%0A%20%20const%20%5Bposition%2C%20setPosition%5D%20%3D%20useState(%22relative%22)%3B%0A%0A%20%20return%20(%0A%20%20%20%20%3CPreviewLayout%0A%20%20%20%20%20%20label%3D%22position%22%0A%20%20%20%20%20%20selectedValue%3D%7Bposition%7D%0A%20%20%20%20%20%20values%3D%7B%5B%22relative%22%2C%20%22absolute%22%5D%7D%0A%20%20%20%20%20%20setSelectedValue%3D%7BsetPosition%7D%0A%20%20%20%20%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20top%3A%2025%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20left%3A%2025%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20position%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22powderblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20top%3A%2050%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20left%3A%2050%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20position%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22skyblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3CView%0A%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20styles.box%2C%0A%20%20%20%20%20%20%20%20%20%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20top%3A%2075%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20left%3A%2075%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20position%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20backgroundColor%3A%20%22steelblue%22%2C%0A%20%20%20%20%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%3C%2FPreviewLayout%3E%0A%20%20)%3B%0A%7D%3B%0A%0Aconst%20PreviewLayout%20%3D%20(%7B%0A%20%20label%2C%0A%20%20children%2C%0A%20%20values%2C%0A%20%20selectedValue%2C%0A%20%20setSelectedValue%2C%0A%7D)%20%3D%3E%20(%0A%20%20%3CView%20style%3D%7B%7B%20padding%3A%2010%2C%20flex%3A%201%20%7D%7D%3E%0A%20%20%20%20%3CText%20style%3D%7Bstyles.label%7D%3E%7Blabel%7D%3C%2FText%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.row%7D%3E%0A%20%20%20%20%20%20%7Bvalues.map((value)%20%3D%3E%20(%0A%20%20%20%20%20%20%20%20%3CTouchableOpacity%0A%20%20%20%20%20%20%20%20%20%20key%3D%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20onPress%3D%7B()%20%3D%3E%20setSelectedValue(value)%7D%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20styles.button%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%20styles.selected%2C%0A%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%3CText%0A%20%20%20%20%20%20%20%20%20%20%20%20style%3D%7B%5B%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.buttonLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20selectedValue%20%3D%3D%3D%20value%20%26%26%0A%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20styles.selectedLabel%2C%0A%20%20%20%20%20%20%20%20%20%20%20%20%5D%7D%0A%20%20%20%20%20%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%7Bvalue%7D%0A%20%20%20%20%20%20%20%20%20%20%3C%2FText%3E%0A%20%20%20%20%20%20%20%20%3C%2FTouchableOpacity%3E%0A%20%20%20%20%20%20))%7D%0A%20%20%20%20%3C%2FView%3E%0A%20%20%20%20%3CView%20style%3D%7Bstyles.container%7D%3E%7Bchildren%7D%3C%2FView%3E%0A%20%20%3C%2FView%3E%0A)%3B%0A%0Aconst%20styles%20%3D%20StyleSheet.create(%7B%0A%20%20container%3A%20%7B%0A%20%20%20%20flex%3A%201%2C%0A%20%20%20%20marginTop%3A%208%2C%0A%20%20%20%20backgroundColor%3A%20%22aliceblue%22%2C%0A%20%20%20%20minHeight%3A%20200%2C%0A%20%20%7D%2C%0A%20%20box%3A%20%7B%0A%20%20%20%20width%3A%2050%2C%0A%20%20%20%20height%3A%2050%2C%0A%20%20%7D%2C%0A%20%20row%3A%20%7B%0A%20%20%20%20flexDirection%3A%20%22row%22%2C%0A%20%20%20%20flexWrap%3A%20%22wrap%22%2C%0A%20%20%7D%2C%0A%20%20button%3A%20%7B%0A%20%20%20%20paddingHorizontal%3A%208%2C%0A%20%20%20%20paddingVertical%3A%206%2C%0A%20%20%20%20borderRadius%3A%204%2C%0A%20%20%20%20backgroundColor%3A%20%22oldlace%22%2C%0A%20%20%20%20alignSelf%3A%20%22flex-start%22%2C%0A%20%20%20%20marginHorizontal%3A%20%221%25%22%2C%0A%20%20%20%20marginBottom%3A%206%2C%0A%20%20%20%20minWidth%3A%20%2248%25%22%2C%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%7D%2C%0A%20%20selected%3A%20%7B%0A%20%20%20%20backgroundColor%3A%20%22coral%22%2C%0A%20%20%20%20borderWidth%3A%200%2C%0A%20%20%7D%2C%0A%20%20buttonLabel%3A%20%7B%0A%20%20%20%20fontSize%3A%2012%2C%0A%20%20%20%20fontWeight%3A%20%22500%22%2C%0A%20%20%20%20color%3A%20%22coral%22%2C%0A%20%20%7D%2C%0A%20%20selectedLabel%3A%20%7B%0A%20%20%20%20color%3A%20%22white%22%2C%0A%20%20%7D%2C%0A%20%20label%3A%20%7B%0A%20%20%20%20textAlign%3A%20%22center%22%2C%0A%20%20%20%20marginBottom%3A%2010%2C%0A%20%20%20%20fontSize%3A%2024%2C%0A%20%20%7D%2C%0A%7D)%3B%0A%0Aexport%20default%20PositionLayout%3B%0A"
+        data-snack-platform="web"
+        data-snack-preview="true"
+        style="
+          overflow: hidden;
+          background: #fafafa;
+          border: 1px solid rgba(0,0,0,.16);
+          border-radius: 4px;
+          height: 514px;
+          width: 100%;
+        "
+      ></div></div></div><h2><a class="anchor" aria-hidden="true" id="深入学习"></a><a href="#深入学习" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>深入学习</h2>
 <p>Check out the interactive <a href="https://yogalayout.com/playground">yoga playground</a> that you can use to get a better understanding of flexbox.</p>
 <p>以上我们已经介绍了一些基础知识，但要运用好布局，我们还需要很多其他的样式。对于布局有影响的完整样式列表记录在<a href="/docs/next/layout-props">这篇文档中</a>。</p>
 <p>现在我们已经差不多可以开始真正的开发工作了。哦，忘了还有个常用的知识点：<a href="/docs/next/handling-text-input">如何使用 TextInput 组件来处理用户输入</a>。</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/height-and-width"><span class="arrow-prev">← </span><span>高度与宽度</span></a><a class="docs-next button" href="/docs/next/images"><span>图片</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#layout-direction">Layout Direction</a></li><li><a href="#justify-content">Justify Content</a><ul class="toc-headings"><li><a href="#align-items">Align Items</a></li></ul></li><li><a href="#align-self">Align Self</a></li><li><a href="#align-content">Align Content</a></li><li><a href="#flex-wrap">Flex Wrap</a></li><li><a href="#flex-basis-grow-and-shrink">Flex Basis, Grow, and Shrink</a></li><li><a href="#width-and-height">Width and Height</a></li><li><a href="#绝对与相对定位">绝对与相对定位</a></li><li><a href="#深入学习">深入学习</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright"><p style="color:inherit">React Native中文网 © 2020 武汉青罗网络科技有限公司</p><p style="color:inherit"><a href="http://beian.miit.gov.cn/">鄂ICP备20002031号</a><img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="鄂公网安备 42011202001821号"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011202001821">鄂公网安备 42011202001821号</a></p></section><script>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/next/height-and-width"><span class="arrow-prev">← </span><span>高度与宽度</span></a><a class="docs-next button" href="/docs/next/images"><span>图片</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#layout-direction">Layout Direction</a></li><li><a href="#justify-content">Justify Content</a><ul class="toc-headings"><li><a href="#align-items">Align Items</a></li></ul></li><li><a href="#align-self">Align Self</a></li><li><a href="#align-content">Align Content</a></li><li><a href="#flex-wrap">Flex Wrap</a></li><li><a href="#flex-basis-grow-and-shrink">Flex Basis, Grow, and Shrink</a></li><li><a href="#宽度与高度">宽度与高度</a></li><li><a href="#绝对与相对定位">绝对与相对定位</a></li><li><a href="#深入学习">深入学习</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright"><p style="color:inherit">React Native中文网 © 2020 武汉青罗网络科技有限公司</p><p style="color:inherit"><a href="http://beian.miit.gov.cn/">鄂ICP备20002031号</a><img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="鄂公网安备 42011202001821号"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011202001821">鄂公网安备 42011202001821号</a></p></section><script>
         (function(){
           var c = document.createElement("div");
           c.setAttribute("id", "lv-container");
