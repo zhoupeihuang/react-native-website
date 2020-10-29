@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Text样式属性 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Text样式属性 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Text样式属性 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Text样式属性 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -70,43 +70,43 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="//github.com/reactnativecn/react-native-website/blob/production/cndocs/text-style-props.md" target="_blank" rel="noreferrer noopener">帮助改进此文档</a><h1 id="__docusaurus" class="postHeaderTitle">Text样式属性</h1></header><article><div><span><h5><a class="anchor" aria-hidden="true" id="本文档贡献者：sunnylqmhttpsgithubcomsearchqsunnylqmtypeusers10000"></a><a href="#本文档贡献者：sunnylqmhttpsgithubcomsearchqsunnylqmtypeusers10000" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>本文档贡献者：<a href="https://github.com/search?q=sunnylqm&amp;type=Users">sunnylqm</a>(100.00%)</h5>
 <h3><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h3>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { FlatList, Platform, ScrollView, Slider, StyleSheet, Switch, Text, TouchableWithoutFeedback, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
-<span class="hljs-keyword">import</span> Constants <span class="hljs-keyword">from</span> <span class="hljs-string">"expo-constants"</span>;
-<span class="hljs-keyword">const</span> fontStyles = [<span class="hljs-string">"normal"</span>, <span class="hljs-string">"italic"</span>];
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { FlatList, Platform, ScrollView, Slider, StyleSheet, Switch, Text, TouchableWithoutFeedback, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
+<span class="hljs-keyword">import</span> Constants <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;expo-constants&quot;</span>;
+<span class="hljs-keyword">const</span> fontStyles = [<span class="hljs-string">&quot;normal&quot;</span>, <span class="hljs-string">&quot;italic&quot;</span>];
 <span class="hljs-keyword">const</span> fontVariants = [
   <span class="hljs-literal">undefined</span>,
-  <span class="hljs-string">"small-caps"</span>,
-  <span class="hljs-string">"oldstyle-nums"</span>,
-  <span class="hljs-string">"lining-nums"</span>,
-  <span class="hljs-string">"tabular-nums"</span>,
-  <span class="hljs-string">"proportional-nums"</span>
+  <span class="hljs-string">&quot;small-caps&quot;</span>,
+  <span class="hljs-string">&quot;oldstyle-nums&quot;</span>,
+  <span class="hljs-string">&quot;lining-nums&quot;</span>,
+  <span class="hljs-string">&quot;tabular-nums&quot;</span>,
+  <span class="hljs-string">&quot;proportional-nums&quot;</span>
 ];
 <span class="hljs-keyword">const</span> fontWeights = [
-  <span class="hljs-string">"normal"</span>,
-  <span class="hljs-string">"bold"</span>,
-  <span class="hljs-string">"100"</span>,
-  <span class="hljs-string">"200"</span>,
-  <span class="hljs-string">"300"</span>,
-  <span class="hljs-string">"400"</span>,
-  <span class="hljs-string">"500"</span>,
-  <span class="hljs-string">"600"</span>,
-  <span class="hljs-string">"700"</span>,
-  <span class="hljs-string">"800"</span>,
-  <span class="hljs-string">"900"</span>
+  <span class="hljs-string">&quot;normal&quot;</span>,
+  <span class="hljs-string">&quot;bold&quot;</span>,
+  <span class="hljs-string">&quot;100&quot;</span>,
+  <span class="hljs-string">&quot;200&quot;</span>,
+  <span class="hljs-string">&quot;300&quot;</span>,
+  <span class="hljs-string">&quot;400&quot;</span>,
+  <span class="hljs-string">&quot;500&quot;</span>,
+  <span class="hljs-string">&quot;600&quot;</span>,
+  <span class="hljs-string">&quot;700&quot;</span>,
+  <span class="hljs-string">&quot;800&quot;</span>,
+  <span class="hljs-string">&quot;900&quot;</span>
 ];
-<span class="hljs-keyword">const</span> textAlignments = [<span class="hljs-string">"auto"</span>, <span class="hljs-string">"left"</span>, <span class="hljs-string">"right"</span>, <span class="hljs-string">"center"</span>, <span class="hljs-string">"justify"</span>];
+<span class="hljs-keyword">const</span> textAlignments = [<span class="hljs-string">&quot;auto&quot;</span>, <span class="hljs-string">&quot;left&quot;</span>, <span class="hljs-string">&quot;right&quot;</span>, <span class="hljs-string">&quot;center&quot;</span>, <span class="hljs-string">&quot;justify&quot;</span>];
 <span class="hljs-keyword">const</span> textDecorationLines = [
-  <span class="hljs-string">"none"</span>,
-  <span class="hljs-string">"underline"</span>,
-  <span class="hljs-string">"line-through"</span>,
-  <span class="hljs-string">"underline line-through"</span>
+  <span class="hljs-string">&quot;none&quot;</span>,
+  <span class="hljs-string">&quot;underline&quot;</span>,
+  <span class="hljs-string">&quot;line-through&quot;</span>,
+  <span class="hljs-string">&quot;underline line-through&quot;</span>
 ];
-<span class="hljs-keyword">const</span> textDecorationStyles = [<span class="hljs-string">"solid"</span>, <span class="hljs-string">"double"</span>, <span class="hljs-string">"dotted"</span>, <span class="hljs-string">"dashed"</span>];
-<span class="hljs-keyword">const</span> textTransformations = [<span class="hljs-string">"none"</span>, <span class="hljs-string">"uppercase"</span>, <span class="hljs-string">"lowercase"</span>, <span class="hljs-string">"capitalize"</span>];
-<span class="hljs-keyword">const</span> textAlignmentsVertical = [<span class="hljs-string">"auto"</span>, <span class="hljs-string">"top"</span>, <span class="hljs-string">"bottom"</span>, <span class="hljs-string">"center"</span>];
-<span class="hljs-keyword">const</span> writingDirections = [<span class="hljs-string">"auto"</span>, <span class="hljs-string">"ltr"</span>, <span class="hljs-string">"rtl"</span>];
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> textDecorationStyles = [<span class="hljs-string">&quot;solid&quot;</span>, <span class="hljs-string">&quot;double&quot;</span>, <span class="hljs-string">&quot;dotted&quot;</span>, <span class="hljs-string">&quot;dashed&quot;</span>];
+<span class="hljs-keyword">const</span> textTransformations = [<span class="hljs-string">&quot;none&quot;</span>, <span class="hljs-string">&quot;uppercase&quot;</span>, <span class="hljs-string">&quot;lowercase&quot;</span>, <span class="hljs-string">&quot;capitalize&quot;</span>];
+<span class="hljs-keyword">const</span> textAlignmentsVertical = [<span class="hljs-string">&quot;auto&quot;</span>, <span class="hljs-string">&quot;top&quot;</span>, <span class="hljs-string">&quot;bottom&quot;</span>, <span class="hljs-string">&quot;center&quot;</span>];
+<span class="hljs-keyword">const</span> writingDirections = [<span class="hljs-string">&quot;auto&quot;</span>, <span class="hljs-string">&quot;ltr&quot;</span>, <span class="hljs-string">&quot;rtl&quot;</span>];
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> [fontSize, setFontSize] = useState(<span class="hljs-number">10</span>);
   <span class="hljs-keyword">const</span> [fontStyleIdx, setFontStyleIdx] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [fontWeightIdx, setFontWeightIdx] = useState(<span class="hljs-number">0</span>);
@@ -156,7 +156,7 @@
         <span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>Common platform properties<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Shadow Offset - Height"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Shadow Offset - Height&quot;</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{textShadowOffset.height}</span>
             <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{-40}</span>
             <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{40}</span>
@@ -165,7 +165,7 @@
             }
           /&gt;
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Shadow Offset - Width"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Shadow Offset - Width&quot;</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{textShadowOffset.width}</span>
             <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{-40}</span>
             <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{40}</span>
@@ -174,97 +174,97 @@
             }
           /&gt;
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Font Size"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Font Size&quot;</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{fontSize}</span>
             <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{40}</span>
             <span class="hljs-attr">handleValueChange</span>=<span class="hljs-string">{setFontSize}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Font Style"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Font Style&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{fontStyles}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{fontStyleIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setFontStyleIdx}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Font Weight"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Font Weight&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{fontWeights}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{fontWeightIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setFontWeightIdx}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Line Height"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Line Height&quot;</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{lineHeight}</span>
             <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{10}</span>
             <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{50}</span>
             <span class="hljs-attr">handleValueChange</span>=<span class="hljs-string">{setLineHeight}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Align"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Align&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{textAlignments}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{textAlignIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setTextAlignIdx}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Decoration Line"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Decoration Line&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{textDecorationLines}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{textDecorationLineIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setTextDecorationLineIdx}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Shadow Radius"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Shadow Radius&quot;</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{textShadowRadius}</span>
             <span class="hljs-attr">handleValueChange</span>=<span class="hljs-string">{setTextShadowRadius}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Font Variant"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Font Variant&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{fontVariants}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{fontVariantIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setFontVariantIdx}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomSlider</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Letter Spacing"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Letter Spacing&quot;</span>
             <span class="hljs-attr">step</span>=<span class="hljs-string">{0.1}</span>
             <span class="hljs-attr">value</span>=<span class="hljs-string">{letterSpacing}</span>
             <span class="hljs-attr">handleValueChange</span>=<span class="hljs-string">{setLetterSpacing}</span>
           /&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-            <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Transform"</span>
+            <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Transform&quot;</span>
             <span class="hljs-attr">data</span>=<span class="hljs-string">{textTransformations}</span>
             <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{textTransformIdx}</span>
             <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setTextTransformIdx}</span>
           /&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
-        {Platform.OS === "android" &amp;&amp; (
+        {Platform.OS === &quot;android&quot; &amp;&amp; (
           <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.platformContainer}</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.platformContainerTitle}</span>&gt;</span>
               Android only properties
             <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-              <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Vertical Align"</span>
+              <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Vertical Align&quot;</span>
               <span class="hljs-attr">data</span>=<span class="hljs-string">{textAlignmentsVertical}</span>
               <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{textVerticalAlignIdx}</span>
               <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setTextVerticalAlignIdx}</span>
             /&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">CustomSwitch</span>
-              <span class="hljs-attr">label</span>=<span class="hljs-string">"Include Font Padding"</span>
+              <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Include Font Padding&quot;</span>
               <span class="hljs-attr">handleValueChange</span>=<span class="hljs-string">{setIncludeFontPadding}</span>
               <span class="hljs-attr">value</span>=<span class="hljs-string">{includeFontPadding}</span>
             /&gt;</span>
           <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
         )}
-        {Platform.OS === "ios" &amp;&amp; (
+        {Platform.OS === &quot;ios&quot; &amp;&amp; (
           <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.platformContainer}</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.platformContainerTitle}</span>&gt;</span>
               iOS only properties
             <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-              <span class="hljs-attr">label</span>=<span class="hljs-string">"Text Decoration Style"</span>
+              <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Text Decoration Style&quot;</span>
               <span class="hljs-attr">data</span>=<span class="hljs-string">{textDecorationStyles}</span>
               <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{textDecorationStyleIdx}</span>
               <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setTextDecorationStyleIdx}</span>
             /&gt;</span>
             <span class="hljs-tag">&lt;<span class="hljs-name">CustomPicker</span>
-              <span class="hljs-attr">label</span>=<span class="hljs-string">"Writing Direction"</span>
+              <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Writing Direction&quot;</span>
               <span class="hljs-attr">data</span>=<span class="hljs-string">{writingDirections}</span>
               <span class="hljs-attr">currentIndex</span>=<span class="hljs-string">{writingDirectionIdx}</span>
               <span class="hljs-attr">onSelected</span>=<span class="hljs-string">{setWritingDirectionIdx}</span>
@@ -279,10 +279,10 @@
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.title}</span>&gt;</span>{label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">alignItems:</span> "<span class="hljs-attr">flex-start</span>" }}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">alignItems:</span> &quot;<span class="hljs-attr">flex-start</span>&quot; }}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Switch</span>
-          <span class="hljs-attr">trackColor</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">false:</span> "#<span class="hljs-attr">767577</span>", <span class="hljs-attr">true:</span> "#<span class="hljs-attr">DAA520</span>" }}
-          <span class="hljs-attr">thumbColor</span>=<span class="hljs-string">{value</span> ? "#<span class="hljs-attr">DAA520</span>" <span class="hljs-attr">:</span> "#<span class="hljs-attr">f4f3f4</span>"}
+          <span class="hljs-attr">trackColor</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">false:</span> &quot;#<span class="hljs-attr">767577</span>&quot;, <span class="hljs-attr">true:</span> &quot;#<span class="hljs-attr">DAA520</span>&quot; }}
+          <span class="hljs-attr">thumbColor</span>=<span class="hljs-string">{value</span> ? &quot;#<span class="hljs-attr">DAA520</span>&quot; <span class="hljs-attr">:</span> &quot;#<span class="hljs-attr">f4f3f4</span>&quot;}
           <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{handleValueChange}</span>
           <span class="hljs-attr">value</span>=<span class="hljs-string">{value}</span>
         /&gt;</span>
@@ -290,14 +290,14 @@
     <span class="hljs-tag">&lt;/&gt;</span></span>
   );
 }
-<span class="hljs-keyword">const</span> CustomSlider = ({
+<span class="hljs-keyword">const</span> CustomSlider = <span class="hljs-function">(<span class="hljs-params">{
   label,
   handleValueChange,
   step = <span class="hljs-number">1</span>,
   minimumValue = <span class="hljs-number">0</span>,
   maximumValue = <span class="hljs-number">10</span>,
   value
-}) =&gt; {
+}</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
       {label &amp;&amp; (
@@ -305,8 +305,8 @@
       )}
       <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.wrapperHorizontal}</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Slider</span>
-          <span class="hljs-attr">thumbTintColor</span>=<span class="hljs-string">"#DAA520"</span>
-          <span class="hljs-attr">minimumTrackTintColor</span>=<span class="hljs-string">"#DAA520"</span>
+          <span class="hljs-attr">thumbTintColor</span>=<span class="hljs-string">&quot;#DAA520&quot;</span>
+          <span class="hljs-attr">minimumTrackTintColor</span>=<span class="hljs-string">&quot;#DAA520&quot;</span>
           <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{minimumValue}</span>
           <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{maximumValue}</span>
           <span class="hljs-attr">step</span>=<span class="hljs-string">{step}</span>
@@ -339,12 +339,12 @@
                 &gt;</span>
                   <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>
                     <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
-                      <span class="hljs-attr">textAlign:</span> "<span class="hljs-attr">center</span>",
-                      <span class="hljs-attr">color:</span> <span class="hljs-attr">selected</span> ? "<span class="hljs-attr">black</span>" <span class="hljs-attr">:</span> "<span class="hljs-attr">grey</span>",
-                      <span class="hljs-attr">fontWeight:</span> <span class="hljs-attr">selected</span> ? "<span class="hljs-attr">bold</span>" <span class="hljs-attr">:</span> "<span class="hljs-attr">normal</span>"
+                      <span class="hljs-attr">textAlign:</span> &quot;<span class="hljs-attr">center</span>&quot;,
+                      <span class="hljs-attr">color:</span> <span class="hljs-attr">selected</span> ? &quot;<span class="hljs-attr">black</span>&quot; <span class="hljs-attr">:</span> &quot;<span class="hljs-attr">grey</span>&quot;,
+                      <span class="hljs-attr">fontWeight:</span> <span class="hljs-attr">selected</span> ? &quot;<span class="hljs-attr">bold</span>&quot; <span class="hljs-attr">:</span> &quot;<span class="hljs-attr">normal</span>&quot;
                     }}
                   &gt;</span>
-                    {item + ""}
+                    {item + &quot;&quot;}
                   <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
                 <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span>
               <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableWithoutFeedback</span>&gt;</span>
@@ -359,20 +359,20 @@
   <span class="hljs-attr">container</span>: {
     <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">paddingTop</span>: Constants.statusBarHeight,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#ecf0f1"</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ecf0f1&quot;</span>,
     <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>
   },
   <span class="hljs-attr">paragraph</span>: {
-    <span class="hljs-attr">color</span>: <span class="hljs-string">"black"</span>,
-    <span class="hljs-attr">textDecorationColor</span>: <span class="hljs-string">"yellow"</span>,
-    <span class="hljs-attr">textShadowColor</span>: <span class="hljs-string">"red"</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;black&quot;</span>,
+    <span class="hljs-attr">textDecorationColor</span>: <span class="hljs-string">&quot;yellow&quot;</span>,
+    <span class="hljs-attr">textShadowColor</span>: <span class="hljs-string">&quot;red&quot;</span>,
     <span class="hljs-attr">textShadowRadius</span>: <span class="hljs-number">1</span>,
     <span class="hljs-attr">margin</span>: <span class="hljs-number">24</span>
   },
   <span class="hljs-attr">wrapperHorizontal</span>: {
     <span class="hljs-attr">height</span>: <span class="hljs-number">54</span>,
-    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>,
-    <span class="hljs-attr">color</span>: <span class="hljs-string">"black"</span>,
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;black&quot;</span>,
     <span class="hljs-attr">marginBottom</span>: <span class="hljs-number">12</span>
   },
   <span class="hljs-attr">itemStyleHorizontal</span>: {
@@ -380,14 +380,14 @@
     <span class="hljs-attr">height</span>: <span class="hljs-number">50</span>,
     <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>,
     <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">borderColor</span>: <span class="hljs-string">"grey"</span>,
+    <span class="hljs-attr">borderColor</span>: <span class="hljs-string">&quot;grey&quot;</span>,
     <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">25</span>,
-    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
-    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">&quot;center&quot;</span>,
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>
   },
   <span class="hljs-attr">itemSelectedStyleHorizontal</span>: {
     <span class="hljs-attr">borderWidth</span>: <span class="hljs-number">2</span>,
-    <span class="hljs-attr">borderColor</span>: <span class="hljs-string">"#DAA520"</span>
+    <span class="hljs-attr">borderColor</span>: <span class="hljs-string">&quot;#DAA520&quot;</span>
   },
   <span class="hljs-attr">platformContainer</span>: {
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>,
@@ -397,7 +397,7 @@
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">8</span>
   },
   <span class="hljs-attr">title</span>: {
-    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">"bold"</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">&quot;bold&quot;</span>,
     <span class="hljs-attr">marginVertical</span>: <span class="hljs-number">4</span>
   }
 });

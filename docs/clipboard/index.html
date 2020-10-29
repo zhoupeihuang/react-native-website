@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>🚧 Clipboard · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(98.96%), [774866545](https://github.com/search?q=774866545%40qq.com&amp;type=Users)(1.04%)"/><meta name="docsearch:version" content="0.63"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="🚧 Clipboard · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(98.96%), [774866545](https://github.com/search?q=774866545%40qq.com&amp;type=Users)(1.04%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>🚧 Clipboard · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(98.96%), [774866545](https://github.com/search?q=774866545%40qq.com&amp;type=Users)(1.04%)"/><meta name="docsearch:version" content="0.63"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="🚧 Clipboard · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(98.96%), [774866545](https://github.com/search?q=774866545%40qq.com&amp;type=Users)(1.04%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -18,12 +18,12 @@
 </blockquote>
 <p><code>Clipboard</code>组件可以在 iOS 和 Android 的剪贴板中读写内容。</p>
 <h2><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h2>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
-<span class="hljs-keyword">import</span> { SafeAreaView, View, Text, TouchableOpacity, Clipboard, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-  <span class="hljs-keyword">const</span> [copiedText, setCopiedText] = useState(<span class="hljs-string">''</span>)
-  <span class="hljs-keyword">const</span> copyToClipboard = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    Clipboard.setString(<span class="hljs-string">'hello world'</span>)
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+<span class="hljs-keyword">import</span> { SafeAreaView, View, Text, TouchableOpacity, Clipboard, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-keyword">const</span> [copiedText, setCopiedText] = useState(<span class="hljs-string">&#x27;&#x27;</span>)
+  <span class="hljs-keyword">const</span> copyToClipboard = <span class="hljs-function">() =&gt;</span> {
+    Clipboard.setString(<span class="hljs-string">&#x27;hello world&#x27;</span>)
   }
   <span class="hljs-keyword">const</span> fetchCopiedText = <span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">const</span> text = <span class="hljs-keyword">await</span> Clipboard.getString()
@@ -46,12 +46,12 @@
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">container</span>: {
     <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
-    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">'center'</span>
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&#x27;center&#x27;</span>,
+    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&#x27;center&#x27;</span>
   },
   <span class="hljs-attr">copiedText</span>: {
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">10</span>,
-    <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span>
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;red&#x27;</span>
   }
 })
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App

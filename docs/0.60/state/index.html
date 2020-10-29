@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>State（状态） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.60"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="State（状态） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>State（状态） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.60"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="State（状态） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -72,24 +72,24 @@
 <p>我们使用两种数据来控制一个组件：<code>props</code>和<code>state</code>。<code>props</code>是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用<code>state</code>。</p>
 <p>一般来说，你需要在 constructor 中初始化<code>state</code>（译注：这是 ES6 的写法，早期的很多 ES5 的例子使用的是 getInitialState 方法来初始化 state，这一做法会逐渐被淘汰），然后在需要修改时调用<code>setState</code>方法。</p>
 <p>假如我们需要制作一段不停闪烁的文字。文字内容本身在组件创建时就已经指定好了，所以文字内容应该是一个<code>prop</code>。而文字的显示或隐藏的状态（快速的显隐切换就产生了闪烁的效果）则是随着时间变化的，因此这一状态应该写到<code>state</code>中。</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Blink</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   state = { <span class="hljs-attr">isShowingText</span>: <span class="hljs-literal">true</span> };
   
-  componentDidMount() {
+  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// 每1000毫秒对showText状态做一次取反操作</span>
-    setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">previousState</span> =&gt;</span> {
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-built_in">this</span>.setState(<span class="hljs-function"><span class="hljs-params">previousState</span> =&gt;</span> {
         <span class="hljs-keyword">return</span> { <span class="hljs-attr">isShowingText</span>: !previousState.isShowingText };
       });
     }, <span class="hljs-number">1000</span>);
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// 根据当前showText的值决定是否显示text内容</span>
-    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.state.isShowingText) {
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.state.isShowingText) {
       <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
     }
 
@@ -100,13 +100,13 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlinkApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'I love to blink'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Yes blinking is so great'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Why did they ever take this out of HTML'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Look at me look at me look at me'</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;I love to blink&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Yes blinking is so great&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Why did they ever take this out of HTML&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Look at me look at me look at me&#x27;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     );
   }

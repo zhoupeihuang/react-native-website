@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Share · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Share · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Share · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Share · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -81,15 +81,15 @@
   </ul>
 </div>
 <p><block class="functional syntax" /></p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Share, View, Button } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Share, View, Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
-<span class="hljs-keyword">const</span> ShareExample = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> ShareExample = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> onShare = <span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> Share.share({
         <span class="hljs-attr">message</span>:
-          <span class="hljs-string">'React Native | A framework for building native apps using React'</span>,
+          <span class="hljs-string">&#x27;React Native | A framework for building native apps using React&#x27;</span>,
       });
       <span class="hljs-keyword">if</span> (result.action === Share.sharedAction) {
         <span class="hljs-keyword">if</span> (result.activityType) {
@@ -106,7 +106,7 @@
   };
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">marginTop:</span> <span class="hljs-attr">50</span> }}&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{onShare}</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Share"</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{onShare}</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Share&quot;</span> /&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
   );
 };
@@ -127,15 +127,15 @@
           width: 100%;
         "
       ></div></div></div><p><block class="classical syntax" /></p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Share, View, Button } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Share, View, Button } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ShareExample</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
   onShare = <span class="hljs-keyword">async</span> () =&gt; {
     <span class="hljs-keyword">try</span> {
       <span class="hljs-keyword">const</span> result = <span class="hljs-keyword">await</span> Share.share({
         <span class="hljs-attr">message</span>:
-          <span class="hljs-string">'React Native | A framework for building native apps using React'</span>,
+          <span class="hljs-string">&#x27;React Native | A framework for building native apps using React&#x27;</span>,
       });
 
       <span class="hljs-keyword">if</span> (result.action === Share.sharedAction) {
@@ -152,10 +152,10 @@
     }
   };
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">marginTop:</span> <span class="hljs-attr">50</span> }}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{this.onShare}</span> <span class="hljs-attr">title</span>=<span class="hljs-string">"Share"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{this.onShare}</span> <span class="hljs-attr">title</span>=<span class="hljs-string">&quot;Share&quot;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     );
   }

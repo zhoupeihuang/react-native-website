@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Easing · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Easing · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Easing · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.62"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Easing · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -102,9 +102,9 @@
 <li><a href="/docs/0.62/easing#out"><code>out</code></a> runs an easing function backwards</li>
 </ul>
 <h2><a class="anchor" aria-hidden="true" id="示例"></a><a href="#示例" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>示例</h2>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Animated, Easing, SectionList, StatusBar, StyleSheet, Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Animated, Easing, SectionList, StatusBar, StyleSheet, Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">let</span> opacity = <span class="hljs-keyword">new</span> Animated.Value(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> animate = <span class="hljs-function"><span class="hljs-params">easing</span> =&gt;</span> {
     opacity.setValue(<span class="hljs-number">0</span>);
@@ -156,46 +156,46 @@
 };
 <span class="hljs-keyword">const</span> SECTIONS = [
   {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">"Predefined animations"</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Predefined animations&quot;</span>,
     <span class="hljs-attr">data</span>: [
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Bounce"</span>, <span class="hljs-attr">easing</span>: Easing.bounce },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Ease"</span>, <span class="hljs-attr">easing</span>: Easing.ease },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Elastic"</span>, <span class="hljs-attr">easing</span>: Easing.elastic(<span class="hljs-number">4</span>) }
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Bounce&quot;</span>, <span class="hljs-attr">easing</span>: Easing.bounce },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Ease&quot;</span>, <span class="hljs-attr">easing</span>: Easing.ease },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Elastic&quot;</span>, <span class="hljs-attr">easing</span>: Easing.elastic(<span class="hljs-number">4</span>) }
     ]
   },
   {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">"Standard functions"</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Standard functions&quot;</span>,
     <span class="hljs-attr">data</span>: [
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Linear"</span>, <span class="hljs-attr">easing</span>: Easing.linear },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Quad"</span>, <span class="hljs-attr">easing</span>: Easing.quad },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Cubic"</span>, <span class="hljs-attr">easing</span>: Easing.cubic }
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Linear&quot;</span>, <span class="hljs-attr">easing</span>: Easing.linear },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Quad&quot;</span>, <span class="hljs-attr">easing</span>: Easing.quad },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Cubic&quot;</span>, <span class="hljs-attr">easing</span>: Easing.cubic }
     ]
   },
   {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">"Additional functions"</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Additional functions&quot;</span>,
     <span class="hljs-attr">data</span>: [
       {
-        <span class="hljs-attr">title</span>: <span class="hljs-string">"Bezier"</span>,
-        <span class="hljs-attr">easing</span>: Easing.bezier(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">-1</span>)
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Bezier&quot;</span>,
+        <span class="hljs-attr">easing</span>: Easing.bezier(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, -<span class="hljs-number">1</span>)
       },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Circle"</span>, <span class="hljs-attr">easing</span>: Easing.circle },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Sin"</span>, <span class="hljs-attr">easing</span>: Easing.sin },
-      { <span class="hljs-attr">title</span>: <span class="hljs-string">"Exp"</span>, <span class="hljs-attr">easing</span>: Easing.exp }
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Circle&quot;</span>, <span class="hljs-attr">easing</span>: Easing.circle },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Sin&quot;</span>, <span class="hljs-attr">easing</span>: Easing.sin },
+      { <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Exp&quot;</span>, <span class="hljs-attr">easing</span>: Easing.exp }
     ]
   },
   {
-    <span class="hljs-attr">title</span>: <span class="hljs-string">"Combinations"</span>,
+    <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Combinations&quot;</span>,
     <span class="hljs-attr">data</span>: [
       {
-        <span class="hljs-attr">title</span>: <span class="hljs-string">"In + Bounce"</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;In + Bounce&quot;</span>,
         <span class="hljs-attr">easing</span>: Easing.in(Easing.bounce)
       },
       {
-        <span class="hljs-attr">title</span>: <span class="hljs-string">"Out + Exp"</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;Out + Exp&quot;</span>,
         <span class="hljs-attr">easing</span>: Easing.out(Easing.exp)
       },
       {
-        <span class="hljs-attr">title</span>: <span class="hljs-string">"InOut + Elastic"</span>,
+        <span class="hljs-attr">title</span>: <span class="hljs-string">&quot;InOut + Elastic&quot;</span>,
         <span class="hljs-attr">easing</span>: Easing.inOut(Easing.elastic(<span class="hljs-number">1</span>))
       }
     ]
@@ -204,32 +204,32 @@
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">container</span>: {
     <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#20232a"</span>
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#20232a&quot;</span>
   },
   <span class="hljs-attr">title</span>: {
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">10</span>,
-    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">"center"</span>,
-    <span class="hljs-attr">color</span>: <span class="hljs-string">"#61dafb"</span>
+    <span class="hljs-attr">textAlign</span>: <span class="hljs-string">&quot;center&quot;</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;#61dafb&quot;</span>
   },
   <span class="hljs-attr">boxContainer</span>: {
     <span class="hljs-attr">height</span>: <span class="hljs-number">160</span>,
-    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span>
+    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&quot;center&quot;</span>
   },
   <span class="hljs-attr">box</span>: {
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">32</span>,
     <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#61dafb"</span>
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#61dafb&quot;</span>
   },
   <span class="hljs-attr">list</span>: {
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#fff"</span>
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#fff&quot;</span>
   },
   <span class="hljs-attr">listHeader</span>: {
     <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">8</span>,
     <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">4</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#f4f4f4"</span>,
-    <span class="hljs-attr">color</span>: <span class="hljs-string">"#999"</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#f4f4f4&quot;</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&quot;#999&quot;</span>,
     <span class="hljs-attr">fontSize</span>: <span class="hljs-number">12</span>,
-    <span class="hljs-attr">textTransform</span>: <span class="hljs-string">"uppercase"</span>
+    <span class="hljs-attr">textTransform</span>: <span class="hljs-string">&quot;uppercase&quot;</span>
   },
   <span class="hljs-attr">listRow</span>: {
     <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>阴影样式属性 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.63"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="阴影样式属性 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>阴影样式属性 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.63"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="阴影样式属性 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -69,8 +69,8 @@
               }
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="//github.com/reactnativecn/react-native-website/blob/production/cndocs/shadow-props.md" target="_blank" rel="noreferrer noopener">帮助改进此文档</a><h1 id="__docusaurus" class="postHeaderTitle">阴影样式属性</h1></header><article><div><span><h5><a class="anchor" aria-hidden="true" id="本文档贡献者：sunnylqmhttpsgithubcomsearchqsunnylqmtypeusers10000"></a><a href="#本文档贡献者：sunnylqmhttpsgithubcomsearchqsunnylqmtypeusers10000" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>本文档贡献者：<a href="https://github.com/search?q=sunnylqm&amp;type=Users">sunnylqm</a>(100.00%)</h5>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Text, View, StyleSheet, Slider } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Text, View, StyleSheet, Slider } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
 
 <span class="hljs-keyword">const</span> ShadowPropSlider = <span class="hljs-function">(<span class="hljs-params">{ label, value, ...props }</span>) =&gt;</span> {
   <span class="hljs-keyword">return</span> (
@@ -83,7 +83,7 @@
   );
 }
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> [shadowOffsetWidth, setShadowOffsetWidth] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [shadowOffsetHeight, setShadowOffsetHeight] = useState(<span class="hljs-number">0</span>);
   <span class="hljs-keyword">const</span> [shadowRadius, setShadowRadius] = useState(<span class="hljs-number">0</span>);
@@ -106,28 +106,28 @@
       /&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.controls}</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">ShadowPropSlider</span>
-          <span class="hljs-attr">label</span>=<span class="hljs-string">"shadowOffset - X"</span>
+          <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;shadowOffset - X&quot;</span>
           <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{-50}</span>
           <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{50}</span>
           <span class="hljs-attr">value</span>=<span class="hljs-string">{shadowOffsetWidth}</span>
           <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{val</span> =&gt;</span> setShadowOffsetWidth(val)}
         /&gt;
         <span class="hljs-tag">&lt;<span class="hljs-name">ShadowPropSlider</span>
-          <span class="hljs-attr">label</span>=<span class="hljs-string">"shadowOffset - Y"</span>
+          <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;shadowOffset - Y&quot;</span>
           <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{-50}</span>
           <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{50}</span>
           <span class="hljs-attr">value</span>=<span class="hljs-string">{shadowOffsetHeight}</span>
           <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{val</span> =&gt;</span> setShadowOffsetHeight(val)}
         /&gt;
         <span class="hljs-tag">&lt;<span class="hljs-name">ShadowPropSlider</span>
-          <span class="hljs-attr">label</span>=<span class="hljs-string">"shadowRadius"</span>
+          <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;shadowRadius&quot;</span>
           <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{0}</span>
           <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{100}</span>
           <span class="hljs-attr">value</span>=<span class="hljs-string">{shadowRadius}</span>
           <span class="hljs-attr">onValueChange</span>=<span class="hljs-string">{val</span> =&gt;</span> setShadowRadius(val)}
         /&gt;
         <span class="hljs-tag">&lt;<span class="hljs-name">ShadowPropSlider</span>
-          <span class="hljs-attr">label</span>=<span class="hljs-string">"shadowOpacity"</span>
+          <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;shadowOpacity&quot;</span>
           <span class="hljs-attr">minimumValue</span>=<span class="hljs-string">{0}</span>
           <span class="hljs-attr">maximumValue</span>=<span class="hljs-string">{1}</span>
           <span class="hljs-attr">step</span>=<span class="hljs-string">{0.05}</span>
@@ -142,16 +142,16 @@
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">container</span>: {
     <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"space-around"</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"#ecf0f1"</span>,
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;space-around&quot;</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;#ecf0f1&quot;</span>,
     <span class="hljs-attr">padding</span>: <span class="hljs-number">8</span>
   },
   <span class="hljs-attr">square</span>: {
-    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">"center"</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">"white"</span>,
+    <span class="hljs-attr">alignSelf</span>: <span class="hljs-string">&quot;center&quot;</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&quot;white&quot;</span>,
     <span class="hljs-attr">borderRadius</span>: <span class="hljs-number">4</span>,
     <span class="hljs-attr">height</span>: <span class="hljs-number">150</span>,
-    <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">"black"</span>,
+    <span class="hljs-attr">shadowColor</span>: <span class="hljs-string">&quot;black&quot;</span>,
     <span class="hljs-attr">width</span>: <span class="hljs-number">150</span>
   },
   <span class="hljs-attr">controls</span>: {

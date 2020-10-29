@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Linking · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;div class=&quot;banner-crna-ejected&quot;&gt;"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Linking · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="&lt;div class=&quot;banner-crna-ejected&quot;&gt;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Linking · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="&lt;div class=&quot;banner-crna-ejected&quot;&gt;"/><meta name="docsearch:version" content="next"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Linking · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="&lt;div class=&quot;banner-crna-ejected&quot;&gt;"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -148,19 +148,19 @@
 <p><block class="endBlock syntax" /></p>
 <h3><a class="anchor" aria-hidden="true" id="handling-deep-links"></a><a href="#handling-deep-links" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Handling Deep Links</h3>
 <p>There are two ways to handle URLs that open your app.</p>
-<h4><a class="anchor" aria-hidden="true" id="1-if-the-app-is-already-open-the-app-is-foregrounded-and-a-linking-event-is-fired"></a><a href="#1-if-the-app-is-already-open-the-app-is-foregrounded-and-a-linking-event-is-fired" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. If the app is already open, the app is foregrounded and a Linking event is fired</h4>
-<p>You can handle these events with <code>Linking.addEventListener(url, callback)</code>.</p>
+<h4><a class="anchor" aria-hidden="true" id="1-if-the-app-is-already-open-the-app-is-foregrounded-and-a-linking-url-event-is-fired"></a><a href="#1-if-the-app-is-already-open-the-app-is-foregrounded-and-a-linking-url-event-is-fired" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1. If the app is already open, the app is foregrounded and a Linking 'url' event is fired</h4>
+<p>You can handle these events with <code>Linking.addEventListener('url', callback)</code> -- it calls <code>callback({ url })</code> with the linked URL</p>
 <h4><a class="anchor" aria-hidden="true" id="2-if-the-app-is-not-already-open-it-is-opened-and-the-url-is-passed-in-as-the-initialurl"></a><a href="#2-if-the-app-is-not-already-open-it-is-opened-and-the-url-is-passed-in-as-the-initialurl" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2. If the app is not already open, it is opened and the url is passed in as the initialURL</h4>
-<p>You can handle these events with <code>Linking.getInitialURL(url)</code> -- it returns a Promise that resolves to the url, if there is one.</p>
+<p>You can handle these events with <code>Linking.getInitialURL()</code> -- it returns a Promise that resolves to the URL, if there is one.</p>
 <hr>
 <h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
 <h3><a class="anchor" aria-hidden="true" id="open-links-and-deep-links-universal-links"></a><a href="#open-links-and-deep-links-universal-links" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Open Links and Deep Links (Universal Links)</h3>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Alert, Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Alert, Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
 
-<span class="hljs-keyword">const</span> supportedURL = <span class="hljs-string">"https://google.com"</span>;
+<span class="hljs-keyword">const</span> supportedURL = <span class="hljs-string">&quot;https://google.com&quot;</span>;
 
-<span class="hljs-keyword">const</span> unsupportedURL = <span class="hljs-string">"slack://open?team=123456"</span>;
+<span class="hljs-keyword">const</span> unsupportedURL = <span class="hljs-string">&quot;slack://open?team=123456&quot;</span>;
 
 <span class="hljs-keyword">const</span> OpenURLButton = <span class="hljs-function">(<span class="hljs-params">{ url, children }</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> handlePress = useCallback(<span class="hljs-keyword">async</span> () =&gt; {
@@ -168,18 +168,18 @@
     <span class="hljs-keyword">const</span> supported = <span class="hljs-keyword">await</span> Linking.canOpenURL(url);
 
     <span class="hljs-keyword">if</span> (supported) {
-      <span class="hljs-comment">// Opening the link with some app, if the URL scheme is "http" the web link should be opened</span>
+      <span class="hljs-comment">// Opening the link with some app, if the URL scheme is &quot;http&quot; the web link should be opened</span>
       <span class="hljs-comment">// by some browser in the mobile</span>
       <span class="hljs-keyword">await</span> Linking.openURL(url);
     } <span class="hljs-keyword">else</span> {
-      Alert.alert(<span class="hljs-string">`Don't know how to open this URL: <span class="hljs-subst">${url}</span>`</span>);
+      Alert.alert(<span class="hljs-string">`Don&#x27;t know how to open this URL: <span class="hljs-subst">${url}</span>`</span>);
     }
   }, [url]);
 
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{children}</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{handlePress}</span> /&gt;</span></span>;
 };
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">OpenURLButton</span> <span class="hljs-attr">url</span>=<span class="hljs-string">{supportedURL}</span>&gt;</span>Open Supported URL<span class="hljs-tag">&lt;/<span class="hljs-name">OpenURLButton</span>&gt;</span>
@@ -189,7 +189,7 @@
 };
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
-  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span> },
+  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&quot;center&quot;</span> },
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
@@ -208,8 +208,8 @@
           width: 100%;
         "
       ></div></div></div><h3><a class="anchor" aria-hidden="true" id="open-custom-settings"></a><a href="#open-custom-settings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Open Custom Settings</h3>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
 
 <span class="hljs-keyword">const</span> OpenSettingsButton = <span class="hljs-function">(<span class="hljs-params">{ children }</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> handlePress = useCallback(<span class="hljs-keyword">async</span> () =&gt; {
@@ -220,7 +220,7 @@
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{children}</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{handlePress}</span> /&gt;</span></span>;
 };
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">OpenSettingsButton</span>&gt;</span>Open Settings<span class="hljs-tag">&lt;/<span class="hljs-name">OpenSettingsButton</span>&gt;</span>
@@ -229,7 +229,7 @@
 };
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
-  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span> },
+  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&quot;center&quot;</span> },
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
@@ -248,22 +248,22 @@
           width: 100%;
         "
       ></div></div></div><h3><a class="anchor" aria-hidden="true" id="get-the-deep-link"></a><a href="#get-the-deep-link" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Get the Deep Link</h3>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState, useEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Linking, StyleSheet, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useState, useEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Linking, StyleSheet, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
 
-<span class="hljs-keyword">const</span> useMount = <span class="hljs-function"><span class="hljs-params">func</span> =&gt;</span> useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> func(), []);
+<span class="hljs-keyword">const</span> useMount = <span class="hljs-function"><span class="hljs-params">func</span> =&gt;</span> useEffect(<span class="hljs-function">() =&gt;</span> func(), []);
 
-<span class="hljs-keyword">const</span> useInitialURL = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> useInitialURL = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> [url, setUrl] = useState(<span class="hljs-literal">null</span>);
   <span class="hljs-keyword">const</span> [processing, setProcessing] = useState(<span class="hljs-literal">true</span>);
 
-  useMount(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  useMount(<span class="hljs-function">() =&gt;</span> {
     <span class="hljs-keyword">const</span> getUrlAsync = <span class="hljs-keyword">async</span> () =&gt; {
       <span class="hljs-comment">// Get the deep link used to open the app</span>
       <span class="hljs-keyword">const</span> initialUrl = <span class="hljs-keyword">await</span> Linking.getInitialURL();
 
       <span class="hljs-comment">// The setTimeout is just for testing purpose</span>
-      setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+      <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> {
         setUrl(initialUrl);
         setProcessing(<span class="hljs-literal">false</span>);
       }, <span class="hljs-number">1000</span>);
@@ -275,7 +275,7 @@
   <span class="hljs-keyword">return</span> { url, processing };
 };
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">const</span> { <span class="hljs-attr">url</span>: initialUrl, processing } = useInitialURL();
 
   <span class="hljs-keyword">return</span> (
@@ -283,14 +283,14 @@
       <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>
         {processing
           ? `Processing the initial url from a deep link`
-          : `The deep link is: ${initialUrl || "None"}`}
+          : `The deep link is: ${initialUrl || &quot;None&quot;}`}
       <span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
   );
 };
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
-  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span> },
+  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&quot;center&quot;</span> },
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
@@ -309,8 +309,8 @@
           width: 100%;
         "
       ></div></div></div><h3><a class="anchor" aria-hidden="true" id="send-intents-android"></a><a href="#send-intents-android" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Send Intents (Android)</h3>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
-<span class="hljs-keyword">import</span> { Alert, Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-native"</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { useCallback } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react&quot;</span>;
+<span class="hljs-keyword">import</span> { Alert, Button, Linking, StyleSheet, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;react-native&quot;</span>;
 
 <span class="hljs-keyword">const</span> SendIntentButton = <span class="hljs-function">(<span class="hljs-params">{ action, extras, children }</span>) =&gt;</span> {
   <span class="hljs-keyword">const</span> handlePress = useCallback(<span class="hljs-keyword">async</span> () =&gt; {
@@ -324,16 +324,16 @@
   <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">title</span>=<span class="hljs-string">{children}</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{handlePress}</span> /&gt;</span></span>;
 };
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+<span class="hljs-keyword">const</span> App = <span class="hljs-function">() =&gt;</span> {
   <span class="hljs-keyword">return</span> (
     <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-name">SendIntentButton</span> <span class="hljs-attr">action</span>=<span class="hljs-string">"android.intent.action.POWER_USAGE_SUMMARY"</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">SendIntentButton</span> <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;android.intent.action.POWER_USAGE_SUMMARY&quot;</span>&gt;</span>
         Power Usage Summary
       <span class="hljs-tag">&lt;/<span class="hljs-name">SendIntentButton</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">SendIntentButton</span>
-        <span class="hljs-attr">action</span>=<span class="hljs-string">"android.settings.APP_NOTIFICATION_SETTINGS"</span>
+        <span class="hljs-attr">action</span>=<span class="hljs-string">&quot;android.settings.APP_NOTIFICATION_SETTINGS&quot;</span>
         <span class="hljs-attr">extras</span>=<span class="hljs-string">{[</span>
-          { "<span class="hljs-attr">android.provider.extra.APP_PACKAGE</span>"<span class="hljs-attr">:</span> "<span class="hljs-attr">com.facebook.katana</span>" },
+          { &quot;<span class="hljs-attr">android.provider.extra.APP_PACKAGE</span>&quot;<span class="hljs-attr">:</span> &quot;<span class="hljs-attr">com.facebook.katana</span>&quot; },
         ]}
       &gt;</span>
         App Notification Settings
@@ -343,7 +343,7 @@
 };
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
-  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">"center"</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">"center"</span> },
+  <span class="hljs-attr">container</span>: { <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&quot;center&quot;</span>, <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&quot;center&quot;</span> },
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App;
@@ -442,6 +442,9 @@
 <p>如果应用是被一个链接调起的，则会返回相应的链接地址。否则它会返回<code>null</code>。</p>
 <blockquote>
 <p>如果要在 Android 上支持深度链接，请参阅<a href="http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents">http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents</a></p>
+</blockquote>
+<blockquote>
+<p>getInitialURL may return <code>null</code> while debugging is enabled. Disable the debugger to ensure it gets passed.</p>
 </blockquote>
 <hr>
 <h3><a class="anchor" aria-hidden="true" id="sendintent"></a><a href="#sendintent" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>sendIntent()</code></h3>

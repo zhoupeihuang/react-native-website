@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>动画 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.60"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="动画 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>动画 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.60"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="动画 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -74,17 +74,17 @@
 <h2><a class="anchor" aria-hidden="true" id="animated"></a><a href="#animated" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>Animated</code></h2>
 <p><a href="/docs/0.60/animated"><code>Animated</code></a>使得开发者可以非常容易地实现各种各样的动画和交互方式，并且具备极高的性能。<code>Animated</code>旨在以声明的形式来定义动画的输入与输出，在其中建立一个可配置的变化函数，然后使用简单的<code>start/stop</code>方法来控制动画按顺序执行。
 <code>Animated</code>仅封装了6个可以动画化的组件：<code>View</code>、<code>Text</code>、<code>Image</code>、<code>ScrollView</code>、<code>FlatList</code>和<code>SectionList</code>，不过你也可以使用<code>Animated.createAnimatedComponent()</code>来封装你自己的组件。下面是一个在加载时带有淡入动画效果的视图：</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Animated, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Animated, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">FadeInView</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   state = {
     <span class="hljs-attr">fadeAnim</span>: <span class="hljs-keyword">new</span> Animated.Value(<span class="hljs-number">0</span>),  <span class="hljs-comment">// 透明度初始值设为0</span>
   }
 
-  componentDidMount() {
+  <span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> {
     Animated.timing(                  <span class="hljs-comment">// 随时间变化而执行动画</span>
-      <span class="hljs-keyword">this</span>.state.fadeAnim,            <span class="hljs-comment">// 动画中的变量值</span>
+      <span class="hljs-built_in">this</span>.state.fadeAnim,            <span class="hljs-comment">// 动画中的变量值</span>
       {
         <span class="hljs-attr">toValue</span>: <span class="hljs-number">1</span>,                   <span class="hljs-comment">// 透明度最终变为1，即完全不透明</span>
         <span class="hljs-attr">duration</span>: <span class="hljs-number">10000</span>,              <span class="hljs-comment">// 让动画持续一段时间</span>
@@ -92,8 +92,8 @@
     ).start();                        <span class="hljs-comment">// 开始执行动画</span>
   }
 
-  render() {
-    <span class="hljs-keyword">let</span> { fadeAnim } = <span class="hljs-keyword">this</span>.state;
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-keyword">let</span> { fadeAnim } = <span class="hljs-built_in">this</span>.state;
 
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Animated.View</span>                 // 使用专门的可动画化的<span class="hljs-attr">View</span>组件
@@ -110,11 +110,11 @@
 
 <span class="hljs-comment">// 然后你就可以在组件中像使用`View`那样去使用`FadeInView`了</span>
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{flex:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">alignItems:</span> '<span class="hljs-attr">center</span>', <span class="hljs-attr">justifyContent:</span> '<span class="hljs-attr">center</span>'}}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">FadeInView</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">250</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> '<span class="hljs-attr">powderblue</span>'}}&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{fontSize:</span> <span class="hljs-attr">28</span>, <span class="hljs-attr">textAlign:</span> '<span class="hljs-attr">center</span>', <span class="hljs-attr">margin:</span> <span class="hljs-attr">10</span>}}&gt;</span>Fading in<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{flex:</span> <span class="hljs-attr">1</span>, <span class="hljs-attr">alignItems:</span> &#x27;<span class="hljs-attr">center</span>&#x27;, <span class="hljs-attr">justifyContent:</span> &#x27;<span class="hljs-attr">center</span>&#x27;}}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">FadeInView</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">250</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">backgroundColor:</span> &#x27;<span class="hljs-attr">powderblue</span>&#x27;}}&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-name">Text</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{fontSize:</span> <span class="hljs-attr">28</span>, <span class="hljs-attr">textAlign:</span> &#x27;<span class="hljs-attr">center</span>&#x27;, <span class="hljs-attr">margin:</span> <span class="hljs-attr">10</span>}}&gt;</span>Fading in<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-name">FadeInView</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     )
@@ -326,7 +326,7 @@ Animated<span class="token punctuation">.</span><span class="token function">tim
 UIManager<span class="token punctuation">.</span>setLayoutAnimationEnabledExperimental <span class="token operator">&amp;&amp;</span>
   UIManager<span class="token punctuation">.</span><span class="token function">setLayoutAnimationEnabledExperimental</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
 <span class="hljs-keyword">import</span> {
   NativeModules,
   LayoutAnimation,
@@ -334,7 +334,7 @@ UIManager<span class="token punctuation">.</span>setLayoutAnimationEnabledExperi
   TouchableOpacity,
   StyleSheet,
   View,
-} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+} <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-keyword">const</span> { UIManager } = NativeModules;
 
@@ -347,13 +347,13 @@ UIManager.setLayoutAnimationEnabledExperimental &amp;&amp;
     <span class="hljs-attr">h</span>: <span class="hljs-number">100</span>,
   };
 
-  _onPress = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  _onPress = <span class="hljs-function">() =&gt;</span> {
     <span class="hljs-comment">// Animate the update</span>
     LayoutAnimation.spring();
-    <span class="hljs-keyword">this</span>.setState({<span class="hljs-attr">w</span>: <span class="hljs-keyword">this</span>.state.w + <span class="hljs-number">15</span>, <span class="hljs-attr">h</span>: <span class="hljs-keyword">this</span>.state.h + <span class="hljs-number">15</span>})
+    <span class="hljs-built_in">this</span>.setState({<span class="hljs-attr">w</span>: <span class="hljs-built_in">this</span>.state.w + <span class="hljs-number">15</span>, <span class="hljs-attr">h</span>: <span class="hljs-built_in">this</span>.state.h + <span class="hljs-number">15</span>})
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.container}</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{[styles.box,</span> {<span class="hljs-attr">width:</span> <span class="hljs-attr">this.state.w</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">this.state.h</span>}]} /&gt;</span>
@@ -370,23 +370,23 @@ UIManager.setLayoutAnimationEnabledExperimental &amp;&amp;
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">container</span>: {
     <span class="hljs-attr">flex</span>: <span class="hljs-number">1</span>,
-    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">'center'</span>,
-    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">'center'</span>,
+    <span class="hljs-attr">alignItems</span>: <span class="hljs-string">&#x27;center&#x27;</span>,
+    <span class="hljs-attr">justifyContent</span>: <span class="hljs-string">&#x27;center&#x27;</span>,
   },
   <span class="hljs-attr">box</span>: {
     <span class="hljs-attr">width</span>: <span class="hljs-number">200</span>,
     <span class="hljs-attr">height</span>: <span class="hljs-number">200</span>,
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'red'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;red&#x27;</span>,
   },
   <span class="hljs-attr">button</span>: {
-    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">'black'</span>,
+    <span class="hljs-attr">backgroundColor</span>: <span class="hljs-string">&#x27;black&#x27;</span>,
     <span class="hljs-attr">paddingHorizontal</span>: <span class="hljs-number">20</span>,
     <span class="hljs-attr">paddingVertical</span>: <span class="hljs-number">15</span>,
     <span class="hljs-attr">marginTop</span>: <span class="hljs-number">15</span>,
   },
   <span class="hljs-attr">buttonText</span>: {
-    <span class="hljs-attr">color</span>: <span class="hljs-string">'#fff'</span>,
-    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">'bold'</span>,
+    <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;#fff&#x27;</span>,
+    <span class="hljs-attr">fontWeight</span>: <span class="hljs-string">&#x27;bold&#x27;</span>,
   },
 });
 </code></pre></div><div class="desktop-friendly-snack" style="margin-top: 15px; margin-bottom: 15px"><div

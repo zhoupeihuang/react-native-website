@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>TextInput · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="TextInput是一个允许用户在应用中通过键盘输入文本的基本组件。本组件的属性提供了多种特性的配置，譬如自动完成、自动大小写、占位文字，以及多种不同的键盘类型（如纯数字键盘）等等。"/><meta name="docsearch:version" content="0.44"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="TextInput · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="TextInput是一个允许用户在应用中通过键盘输入文本的基本组件。本组件的属性提供了多种特性的配置，譬如自动完成、自动大小写、占位文字，以及多种不同的键盘类型（如纯数字键盘）等等。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>TextInput · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="TextInput是一个允许用户在应用中通过键盘输入文本的基本组件。本组件的属性提供了多种特性的配置，譬如自动完成、自动大小写、占位文字，以及多种不同的键盘类型（如纯数字键盘）等等。"/><meta name="docsearch:version" content="0.44"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="TextInput · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="TextInput是一个允许用户在应用中通过键盘输入文本的基本组件。本组件的属性提供了多种特性的配置，譬如自动完成、自动大小写、占位文字，以及多种不同的键盘类型（如纯数字键盘）等等。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -70,19 +70,19 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="//github.com/reactnativecn/react-native-website/blob/production/cndocs/textinput.md" target="_blank" rel="noreferrer noopener">帮助改进此文档</a><h1 id="__docusaurus" class="postHeaderTitle">TextInput</h1></header><article><div><span><p>TextInput是一个允许用户在应用中通过键盘输入文本的基本组件。本组件的属性提供了多种特性的配置，譬如自动完成、自动大小写、占位文字，以及多种不同的键盘类型（如纯数字键盘）等等。</p>
 <p>最简单的用法就是丢一个<code>TextInput</code>到应用里，然后订阅它的<code>onChangeText</code>事件来读取用户的输入。注意，从TextInput里取值这就是目前唯一的做法！即使用<code>onChangeText</code>写入state，然后从this.state中取出值。它还有一些其它的事件，譬如<code>onSubmitEditing</code>和<code>onFocus</code>。一个简单的例子如下：</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, TextInput } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, TextInput } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UselessTextInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-keyword">constructor</span>(props) {
-    <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.state = { <span class="hljs-attr">text</span>: <span class="hljs-string">'Useless Placeholder'</span> };
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> {
+    <span class="hljs-built_in">super</span>(props);
+    <span class="hljs-built_in">this</span>.state = { <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;Useless Placeholder&#x27;</span> };
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
-        <span class="hljs-attr">style</span>=<span class="hljs-string">{{height:</span> <span class="hljs-attr">40</span>, <span class="hljs-attr">borderColor:</span> '<span class="hljs-attr">gray</span>', <span class="hljs-attr">borderWidth:</span> <span class="hljs-attr">1</span>}}
+        <span class="hljs-attr">style</span>=<span class="hljs-string">{{height:</span> <span class="hljs-attr">40</span>, <span class="hljs-attr">borderColor:</span> &#x27;<span class="hljs-attr">gray</span>&#x27;, <span class="hljs-attr">borderWidth:</span> <span class="hljs-attr">1</span>}}
         <span class="hljs-attr">onChangeText</span>=<span class="hljs-string">{(text)</span> =&gt;</span> this.setState({text})}
         value={this.state.text}
       /&gt;</span>
@@ -91,15 +91,15 @@
 }
 
 <span class="hljs-comment">// App registration and rendering</span>
-AppRegistry.registerComponent(<span class="hljs-string">'AwesomeProject'</span>, () =&gt; UselessTextInput);
+AppRegistry.registerComponent(<span class="hljs-string">&#x27;AwesomeProject&#x27;</span>, <span class="hljs-function">() =&gt;</span> UselessTextInput);
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20TextInput%20%7D%20from%20'react-native'%3B%0A%0Aclass%20UselessTextInput%20extends%20Component%20%7B%0A%20%20constructor(props)%20%7B%0A%20%20%20%20super(props)%3B%0A%20%20%20%20this.state%20%3D%20%7B%20text%3A%20'Useless%20Placeholder'%20%7D%3B%0A%20%20%7D%0A%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CTextInput%0A%20%20%20%20%20%20%20%20style%3D%7B%7Bheight%3A%2040%2C%20borderColor%3A%20'gray'%2C%20borderWidth%3A%201%7D%7D%0A%20%20%20%20%20%20%20%20onChangeText%3D%7B(text)%20%3D%3E%20this.setState(%7Btext%7D)%7D%0A%20%20%20%20%20%20%20%20value%3D%7Bthis.state.text%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0A%2F%2F%20App%20registration%20and%20rendering%0AAppRegistry.registerComponent('AwesomeProject'%2C%20()%20%3D%3E%20UselessTextInput)%3B%0A" frame-border="0"></iframe></div>
 
 <p>注意有些属性仅在<code>multiline</code>为true或者为false的时候有效。此外，当<code>multiline=false</code>时，为元素的某一个边添加边框样式（例如：<code>borderBottomColor</code>，<code>borderLeftWidth</code>等）将不会生效。为了能够实现效果你可以使用一个<code>View</code>来包裹<code>TextInput</code>：</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, View, TextInput } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, View, TextInput } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UselessTextInput</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
         {<span class="hljs-attr">...this.props</span>} // 将父组件传递来的所有<span class="hljs-attr">props</span>传递给<span class="hljs-attr">TextInput</span>;比如下面的<span class="hljs-attr">multiline</span>和<span class="hljs-attr">numberOfLines</span>
@@ -111,19 +111,19 @@ AppRegistry.registerComponent(<span class="hljs-string">'AwesomeProject'</span>,
 }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UselessTextInputMultiline</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-keyword">constructor</span>(props) {
-    <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.state = {
-      <span class="hljs-attr">text</span>: <span class="hljs-string">'Useless Multiline Placeholder'</span>,
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> {
+    <span class="hljs-built_in">super</span>(props);
+    <span class="hljs-built_in">this</span>.state = {
+      <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;Useless Multiline Placeholder&#x27;</span>,
     };
   }
 
   <span class="hljs-comment">// 你可以试着输入一种颜色，比如red，那么这个red就会作用到View的背景色样式上</span>
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{</span>
        <span class="hljs-attr">backgroundColor:</span> <span class="hljs-attr">this.state.text</span>,
-       <span class="hljs-attr">borderBottomColor:</span> '#<span class="hljs-attr">000000</span>',
+       <span class="hljs-attr">borderBottomColor:</span> &#x27;#<span class="hljs-attr">000000</span>&#x27;,
        <span class="hljs-attr">borderBottomWidth:</span> <span class="hljs-attr">1</span> }}
      &gt;</span>
        <span class="hljs-tag">&lt;<span class="hljs-name">UselessTextInput</span>
@@ -139,8 +139,8 @@ AppRegistry.registerComponent(<span class="hljs-string">'AwesomeProject'</span>,
 
 <span class="hljs-comment">// App registration and rendering</span>
 AppRegistry.registerComponent(
- <span class="hljs-string">'AwesomeProject'</span>,
- () =&gt; UselessTextInputMultiline
+ <span class="hljs-string">&#x27;AwesomeProject&#x27;</span>,
+ <span class="hljs-function">() =&gt;</span> UselessTextInputMultiline
 );
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20View%2C%20TextInput%20%7D%20from%20'react-native'%3B%0A%0Aclass%20UselessTextInput%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CTextInput%0A%20%20%20%20%20%20%20%20%7B...this.props%7D%20%2F%2F%20%E5%B0%86%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E9%80%92%E6%9D%A5%E7%9A%84%E6%89%80%E6%9C%89props%E4%BC%A0%E9%80%92%E7%BB%99TextInput%3B%E6%AF%94%E5%A6%82%E4%B8%8B%E9%9D%A2%E7%9A%84multiline%E5%92%8CnumberOfLines%0A%20%20%20%20%20%20%20%20editable%20%3D%20%7Btrue%7D%0A%20%20%20%20%20%20%20%20maxLength%20%3D%20%7B40%7D%0A%20%20%20%20%20%20%2F%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0Aclass%20UselessTextInputMultiline%20extends%20Component%20%7B%0A%20%20constructor(props)%20%7B%0A%20%20%20%20super(props)%3B%0A%20%20%20%20this.state%20%3D%20%7B%0A%20%20%20%20%20%20text%3A%20'Useless%20Multiline%20Placeholder'%2C%0A%20%20%20%20%7D%3B%0A%20%20%7D%0A%0A%20%20%2F%2F%20%E4%BD%A0%E5%8F%AF%E4%BB%A5%E8%AF%95%E7%9D%80%E8%BE%93%E5%85%A5%E4%B8%80%E7%A7%8D%E9%A2%9C%E8%89%B2%EF%BC%8C%E6%AF%94%E5%A6%82red%EF%BC%8C%E9%82%A3%E4%B9%88%E8%BF%99%E4%B8%AAred%E5%B0%B1%E4%BC%9A%E4%BD%9C%E7%94%A8%E5%88%B0View%E7%9A%84%E8%83%8C%E6%99%AF%E8%89%B2%E6%A0%B7%E5%BC%8F%E4%B8%8A%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%3CView%20style%3D%7B%7B%0A%20%20%20%20%20%20%20backgroundColor%3A%20this.state.text%2C%0A%20%20%20%20%20%20%20borderBottomColor%3A%20'%23000000'%2C%0A%20%20%20%20%20%20%20borderBottomWidth%3A%201%20%7D%7D%0A%20%20%20%20%20%3E%0A%20%20%20%20%20%20%20%3CUselessTextInput%0A%20%20%20%20%20%20%20%20%20multiline%20%3D%20%7Btrue%7D%0A%20%20%20%20%20%20%20%20%20numberOfLines%20%3D%20%7B4%7D%0A%20%20%20%20%20%20%20%20%20onChangeText%3D%7B(text)%20%3D%3E%20this.setState(%7Btext%7D)%7D%0A%20%20%20%20%20%20%20%20%20value%3D%7Bthis.state.text%7D%0A%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0A%2F%2F%20App%20registration%20and%20rendering%0AAppRegistry.registerComponent(%0A%20'AwesomeProject'%2C%0A%20()%20%3D%3E%20UselessTextInputMultiline%0A)%3B%0A" frame-border="0"></iframe></div>
 

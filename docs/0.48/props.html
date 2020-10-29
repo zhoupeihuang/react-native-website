@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Props（属性） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="大多数组件在创建时就可以使用各种参数来进行定制。用于定制的这些参数就称为`props`（属性）。"/><meta name="docsearch:version" content="0.48"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Props（属性） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="大多数组件在创建时就可以使用各种参数来进行定制。用于定制的这些参数就称为`props`（属性）。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Props（属性） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="大多数组件在创建时就可以使用各种参数来进行定制。用于定制的这些参数就称为`props`（属性）。"/><meta name="docsearch:version" content="0.48"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Props（属性） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="大多数组件在创建时就可以使用各种参数来进行定制。用于定制的这些参数就称为`props`（属性）。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -70,13 +70,13 @@
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="//github.com/reactnativecn/react-native-website/blob/production/cndocs/props.md" target="_blank" rel="noreferrer noopener">帮助改进此文档</a><h1 id="__docusaurus" class="postHeaderTitle">Props（属性）</h1></header><article><div><span><p>大多数组件在创建时就可以使用各种参数来进行定制。用于定制的这些参数就称为<code>props</code>（属性）。</p>
 <p>以常见的基础组件<code>Image</code>为例，在创建一个图片时，可以传入一个名为<code>source</code>的prop来指定要显示的图片的地址，以及使用名为<code>style</code>的prop来控制其尺寸。</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, Image } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, Image } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Bananas</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">let</span> pic = {
-      <span class="hljs-attr">uri</span>: <span class="hljs-string">'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg'</span>
+      <span class="hljs-attr">uri</span>: <span class="hljs-string">&#x27;https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg&#x27;</span>
     };
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Image</span> <span class="hljs-attr">source</span>=<span class="hljs-string">{pic}</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">193</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">110</span>}} /&gt;</span></span>
@@ -84,17 +84,17 @@
   }
 }
 
-AppRegistry.registerComponent(<span class="hljs-string">'Bananas'</span>, () =&gt; Bananas);
+AppRegistry.registerComponent(<span class="hljs-string">&#x27;Bananas&#x27;</span>, <span class="hljs-function">() =&gt;</span> Bananas);
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20Image%20%7D%20from%20'react-native'%3B%0A%0Aclass%20Bananas%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20let%20pic%20%3D%20%7B%0A%20%20%20%20%20%20uri%3A%20'https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fd%2Fde%2FBananavarieties.jpg'%0A%20%20%20%20%7D%3B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CImage%20source%3D%7Bpic%7D%20style%3D%7B%7Bwidth%3A%20193%2C%20height%3A%20110%7D%7D%20%2F%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0AAppRegistry.registerComponent('Bananas'%2C%20()%20%3D%3E%20Bananas)%3B%0A" frame-border="0"></iframe></div>
 
 <p>译注：在iOS上使用http链接的图片地址可能不会显示，参见<a href="https://segmentfault.com/a/1190000002933776">这篇说明修改</a>。</p>
 <p>请注意<code>{pic}</code>外围有一层括号，我们需要用括号来把<code>pic</code>这个变量嵌入到JSX语句中。括号的意思是括号内部为一个js变量或表达式，需要执行后取值。因此我们可以把任意合法的JavaScript表达式通过括号嵌入到JSX语句中。</p>
 <p>自定义的组件也可以使用<code>props</code>。通过在不同的场景使用不同的属性定制，可以尽量提高自定义组件的复用范畴。只需在<code>render</code>函数中引用<code>this.props</code>，然后按需处理即可。下面是一个例子：</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Greeting</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>Hello {this.props.name}!<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span></span>
     );
@@ -102,18 +102,18 @@ AppRegistry.registerComponent(<span class="hljs-string">'Bananas'</span>, () =&g
 }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LotsOfGreetings</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{alignItems:</span> '<span class="hljs-attr">center</span>'}}&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">'Rexxar'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">'Jaina'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">'Valeera'</span> /&gt;</span>
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{alignItems:</span> &#x27;<span class="hljs-attr">center</span>&#x27;}}&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;Rexxar&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;Jaina&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Greeting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&#x27;Valeera&#x27;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     );
   }
 }
 
-AppRegistry.registerComponent(<span class="hljs-string">'LotsOfGreetings'</span>, () =&gt; LotsOfGreetings);
+AppRegistry.registerComponent(<span class="hljs-string">&#x27;LotsOfGreetings&#x27;</span>, <span class="hljs-function">() =&gt;</span> LotsOfGreetings);
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20Text%2C%20View%20%7D%20from%20'react-native'%3B%0A%0Aclass%20Greeting%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CText%3EHello%20%7Bthis.props.name%7D!%3C%2FText%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0Aclass%20LotsOfGreetings%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CView%20style%3D%7B%7BalignItems%3A%20'center'%7D%7D%3E%0A%20%20%20%20%20%20%20%20%3CGreeting%20name%3D'Rexxar'%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CGreeting%20name%3D'Jaina'%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CGreeting%20name%3D'Valeera'%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0AAppRegistry.registerComponent('LotsOfGreetings'%2C%20()%20%3D%3E%20LotsOfGreetings)%3B%0A" frame-border="0"></iframe></div>
 
 <p>我们在<code>Greeting</code>组件中将<code>name</code>作为一个属性来定制，这样可以复用这一组件来制作各种不同的“问候语”。上面的例子把<code>Greeting</code>组件写在JSX语句中，用法和内置组件并无二致——这正是React体系的魅力所在——如果你想搭建一套自己的基础UI框架，那就放手做吧！</p>

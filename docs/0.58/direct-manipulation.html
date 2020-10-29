@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>直接操作 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(99.51%), [306703082](https://github.com/search?q=306703082%40qq.com+in%3Aemail&amp;type=Users)(0.49%)"/><meta name="docsearch:version" content="0.58"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="直接操作 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(99.51%), [306703082](https://github.com/search?q=306703082%40qq.com+in%3Aemail&amp;type=Users)(0.49%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>直接操作 · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(99.51%), [306703082](https://github.com/search?q=306703082%40qq.com+in%3Aemail&amp;type=Users)(0.49%)"/><meta name="docsearch:version" content="0.58"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="直接操作 · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(99.51%), [306703082](https://github.com/search?q=306703082%40qq.com+in%3Aemail&amp;type=Users)(0.49%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -111,11 +111,11 @@
 <p>如果你看过<a href="https://github.com/facebook/react-native/blob/master/Libraries/Renderer/oss/ReactNativeRenderer-prod.js">NativeMethodsMixin</a>中的<code>setNativeProps</code>方法的实现，你就会发现它实际是对<code>RCTUIManager.updateView</code>的封装 —— 而这正是重渲染所触发的函数调用，具体可以参看<a href="https://github.com/facebook/react/blob/master/src/renderers/native/ReactNativeBaseComponent.js">ReactNativeBaseComponent.js 中的 receiveComponent</a>.</p>
 <h2><a class="anchor" aria-hidden="true" id="复合组件与-setnativeprops"></a><a href="#复合组件与-setnativeprops" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>复合组件与 setNativeProps</h2>
 <p>复合组件并不是单纯的由一个原生视图构成，所以你不能对其直接使用<code>setNativeProps</code>。比如下面这个例子：</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>{this.props.label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
@@ -125,10 +125,10 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">MyButton</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"Press me!"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">MyButton</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Press me!&quot;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span></span>
     )
   }
@@ -150,15 +150,15 @@
       ></div></div></div><p>跑这个例子会马上看到一行报错： <code>Touchable child must either be native or forward setNativeProps to a native component</code>。这是因为<code>MyButton</code>并非直接由原生视图构成，而我们只能给原生视图设置透明值。你可以尝试这样去理解：如果你通过<code>React.createClass</code>方法自定义了一个组件，直接给它设置样式 prop 是不会生效的，你得把样式 props 层层向下传递给子组件，直到子组件是一个能够直接定义样式的原生组件。同理，我们也需要把<code>setNativeProps</code>传递给由原生组件封装的子组件。</p>
 <h4><a class="anchor" aria-hidden="true" id="将-setnativeprops-传递给子组件"></a><a href="#将-setnativeprops-传递给子组件" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>将 setNativeProps 传递给子组件</h4>
 <p>具体要做的就是在我们的自定义组件中再封装一个<code>setNativeProps</code>方法，其内容为对合适的子组件调用真正的<code>setNativeProps</code>方法，并传递要设置的参数。</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyButton</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   setNativeProps = <span class="hljs-function">(<span class="hljs-params">nativeProps</span>) =&gt;</span> {
-    <span class="hljs-keyword">this</span>._root.setNativeProps(nativeProps);
+    <span class="hljs-built_in">this</span>._root.setNativeProps(nativeProps);
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{component</span> =&gt;</span> this._root = component} {...this.props}&gt;
         <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>{this.props.label}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>
@@ -168,10 +168,10 @@
 }
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">MyButton</span> <span class="hljs-attr">label</span>=<span class="hljs-string">"Press me!"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">MyButton</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;Press me!&quot;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">TouchableOpacity</span>&gt;</span></span>
     )
   }
@@ -194,20 +194,20 @@
 <p>你可能还会注意到我们在向下传递 props 时使用了<code>{...this.props}</code>语法（这一用法的说明请参考<a href="http://es6.ruanyifeng.com/#docs/object">对象的扩展运算符</a>）。这是因为<code>TouchableOpacity</code>本身其实也是个复合组件， 它除了要求在子组件上执行<code>setNativeProps</code> 以外，还要求子组件对触摸事件进行处理。因此，它会传递多个 props，其中包含了<a href="view.html#onmoveshouldsetresponder">onmoveshouldsetresponder</a> 函数，这个函数需要回调给<code>TouchableOpacity</code>组件，以完成触摸事件的处理。与之相对的是<code>TouchableHighlight</code>组件，它本身是由原生视图构成，因而只需要我们实现<code>setNativeProps</code>。</p>
 <h2><a class="anchor" aria-hidden="true" id="setnativeprops-to-clear-textinput-value"></a><a href="#setnativeprops-to-clear-textinput-value" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>setNativeProps to clear TextInput value</h2>
 <p>Another very common use case of <code>setNativeProps</code> is to clear the value of a TextInput. The <code>controlled</code> prop of TextInput can sometimes drop characters when the <code>bufferDelay</code> is low and the user types very quickly. Some developers prefer to skip this prop entirely and instead use <code>setNativeProps</code> to directly manipulate the TextInput value when necessary. For example, the following code demonstrates clearing the input when you tap a button:</p>
-<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { TextInput, Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="snack-player"><div class="mobile-friendly-snack" style="display: none"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { TextInput, Text, TouchableOpacity, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  clearText = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-    <span class="hljs-keyword">this</span>._textInput.setNativeProps({<span class="hljs-attr">text</span>: <span class="hljs-string">''</span>});
+  clearText = <span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-built_in">this</span>._textInput.setNativeProps({<span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;&#x27;</span>});
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span> <span class="hljs-attr">style</span>=<span class="hljs-string">{{flex:</span> <span class="hljs-attr">1</span>}}&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">TextInput</span>
           <span class="hljs-attr">ref</span>=<span class="hljs-string">{component</span> =&gt;</span> this._textInput = component}
-          style={{height: 50, flex: 1, marginHorizontal: 20, borderWidth: 1, borderColor: '#ccc'}}
+          style={{height: 50, flex: 1, marginHorizontal: 20, borderWidth: 1, borderColor: &#x27;#ccc&#x27;}}
         /&gt;
         <span class="hljs-tag">&lt;<span class="hljs-name">TouchableOpacity</span> <span class="hljs-attr">onPress</span>=<span class="hljs-string">{this.clearText}</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>Clear text<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span>

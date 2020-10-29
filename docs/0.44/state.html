@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>State（状态） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="我们使用两种数据来控制一个组件：`props`和`state`。`props`是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用`state`。"/><meta name="docsearch:version" content="0.44"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="State（状态） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="我们使用两种数据来控制一个组件：`props`和`state`。`props`是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用`state`。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>State（状态） · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="我们使用两种数据来控制一个组件：`props`和`state`。`props`是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用`state`。"/><meta name="docsearch:version" content="0.44"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="State（状态） · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="我们使用两种数据来控制一个组件：`props`和`state`。`props`是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用`state`。"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -71,25 +71,25 @@
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><a class="edit-page-link button" href="//github.com/reactnativecn/react-native-website/blob/production/cndocs/state.md" target="_blank" rel="noreferrer noopener">帮助改进此文档</a><h1 id="__docusaurus" class="postHeaderTitle">State（状态）</h1></header><article><div><span><p>我们使用两种数据来控制一个组件：<code>props</code>和<code>state</code>。<code>props</code>是在父组件中指定，而且一经指定，在被指定的组件的生命周期中则不再改变。 对于需要改变的数据，我们需要使用<code>state</code>。</p>
 <p>一般来说，你需要在constructor中初始化<code>state</code>（译注：这是ES6的写法，早期的很多ES5的例子使用的是getInitialState方法来初始化state，这一做法会逐渐被淘汰），然后在需要修改时调用<code>setState</code>方法。</p>
 <p>假如我们需要制作一段不停闪烁的文字。文字内容本身在组件创建时就已经指定好了，所以文字内容应该是一个<code>prop</code>。而文字的显示或隐藏的状态（快速的显隐切换就产生了闪烁的效果）则是随着时间变化的，因此这一状态应该写到<code>state</code>中。</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, Text, View } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Blink</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  <span class="hljs-keyword">constructor</span>(props) {
-    <span class="hljs-keyword">super</span>(props);
-    <span class="hljs-keyword">this</span>.state = { <span class="hljs-attr">showText</span>: <span class="hljs-literal">true</span> };
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">props</span>)</span> {
+    <span class="hljs-built_in">super</span>(props);
+    <span class="hljs-built_in">this</span>.state = { <span class="hljs-attr">showText</span>: <span class="hljs-literal">true</span> };
 
     <span class="hljs-comment">// 每1000毫秒对showText状态做一次取反操作</span>
-    setInterval(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
-      <span class="hljs-keyword">this</span>.setState(<span class="hljs-function"><span class="hljs-params">previousState</span> =&gt;</span> {
+    <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-built_in">this</span>.setState(<span class="hljs-function"><span class="hljs-params">previousState</span> =&gt;</span> {
         <span class="hljs-keyword">return</span> { <span class="hljs-attr">showText</span>: !previousState.showText };
       });
     }, <span class="hljs-number">1000</span>);
   }
 
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-comment">// 根据当前showText的值决定是否显示text内容</span>
-    <span class="hljs-keyword">let</span> display = <span class="hljs-keyword">this</span>.state.showText ? <span class="hljs-keyword">this</span>.props.text : <span class="hljs-string">' '</span>;
+    <span class="hljs-keyword">let</span> display = <span class="hljs-built_in">this</span>.state.showText ? <span class="hljs-built_in">this</span>.props.text : <span class="hljs-string">&#x27; &#x27;</span>;
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Text</span>&gt;</span>{display}<span class="hljs-tag">&lt;/<span class="hljs-name">Text</span>&gt;</span></span>
     );
@@ -97,19 +97,19 @@
 }
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BlinkApp</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'I love to blink'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Yes blinking is so great'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Why did they ever take this out of HTML'</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">'Look at me look at me look at me'</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;I love to blink&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Yes blinking is so great&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Why did they ever take this out of HTML&#x27;</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">Blink</span> <span class="hljs-attr">text</span>=<span class="hljs-string">&#x27;Look at me look at me look at me&#x27;</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     );
   }
 }
 
-AppRegistry.registerComponent(<span class="hljs-string">'BlinkApp'</span>, () =&gt; BlinkApp);
+AppRegistry.registerComponent(<span class="hljs-string">&#x27;BlinkApp&#x27;</span>, <span class="hljs-function">() =&gt;</span> BlinkApp);
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20Text%2C%20View%20%7D%20from%20'react-native'%3B%0A%0Aclass%20Blink%20extends%20Component%20%7B%0A%20%20constructor(props)%20%7B%0A%20%20%20%20super(props)%3B%0A%20%20%20%20this.state%20%3D%20%7B%20showText%3A%20true%20%7D%3B%0A%0A%20%20%20%20%2F%2F%20%E6%AF%8F1000%E6%AF%AB%E7%A7%92%E5%AF%B9showText%E7%8A%B6%E6%80%81%E5%81%9A%E4%B8%80%E6%AC%A1%E5%8F%96%E5%8F%8D%E6%93%8D%E4%BD%9C%0A%20%20%20%20setInterval(()%20%3D%3E%20%7B%0A%20%20%20%20%20%20this.setState(previousState%20%3D%3E%20%7B%0A%20%20%20%20%20%20%20%20return%20%7B%20showText%3A%20!previousState.showText%20%7D%3B%0A%20%20%20%20%20%20%7D)%3B%0A%20%20%20%20%7D%2C%201000)%3B%0A%20%20%7D%0A%0A%20%20render()%20%7B%0A%20%20%20%20%2F%2F%20%E6%A0%B9%E6%8D%AE%E5%BD%93%E5%89%8DshowText%E7%9A%84%E5%80%BC%E5%86%B3%E5%AE%9A%E6%98%AF%E5%90%A6%E6%98%BE%E7%A4%BAtext%E5%86%85%E5%AE%B9%0A%20%20%20%20let%20display%20%3D%20this.state.showText%20%3F%20this.props.text%20%3A%20'%20'%3B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CText%3E%7Bdisplay%7D%3C%2FText%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0Aclass%20BlinkApp%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CView%3E%0A%20%20%20%20%20%20%20%20%3CBlink%20text%3D'I%20love%20to%20blink'%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CBlink%20text%3D'Yes%20blinking%20is%20so%20great'%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CBlink%20text%3D'Why%20did%20they%20ever%20take%20this%20out%20of%20HTML'%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CBlink%20text%3D'Look%20at%20me%20look%20at%20me%20look%20at%20me'%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A%0AAppRegistry.registerComponent('BlinkApp'%2C%20()%20%3D%3E%20BlinkApp)%3B%0A" frame-border="0"></iframe></div>
 
 <p>实际开发中，我们一般不会在定时器函数（setInterval、setTimeout等）中来操作state。典型的场景是在接收到服务器返回的新数据，或者在用户输入数据之后。你也可以使用一些“状态容器”比如<a href="http://redux.js.org/index.html">Redux</a>来统一管理数据流（译注：但我们不建议新手过早去学习redux）。</p>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Image · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.58"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Image · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-dark.min.css"/><script>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Image · React Native 中文网</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="docsearch:version" content="0.58"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Image · React Native 中文网"/><meta property="og:type" content="website"/><meta property="og:url" content="undefined/"/><meta property="og:description" content="##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&amp;type=Users)(100.00%)"/><meta name="twitter:card" content="summary"/><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico"/><link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css"/><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/highlight.js@10.1.2/styles/solarized-dark.min.css"/><script>
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
               m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -74,23 +74,23 @@
 <blockquote>
 <p>请注意对于网络和 base64 数据的图片需要手动指定尺寸！</p>
 </blockquote>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, View, Image } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, View, Image } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DisplayAnImage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Image</span>
-          <span class="hljs-attr">source</span>=<span class="hljs-string">{require(</span>'/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">img</span>/<span class="hljs-attr">favicon.png</span>')}
+          <span class="hljs-attr">source</span>=<span class="hljs-string">{require(</span>&#x27;/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">img</span>/<span class="hljs-attr">favicon.png</span>&#x27;)}
         /&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Image</span>
           <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">50</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">50</span>}}
-          <span class="hljs-attr">source</span>=<span class="hljs-string">{{uri:</span> '<span class="hljs-attr">https:</span>//<span class="hljs-attr">facebook.github.io</span>/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">docs</span>/<span class="hljs-attr">assets</span>/<span class="hljs-attr">favicon.png</span>'}}
+          <span class="hljs-attr">source</span>=<span class="hljs-string">{{uri:</span> &#x27;<span class="hljs-attr">https:</span>//<span class="hljs-attr">facebook.github.io</span>/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">docs</span>/<span class="hljs-attr">assets</span>/<span class="hljs-attr">favicon.png</span>&#x27;}}
         /&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Image</span>
           <span class="hljs-attr">style</span>=<span class="hljs-string">{{width:</span> <span class="hljs-attr">66</span>, <span class="hljs-attr">height:</span> <span class="hljs-attr">58</span>}}
-          <span class="hljs-attr">source</span>=<span class="hljs-string">{{uri:</span> '<span class="hljs-attr">data:image</span>/<span class="hljs-attr">png</span>;<span class="hljs-attr">base64</span>,<span class="hljs-attr">iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB</span>+<span class="hljs-attr">2</span>/<span class="hljs-attr">ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw</span>+<span class="hljs-attr">P</span>/<span class="hljs-attr">eMrC5UTVAAAAABJRU5ErkJggg</span>==<span class="hljs-string">'}}
+          <span class="hljs-attr">source</span>=<span class="hljs-string">{{uri:</span> &#x27;<span class="hljs-attr">data:image</span>/<span class="hljs-attr">png</span>;<span class="hljs-attr">base64</span>,<span class="hljs-attr">iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB</span>+<span class="hljs-attr">2</span>/<span class="hljs-attr">ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw</span>+<span class="hljs-attr">P</span>/<span class="hljs-attr">eMrC5UTVAAAAABJRU5ErkJggg</span>==<span class="hljs-string">&#x27;}}
         /&gt;
       &lt;/View&gt;</span></span></span>
     );
@@ -99,8 +99,8 @@
 </code></pre><iframe style="margin-top: 4" width="100%" height="420" data-src="//dabbott.github.io/react-native-web-player/#code=import%20React%2C%20%7B%20Component%20%7D%20from%20'react'%3B%0Aimport%20%7B%20AppRegistry%2C%20View%2C%20Image%20%7D%20from%20'react-native'%3B%0A%0Aexport%20default%20class%20DisplayAnImage%20extends%20Component%20%7B%0A%20%20render()%20%7B%0A%20%20%20%20return%20(%0A%20%20%20%20%20%20%3CView%3E%0A%20%20%20%20%20%20%20%20%3CImage%0A%20%20%20%20%20%20%20%20%20%20source%3D%7Brequire('%2Freact-native%2Fimg%2Ffavicon.png')%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CImage%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%7Bwidth%3A%2050%2C%20height%3A%2050%7D%7D%0A%20%20%20%20%20%20%20%20%20%20source%3D%7B%7Buri%3A%20'https%3A%2F%2Ffacebook.github.io%2Freact-native%2Fdocs%2Fassets%2Ffavicon.png'%7D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%20%20%3CImage%0A%20%20%20%20%20%20%20%20%20%20style%3D%7B%7Bwidth%3A%2066%2C%20height%3A%2058%7D%7D%0A%20%20%20%20%20%20%20%20%20%20source%3D%7B%7Buri%3A%20'data%3Aimage%2Fpng%3Bbase64%2CiVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB%2B2%2Fab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw%2BP%2FeMrC5UTVAAAAABJRU5ErkJggg%3D%3D'%7D%7D%0A%20%20%20%20%20%20%20%20%2F%3E%0A%20%20%20%20%20%20%3C%2FView%3E%0A%20%20%20%20)%3B%0A%20%20%7D%0A%7D%0A" frame-border="0"></iframe></div>
 
 <p>你可以给图片添加<code>style</code>属性：</p>
-<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> { AppRegistry, View, Image, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-native'</span>;
+<div class="web-player"><pre><code class="hljs css javascript"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> { AppRegistry, View, Image, StyleSheet } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-native&#x27;</span>;
 
 <span class="hljs-keyword">const</span> styles = StyleSheet.create({
   <span class="hljs-attr">stretch</span>: {
@@ -110,12 +110,12 @@
 });
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DisplayAnImageWithStyle</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
-  render() {
+  <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">View</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-name">Image</span>
           <span class="hljs-attr">style</span>=<span class="hljs-string">{styles.stretch}</span>
-          <span class="hljs-attr">source</span>=<span class="hljs-string">{require(</span>'/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">img</span>/<span class="hljs-attr">favicon.png</span>')}
+          <span class="hljs-attr">source</span>=<span class="hljs-string">{require(</span>&#x27;/<span class="hljs-attr">react-native</span>/<span class="hljs-attr">img</span>/<span class="hljs-attr">favicon.png</span>&#x27;)}
         /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-name">View</span>&gt;</span></span>
     );
