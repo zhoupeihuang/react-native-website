@@ -273,7 +273,7 @@ RCT_EXPORT_METHOD(addEvent:(<span class="hljs-built_in">NSString</span> *)name d
 <p><code>methodQueue</code>方法会在模块被初始化的时候被执行一次，然后会被 React Native 的桥接机制保存下来，所以你不需要自己保存队列的引用，除非你希望在模块的其它地方使用它。但是，如果你希望在若干个模块中共享同一个队列，则需要自己保存并返回相同的队列实例；仅仅是返回相同名字的队列是不行的。</p>
 </blockquote>
 <h2><a class="anchor" aria-hidden="true" id="依赖注入"></a><a href="#依赖注入" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>依赖注入</h2>
-<p>bridge 会自动注册实现了<code>RCTBridgeModule</code>协议的模块，但是你可能也希望能够初始化自定义的模块实例（这样可以注入依赖）。</p>
+<p>bridge 会自动注册实现了<code>RCTBridgeModule</code>协议的模块，但是你可能也希望能够自己去初始化自定义的模块实例（这样可以注入依赖）。</p>
 <p>要实现这个功能，你需要实现<code>RCTBridgeDelegate</code>协议，初始化<code>RCTBridge</code>，并且在初始化方法里指定代理。然后用初始化好的<code>RCTBridge</code>实例初始化一个<code>RCTRootView</code>。</p>
 <pre><code class="hljs css language-objectivec"><span class="hljs-keyword">id</span>&lt;RCTBridgeDelegate&gt; moduleInitialiser = [[classThatImplementsRCTBridgeDelegate alloc] init];
 
