@@ -1,71 +1,69 @@
 ---
-id: version-0.62-animatedvaluexy
-title: Animated.ValueXY
-original_id: animatedvaluexy
+id: animatedvaluexy
+title: AnimatedValueXY
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+2D Value for driving 2D animations, such as pan gestures. Almost identical API to normal [`Animated.Value`](animatedvalue), but multiplexed. Contains two regular `Animated.Value`s under the hood.
 
-2D Value for driving 2D animations, such as pan gestures. Almost identical API to normal [`Animated.Value`](animatedvalue.md), but multiplexed. Contains two regular `Animated.Value`s under the hood.
+See also [`Animated`](animated).
 
-## 示例
+## Example
 
-```SnackPlayer name=Animated.ValueXY
-import React, { useRef } from "react";
-import { Animated, PanResponder, StyleSheet, View } from "react-native";
-
-const DraggableView = () => {
-  const pan = useRef(new Animated.ValueXY()).current;
-
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderMove: Animated.event([
-      null,
-      {
-        dx: pan.x, // x,y are Animated.Value
-        dy: pan.y,
-      },
-    ]),
-    onPanResponderRelease: () => {
-      Animated.spring(
-        pan, // Auto-multiplexed
-        { toValue: { x: 0, y: 0 } } // Back to zero
-      ).start();
-    },
-  });
-
-  return (
-    <View style={styles.container}>
+```jsx
+class DraggableView extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pan: new Animated.ValueXY() // inits to zero
+    };
+    this.state.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([
+        null,
+        {
+          dx: this.state.pan.x, // x,y are Animated.Value
+          dy: this.state.pan.y
+        }
+      ]),
+      onPanResponderRelease: () => {
+        Animated.spring(
+          this.state.pan, // Auto-multiplexed
+          { toValue: { x: 0, y: 0 } } // Back to zero
+        ).start();
+      }
+    });
+  }
+  render() {
+    return (
       <Animated.View
-        {...panResponder.panHandlers}
-        style={[pan.getLayout(), styles.box]}
-      />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  box: {
-    backgroundColor: "#61dafb",
-    width: 80,
-    height: 80,
-    borderRadius: 4,
-  },
-});
-
-export default DraggableView;
+        {...this.state.panResponder.panHandlers}
+        style={this.state.pan.getLayout()}>
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
 ```
 
+### Methods
+
+- [`setValue`](animatedvaluexy#setvalue)
+- [`setOffset`](animatedvaluexy#setoffset)
+- [`flattenOffset`](animatedvaluexy#flattenoffset)
+- [`extractOffset`](animatedvaluexy#extractoffset)
+- [`addListener`](animatedvaluexy#addlistener)
+- [`removeListener`](animatedvaluexy#removelistener)
+- [`removeAllListeners`](animatedvaluexy#removealllisteners)
+- [`stopAnimation`](animatedvaluexy#stopanimation)
+- [`resetAnimation`](animatedvaluexy#resetanimation)
+- [`getLayout`](animatedvaluexy#getlayout)
+- [`getTranslateTransform`](animatedvaluexy#gettranslatetransform)
+
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `setValue()`
 
@@ -75,11 +73,11 @@ setValue(value);
 
 Directly set the value. This will stop any animations running on the value and update all the bound properties.
 
-**参数：**
+**Parameters:**
 
-| 名称  | 类型   | 必填 | 说明 |
-| ----- | ------ | ---- | ---- |
-| value | number | 是   |      |
+| Name  | Type   | Required | Description |
+| ----- | ------ | -------- | ----------- |
+| value | number | Yes      |             |
 
 ---
 
@@ -91,11 +89,11 @@ setOffset(offset);
 
 Sets an offset that is applied on top of whatever value is set, whether via `setValue`, an animation, or `Animated.event`. Useful for compensating things like the start of a pan gesture.
 
-**参数：**
+**Parameters:**
 
-| 名称   | 类型   | 必填 | 说明 |
-| ------ | ------ | ---- | ---- |
-| offset | number | 是   |      |
+| Name   | Type   | Required | Description |
+| ------ | ------ | -------- | ----------- |
+| offset | number | Yes      |             |
 
 ---
 
@@ -129,11 +127,11 @@ Adds an asynchronous listener to the value so you can observe updates from anima
 
 Returns a string that serves as an identifier for the listener.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                                                                        |
-| -------- | -------- | ---- | ------------------------------------------------------------------------------------------- |
-| callback | function | 是   | The callback function which will receive an object with a `value` key set to the new value. |
+| Name     | Type     | Required | Description                                                                                 |
+| -------- | -------- | -------- | ------------------------------------------------------------------------------------------- |
+| callback | function | Yes      | The callback function which will receive an object with a `value` key set to the new value. |
 
 ---
 
@@ -145,11 +143,11 @@ removeListener(id);
 
 Unregister a listener. The `id` param shall match the identifier previously returned by `addListener()`.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | 必填 | 说明                               |
-| ---- | ------ | ---- | ---------------------------------- |
-| id   | string | 是   | Id for the listener being removed. |
+| Name | Type   | Required | Description                        |
+| ---- | ------ | -------- | ---------------------------------- |
+| id   | string | Yes      | Id for the listener being removed. |
 
 ---
 
@@ -171,11 +169,11 @@ stopAnimation([callback]);
 
 Stops any running animation or tracking. `callback` is invoked with the final value after stopping the animation, which is useful for updating state to match the animation position with layout.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                          |
-| -------- | -------- | ---- | --------------------------------------------- |
-| callback | function | 否   | A function that will receive the final value. |
+| Name     | Type     | Required | Description                                   |
+| -------- | -------- | -------- | --------------------------------------------- |
+| callback | function | No       | A function that will receive the final value. |
 
 ---
 
@@ -187,11 +185,11 @@ resetAnimation([callback]);
 
 Stops any animation and resets the value to its original.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                             |
-| -------- | -------- | ---- | ------------------------------------------------ |
-| callback | function | 否   | A function that will receive the original value. |
+| Name     | Type     | Required | Description                                      |
+| -------- | -------- | -------- | ------------------------------------------------ |
+| callback | function | No       | A function that will receive the original value. |
 
 ---
 

@@ -1,46 +1,43 @@
 ---
-id: version-0.61-transforms
+id: transforms
 title: Transforms
-original_id: transforms
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+# Reference
 
-# 文档
-
-## 方法
+## Props
 
 ### `decomposedMatrix`
 
-Deprecated. Use the transform prop instead.
+> **Deprecated.** Use the [`transform`](transforms.md#transform) prop instead.
 
-| 类型                     | 必填 |
+| Type                     | Required |
 | ------------------------ | -------- |
-| DecomposedMatrixPropType | 否       |
+| DecomposedMatrixPropType | No       |
 
 ---
 
 ### `rotation`
 
-| 类型                                                                         | 必填 |
+| Type                                                                         | Required |
 | ---------------------------------------------------------------------------- | -------- |
-| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | 否       |
+| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | No       |
 
 ---
 
 ### `scaleX`
 
-| 类型                                                                         | 必填 |
+| Type                                                                         | Required |
 | ---------------------------------------------------------------------------- | -------- |
-| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | 否       |
+| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | No       |
 
 ---
 
 ### `scaleY`
 
-| 类型                                                                         | 必填 |
+| Type                                                                         | Required |
 | ---------------------------------------------------------------------------- | -------- |
-| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | 否       |
+| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | No       |
 
 ---
 
@@ -56,32 +53,32 @@ The skew transformations require a string so that the transform may be expressed
 
 `transform([{ skewX: '45deg' }])`
 
-| 类型                                                                                                                                                                                                                                                                                                                                                    | 必填 |
+| Type                                                                                                                                                                                                                                                                                                                                                    | Required |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| array of object: {perspective: number}, ,object: {rotate: string}, ,object: {rotateX: string}, ,object: {rotateY: string}, ,object: {rotateZ: string}, ,object: {scale: number}, ,object: {scaleX: number}, ,object: {scaleY: number}, ,object: {translateX: number}, ,object: {translateY: number}, ,object: {skewX: string}, ,object: {skewY: string} | 否       |
+| array of object: {perspective: number}, ,object: {rotate: string}, ,object: {rotateX: string}, ,object: {rotateY: string}, ,object: {rotateZ: string}, ,object: {scale: number}, ,object: {scaleX: number}, ,object: {scaleY: number}, ,object: {translateX: number}, ,object: {translateY: number}, ,object: {skewX: string}, ,object: {skewY: string} | No       |
 
 ---
 
 ### `transformMatrix`
 
-Deprecated. Use the transform prop instead.
+> **Deprecated.** Use the [`transform`](transforms.md#transform) prop instead.
 
-| 类型                    | 必填 |
+| Type                    | Required |
 | ----------------------- | -------- |
-| TransformMatrixPropType | 否       |
+| TransformMatrixPropType | No       |
 
 ---
 
 ### `translateX`
 
-| 类型                                                                         | 必填 |
+| Type                                                                         | Required |
 | ---------------------------------------------------------------------------- | -------- |
-| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | 否       |
+| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | No       |
 
 ---
 
 ### `translateY`
 
-| 类型                                                                         | 必填 |
+| Type                                                                         | Required |
 | ---------------------------------------------------------------------------- | -------- |
-| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | 否       |
+| deprecatedPropType(ReactPropTypes.number, 'Use the transform prop instead.') | No       |

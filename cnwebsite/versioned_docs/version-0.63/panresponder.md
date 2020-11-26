@@ -1,107 +1,87 @@
 ---
-id: version-0.63-panresponder
+id: panresponder
 title: PanResponder
-original_id: panresponder
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-`PanResponder`类可以将多点触摸操作协调成一个手势。它使得一个单点触摸可以接受更多的触摸操作，也可以用于识别简单的多点触摸手势。
+`PanResponder` reconciles several touches into a single gesture. It makes single-touch gestures resilient to extra touches, and can be used to recognize basic multi-touch gestures.
 
-默认情况下`PanResponder`会通过`InteractionManager`来阻止长时间运行的 JS 事件打断当前的手势活动。
+By default, `PanResponder` holds an `InteractionManager` handle to block long-running JS events from interrupting active gestures.
 
-它提供了一个对[触摸响应系统](gesture-responder-system.md)响应器的可预测的包装。对于每一个处理函数，它在原生事件之外提供了一个新的`gestureState`对象：
+It provides a predictable wrapper of the responder handlers provided by the [gesture responder system](gesture-responder-system.md). For each handler, it provides a new `gestureState` object alongside the native event object:
 
 ```
 onPanResponderMove: (event, gestureState) => {}
 ```
 
-原生事件是指由以下字段组成的合成触摸事件：
+A native event is a synthetic touch event with form of [PressEvent](pressevent).
 
-- `nativeEvent`
-  - `changedTouches` - 在上一次事件之后，所有发生变化的触摸事件的数组集合（即上一次事件后，所有移动过的触摸点）
-  - `identifier` - 触摸点的 ID
-  - `locationX` - 触摸点相对于父元素的横坐标
-  - `locationY` - 触摸点相对于父元素的纵坐标
-  - `pageX` - 触摸点相对于根元素的横坐标
-  - `pageY` - 触摸点相对于根元素的纵坐标
-  - `target` - 触摸点所在的元素 ID
-  - `timestamp` - 触摸事件的时间戳，可用于移动速度的计算
-  - `touches` - 当前屏幕上的所有触摸点的集合
+A `gestureState` object has the following:
 
-一个`gestureState`对象有如下的字段：
+- `stateID` - ID of the gestureState- persisted as long as there at least one touch on screen
+- `moveX` - the latest screen coordinates of the recently-moved touch
+- `moveY` - the latest screen coordinates of the recently-moved touch
+- `x0` - the screen coordinates of the responder grant
+- `y0` - the screen coordinates of the responder grant
+- `dx` - accumulated distance of the gesture since the touch started
+- `dy` - accumulated distance of the gesture since the touch started
+- `vx` - current velocity of the gesture
+- `vy` - current velocity of the gesture
+- `numberActiveTouches` - Number of touches currently on screen
 
-- `stateID` - 触摸状态的 ID。在屏幕上有至少一个触摸点的情况下，这个 ID 会一直有效。
-- `moveX` - 最近一次移动时的屏幕横坐标
-- `moveY` - 最近一次移动时的屏幕纵坐标
-- `x0` - 当响应器产生时的屏幕坐标
-- `y0` - 当响应器产生时的屏幕坐标
-- `dx` - 从触摸操作开始时的累计横向路程
-- `dy` - 从触摸操作开始时的累计纵向路程
-- `vx` - 当前的横向移动速度
-- `vy` - 当前的纵向移动速度
-- `numberActiveTouches` - 当前在屏幕上的有效触摸点的数量
-
-### 基本用法
+## Usage Pattern
 
 ```jsx
-  componentWillMount: function() {
-    this._panResponder = PanResponder.create({
-      // 要求成为响应者：
+const ExampleComponent = () => {
+  const panResponder = React.useRef(
+    PanResponder.create({
+      // Ask to be the responder:
       onStartShouldSetPanResponder: (evt, gestureState) => true,
-      onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onStartShouldSetPanResponderCapture: (evt, gestureState) =>
+        true,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) =>
+        true,
 
       onPanResponderGrant: (evt, gestureState) => {
-        // 开始手势操作。给用户一些视觉反馈，让他们知道发生了什么事情！
-
-        // gestureState.{x,y} 现在会被设置为0
+        // The gesture has started. Show visual feedback so the user knows
+        // what is happening!
+        // gestureState.d{x,y} will be set to zero now
       },
       onPanResponderMove: (evt, gestureState) => {
-        // 最近一次的移动距离为gestureState.move{X,Y}
-
-        // 从成为响应者开始时的累计手势移动距离为gestureState.d{x,y}
+        // The most recent move distance is gestureState.move{X,Y}
+        // The accumulated gesture distance since becoming responder is
+        // gestureState.d{x,y}
       },
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: (evt, gestureState) =>
+        true,
       onPanResponderRelease: (evt, gestureState) => {
-        // 用户放开了所有的触摸点，且此时视图已经成为了响应者。
-        // 一般来说这意味着一个手势操作已经成功完成。
+        // The user has released all touches while this view is the
+        // responder. This typically means a gesture has succeeded
       },
       onPanResponderTerminate: (evt, gestureState) => {
-        // 另一个组件已经成为了新的响应者，所以当前手势将被取消。
+        // Another component has become the responder, so this gesture
+        // should be cancelled
       },
       onShouldBlockNativeResponder: (evt, gestureState) => {
-        // 返回一个布尔值，决定当前组件是否应该阻止原生组件成为JS响应者
-        // 默认返回true。目前暂时只支持android。
+        // Returns whether this component should block native components from becoming the JS
+        // responder. Returns true by default. Is currently only supported on android.
         return true;
-      },
-    });
-  },
+      }
+    })
+  ).current;
 
-  render: function() {
-    return (
-      <View {...this._panResponder.panHandlers} />
-    );
-  },
+  return <View {...panResponder.panHandlers} />;
+};
 ```
 
 ## Example
 
 `PanResponder` works with `Animated` API to help build complex gestures in the UI. The following example contains an animated `View` component which can be dragged freely across the screen
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=PanResponder
 import React, { useRef } from "react";
@@ -168,7 +148,8 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=PanResponder
 import React, { Component } from "react";
@@ -232,15 +213,16 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
-还可以看看[官方示例 RNTester 中的 PanResponder](https://github.com/facebook/react-native/blob/master/RNTester/js/examples/PanResponder/PanResponderExample.js).
+Try the [PanResponder example in RNTester](https://github.com/facebook/react-native/blob/master/packages/rn-tester/js/examples/PanResponder/PanResponderExample.js).
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `create()`
 
@@ -248,7 +230,13 @@ export default App;
 static create(config)
 ```
 
-@param {object} 配置所有响应器回调的加强版本，不仅仅包括原本的`ResponderSyntheticEvent`，还包括`PanResponder`手势状态的回调。你只要简单的把`onResponder*`回调中的`Responder`替换为`PanResponder`。举例来说，这个`config<`对象可能看起来像这样：
+**Parameters:**
+
+| Name   | Type   | Required | Description |
+| ------ | ------ | -------- | ----------- |
+| config | object | Yes      | Refer below |
+
+The config object provides enhanced versions of all of the responder callbacks that provide not only the [`PressEvent`](pressevent), but also the `PanResponder` gesture state, by replacing the word `Responder` with `PanResponder` in each of the typical `onResponder*` callbacks. For example, the `config` object would look like:
 
 - `onMoveShouldSetPanResponder: (e, gestureState) => {...}`
 - `onMoveShouldSetPanResponderCapture: (e, gestureState) => {...}`
@@ -264,6 +252,6 @@ static create(config)
 - `onPanResponderTerminationRequest: (e, gestureState) => {...}`
 - `onShouldBlockNativeResponder: (e, gestureState) => {...}`
 
-通常来说，对那些有对应捕获事件的事件来说，我们在捕获阶段更新 gestureState 一次，然后在冒泡阶段直接使用即可。
+In general, for events that have capture equivalents, we update the gestureState once in the capture phase and can use it in the bubble phase as well.
 
-注意 onStartShould\* 回调。他们只会在此节点冒泡/捕获的开始/结束事件中提供已经更新过的`gestureState`。一旦这个节点成为了事件的响应者，则所有的开始/结束事件都会被手势正确处理，并且`gestureState`也会被正确更新。(numberActiveTouches)有可能没有包含所有的触摸点，除非你就是触摸事件的响应者。
+Be careful with `onStartShould*` callbacks. They only reflect updated `gestureState` for start/end events that bubble/capture to the Node. Once the node is the responder, you can rely on every start/end event being processed by the gesture and `gestureState` being updated accordingly. (numberActiveTouches) may not be totally accurate unless you are the responder.

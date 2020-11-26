@@ -1,33 +1,22 @@
 ---
-id: version-0.62-transforms
+id: transforms
 title: Transforms
-original_id: transforms
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 Transforms are style properties that will help you modify the appearance and position of your components using 2D or 3D transformations. However, once you apply transforms, the layouts remain the same around the transformed component hence it might overlap with the nearby components. You can apply margin to the transformed component, the nearby components or padding to the container to prevent such overlaps.
 
-## 示例
+## Example
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Transforms
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
-const App = () => (
+export default App = () => (
   <SafeAreaView style={styles.container}>
     <ScrollView
       contentContainerStyle={styles.scrollContentContainer}
@@ -139,17 +128,16 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Transforms
 import React, { Component } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
-class App extends Component {
+export default class App extends Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -265,11 +253,10 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ---
 
@@ -293,9 +280,9 @@ The skew transformations require a string so that the transform may be expressed
 transform([{ skewX: '45deg' }]);
 ```
 
-| Type                                                                                                                                                                                                                                                  | Required |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
-| array of objects: {perspective: number}, {rotate: string}, {rotateX: string}, {rotateY: string}, {rotateZ: string}, {scale: number}, {scaleX: number}, {scaleY: number}, {translateX: number}, {translateY: number}, {skewX: string}, {skewY: string} | No       |
+| Type                                                                                                                                                                                                                                                                      | Required |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| array of objects: {matrix: number[]}, {perspective: number}, {rotate: string}, {rotateX: string}, {rotateY: string}, {rotateZ: string}, {scale: number}, {scaleX: number}, {scaleY: number}, {translateX: number}, {translateY: number}, {skewX: string}, {skewY: string} | No       |
 
 ---
 

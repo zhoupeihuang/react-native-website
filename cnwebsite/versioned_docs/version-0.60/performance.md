@@ -1,66 +1,45 @@
 ---
-id: version-0.60-performance
-title: 性能
-original_id: performance
+id: performance
+title: Performance
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(99.29%), [280215110](https://github.com/search?q=280215110%40qq.com+in%3Aemail&type=Users)(0.71%)
+A compelling reason for using React Native instead of WebView-based tools is to achieve 60 frames per second and a native look and feel to your apps. Where possible, we would like for React Native to do the right thing and help you to focus on your app instead of performance optimization, but there are areas where we're not quite there yet, and others where React Native (similar to writing native code directly) cannot possibly determine the best way to optimize for you and so manual intervention will be necessary. We try our best to deliver buttery-smooth UI performance by default, but sometimes that isn't possible.
 
-使用 React Native 替代基于 WebView 的框架来开发 App 的一个强有力的理由，就是为了使 App 可以达到每秒 60 帧（足够流畅），并且能有类似原生 App 的外观和手感。因此我们也尽可能地优化 React Native 去实现这一目标，使开发者能集中精力处理 App 的业务逻辑，而不用费心考虑性能。但是，总还是有一些地方有所欠缺，以及在某些场合 React Native 还不能够替你决定如何进行优化（用原生代码写也无法避免），因此人工的干预依然是必要的。
+This guide is intended to teach you some basics to help you to [troubleshoot performance issues](performance.md#profiling), as well as discuss [common sources of problems and their suggested solutions](performance.md#common-sources-of-performance-problems).
 
-本文的目的是教给你一些基本的知识，来帮你排查性能方面的问题，以及探讨这些问题产生的原因和推荐的解决方法。
+## What you need to know about frames
 
-## 关于“帧”你所需要知道的
+Your grandparents' generation called movies ["moving pictures"](https://www.youtube.com/watch?v=F1i40rnpOsA) for a reason: realistic motion in video is an illusion created by quickly changing static images at a consistent speed. We refer to each of these images as frames. The number of frames that is displayed each second has a direct impact on how smooth and ultimately life-like a video (or user interface) seems to be. iOS devices display 60 frames per second, which gives you and the UI system about 16.67ms to do all of the work needed to generate the static image (frame) that the user will see on the screen for that interval. If you are unable to do the work necessary to generate that frame within the allotted 16.67ms, then you will "drop a frame" and the UI will appear unresponsive.
 
-老一辈人常常把电影称为“移动的画”，是因为视频中逼真的动态效果其实是一种幻觉，这种幻觉是由一组静态的图片以一个稳定的速度快速变化所产生的。我们把这组图片中的每一张图片叫做一帧，而每秒钟显示的帧数直接的影响了视频（或者说用户界面）的流畅度和真实感。iOS 设备提供了每秒 60 的帧率，这就留给了开发者和 UI 系统大约 16.67ms 来完成生成一张静态图片（帧）所需要的所有工作。如果在这分派的 16.67ms 之内没有能够完成这些工作，就会引发‘丢帧’的后果，使界面表现的不够流畅。
+Now to confuse the matter a little bit, open up the developer menu in your app and toggle `Show Perf Monitor`. You will notice that there are two different frame rates.
 
-下面要讲的事情可能更为复杂：请先调出你应用的开发菜单，打开`Show FPS Monitor`. 你会注意到有两个不同的帧率.
+![](/docs/assets/PerfUtil.png)
 
-![](assets/PerfUtil.png)
+### JS frame rate (JavaScript thread)
 
-### JS 帧率(JavaScript 线程)
+For most React Native applications, your business logic will run on the JavaScript thread. This is where your React application lives, API calls are made, touch events are processed, etc... Updates to native-backed views are batched and sent over to the native side at the end of each iteration of the event loop, before the frame deadline (if all goes well). If the JavaScript thread is unresponsive for a frame, it will be considered a dropped frame. For example, if you were to call `this.setState` on the root component of a complex application and it resulted in re-rendering computationally expensive component subtrees, it's conceivable that this might take 200ms and result in 12 frames being dropped. Any animations controlled by JavaScript would appear to freeze during that time. If anything takes longer than 100ms, the user will feel it.
 
-对大多数 React Native 应用来说，业务逻辑是运行在 JavaScript 线程上的。这是 React 应用所在的线程，也是发生 API 调用，以及处理触摸事件等操作的线程。更新数据到原生支持的视图是批量进行的，并且在事件循环每进行一次的时候被发送到原生端，这一步通常会在一帧时间结束之前处理完（如果一切顺利的话）。如果 JavaScript 线程有一帧没有及时响应，就被认为发生了一次丢帧。 例如，你在一个复杂应用的根组件上调用了`this.setState`，从而导致一次开销很大的子组件树的重绘，可想而知，这可能会花费 200ms 也就是整整 12 帧的丢失。此时，任何由 JavaScript 控制的动画都会卡住。只要卡顿超过 100ms，用户就会明显的感觉到。
+This often happens during `Navigator` transitions: when you push a new route, the JavaScript thread needs to render all of the components necessary for the scene in order to send over the proper commands to the native side to create the backing views. It's common for the work being done here to take a few frames and cause [jank](http://jankfree.org/) because the transition is controlled by the JavaScript thread. Sometimes components will do additional work on `componentDidMount`, which might result in a second stutter in the transition.
 
-这种情况经常发生在老的`Navigator`导航器的切换过程中：当你 push 一个新的路由时，JavaScript 需要绘制新场景所需的所有组件，以发送正确的命令给原生端去创建视图。由于切换是由 JavaScript 线程所控制，因此经常会占用若干帧的时间，引起一些卡顿。有的时候，组件会在`componentDidMount`函数中做一些额外的事情，这甚至可能会导致页面切换过程中多达一秒的卡顿。
+Another example is responding to touches: if you are doing work across multiple frames on the JavaScript thread, you might notice a delay in responding to `TouchableOpacity`, for example. This is because the JavaScript thread is busy and cannot process the raw touch events sent over from the main thread. As a result, `TouchableOpacity` cannot react to the touch events and command the native view to adjust its opacity.
 
-另一个例子是老的触摸事件的响应：如果你正在 JavaScript 线程处理一个跨越多个帧的工作，你可能会注意到`TouchableOpacity`的响应被延迟了。这是因为 JavaScript 线程太忙了，不能够处理主线程发送过来的原始触摸事件，结果`TouchableOpacity`就不能及时响应这些事件并命令主线程的页面去调整透明度了。
+### UI frame rate (main thread)
 
-### UI 帧率(主线程)
+Many people have noticed that performance of `NavigatorIOS` is better out of the box than `Navigator`. The reason for this is that the animations for the transitions are done entirely on the main thread, and so they are not interrupted by frame drops on the JavaScript thread.
 
-很多人会注意到，`NavigatorIOS`的性能要比老的纯 JS 实现的`Navigator`好的多。原因就是它的切换动画是完全在主线程上执行的，因此不会被 JavaScript 线程上的掉帧所影响。
+Similarly, you can happily scroll up and down through a `ScrollView` when the JavaScript thread is locked up because the `ScrollView` lives on the main thread. The scroll events are dispatched to the JS thread, but their receipt is not necessary for the scroll to occur.
 
-同样，当 JavaScript 线程卡住的时候，你仍然可以欢快的上下滚动`ScrollView`，因为`ScrollView`运行在主线程之上（尽管滚动事件会被分发到 JS 线程，但是接收这些事件对于滚动这个动作来说并不必要）。
+## Common sources of performance problems
 
-## 性能问题的常见原因
+### Running in development mode (`dev=true`)
 
-### 开发模式 (`dev=true`)
+JavaScript thread performance suffers greatly when running in dev mode. This is unavoidable: a lot more work needs to be done at runtime to provide you with good warnings and error messages, such as validating propTypes and various other assertions. Always make sure to test performance in [release builds](running-on-device.md#building-your-app-for-production).
 
-JavaScript 线程的性能在开发模式下是很糟糕的。这是不可避免的，因为有许多工作需要在运行的时候去做，譬如使你获得良好的警告和错误信息，又比如验证属性类型（propTypes）以及产生各种其他的警告。请务必注意在[release 模式](running-on-device.md#发布应用)下去测试性能。
+### Using `console.log` statements
 
-### console.log 语句
+When running a bundled app, these statements can cause a big bottleneck in the JavaScript thread. This includes calls from debugging libraries such as [redux-logger](https://github.com/evgenyrodionov/redux-logger), so make sure to remove them before bundling. You can also use this [babel plugin](https://babeljs.io/docs/plugins/transform-remove-console/) that removes all the `console.*` calls. You need to install it first with `npm i babel-plugin-transform-remove-console --save-dev`, and then edit the `.babelrc` file under your project directory like this:
 
-在运行打好了离线包的应用时，控制台打印语句可能会极大地拖累 JavaScript 线程。注意有些第三方调试库也可能包含控制台打印语句，比如[redux-logger](https://github.com/evgenyrodionov/redux-logger)，所以在发布应用前请务必仔细检查，确保全部移除。
-
-> 这里有个小技巧可以在发布时屏蔽掉所有的`console.*`调用。React Native 中有一个全局变量`__DEV__`用于指示当前运行环境是否是开发环境。我们可以据此在正式环境中替换掉系统原先的 console 实现。
-
-```js
-if (!__DEV__) {
-  global.console = {
-    info: () => {},
-    log: () => {},
-    warn: () => {},
-    debug: () => {},
-    error: () => {}
-  };
-}
-```
-
-这样在打包发布时，所有的控制台语句就会被自动替换为空函数，而在调试时它们仍然会被正常调用。
-
-> 还有个[babel 插件](https://babeljs.io/docs/plugins/transform-remove-console/)可以帮你移除所有的`console.*`调用。首先需要使用`yarn add --dev babel-plugin-transform-remove-console`来安装，然后在项目根目录下编辑（或者是新建）一个名为·.babelrc`的文件，在其中加入：
-
-```json
+```jsxon
 {
   "env": {
     "production": {
@@ -70,52 +49,75 @@ if (!__DEV__) {
 }
 ```
 
-这样在打包发布时，所有的控制台语句就会被自动移除，而在调试时它们仍然会被正常调用。
+This will automatically remove all `console.*` calls in the release (production) versions of your project.
 
-### `ListView` 首次渲染缓慢或者由于列表很大导致滑动很慢
+### `ListView` initial rendering is too slow or scroll performance is bad for large lists
 
-用新的[`FlatList`](flatlist.md)或者[`SectionList`](sectionlist.md)组件替代。除了简化了API，这些新的列表组件在性能方面都有了极大的提升, 其中最主要的一个是无论列表有多少行，它的内存使用都是常数级的。
+Use the new [`FlatList`](flatlist.md) or [`SectionList`](sectionlist.md) component instead. Besides simplifying the API, the new list components also have significant performance enhancements, the main one being nearly constant memory usage for any number of rows.
 
-如果你的[`FlatList`](flatlist.md)渲染得很慢, 请确保你使用了[`getItemLayout`](flatlist.md#getitemlayout)，它通过跳过对items的处理来优化你的渲染速度。
+If your [`FlatList`](flatlist.md) is rendering slow, be sure that you've implemented [`getItemLayout`](/docs/flatlist#getitemlayout) to optimize rendering speed by skipping measurement of the rendered items.
 
-### 在重绘一个几乎没有什么变化的页面时，JS 帧率严重降低
+### JS FPS plunges when re-rendering a view that hardly changes
 
-你可以实现`shouldComponentUpdate`函数来指明在什么样的确切条件下，你希望这个组件得到重绘。如果你编写的是纯粹的组件（界面完全由 props 和 state 所决定），你可以利用`PureComponent`来为你做这个工作。再强调一次，不可变的数据结构（immutable，即对于引用类型数据，不修改原值，而是复制后修改并返回新值）在提速方面非常有用 —— 当你不得不对一个长列表对象做一个深度的比较，它会使重绘你的整个组件更加快速，而且代码量更少。
+If you are using a ListView, you must provide a `rowHasChanged` function that can reduce a lot of work by quickly determining whether or not a row needs to be re-rendered. If you are using immutable data structures, this would only need to be a reference equality check.
 
-### 在屏幕上移动视图（滚动，切换，旋转）时，UI 线程掉帧
+Similarly, you can implement `shouldComponentUpdate` and indicate the exact conditions under which you would like the component to re-render. If you write pure components (where the return value of the render function is entirely dependent on props and state), you can leverage PureComponent to do this for you. Once again, immutable data structures are useful to keep this fast -- if you have to do a deep comparison of a large list of objects, it may be that re-rendering your entire component would be quicker, and it would certainly require less code.
 
-当具有透明背景的文本位于一张图片上时，或者在每帧重绘视图时需要用到透明合成的任何其他情况下，这种现象尤为明显。设置`shouldRasterizeIOS`或者`renderToHardwareTextureAndroid`属性可以显著改善这一现象。
-注意不要过度使用该特性，否则你的内存使用量将会飞涨。在使用时，要评估你的性能和内存使用情况。如果你没有需要移动这个视图的需求，请关闭这一属性。
+### Dropping JS thread FPS because of doing a lot of work on the JavaScript thread at the same time
 
-### 使用动画改变图片的尺寸时，UI 线程掉帧
+"Slow Navigator transitions" is the most common manifestation of this, but there are other times this can happen. Using InteractionManager can be a good approach, but if the user experience cost is too high to delay work during an animation, then you might want to consider LayoutAnimation.
 
-在 iOS 上，每次调整 Image 组件的宽度或者高度，都需要重新裁剪和缩放原始图片。这个操作开销会非常大，尤其是大的图片。比起直接修改尺寸，更好的方案是使用`transform: [{scale}]`的样式属性来改变尺寸。比如当你点击一个图片，要将它放大到全屏的时候，就可以使用这个属性。
+The Animated API currently calculates each keyframe on-demand on the JavaScript thread unless you [set `useNativeDriver: true`](/blog/2017/02/14/using-native-driver-for-animated#how-do-i-use-this-in-my-app), while LayoutAnimation leverages Core Animation and is unaffected by JS thread and main thread frame drops.
 
-### Touchable 系列组件不能很好的响应
+One case where I have used this is for animating in a modal (sliding down from top and fading in a translucent overlay) while initializing and perhaps receiving responses for several network requests, rendering the contents of the modal, and updating the view where the modal was opened from. See the Animations guide for more information about how to use LayoutAnimation.
 
-有些时候，如果我们有一项操作与点击事件所带来的透明度改变或者高亮效果发生在同一帧中，那么有可能在`onPress`函数结束之前我们都看不到这些效果。比如在`onPress`执行了一个`setState`的操作，这个操作需要大量计算工作并且导致了掉帧。对此的一个解决方案是将`onPress`处理函数中的操作封装到`requestAnimationFrame`中：
+Caveats:
+
+- LayoutAnimation only works for fire-and-forget animations ("static" animations) -- if it must be interruptible, you will need to use `Animated`.
+
+### Moving a view on the screen (scrolling, translating, rotating) drops UI thread FPS
+
+This is especially true when you have text with a transparent background positioned on top of an image, or any other situation where alpha compositing would be required to re-draw the view on each frame. You will find that enabling `shouldRasterizeIOS` or `renderToHardwareTextureAndroid` can help with this significantly.
+
+Be careful not to overuse this or your memory usage could go through the roof. Profile your performance and memory usage when using these props. If you don't plan to move a view anymore, turn this property off.
+
+### Animating the size of an image drops UI thread FPS
+
+On iOS, each time you adjust the width or height of an Image component it is re-cropped and scaled from the original image. This can be very expensive, especially for large images. Instead, use the `transform: [{scale}]` style property to animate the size. An example of when you might do this is when you tap an image and zoom it in to full screen.
+
+### My TouchableX view isn't very responsive
+
+Sometimes, if we do an action in the same frame that we are adjusting the opacity or highlight of a component that is responding to a touch, we won't see that effect until after the `onPress` function has returned. If `onPress` does a `setState` that results in a lot of work and a few frames dropped, this may occur. A solution to this is to wrap any action inside of your `onPress` handler in `requestAnimationFrame`:
 
 ```jsx
 handleOnPress() {
-  // 谨记在使用requestAnimationFrame、setTimeout以及setInterval时
-  // 要使用TimerMixin（其作用是在组件unmount时，清除所有定时器）
-  this.requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
     this.doExpensiveAction();
   });
 }
 ```
 
-## 分析
+### Slow navigator transitions
 
-你可以利用内置的分析器来同时获取 JavaScript 线程和主线程中代码执行情况的详细信息。
+As mentioned above, `Navigator` animations are controlled by the JavaScript thread. Imagine the "push from right" scene transition: each frame, the new scene is moved from the right to left, starting offscreen (let's say at an x-offset of 320) and ultimately settling when the scene sits at an x-offset of
 
-对于 iOS 来说，Instruments 是一个宝贵的工具库，Android 的话可以使用 systrace，具体可以参考下面的`使用 systrace 调试 Android UI 性能`。
+0. Each frame during this transition, the JavaScript thread needs to send a new x-offset to the main thread. If the JavaScript thread is locked up, it cannot do this and so no update occurs on that frame and the animation stutters.
+
+One solution to this is to allow for JavaScript-based animations to be offloaded to the main thread. If we were to do the same thing as in the above example with this approach, we might calculate a list of all x-offsets for the new scene when we are starting the transition and send them to the main thread to execute in an optimized way. Now that the JavaScript thread is freed of this responsibility, it's not a big deal if it drops a few frames while rendering the scene -- you probably won't even notice because you will be too distracted by the pretty transition.
+
+Solving this is one of the main goals behind the new [React Navigation](navigation.md) library. The views in React Navigation use native components and the [`Animated`](animated.md) library to deliver 60 FPS animations that are run on the native thread.
+
+## Profiling
+
+Use the built-in profiler to get detailed information about work done in the JavaScript thread and main thread side-by-side. Access it by selecting Perf Monitor from the Debug menu.
+
+For iOS, Instruments is an invaluable tool, and on Android you should learn to use [`systrace`](performance.md#profiling-android-ui-performance-with-systrace).
 
 But first, [**make sure that Development Mode is OFF!**](performance.md#running-in-development-mode-dev-true) You should see `__DEV__ === false, development-level warning are OFF, performance optimizations are ON` in your application logs.
 
 Another way to profile JavaScript is to use the Chrome profiler while debugging. This won't give you accurate results as the code is running in Chrome but will give you a general idea of where bottlenecks might be. Run the profiler under Chrome's `Performance` tab. A flame graph will appear under `User Timing`. To view more details in tabular format, click at the `Bottom Up` tab below and then select `DedicatedWorker Thread` at the top left menu.
 
-### 使用 systrace 调试 Android UI 性能
+### Profiling Android UI Performance with `systrace`
 
 Android supports 10k+ different phones and is generalized to support software rendering: the framework architecture and need to generalize across many hardware targets unfortunately means you get less for free relative to iOS. But sometimes, there are things you can improve -- and many times it's not native code's fault at all!
 
@@ -143,13 +145,13 @@ Once the trace starts collecting, perform the animation or interaction you care 
 
 After opening the trace in your browser (preferably Chrome), you should see something like this:
 
-![Example](assets/SystraceExample.png)
+![Example](/docs/assets/SystraceExample.png)
 
 > **HINT**: Use the WASD keys to strafe and zoom
 
 If your trace .html file isn't opening correctly, check your browser console for the following:
 
-![ObjectObserveError](assets/ObjectObserveError.png)
+![ObjectObserveError](/docs/assets/ObjectObserveError.png)
 
 Since `Object.observe` was deprecated in recent browsers, you may have to open the file from the Google Chrome Tracing tool. You can do so by:
 
@@ -161,7 +163,7 @@ Since `Object.observe` was deprecated in recent browsers, you may have to open t
 >
 > Check this checkbox at the top right of the screen to highlight the 16ms frame boundaries:
 >
-> ![Enable VSync Highlighting](assets/SystraceHighlightVSync.png)
+> ![Enable VSync Highlighting](/docs/assets/SystraceHighlightVSync.png)
 >
 > You should see zebra stripes as in the screenshot above. If you don't, try profiling on a different device: Samsung has been known to have issues displaying vsyncs while the Nexus series is generally pretty reliable.
 
@@ -173,37 +175,37 @@ On the left side, you'll see a set of threads which correspond to the timeline r
 
 - **UI Thread.** This is where standard android measure/layout/draw happens. The thread name on the right will be your package name (in my case book.adsmanager) or UI Thread. The events that you see on this thread should look something like this and have to do with `Choreographer`, `traversals`, and `DispatchUI`:
 
-  ![UI Thread Example](assets/SystraceUIThreadExample.png)
+  ![UI Thread Example](/docs/assets/SystraceUIThreadExample.png)
 
 - **JS Thread.** This is where JavaScript is executed. The thread name will be either `mqt_js` or `<...>` depending on how cooperative the kernel on your device is being. To identify it if it doesn't have a name, look for things like `JSCall`, `Bridge.executeJSCall`, etc:
 
-  ![JS Thread Example](assets/SystraceJSThreadExample.png)
+  ![JS Thread Example](/docs/assets/SystraceJSThreadExample.png)
 
 - **Native Modules Thread.** This is where native module calls (e.g. the `UIManager`) are executed. The thread name will be either `mqt_native_modules` or `<...>`. To identify it in the latter case, look for things like `NativeCall`, `callJavaModuleMethod`, and `onBatchComplete`:
 
-  ![Native Modules Thread Example](assets/SystraceNativeModulesThreadExample.png)
+  ![Native Modules Thread Example](/docs/assets/SystraceNativeModulesThreadExample.png)
 
 - **Bonus: Render Thread.** If you're using Android L (5.0) and up, you will also have a render thread in your application. This thread generates the actual OpenGL commands used to draw your UI. The thread name will be either `RenderThread` or `<...>`. To identify it in the latter case, look for things like `DrawFrame` and `queueBuffer`:
 
-  ![Render Thread Example](assets/SystraceRenderThreadExample.png)
+  ![Render Thread Example](/docs/assets/SystraceRenderThreadExample.png)
 
 #### Identifying a culprit
 
 A smooth animation should look something like the following:
 
-![Smooth Animation](assets/SystraceWellBehaved.png)
+![Smooth Animation](/docs/assets/SystraceWellBehaved.png)
 
 Each change in color is a frame -- remember that in order to display a frame, all our UI work needs to be done by the end of that 16ms period. Notice that no thread is working close to the frame boundary. An application rendering like this is rendering at 60 FPS.
 
 If you noticed chop, however, you might see something like this:
 
-![Choppy Animation from JS](assets/SystraceBadJS.png)
+![Choppy Animation from JS](/docs/assets/SystraceBadJS.png)
 
-Notice that the JS thread is executing basically all the time, and across frame boundaries! This app is not rendering at 60 FPS. In this case, **the problem lies in JS**.
+Notice that the JS thread is executing almost all the time, and across frame boundaries! This app is not rendering at 60 FPS. In this case, **the problem lies in JS**.
 
 You might also see something like this:
 
-![Choppy Animation from UI](assets/SystraceBadUI.png)
+![Choppy Animation from UI](/docs/assets/SystraceBadUI.png)
 
 In this case, the UI and render threads are the ones that have work crossing frame boundaries. The UI that we're trying to render on each frame is requiring too much work to be done. In this case, **the problem lies in the native views being rendered**.
 
@@ -213,22 +215,22 @@ At this point, you'll have some very helpful information to inform your next ste
 
 If you identified a JS problem, look for clues in the specific JS that you're executing. In the scenario above, we see `RCTEventEmitter` being called multiple times per frame. Here's a zoom-in of the JS thread from the trace above:
 
-![Too much JS](assets/SystraceBadJS2.png)
+![Too much JS](/docs/assets/SystraceBadJS2.png)
 
-This doesn't seem right. Why is it being called so often? Are they actually different events? The answers to these questions will probably depend on your product code. And many times, you'll want to look into [shouldComponentUpdate](https://facebook.github.io/react/component-specs.md#updating-shouldcomponentupdate).
+This doesn't seem right. Why is it being called so often? Are they actually different events? The answers to these questions will probably depend on your product code. And many times, you'll want to look into [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate).
 
 #### Resolving native UI Issues
 
 If you identified a native UI problem, there are usually two scenarios:
 
-1.  the UI you're trying to draw each frame involves too much work on the GPU, or
-2.  You're constructing new UI during the animation/interaction (e.g. loading in new content during a scroll).
+1. the UI you're trying to draw each frame involves too much work on the GPU, or
+2. You're constructing new UI during the animation/interaction (e.g. loading in new content during a scroll).
 
 ##### Too much GPU work
 
 In the first scenario, you'll see a trace that has the UI thread and/or Render Thread looking like this:
 
-![Overloaded GPU](assets/SystraceBadUI.png)
+![Overloaded GPU](/docs/assets/SystraceBadUI.png)
 
 Notice the long amount of time spent in `DrawFrame` that crosses frame boundaries. This is time spent waiting for the GPU to drain its command buffer from the previous frame.
 
@@ -237,31 +239,31 @@ To mitigate this, you should:
 - investigate using `renderToHardwareTextureAndroid` for complex, static content that is being animated/transformed (e.g. the `Navigator` slide/alpha animations)
 - make sure that you are **not** using `needsOffscreenAlphaCompositing`, which is disabled by default, as it greatly increases the per-frame load on the GPU in most cases.
 
-If these don't help and you want to dig deeper into what the GPU is actually doing, you can check out [Tracer for OpenGL ES](http://developer.android.com/tools/help/gltracer.html).
+If these don't help and you want to dig deeper into what the GPU is actually doing, you can check out [Tracer for OpenGL ES](http://www.androiddocs.com/tools/help/gltracer.html).
 
 ##### Creating new views on the UI thread
 
 In the second scenario, you'll see something more like this:
 
-![Creating Views](assets/SystraceBadCreateUI.png)
+![Creating Views](/docs/assets/SystraceBadCreateUI.png)
 
 Notice that first the JS thread thinks for a bit, then you see some work done on the native modules thread, followed by an expensive traversal on the UI thread.
 
-There isn't an easy way to mitigate this unless you're able to postpone creating new UI until after the interaction, or you are able to simplify the UI you're creating. The react native team is working on an infrastructure level solution for this that will allow new UI to be created and configured off the main thread, allowing the interaction to continue smoothly.
+There isn't a quick way to mitigate this unless you're able to postpone creating new UI until after the interaction, or you are able to simplify the UI you're creating. The react native team is working on an infrastructure level solution for this that will allow new UI to be created and configured off the main thread, allowing the interaction to continue smoothly.
 
-## 拆包(RAM bundles)和内联引用
+## RAM bundles + inline requires
 
-如果你有一个较为庞大的应用程序，你可能要考虑使用`RAM`(Random Access Modules，随机存取模块）格式的 bundle 和内联引用。这对于具有大量页面的应用程序是非常有用的，这些页面在应用程序的典型使用过程中可能不会被打开。通常对于启动后一段时间内不需要大量代码的应用程序来说是非常有用的。例如应用程序包含复杂的配置文件屏幕或较少使用的功能，但大多数会话只涉及访问应用程序的主屏幕更新。我们可以通过使用`RAM`格式来优化`bundle`的加载，并且内联引用这些功能和页面（当它们被实际使用时）。
+If you have a large app you may want to consider the Random Access Modules (RAM) bundle format, and using inline requires. This is useful for apps that have a large number of screens which may not ever be opened during a typical usage of the app. Generally it is useful to apps that have large amounts of code that are not needed for a while after startup. For instance the app includes complicated profile screens or lesser used features, but most sessions only involve visiting the main screen of the app for updates. We can optimize the loading of the bundle by using the RAM format and requiring those features and screens inline (when they are actually used).
 
-### 加载 JavaScript
+### Loading JavaScript
 
-在 react-native 执行 JS 代码之前，必须将代码加载到内存中并进行解析。如果你加载了一个 50MB 的 bundle，那么所有的 50mb 都必须被加载和解析才能被执行。RAM 格式的 bundle 则对此进行了优化，即启动时只加载 50MB 中实际需要的部分，之后再逐渐按需加载更多的包。
+Before react-native can execute JS code, that code must be loaded into memory and parsed. With a standard bundle if you load a 50mb bundle, all 50mb must be loaded and parsed before any of it can be executed. The optimization behind RAM bundles is that you can load only the portion of the 50mb that you actually need at startup, and progressively load more of the bundle as those sections are needed.
 
-### 内联引用
+### Inline Requires
 
-内联引用(require 代替 import)可以延迟模块或文件的加载，直到实际需要该文件。一个基本的例子看起来像这样：
+Inline requires delay the requiring of a module or file until that file is actually needed. A basic example would look like this:
 
-#### 优化前
+#### VeryExpensive.js
 
 ```
 import React, { Component } from 'react';
@@ -279,7 +281,7 @@ export default class VeryExpensive extends Component {
 }
 ```
 
-#### 优化后
+#### Optimized.js
 
 ```
 import React, { Component } from 'react';
@@ -313,21 +315,21 @@ export default class Optimized extends Component {
 }
 ```
 
-即便不使用 RAM 格式，内联引用也会使启动时间减少，因为优化后的代码只有在第一次 require 时才会执行。
+Even without the RAM format, inline requires can lead to startup time improvements, because the code within VeryExpensive.js will only execute once it is required for the first time.
 
-### 启用 RAM 格式
+### Enable the RAM format
 
-在 iOS 上使用 RAM 格式将创建一个简单的索引文件，React Native 将根据此文件一次加载一个模块。在 Android 上，默认情况下它会为每个模块创建一组文件。你可以像 iOS 一样，强制 Android 只创建一个文件，但使用多个文件可以提高性能，并降低内存占用。
+On iOS using the RAM format will create a single indexed file that react native will load one module at a time. On Android, by default it will create a set of files for each module. You can force Android to create a single file, like iOS, but using multiple files can be more performant and requires less memory.
 
-在 Xcode 中启用 RAM 格式，需要编辑 build phase 里的"Bundle React Native code and images"。在`../node_modules/react-native/scripts/react-native-xcode.sh.sh`中添加 `export BUNDLE_COMMAND="ram-bundle"`:
+Enable the RAM format in Xcode by editing the build phase "Bundle React Native code and images". Before `../node_modules/react-native/scripts/react-native-xcode.sh` add `export BUNDLE_COMMAND="ram-bundle"`:
 
 ```
 export BUNDLE_COMMAND="ram-bundle"
 export NODE_BINARY=node
-../node_modules/react-native/scripts/react-native-xcode.sh.sh
+../node_modules/react-native/scripts/react-native-xcode.sh
 ```
 
-在 Android 上启用 RAM 格式，需要编辑 android/app/build.gradle 文件。在`apply from: "../../node_modules/react-native/react.gradle"`之前修改或添加`project.ext.react`：
+On Android enable the RAM format by editing your `android/app/build.gradle` file. Before the line `apply from: "../../node_modules/react-native/react.gradle"` add or amend the `project.ext.react` block:
 
 ```
 project.ext.react = [
@@ -335,7 +337,7 @@ project.ext.react = [
 ]
 ```
 
-如果在 Android 上，你想使用单个索引文件（如前所述），请在 Android 上使用以下行：
+Use the following lines on Android if you want to use a single indexed file:
 
 ```
 project.ext.react = [
@@ -344,13 +346,15 @@ project.ext.react = [
 ]
 ```
 
-### 配置预加载及内联引用
+> **_Note_**: If you are using [Hermes JS Engine](https://github.com/facebook/hermes), you do not need RAM bundles. When loading the bytecode, `mmap` ensures that the entire file is not loaded.
 
-现在我们已经启用了RAM格式，然而调用`require`会造成额外的开销。因为当遇到尚未加载的模块时，`require`需要通过bridge来发送消息。这主要会影响到启动速度，因为在应用程序加载初始模块时可能触发相当大量的请求调用。幸运的是，我们可以配置一部分模块进行预加载。为了做到这一点，你将需要实现某种形式的内联引用。
+### Configure Preloading and Inline Requires
 
-### 调试预加载的模块
+Now that we have a RAM bundle, there is overhead for calling `require`. `require` now needs to send a message over the bridge when it encounters a module it has not loaded yet. This will impact startup the most, because that is where the largest number of require calls are likely to take place while the app loads the initial module. Luckily we can configure a portion of the modules to be preloaded. In order to do this, you will need to implement some form of inline require.
 
-在您的根文件 (index.(ios|android).js) 中，您可以在初始导入(initial imports)之后添加以下内容：
+### Investigating the Loaded Modules
+
+In your root file (index.(ios|android).js) you can add the following after the initial imports:
 
 ```
 const modules = require.getModules();
@@ -374,7 +378,7 @@ console.log(
 console.log(`module.exports = ${JSON.stringify(loadedModuleNames.sort())};`);
 ```
 
-当你运行你的应用程序时，你可以查看 console 控制台，有多少模块已经加载，有多少模块在等待。你可能想查看 moduleNames，看看是否有任何意外。注意在首次 import 时调用的内联引用。你可能需要检查和重构，以确保只有你想要的模块在启动时加载。请注意，您可以根据需要修改 Systrace 对象，以帮助调试有问题的引用。
+When you run your app, you can look in the console and see how many modules have been loaded, and how many are waiting. You may want to read the moduleNames and see if there are any surprises. Note that inline requires are invoked the first time the imports are referenced. You may need to investigate and refactor to ensure only the modules you want are loaded on startup. Note that you can change the Systrace object on require to help debug problematic requires.
 
 ```
 require.Systrace.beginEvent = (message) => {
@@ -384,9 +388,9 @@ require.Systrace.beginEvent = (message) => {
 }
 ```
 
-虽然每个 App 各有不同，但只加载第一个页面所需的模块是有普适意义的。当你满意时，把 loadedModuleNames 的输出放到 packager/modulePaths.js 文件中。
+Every app is different, but it may make sense to only load the modules you need for the very first screen. When you are satisfied, put the output of the loadedModuleNames into a file named `packager/modulePaths.js`.
 
-### 更新配置文件(metro.config.js)
+### Updating the metro.config.js
 
 We now need to update `metro.config.js` in the root of the project to use our newly generated `modulePaths.js` file:
 
@@ -413,14 +417,14 @@ const config = {
       };
     },
   },
-  projectRoot: ROOT_FOLDER,
+  projectRoot:ROOT_FOLDER,
 };
 
 module.exports = config;
 ```
 
-在启用RAM格式之后，配置文件中的`preloadedModules`条目指示哪些模块需要预加载。当 bundle 被加载时，这些模块立即被加载，甚至在任何 requires 执行之前。blacklist 表明这些模块不应该被要求内联引用，因为它们是预加载的，所以使用内联没有性能优势。实际上每次解析内联引用 JavaScript 都会花费额外的时间。
+The `preloadedModules` entry in the config indicates which modules should be marked as preloaded when building a RAM bundle. When the bundle is loaded, those modules are immediately loaded, before any requires have even executed. The `blacklist` entry indicates that those modules should not be required inline. Because they are preloaded, there is no performance benefit from using an inline require. In fact the javascript spends extra time resolving the inline require every time the imports are referenced.
 
-### 测试和衡量改进
+### Test and Measure Improvements
 
-您现在应该准备好使用RAM格式和内联引用来构建您的应用了。保存启动前后的时间，来测试下有多少改进吧！
+You should now be ready to build your app using the RAM format and inline requires. Make sure you measure the before and after startup times.

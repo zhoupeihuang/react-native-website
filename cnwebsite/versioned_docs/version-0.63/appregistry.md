@@ -1,10 +1,7 @@
 ---
-id: version-0.63-appregistry
+id: appregistry
 title: AppRegistry
-original_id: appregistry
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 <div class="banner-native-code-required">
   <h3>Project with Native Code Required</h3>
@@ -13,7 +10,7 @@ original_id: appregistry
   </p>
 </div>
 
-`AppRegistry`是所有 React Native 应用的 JS 入口。应用的根组件应当通过`AppRegistry.registerComponent`方法注册自己，然后原生系统才可以加载应用的代码包并且在启动完成之后通过调用`AppRegistry.runApplication`来真正运行应用。
+`AppRegistry` is the JS entry point to running all React Native apps. App root components should register themselves with `AppRegistry.registerComponent`, then the native system can load the bundle for the app and then actually run the app when it's ready by invoking `AppRegistry.runApplication`.
 
 ```jsx
 import { Text, AppRegistry } from 'react-native';
@@ -27,15 +24,15 @@ const App = (props) => (
 AppRegistry.registerComponent('Appname', () => App);
 ```
 
-要“结束”一个应用并销毁视图的话，请调用`AppRegistry.unmountApplicationComponentAtRootTag`方法，参数为在`runApplication`中使用的标签名。它们必须严格匹配。
+To "stop" an application when a view should be destroyed, call `AppRegistry.unmountApplicationComponentAtRootTag` with the tag that was passed into `runApplication`. These should always be used as a pair.
 
-`AppRegistry`应当在`require`序列中尽可能早的被 require 到，以确保 JS 运行环境在其它模块之前被准备好。
+`AppRegistry` should be required early in the `require` sequence to make sure the JS execution environment is setup before other modules are required.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `setWrapperComponentProvider()`
 
@@ -43,7 +40,7 @@ AppRegistry.registerComponent('Appname', () => App);
 static setWrapperComponentProvider(provider)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name     | Type              | Required |
 | -------- | ----------------- | -------- |
@@ -57,7 +54,7 @@ static setWrapperComponentProvider(provider)
 static enableArchitectureIndicator(enabled)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name    | Type    | Required |
 | ------- | ------- | -------- |
@@ -71,7 +68,7 @@ static enableArchitectureIndicator(enabled)
 static registerConfig([config])
 ```
 
-**参数：**
+**Parameters:**
 
 | Name   | Type      | Required | Description |
 | ------ | --------- | -------- | ----------- |
@@ -92,7 +89,7 @@ Valid `AppConfig` keys are:
 static registerComponent(appKey, componentProvider, section?)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name              | Type              | Required |
 | ----------------- | ----------------- | -------- |
@@ -108,7 +105,7 @@ static registerComponent(appKey, componentProvider, section?)
 static registerRunnable(appKey, run)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name   | Type     | Required |
 | ------ | -------- | -------- |
@@ -123,7 +120,7 @@ static registerRunnable(appKey, run)
 static registerSection(appKey, component)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name      | Type              | Required |
 | --------- | ----------------- | -------- |
@@ -139,8 +136,6 @@ static getAppKeys()
 ```
 
 Returns an Array of AppKeys
-
----
 
 ### `getSectionKeys()`
 
@@ -197,7 +192,7 @@ Returns a type `Registry` which consist of:
 static setComponentProviderInstrumentationHook(hook)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name | Type     | Required | Description |
 | ---- | -------- | -------- | ----------- |
@@ -218,9 +213,9 @@ The `hook` function returns a React Component
 static runApplication(appKey, appParameters)
 ```
 
-加载 JavaScript bundle 并运行应用。
+Loads the JavaScript bundle and runs the app.
 
-**参数：**
+**Parameters:**
 
 | Name          | Type   | Required |
 | ------------- | ------ | -------- |
@@ -237,7 +232,7 @@ static unmountApplicationComponentAtRootTag(rootTag)
 
 Stops an application when a view should be destroyed.
 
-**参数：**
+**Parameters:**
 
 | Name    | Type   | Required |
 | ------- | ------ | -------- |
@@ -255,7 +250,7 @@ Register a headless task. A headless task is a bit of code that runs without a U
 
 This is a way to run tasks in JavaScript while your app is in the background. It can be used, for example, to sync fresh data, handle push notifications, or play music.
 
-**参数：**
+**Parameters:**
 
 | Name         | Type         | Required | Description |
 | ------------ | ------------ | -------- | ----------- |
@@ -275,7 +270,7 @@ static registerCancellableHeadlessTask(taskKey, taskProvider, taskCancelProvider
 
 Register a headless task which can be cancelled. A headless task is a bit of code that runs without a UI. @param taskKey the key associated with this task @param taskProvider a promise returning function that takes some data passed from the native side as the only argument; when the promise is resolved or rejected the native side is notified of this event and it may decide to destroy the JS context. @param taskCancelProvider a void returning function that takes no arguments; when a cancellation is requested, the function being executed by taskProvider should wrap up and return ASAP.
 
-**参数：**
+**Parameters:**
 
 | Name               | Type               | Required | Description |
 | ------------------ | ------------------ | -------- | ----------- |
@@ -288,6 +283,8 @@ Register a headless task which can be cancelled. A headless task is a bit of cod
 - A valid `TaskCancelProvider` is a function that returns a `TaskCanceller`.
 - A `TaskCanceller` is a function that accepts no argument and returns void.
 
+---
+
 ### `startHeadlessTask()`
 
 ```jsx
@@ -298,7 +295,7 @@ Only called from native code. Starts a headless task.
 
 @param taskId the native id for this task instance to keep track of its execution @param taskKey the key for the task to start @param data the data to pass to the task
 
-**参数：**
+**Parameters:**
 
 | Name    | Type   | Required |
 | ------- | ------ | -------- |
@@ -314,9 +311,11 @@ Only called from native code. Starts a headless task.
 static cancelHeadlessTask(taskId, taskKey)
 ```
 
-Only called from native code. Cancels a headless task. @param taskId the native id for this task instance that was used when startHeadlessTask was called @param taskKey the key for the task that was used when startHeadlessTask was called
+Only called from native code. Cancels a headless task.
 
-**参数：**
+@param taskId the native id for this task instance that was used when startHeadlessTask was called @param taskKey the key for the task that was used when startHeadlessTask was called
+
+**Parameters:**
 
 | Name    | Type   | Required |
 | ------- | ------ | -------- |

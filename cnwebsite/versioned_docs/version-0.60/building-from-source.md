@@ -1,71 +1,74 @@
 ---
-id: version-0.60-building-from-source
-title: 从源代码编译React Native
+id: version-0.5-building-from-source
+title: Building React Native from source
 original_id: building-from-source
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-如果你想提前合并官方的修复补丁，尝试还没发布的最新特性，或者添加一些你自己的原生代码，那么就需要自己从源代码编译 React Native。
+You will need to build React Native from source if you want to work on a new feature/bug fix, try out the latest features which are not released yet, or maintain your own fork with patches that cannot be merged to the core.
 
 ## Android
 
-### 预备条件
+### Prerequisites
 
-在 Android Studio 的 SDK Manager 中安装以下组件：
+Assuming you have the Android SDK installed, run `android` to open the Android SDK Manager.
 
-- Android SDK version 28 (编译 SDK 版本号在[build.gradle](https://github.com/facebook/react-native/blob/master/ReactAndroid/build.gradle)中可以找到)
-- SDK build tools version 28.0.3(编译工具版本号在[build.gradle](https://github.com/facebook/react-native/blob/master/ReactAndroid/build.gradle)中可以找到)
-- Android Support Repository >= 28
-- Android NDK(下载及安装指南请看后文)
+Make sure you have the following installed:
 
-#### [将 Gradle 指向你的安卓 SDK](#gradle-android-sdk)：
+1. Android SDK version 28 (compileSdkVersion in [`build.gradle`](https://github.com/facebook/react-native/blob/master/ReactAndroid/build.gradle))
+2. SDK build tools version 28.0.3 (buildToolsVersion in [`build.gradle`](https://github.com/facebook/react-native/blob/master/ReactAndroid/build.gradle))
+3. Android Support Repository >= 28 (for Android Support Library)
+4. Android NDK (download links and installation instructions below)
 
-**第一步：** 在命令行配置文件中设置环境变量。
+#### [Point Gradle to your Android SDK](#gradle-android-sdk):
 
-注意： 对于不同的 shell 命令行，配置文件有所不同，请根据具体情况选择，例如：
+**Step 1:** Set environment variables through your local shell.
 
-- bash: `.bash_profile` 或 `.bashrc`
-- zsh: `.zprofile` 或 `.zshrc`
-- ksh: `.profile` 或 `$ENV`
+Note: Files may vary based on shell flavor. See below for examples from common shells.
 
-在配置文件中加入（请填写自己的实际路径）：
+- bash: `.bash_profile` or `.bashrc`
+- zsh: `.zprofile` or `.zshrc`
+- ksh: `.profile` or `$ENV`
+
+Example:
 
 ```
 export ANDROID_SDK=/Users/your_unix_name/android-sdk-macosx
 export ANDROID_NDK=/Users/your_unix_name/android-ndk/android-ndk-r17c
 ```
 
-**第二步：** 在项目目录的 android 目录下创建`local.properties`文件。添加以下内容：（注意：windows 下路径需要使用反双斜杠）
+**Step 2:** Create a `local.properties` file in the `android` directory of your react-native app with the following contents:
+
+Example:
 
 ```
-ndk.dir=指向android ndk目录的绝对路径
+sdk.dir=/Users/your_unix_name/android-sdk-macosx
+ndk.dir=/Users/your_unix_name/android-ndk/android-ndk-r17c
 ```
 
-#### Android NDK 的下载链接（0.57 之前使用 r10e 版本）
+#### Download links for Android NDK
 
-1.  Mac OS (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-darwin-x86_64.zip
-2.  Linux (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-linux-x86_64.zip
-3.  Windows (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-windows-x86_64.zip
-4.  Windows (32-bit) - http://dl.google.com/android/repository/android-ndk-r17c-windows-x86.zip
+1. Mac OS (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-darwin-x86_64.zip
+2. Linux (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-linux-x86_64.zip
+3. Windows (64-bit) - http://dl.google.com/android/repository/android-ndk-r17c-windows-x86_64.zip
+4. Windows (32-bit) - http://dl.google.com/android/repository/android-ndk-r17c-windows-x86.zip
 
-安装说明请参考[官方文档](https://developer.android.com/ndk/index.html)。
+You can find further instructions on the [official page](https://developer.android.com/ndk/index.html).
 
-### 编译源代码
+### Building the source
 
-#### 1. 下载 react-native 源代码
+#### 1. Installing the fork
 
-首先，在你的分支代码中安装 react-native。例如从官方地址安装主干版本：
+First, you need to install `react-native` from your fork. For example, to install the master branch from the official repo, run the following:
 
 ```sh
 npm install --save github:facebook/react-native#master
 ```
 
-或者，你也可以把仓库克隆到你的`node_modules`目录，然后运行`npm install`进行安装
+Alternatively, you can clone the repo to your `node_modules` directory and run `npm install` inside the cloned repo.
 
-#### 2. 添加 gradle 依赖
+#### 2. Adding gradle dependencies
 
-在`android/build.gradle`中添加`gradle-download-task`依赖
+Add `gradle-download-task` as dependency in `android/build.gradle`:
 
 ```gradle
 ...
@@ -73,15 +76,15 @@ npm install --save github:facebook/react-native#master
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'de.undercouch:gradle-download-task:3.4.3'
 
-        // 注意：不要把你的应用的依赖放在这里；
-        // 它们应该放在各自模块的build.gradle文件中
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 ...
 ```
 
-#### 3. 添加`:ReactAndroid`项目
+#### 3. Adding the `:ReactAndroid` project
 
-在`android/settings.gradle`中添加`:ReactAndroid`项目
+Add the `:ReactAndroid` project in `android/settings.gradle`:
 
 ```gradle
 ...
@@ -92,7 +95,7 @@ project(':ReactAndroid').projectDir = new File(
 ...
 ```
 
-修改你的`android/app/build.gradle`文件，使用`:ReactAndroid`替换预编译库。例如用`implementation project(':ReactAndroid')`替换`implementation 'com.facebook.react:react-native:+'`
+Modify your `android/app/build.gradle` to use the `:ReactAndroid` project instead of the pre-compiled library, e.g. - replace `implementation 'com.facebook.react:react-native:+'` with `implementation project(':ReactAndroid')`:
 
 ```gradle
 ...
@@ -107,11 +110,11 @@ dependencies {
 ...
 ```
 
-#### 4. 让第三方模块使用你的分支
+#### 4. Making 3rd-party modules use your fork
 
-如果你使用第三方的 React Native 模块，你需要重写它们的依赖以避免它们仍然打包官方的预编译库。否则当你编译时会报错-`Error: more than one library with package name 'com.facebook.react'.`（错误：有几个重名的'com.facebook.react'的包）
+If you use 3rd-party React Native modules, you need to override their dependencies so that they don't bundle the pre-compiled library. Otherwise you'll get an error while compiling - `Error: more than one library with package name 'com.facebook.react'`.
 
-修改你的`android/app/build.gradle`文件，添加如下内容：
+Modify your `android/app/build.gradle`, and add:
 
 ```gradle
 configurations.all {
@@ -119,15 +122,15 @@ configurations.all {
 }
 ```
 
-### 在 Android Studio 中编译
+### Building from Android Studio
 
-在 Android Studio 欢迎页中选择`Import project`，随后选择您应用所在的文件夹。
+From the Welcome screen of Android Studio choose "Import project" and select the `android` folder of your app.
 
-您还需要使用*Run*按钮(**译注**：Android Studio 中绿色的运行按钮)来在设备上运行您的 app，此外 Android Studio 不会自动开启服务，你还需要通过`npm start`来启动开发服务。
+You should be able to use the _Run_ button to run your app on a device. Android Studio won't start the packager automatically, you'll need to start it by running `npm start` on the command line.
 
-### 其他注意事项
+### Additional notes
 
-从源码进行编译将会花费很长时间，尤其是第一次编译，需要下载接近 200M 的文件然后编译原生代码。每次你在自己的仓库更新`react-native`版本时，构建的目录可能会被删除，所有的文件都需要重新下载。为了避免构建目录被删，你需要编辑`~/.gradle/init.gradle`文件来修改构建目录路径。
+Building from source can take a long time, especially for the first build, as it needs to download ~200 MB of artifacts and compile the native code. Every time you update the `react-native` version from your repo, the build directory may get deleted, and all the files are re-downloaded. To avoid this, you might want to change your build directory path by editing the `~/.gradle/init.gradle` file:
 
 ```gradle
 gradle.projectsLoaded {
@@ -143,7 +146,7 @@ Gradle build fails in `ndk-build`. See the section about `local.properties` file
 
 ## Testing your Changes
 
-If you made changes to React Native and submit a pull request, all tests will run on your pull request automatically. To run the tests locally, see [Running Tests](testing.md).
+If you made changes to React Native and submit a pull request, all tests will run on your pull request automatically. To run the tests locally, see [Testing your Changes](testing.md).
 
 ## Making your changes available
 

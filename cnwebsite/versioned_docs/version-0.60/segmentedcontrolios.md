@@ -1,12 +1,11 @@
 ---
-id: version-0.60-segmentedcontrolios
+id: segmentedcontrolios
 title: SegmentedControlIOS
-original_id: segmentedcontrolios
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/segmented-control](https://github.com/react-native-segmented-control/segmented-control) instead.
 
-使用`SegmentedControlIOS`来在 iOS 设备上渲染一个`UISegmentedControl`组件。这是一个分段显示多个选项的组件。
+Uses `SegmentedControlIOS` to render a UISegmentedControl iOS.
 
 #### Programmatically changing selected index
 
@@ -14,45 +13,55 @@ The selected index can be changed on the fly by assigning the selectedIndex prop
 
 ## Example
 
+```SnackPlayer name=SegmentedControlIOS%20Example&supportedPlatforms=ios
+import React, { useState } from "react";
+import { SegmentedControlIOS, StyleSheet, Text, View } from "react-native";
+
+export default App = () => {
+  const [index, setIndex] = useState(0);
+  return (
+    <View style={styles.container}>
+      <SegmentedControlIOS
+        values={['One', 'Two']}
+        selectedIndex={index}
+        onChange={(event) => {
+          setIndex(event.nativeEvent.selectedSegmentIndex);
+        }}
+      />
+      <Text style={styles.text}>
+        Selected index: {index}
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 24,
+    justifyContent: "center"
+  },
+  text: {
+    marginTop: 24
+  }
+});
 ```
-<SegmentedControlIOS
-  values={['One', 'Two']}
-  selectedIndex={this.state.selectedIndex}
-  onChange={(event) => {
-    this.setState({selectedIndex: event.nativeEvent.selectedSegmentIndex});
-  }}
-/>
-```
-
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/SegmentedControlIOS/example.gif" width="360"></img></center>
-
-### 查看 Props
-
-- [View props...](view.md#props)
-
-* [`enabled`](segmentedcontrolios.md#enabled)
-* [`momentary`](segmentedcontrolios.md#momentary)
-* [`onChange`](segmentedcontrolios.md#onchange)
-* [`onValueChange`](segmentedcontrolios.md#onvaluechange)
-* [`selectedIndex`](segmentedcontrolios.md#selectedindex)
-* [`tintColor`](segmentedcontrolios.md#tintcolor)
-* [`values`](segmentedcontrolios.md#values)
 
 ---
 
-# 文档
+# Reference
 
 ## Props
+
+Inherits [View Props](view.md#props).
 
 ### `enabled`
 
 If false the user won't be able to interact with the control. Default value is true.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
-
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/SegmentedControlIOS/enabled.png" width="360"></img></center>
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
@@ -60,11 +69,9 @@ If false the user won't be able to interact with the control. Default value is t
 
 If true, then selecting a segment won't persist visually. The `onValueChange` callback will still work as expected.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
-
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/SegmentedControlIOS/momentary.gif" width="360"></img></center>
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
@@ -72,9 +79,9 @@ If true, then selecting a segment won't persist visually. The `onValueChange` ca
 
 Callback that is called when the user taps a segment; passes the event as an argument
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
@@ -82,9 +89,9 @@ Callback that is called when the user taps a segment; passes the event as an arg
 
 Callback that is called when the user taps a segment; passes the segment's value as an argument
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
@@ -92,9 +99,9 @@ Callback that is called when the user taps a segment; passes the segment's value
 
 The index in `props.values` of the segment to be (pre)selected.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
@@ -102,11 +109,9 @@ The index in `props.values` of the segment to be (pre)selected.
 
 Accent color of the control.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
-
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/SegmentedControlIOS/tintColor.png" width="360"></img></center>
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
@@ -114,6 +119,6 @@ Accent color of the control.
 
 The labels for the control's segment buttons, in order.
 
-| 类型            | 必填 |
-| --------------- | ---- |
-| array of string | 否   |
+| Type            | Required |
+| --------------- | -------- |
+| array of string | No       |

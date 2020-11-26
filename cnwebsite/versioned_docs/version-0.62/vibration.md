@@ -1,37 +1,26 @@
 ---
-id: version-0.62-vibration
+id: vibration
 title: Vibration
-original_id: vibration
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 Vibrates the device.
 
 ## Example
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Vibration&supportedPlatforms=ios,android
 import React from "react";
 import { Button, Platform, Text, Vibration, View, SafeAreaView, StyleSheet } from "react-native";
 
-const Separator = () => {
+function Separator() {
   return <View style={Platform.OS === "android" ? styles.separator : null} />;
 }
 
-const App = () => {
+const App =  () =>  {
 
   const ONE_SECOND_IN_MS = 1000;
 
@@ -107,20 +96,21 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default App
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Vibration&supportedPlatforms=ios,android
-import React, { Component } from "react";
+import React from "react";
 import { Button, Platform, Text, Vibration, View, SafeAreaView, StyleSheet } from "react-native";
 
-const Separator = () => {
+function Separator() {
   return <View style={Platform.OS === "android" ? styles.separator : null} />;
 }
 
-class App extends Component {
+export default class App extends React.Component {
   render() {
     const ONE_SECOND_IN_MS = 1000;
 
@@ -196,11 +186,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 > Android apps should request the `android.permission.VIBRATE` permission by adding `<uses-permission android:name="android.permission.VIBRATE"/>` to `AndroidManifest.xml`.
 

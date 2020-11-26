@@ -1,26 +1,25 @@
 ---
-id: version-0.62-network
-title: 网络
-original_id: network
+id: network
+title: Networking
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-很多移动应用都需要从远程地址中获取数据或资源。你可能需要给某个 REST API 发起 POST 请求以提交用户数据，又或者可能仅仅需要从某个服务器上获取一些静态内容——以下就是你会用到的东西。新手可以对照这个[简短的视频教程](http://v.youku.com/v_show/id_XMTUyNTEwMTA5Ng==.html)加深理解。
+Many mobile apps need to load resources from a remote URL. You may want to make a POST request to a REST API, or you may need to fetch a chunk of static content from another server.
 
-## 使用 Fetch
+## Using Fetch
 
-React Native 提供了和 web 标准一致的[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)，用于满足开发者访问网络的需求。如果你之前使用过`XMLHttpRequest`(即俗称的 ajax)或是其他的网络 API，那么 Fetch 用起来将会相当容易上手。这篇文档只会列出 Fetch 的基本用法，并不会讲述太多细节，你可以使用你喜欢的搜索引擎去搜索`fetch api`关键字以了解更多信息。
+React Native provides the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) for your networking needs. Fetch will seem familiar if you have used `XMLHttpRequest` or other networking APIs before. You may refer to MDN's guide on [Using Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) for additional information.
 
-#### 发起请求
+#### Making requests
 
-要从任意地址获取内容的话，只需简单地将网址作为参数传递给 fetch 方法即可（fetch 这个词本身也就是`获取`的意思）：
+In order to fetch content from an arbitrary URL, you can pass the URL to fetch:
 
 ```jsx
 fetch('https://mywebsite.com/mydata.json');
 ```
 
-Fetch 还有可选的第二个参数，可以用来定制 HTTP 请求一些参数。你可以指定 header 参数，或是指定使用 POST 方法，又或是提交数据等等：
+Fetch also takes an optional second argument that allows you to customize the HTTP request. You may want to specify additional headers, or make a POST request:
 
 ```jsx
 fetch('https://mywebsite.com/endpoint/', {
@@ -36,36 +35,20 @@ fetch('https://mywebsite.com/endpoint/', {
 });
 ```
 
-提交数据的格式关键取决于 headers 中的`Content-Type`。`Content-Type`有很多种，对应 body 的格式也有区别。到底应该采用什么样的`Content-Type`取决于服务器端，所以请和服务器端的开发人员沟通确定清楚。常用的'Content-Type'除了上面的'application/json'，还有传统的网页表单形式，示例如下：
+Take a look at the [Fetch Request docs](https://developer.mozilla.org/en-US/docs/Web/API/Request) for a full list of properties.
 
-```js
-fetch('https://mywebsite.com/endpoint/', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/x-www-form-urlencoded'
-  },
-  body: 'key1=value1&key2=value2'
-});
-```
+#### Handling the response
 
-可以参考[Fetch 请求文档](https://developer.mozilla.org/en-US/docs/Web/API/Request)来查看所有可用的参数。
+The above examples show how you can make a request. In many cases, you will want to do something with the response.
 
-> 注意：使用 Chrome 调试目前无法观测到 React Native 中的网络请求，你可以使用第三方的[react-native-debugger](https://github.com/jhen0409/react-native-debugger)来进行观测。
-
-#### 处理服务器的响应数据
-
-上面的例子演示了如何发起请求。很多情况下，你还需要处理服务器回复的数据。
-
-网络请求天然是一种异步操作（译注：同样的还有[asyncstorage](asyncstorage.html)，请不要再问怎样把异步变成同步！无论在语法层面怎么折腾，它们的异步本质是无法变更的。异步的意思是你应该趁这个时间去做点别的事情，比如显示 loading，而不是让界面卡住傻等）。Fetch 方法会返回一个[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)，这种模式可以简化异步风格的代码（译注：同样的，如果你不了解 promise，建议使用搜索引擎补课）：
+Networking is an inherently asynchronous operation. Fetch methods will return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) that makes it straightforward to write code that works in an asynchronous manner:
 
 ```jsx
-function getMoviesFromApiAsync() {
-  return fetch(
-    'https://facebook.github.io/react-native/movies.json'
-  )
+function getMoviesFromApi() {
+  return fetch('https://reactnative.dev/movies.json')
     .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson.movies;
+    .then((json) => {
+      return json.movies;
     })
     .catch((error) => {
       console.error(error);
@@ -73,38 +56,26 @@ function getMoviesFromApiAsync() {
 }
 ```
 
-你也可以在 React Native 应用中使用 ES2017 标准中的`async`/`await` 语法：
+You can also use the `async` / `await` syntax in a React Native app:
 
 ```jsx
-// 注意这个方法前面有async关键字
-async function getMoviesFromApi() {
+async function getMoviesFromApiAsync() {
   try {
-    // 注意这里的await语句，其所在的函数必须有async关键字声明
     let response = await fetch(
-      'https://facebook.github.io/react-native/movies.json'
+      'https://reactnative.dev/movies.json'
     );
-    let responseJson = await response.json();
-    return responseJson.movies;
+    let json = await response.json();
+    return json.movies;
   } catch (error) {
     console.error(error);
   }
 }
 ```
 
-别忘了 catch 住`fetch`可能抛出的异常，否则出错时你可能看不到任何提示。
+Don't forget to catch any errors that may be thrown by `fetch`, otherwise they will be dropped silently.
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Fetch%20Example
 import React, { useEffect, useState } from 'react';
@@ -138,7 +109,8 @@ export default App = () => {
 };
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Fetch%20Example
 import React, { Component } from 'react';
@@ -186,18 +158,17 @@ export default class App extends Component {
 };
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
-> 默认情况下，iOS 会阻止所有 http 的请求，以督促开发者使用 https。如果你仍然需要使用 http 协议，那么首先需要添加一个 App Transport Security 的例外，详细可参考[这篇帖子](https://segmentfault.com/a/1190000002933776)。
+> By default, iOS will block any request that's not encrypted using [SSL](https://hosting.review/web-hosting-glossary/#12). If you need to fetch from a cleartext URL (one that begins with `http`) you will first need to [add an App Transport Security exception](integration-with-existing-apps.md#test-your-integration). If you know ahead of time what domains you will need access to, it is more secure to add exceptions only for those domains; if the domains are not known until runtime you can [disable ATS completely](integration-with-existing-apps.md#app-transport-security). Note however that from January 2017, [Apple's App Store review will require reasonable justification for disabling ATS](https://forums.developer.apple.com/thread/48979). See [Apple's documentation](https://developer.apple.com/library/ios/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html#//apple_ref/doc/uid/TP40009251-SW33) for more information.
 
-> 从 Android9 开始，也会默认阻止 http 请求，请参考[相关配置](https://blog.csdn.net/qq_40347548/article/details/86766932)
+### Using Other Networking Libraries
 
-### 使用其他的网络库
-
-React Native 中已经内置了[XMLHttpRequest API](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)(也就是俗称的 ajax)。一些基于 XMLHttpRequest 封装的第三方库也可以使用，例如[frisbee](https://github.com/niftylettuce/frisbee)或是[axios](https://github.com/mzabriskie/axios)等。但注意不能使用 jQuery，因为 jQuery 中还使用了很多浏览器中才有而 RN 中没有的东西（所以也不是所有 web 中的 ajax 库都可以直接使用）。
+The [XMLHttpRequest API](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest) is built into React Native. This means that you can use third party libraries such as [frisbee](https://github.com/niftylettuce/frisbee) or [axios](https://github.com/mzabriskie/axios) that depend on it, or you can use the XMLHttpRequest API directly if you prefer.
 
 ```jsx
-const request = new XMLHttpRequest();
+var request = new XMLHttpRequest();
 request.onreadystatechange = (e) => {
   if (request.readyState !== 4) {
     return;
@@ -214,14 +185,14 @@ request.open('GET', 'https://mywebsite.com/endpoint/');
 request.send();
 ```
 
-> 需要注意的是，安全机制与网页环境有所不同：在应用中你可以访问任何网站，没有[跨域](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing)的限制。
+> The security model for XMLHttpRequest is different than on web as there is no concept of [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) in native apps.
 
-## WebSocket 支持
+## WebSocket Support
 
-React Native 还支持[WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket)，这种协议可以在单个 TCP 连接上提供全双工的通信信道。
+React Native also supports [WebSockets](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket), a protocol which provides full-duplex communication channels over a single TCP connection.
 
 ```jsx
-const ws = new WebSocket('ws://host.com/path');
+var ws = new WebSocket('ws://host.com/path');
 
 ws.onopen = () => {
   // connection opened
@@ -243,10 +214,6 @@ ws.onclose = (e) => {
   console.log(e.code, e.reason);
 };
 ```
-
-## High Five!
-
-现在你的应用已经可以从各种渠道获取数据了，那么接下来面临的问题多半就是如何在不同的页面间组织和串联内容了。要管理页面的跳转，你需要学习[使用导航器跳转页面](navigation.md)。
 
 ## Known Issues with `fetch` and cookie based authentication
 

@@ -1,10 +1,9 @@
 ---
-id: version-0.62-systrace
+id: systrace
 title: Systrace
-original_id: systrace
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 `Systrace` is a standard Android marker-based profiling tool (and is installed when you install the Android platform-tools package). Profiled code blocks are surrounded by start/end markers which are then visualized in a colorful chart format. Both the Android SDK and React Native framework provide standard markers that you can visualize.
 
@@ -12,24 +11,14 @@ original_id: systrace
 
 `Systrace` allows you to mark JavaScript (JS) events with a tag and an integer value. Capture the non-Timed JS events in EasyProfiler.
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Systrace%20Function%20Component%20Example
 import React from "react";
 import { Button, Text, View, StyleSheet, Systrace } from "react-native";
 
-const App = () =>  {
+const App =  () =>  {
 
   const enableProfiling = () => {
     Systrace.setEnabled(true); // Call setEnabled to turn on the profiling.
@@ -70,24 +59,25 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default App
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Systrace%20Class%20Component%20Example
-import React, { Component } from "react";
+import React from "react";
 import { Button, Text, View, StyleSheet, Systrace } from "react-native";
 
-class App extends Component {
+export default class App extends React.Component {
 
-  enableProfiling = () => {
+  enableProfiling(){
     Systrace.setEnabled(true); // Call setEnabled to turn on the profiling.
     Systrace.beginEvent('event_label')
     Systrace.counterEvent('event_label', 10);
   }
 
-  stopProfiling = () => {
+  stopProfiling(){
     Systrace.endEvent()
   }
 
@@ -121,11 +111,10 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ---
 

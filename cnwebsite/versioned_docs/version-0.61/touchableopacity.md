@@ -1,18 +1,15 @@
 ---
-id: version-0.61-touchableopacity
+id: touchableopacity
 title: TouchableOpacity
-original_id: touchableopacity
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A wrapper for making views respond properly to touches. On press down, the opacity of the wrapped view is decreased, dimming it.
 
-本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低。
+Opacity is controlled by wrapping the children in an Animated.View, which is added to the view hierarchy. Be aware that this can affect layout.
 
-不透明度的变化是通过把子元素封装在一个`Animated.View`中来实现的，这个动画视图会被添加到视图层级中，少数情况下有可能会影响到布局。（译注：此组件与TouchableHighlight的区别在于并没有额外的颜色变化，更适于一般场景。）
+Example:
 
-例子：
-
-```
+```jsx
 renderButton: function() {
   return (
     <TouchableOpacity onPress={this._onPressButton}>
@@ -25,9 +22,9 @@ renderButton: function() {
 },
 ```
 
-### 示例
+### Example
 
-```ReactNativeWebPlayer
+```SnackPlayer name=TouchableOpacity
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
@@ -98,19 +95,19 @@ Inherits [TouchableWithoutFeedback Props](touchablewithoutfeedback.md#props).
 
 ### `style`
 
-| 类型       | 必填 |
-| ---------- | ---- |
-| View.style | 否   |
+| Type       | Required |
+| ---------- | -------- |
+| View.style | No       |
 
 ---
 
 ### `activeOpacity`
 
-指定封装的视图在被触摸操作激活时以多少不透明度显示（0到1之间）。默认值为0.2。
+Determines what the opacity of the wrapped view should be when touch is active. Defaults to 0.2.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
@@ -120,9 +117,9 @@ _(Apple TV only)_ Object with properties to control Apple TV parallax effects.
 
 enabled: If true, parallax effects are enabled. Defaults to true. shiftDistanceX: Defaults to 2.0. shiftDistanceY: Defaults to 2.0. tiltAngle: Defaults to 0.05. magnification: Defaults to 1.0. pressMagnification: Defaults to 1.0. pressDuration: Defaults to 0.3. pressDelay: Defaults to 0.0.
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| object | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| object | No       | iOS      |
 
 ---
 
@@ -130,11 +127,61 @@ enabled: If true, parallax effects are enabled. Defaults to true. shiftDistanceX
 
 _(Apple TV only)_ TV preferred focus (see documentation for the View component).
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
-## 方法
+---
+
+### `nextFocusDown`
+
+TV next focus down (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusForward`
+
+TV next focus forward (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusLeft`
+
+TV next focus left (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusRight`
+
+TV next focus right (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusUp`
+
+TV next focus up (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
+
+## Methods
 
 ### `setOpacityTo()`
 
@@ -142,4 +189,4 @@ _(Apple TV only)_ TV preferred focus (see documentation for the View component).
 setOpacityTo((value: number), (duration: number));
 ```
 
-将本组件的不透明度设为指定值（伴有过渡动画）。
+Animate the touchable to a new opacity.

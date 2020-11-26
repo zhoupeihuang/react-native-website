@@ -1,10 +1,7 @@
 ---
-id: version-0.61-fast-refresh
-title: 快速自动刷新 Fast Refresh
-original_id: fast-refresh
+id: fast-refresh
+title: Fast Refresh
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
 
 Fast Refresh is a React Native feature that allows you to get near-instant feedback for changes in your React components. Fast Refresh is enabled by default, and you can toggle "Enable Fast Refresh" in the React Native developer menu. With Fast Refresh enabled, most edits should be visible within a second or two.
 
@@ -32,7 +29,7 @@ Fast Refresh tries to preserve local React state in the component you're editing
 - The module you're editing might have _other_ exports in addition to a React component.
 - Sometimes, a module would export the result of calling higher-order component like `createNavigationContainer(MyScreen)`. If the returned component is a class, state will be reset.
 
-In the longer term, as more of your codebase moves to function components and Hooks, you can expect state to be preserved in more cases.
+In longer term, as more of your codebase moves to function components and Hooks, you can expect state to be preserved in more cases.
 
 ## Tips
 

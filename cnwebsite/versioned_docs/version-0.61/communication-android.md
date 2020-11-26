@@ -1,28 +1,25 @@
 ---
-id: version-0.61-communication-android
-title: 和原生端通信
-original_id: communication-android
+id: communication-android
+title: Communication between native and React Native
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+In [Integrating with Existing Apps guide](integration-with-existing-apps.md) and [Native UI Components guide](native-components-android.md) we learn how to embed React Native in a native component and vice versa. When we mix native and React Native components, we'll eventually find a need to communicate between these two worlds. Some ways to achieve that have been already mentioned in other guides. This article summarizes available techniques.
 
-通过[植入原生应用](integration-with-existing-apps.md)和[原生 UI 组件](native-component-android.md)两篇文档，我们学习了 React Native 和原生组件的互相整合。在整合的过程中，我们会需要在两个世界间互相通信。有些方法已经在其他的指南中提到了，这篇文章总结了所有可行的技术。
+## Introduction
 
-## 简介
+React Native is inspired by React, so the basic idea of the information flow is similar. The flow in React is one-directional. We maintain a hierarchy of components, in which each component depends only on its parent and its own internal state. We do this with properties: data is passed from a parent to its children in a top-down manner. If an ancestor component relies on the state of its descendant, one should pass down a callback to be used by the descendant to update the ancestor.
 
-React Native 是从 React 中得到的灵感，因此基本的信息流是类似的。在 React 中信息是单向的。我们维护着组件层次，在其中每个组件都仅依赖于它父组件和自己的状态。通过属性（props）我们将信息从上而下的从父组件传递到子元素。如果一个祖先组件需要自己子孙的状态，推荐的方法是传递一个回调函数给对应的子元素。
+The same concept applies to React Native. As long as we are building our application purely within the framework, we can drive our app with properties and callbacks. But, when we mix React Native and native components, we need some specific, cross-language mechanisms that would allow us to pass information between them.
 
-React Native 也运用了相同的概念。只要我们完全在框架内构建应用，就可以通过属性和回调函数来调动整个应用。但是，当我们混合 React Native 和原生组件时，我们需要一些特殊的，跨语言的机制来传递信息。
+## Properties
 
-## 属性
+Properties are the simplest way of cross-component communication. So we need a way to pass properties both from native to React Native, and from React Native to native.
 
-属性是最简单的跨组件通信。因此我们需要一个方法从原生组件传递属性到 React Native 或者从 React Native 到原生组件。
-
-### 从原生组件传递属性到 React Native
+### Passing properties from native to React Native
 
 You can pass properties down to the React Native app by providing a custom implementation of `ReactActivityDelegate` in your main activity. This implementation should override `getLaunchOptions` to return a `Bundle` with the desired properties.
 
-```
+```java
 public class MainActivity extends ReactActivity {
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
@@ -42,33 +39,23 @@ public class MainActivity extends ReactActivity {
 }
 ```
 
-```
+```jsx
 import React from 'react';
-import {
-  View,
-  Image
-} from 'react-native';
+import { View, Image } from 'react-native';
 
 export default class ImageBrowserApp extends React.Component {
   renderImage(imgURI) {
-    return (
-      <Image source={{uri: imgURI}} />
-    );
+    return <Image source={{ uri: imgURI }} />;
   }
   render() {
-    return (
-      <View>
-        {this.props.images.map(this.renderImage)}
-      </View>
-    );
+    return <View>{this.props.images.map(this.renderImage)}</View>;
   }
 }
-
 ```
 
 `ReactRootView` provides a read-write property `appProperties`. After `appProperties` is set, the React Native app is re-rendered with new properties. The update is only performed when the new updated properties differ from the previous ones.
 
-```
+```java
 Bundle updatedProps = mReactRootView.getAppProperties();
 ArrayList<String> imageList = new ArrayList<String>(Arrays.asList(
         "http://foo.com/bar3.png",
@@ -83,11 +70,11 @@ It is fine to update properties anytime. However, updates have to be performed o
 
 There is no way to update only a few properties at a time. We suggest that you build it into your own wrapper instead.
 
-> **_Note:_** Currently, JS functions `componentWillReceiveProps` and `componentWillUpdateProps` of the top level RN component will not be called after a prop update. However, you can access the new props in `componentWillMount` function.
+> **_Note:_** Currently, JS function `componentWillUpdateProps` of the top level RN component will not be called after a prop update. However, you can access the new props in `componentDidMount` function.
 
 ### Passing properties from React Native to native
 
-The problem exposing properties of native components is covered in detail in [this article](native-components-android.md#3-expose-view-property-setters-using-reactprop-or-reactpropgroup-annotation). In short, properties that are to be reflected in JavaScript needs to be exposed as setter method annotated with `@ReactProp`, then just use them in React Native as if the component was an ordinary React Native component.
+The problem exposing properties of native components is covered in detail in [this article](native-components-android.md#3-expose-view-property-setters-using-reactprop-or-reactpropgroup-annotation). In short, properties that are to be reflected in JavaScript needs to be exposed as setter method annotated with `@ReactProp`, then use them in React Native as if the component was an ordinary React Native component.
 
 ### Limits of properties
 
@@ -107,9 +94,9 @@ Events are described in detail in [this article](native-components-android.md#ev
 
 Events are powerful, because they allow us to change React Native components without needing a reference to them. However, there are some pitfalls that you can fall into while using them:
 
-* As events can be sent from anywhere, they can introduce spaghetti-style dependencies into your project.
-* Events share namespace, which means that you may encounter some name collisions. Collisions will not be detected statically, which makes them hard to debug.
-* If you use several instances of the same React Native component and you want to distinguish them from the perspective of your event, you'll likely need to introduce identifiers and pass them along with events (you can use the native view's `reactTag` as an identifier).
+- As events can be sent from anywhere, they can introduce spaghetti-style dependencies into your project.
+- Events share namespace, which means that you may encounter some name collisions. Collisions will not be detected statically, which makes them hard to debug.
+- If you use several instances of the same React Native component and you want to distinguish them from the perspective of your event, you'll likely need to introduce identifiers and pass them along with events (you can use the native view's `reactTag` as an identifier).
 
 ### Calling native functions from React Native (native modules)
 

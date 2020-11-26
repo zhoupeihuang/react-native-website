@@ -1,18 +1,15 @@
 ---
-id: version-0.60-image
+id: image
 title: Image
-original_id: image
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A React component for displaying different types of images, including network images, static resources, temporary local images, and images from local disk, such as the camera roll.
 
-用于显示多种不同类型图片的 React 组件，包括网络图片、静态资源、临时的本地图片、以及本地磁盘上的图片（如相册）等。
+This example shows fetching and displaying an image from local storage as well as one from network and even from data provided in the `'data:'` uri scheme.
 
-下面的例子分别演示了如何显示从本地缓存、网络甚至是以`'data:'`的 base64 uri 形式提供的图片。
+> Note that for network and data images, you will need to manually specify the dimensions of your image!
 
-> 请注意对于网络和 base64 数据的图片需要手动指定尺寸！
-
-```ReactNativeWebPlayer
+```SnackPlayer name=Image
 import React, { Component } from 'react';
 import { View, Image } from 'react-native';
 
@@ -21,11 +18,12 @@ export default class DisplayAnImage extends Component {
     return (
       <View>
         <Image
-          source={require('/react-native/img/favicon.png')}
+          style={{width: 50, height: 50}}
+          source={require('@expo/snack-static/react-native-logo.png')}
         />
         <Image
           style={{width: 50, height: 50}}
-          source={{uri: 'https://facebook.github.io/react-native/img/tiny_logo.png'}}
+          source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
         />
         <Image
           style={{width: 66, height: 58}}
@@ -37,16 +35,17 @@ export default class DisplayAnImage extends Component {
 }
 ```
 
-你可以给图片添加`style`属性：
+You can also add `style` to an image:
 
-```ReactNativeWebPlayer
+```SnackPlayer name=Image
 import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   stretch: {
     width: 50,
-    height: 200
+    height: 200,
+    resizeMode: 'stretch'
   }
 });
 
@@ -56,7 +55,7 @@ export default class DisplayAnImageWithStyle extends Component {
       <View>
         <Image
           style={styles.stretch}
-          source={require('/react-native/img/favicon.png')}
+          source={require('@expo/snack-static/react-native-logo.png')}
         />
       </View>
     );
@@ -64,62 +63,32 @@ export default class DisplayAnImageWithStyle extends Component {
 }
 ```
 
-### 在 Android 上支持 GIF 和 WebP 格式图片
+### GIF and WebP support on Android
 
-默认情况下 Android 是不支持 GIF 和 WebP 格式的。你需要在`android/app/build.gradle`文件中根据需要手动添加以下模块：
+When building your own native code, GIF and WebP are not supported by default on Android.
 
-```
+You will need to add some optional modules in `android/app/build.gradle`, depending on the needs of your app.
+
+```gradle
 dependencies {
-  // 如果你需要支持Android4.0(API level 14)之前的版本
-  implementation 'com.facebook.fresco:animated-base-support:1.10.0'
+  // If your app supports Android versions before Ice Cream Sandwich (API level 14)
+  implementation 'com.facebook.fresco:animated-base-support:1.3.0'
 
-  // 如果你需要支持GIF动图
-  implementation 'com.facebook.fresco:animated-gif:1.12.0'
+  // For animated GIF support
+  implementation 'com.facebook.fresco:animated-gif:2.0.0'
 
-  // 如果你需要支持WebP格式，包括WebP动图
-  implementation 'com.facebook.fresco:animated-webp:1.10.0'
-  implementation 'com.facebook.fresco:webpsupport:1.10.0'
+  // For WebP support, including animated WebP
+  implementation 'com.facebook.fresco:animated-webp:2.1.0'
+  implementation 'com.facebook.fresco:webpsupport:2.0.0'
 
-  // 如果只需要支持WebP格式而不需要动图
-  implementation 'com.facebook.fresco:webpsupport:1.10.0'
+  // For WebP support, without animations
+  implementation 'com.facebook.fresco:webpsupport:2.0.0'
 }
 ```
 
-### 查看 Props
-
-* [`style`](image.md#style)
-* [`blurRadius`](image.md#blurradius)
-* [`onLayout`](image.md#onlayout)
-* [`onLoad`](image.md#onload)
-* [`onLoadEnd`](image.md#onloadend)
-* [`onLoadStart`](image.md#onloadstart)
-* [`resizeMode`](image.md#resizemode)
-* [`source`](image.md#source)
-* [`loadingIndicatorSource`](image.md#loadingindicatorsource)
-* [`onError`](image.md#onerror)
-* [`testID`](image.md#testid)
-* [`resizeMethod`](image.md#resizemethod)
-* [`accessibilityLabel`](image.md#accessibilitylabel)
-* [`accessible`](image.md#accessible)
-* [`capInsets`](image.md#capinsets)
-* [`defaultSource`](image.md#defaultsource)
-* [`onPartialLoad`](image.md#onpartialload)
-* [`onProgress`](image.md#onprogress)
-* [`fadeDuration`](image.md#fadeduration)
-* [`progressiveRenderingEnabled`](image.md#progressiverenderingenabled)
-
-### 查看方法
-
-* [`getSize`](image.md#getsize)
-* [`getSizeWithHeaders`](image.md#getsizewithheaders)
-* [`prefetch`](image.md#prefetch)
-* [`abortPrefetch`](image.md#abortprefetch)
-* [`queryCache`](image.md#querycache)
-* [`resolveAssetSource`](image.md#resolveassetsource)
-
 ---
 
-# 文档
+# Reference
 
 ## Props
 
@@ -127,140 +96,140 @@ dependencies {
 
 `ImageResizeMode` is an `Enum` for different image resizing modes, set via the `resizeMode` style property on `Image` components. The values are `contain`, `cover`, `stretch`, `center`, `repeat`.
 
-| 类型  | 必填 |
-| ----- | ---- |
-| style | 否   |
+| Type  | Required |
+| ----- | -------- |
+| style | No       |
 
-* [布局属性...](layout-props.md#props)
+- [Layout Props...](layout-props.md#props)
 
-* [阴影属性...](shadow-props.md#props)
+- [Shadow Props...](shadow-props.md#props)
 
-* [动画变换 Transforms...](transforms.md#props)
+- [Transforms...](transforms.md#props)
 
-* **`borderTopRightRadius`**: number
+- **`borderTopRightRadius`**: number
 
-* **`backfaceVisibility`**: enum('visible', 'hidden')
+- **`backfaceVisibility`**: enum('visible', 'hidden')
 
-* **`borderBottomLeftRadius`**: number
+- **`borderBottomLeftRadius`**: number
 
-* **`borderBottomRightRadius`**: number
+- **`borderBottomRightRadius`**: number
 
-* **`borderColor`**: [color](colors.md)
+- **`borderColor`**: [color](colors.md)
 
-* **`borderRadius`**: number
+- **`borderRadius`**: number
 
-* **`borderTopLeftRadius`**: number
+- **`borderTopLeftRadius`**: number
 
-* **`backgroundColor`**: [color](colors.md)
+- **`backgroundColor`**: [color](colors.md)
 
-* **`borderWidth`**: number
+- **`borderWidth`**: number
 
-* **`opacity`**: number
+- **`opacity`**: number
 
-* **`overflow`**: enum('visible', 'hidden')
+- **`overflow`**: enum('visible', 'hidden')
 
-* **`resizeMode`**: Object.keys(ImageResizeMode)
+- **`resizeMode`**: Object.keys(ImageResizeMode)
 
-* **`tintColor`**: [color](colors.md)
+- **`tintColor`**: [color](colors.md)
 
-  为所有非透明的像素指定一个颜色。
+  Changes the color of all the non-transparent pixels to the tintColor.
 
-* **`overlayColor`**: string (_Android_)
+- **`overlayColor`**: string (_Android_)
 
-  当图片有圆角的时候，指定一个颜色用于填充圆角处的空白。虽然一般情况下圆角处是透明的，但在某些情况下，Android 并不支持圆角透明，比如：
+  When the image has rounded corners, specifying an overlayColor will cause the remaining space in the corners to be filled with a solid color. This is useful in cases which are not supported by the Android implementation of rounded corners:
 
-  * 某些 resize 模式比如'contain'
-  * GIF 动画
+  - Certain resize modes, such as 'contain'
+  - Animated GIFs
 
-  常见的用法就是在不能圆角透明时，设置`overlayColor`和背景色一致。
+  A typical way to use this prop is with images displayed on a solid background and setting the `overlayColor` to the same color as the background.
 
-  详细说明可参考<http://frescolib.org/rounded-corners-and-circles.md>。
+  For details of how this works under the hood, see http://frescolib.org/docs/rounded-corners-and-circles.html
 
 ---
 
 ### `blurRadius`
 
-blurRadius(模糊半径)：为图片添加一个指定半径的模糊滤镜。
+blurRadius: the blur radius of the blur filter added to the image
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `onLayout`
 
-当元素加载或者布局改变的时候调用，参数为：`{nativeEvent: {layout: {x, y, width, height}}}`.
+Invoked on mount and layout changes with `{nativeEvent: {layout: {x, y, width, height}}}`.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoad`
 
-加载成功完成时调用此回调函数。
+Invoked when load completes successfully.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoadEnd`
 
-加载结束后，不论成功还是失败，调用此回调函数。
+Invoked when load either succeeds or fails.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoadStart`
 
-加载开始时调用。
+Invoked on load start.
 
-示例：`onLoadStart={(e) => this.setState({loading: true})}`
+e.g., `onLoadStart={(e) => this.setState({loading: true})}`
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `resizeMode`
 
-决定当组件尺寸和图片尺寸不成比例的时候如何调整图片的大小。
+Determines how to resize the image when the frame doesn't match the raw image dimensions. Defaults to `cover`.
 
-* `cover`: 在保持图片宽高比的前提下缩放图片，直到宽度和高度都大于等于容器视图的尺寸（如果容器有 padding 内衬的话，则相应减去）。**译注**：这样图片完全覆盖甚至超出容器，容器中不留任何空白。
+- `cover`: Scale the image uniformly (maintain the image's aspect ratio) so that both dimensions (width and height) of the image will be equal to or larger than the corresponding dimension of the view (minus padding).
 
-* `contain`: 在保持图片宽高比的前提下缩放图片，直到宽度和高度都小于等于容器视图的尺寸（如果容器有 padding 内衬的话，则相应减去）。**译注**：这样图片完全被包裹在容器中，容器中可能留有空白。
+- `contain`: Scale the image uniformly (maintain the image's aspect ratio) so that both dimensions (width and height) of the image will be equal to or less than the corresponding dimension of the view (minus padding).
 
-* `stretch`: 拉伸图片且不维持宽高比，直到宽高都刚好填满容器。
+- `stretch`: Scale width and height independently, This may change the aspect ratio of the src.
 
-* `repeat`: 重复平铺图片直到填满容器。图片会维持原始尺寸，但是当尺寸超过容器时会在保持宽高比的前提下缩放到能被容器包裹。
+- `repeat`: Repeat the image to cover the frame of the view. The image will keep its size and aspect ratio, unless it is larger than the view, in which case it will be scaled down uniformly so that it is contained in the view.
 
-* `center`: 居中不拉伸。
+- `center`: Center the image in the view along both dimensions. If the image is larger than the view, scale it down uniformly so that it is contained in the view.
 
-| 类型                                                    | 必填 |
-| ------------------------------------------------------- | ---- |
-| enum('cover', 'contain', 'stretch', 'repeat', 'center') | 否   |
+| Type                                                    | Required |
+| ------------------------------------------------------- | -------- |
+| enum('cover', 'contain', 'stretch', 'repeat', 'center') | No       |
 
 ---
 
 ### `source`
 
-图片源数据（远程 URL 地址或本地数据）。
+The image source (either a remote URL or a local file resource).
 
 This prop can also contain several remote URLs, specified together with their width and height and potentially with scale/other URI arguments. The native side will then choose the best `uri` to display based on the measured size of the image container. A `cache` property can be added to control how networked request interacts with the local cache. (For more information see [Cache Control for Images](images#cache-control-ios-only)).
 
-目前原生支持的图片格式有`png`、`jpg`、`jpeg`、`bmp`、`gif`、`webp` (仅 Android)、`psd` (仅 iOS)。In addition, iOS supports several RAW image formats. Refer to Apple's documentation for the current list of supported camera models (for iOS 12, see https://support.apple.com/en-ca/HT208967).
+The currently supported formats are `png`, `jpg`, `jpeg`, `bmp`, `gif`, `webp` (Android only), `psd` (iOS only). In addition, iOS supports several RAW image formats. Refer to Apple's documentation for the current list of supported camera models (for iOS 12, see https://support.apple.com/en-ca/HT208967).
 
-| 类型                | 必填 |
-| ------------------- | ---- |
-| ImageSourcePropType | 否   |
+| Type                | Required |
+| ------------------- | -------- |
+| ImageSourcePropType | No       |
 
 ---
 
@@ -268,9 +237,9 @@ This prop can also contain several remote URLs, specified together with their wi
 
 Similarly to `source`, this property represents the resource used to render the loading indicator for the image, displayed until image is ready to be displayed, typically after when it got downloaded from network.
 
-| 类型                                  | 必填 |
-| ------------------------------------- | ---- |
-| array of ImageSourcePropTypes, number | 否   |
+| Type                                  | Required |
+| ------------------------------------- | -------- |
+| array of ImageSourcePropTypes, number | No       |
 
 > Can accept a number as returned by `require('./image.jpg')`
 
@@ -278,110 +247,112 @@ Similarly to `source`, this property represents the resource used to render the 
 
 ### `onError`
 
-当加载错误的时候调用此回调函数，参数为`{nativeEvent: {error}}`。
+Invoked on load error with `{nativeEvent: {error}}`.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `testID`
 
-一个唯一的资源标识符，用来在自动测试脚本中标识这个元素。
+A unique identifier for this element to be used in UI Automation testing scripts.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
 ### `resizeMethod`
 
-当图片实际尺寸和容器样式尺寸不一致时，决定以怎样的策略来调整图片的尺寸。默认为`auto`。
+The mechanism that should be used to resize the image when the image's dimensions differ from the image view's dimensions. Defaults to `auto`.
 
-* `auto`: 使用启发式算法来在`resize`和`scale`中自动决定。
+- `auto`: Use heuristics to pick between `resize` and `scale`.
 
-* `resize`: 在图片解码之前，使用软件算法对其在内存中的数据进行修改。当图片尺寸比容器尺寸大得多时，应该优先使用此选项。
+- `resize`: A software operation which changes the encoded image in memory before it gets decoded. This should be used instead of `scale` when the image is much larger than the view.
 
-* `scale`: 对图片进行缩放。和`resize`相比，`scale`速度更快（一般有硬件加速），而且图片质量更优。在图片尺寸比容器尺寸小或者只是稍大一点时，应该优先使用此选项。
+- `scale`: The image gets drawn downscaled or upscaled. Compared to `resize`, `scale` is faster (usually hardware accelerated) and produces higher quality images. This should be used if the image is smaller than the view. It should also be used if the image is slightly bigger than the view.
 
-关于`resize`和`scale`的详细说明请参考<http://frescolib.org/docs/resizing.html>。
+More details about `resize` and `scale` can be found at http://frescolib.org/docs/resizing.html.
 
-| 类型                            | 必填 | 平台    |
-| ------------------------------- | ---- | ------- |
-| enum('auto', 'resize', 'scale') | 否   | Android |
+| Type                            | Required | Platform |
+| ------------------------------- | -------- | -------- |
+| enum('auto', 'resize', 'scale') | No       | Android  |
 
 ---
 
 ### `accessibilityLabel`
 
-设置一段文字。当用户与图片交互时，读屏器（无障碍功能）会朗读你所设置的这段文字。
+The text that's read by the screen reader when the user interacts with the image.
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| string | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | iOS      |
 
 ---
 
 ### `accessible`
 
-当此属性为 true 时，表示此图片是一个启用了无障碍功能的元素。
+When true, indicates the image is an accessibility element.
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ---
 
 ### `capInsets`
 
-当图片被缩放的时候，capInsets 指定的角上的尺寸会被固定而不进行缩放，而中间和边上其他的部分则会被拉伸。这在制作一些可变大小的圆角按钮、阴影、以及其它资源的时候非常有用（译注：这就是常说的九宫格或者.9 图。了解更多信息，可以参见[苹果官方文档](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/index.html#//apple_ref/occ/instm/UIImage/resizableImageWithCapInsets)。
+When the image is resized, the corners of the size specified by `capInsets` will stay a fixed size, but the center content and borders of the image will be stretched. This is useful for creating resizable rounded buttons, shadows, and other resizable assets. More info in the [official Apple documentation](https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIImage_Class/index.html#//apple_ref/occ/instm/UIImage/resizableImageWithCapInsets).
 
-| 类型                                                               | 必填 | 平台 |
-| ------------------------------------------------------------------ | ---- | ---- |
-| object: {top: number, left: number, bottom: number, right: number} | 否   | iOS  |
+| Type                                                               | Required | Platform |
+| ------------------------------------------------------------------ | -------- | -------- |
+| object: {top: number, left: number, bottom: number, right: number} | No       | iOS      |
 
 ---
 
 ### `defaultSource`
 
-在读取图片时默认显示的图片。
+A static image to display while loading the image source.
 
-| 类型           | 必填 | 平台    |
-| -------------- | ---- | ------- |
-| object, number | 否   | iOS     |
-| number         | 否   | Android |
+| Type           | Required | Platform |
+| -------------- | -------- | -------- |
+| object, number | No       | iOS      |
+| number         | No       | Android  |
 
 If passing an object, the general shape is `{uri: string, width: number, height: number, scale: number}`:
 
-* `uri` - 是一个表示图片的资源标识的字符串，它可以是一个本地文件路径或是一个静态资源引用（使用`require(相对路径)`来引用）。
-* `width`, `height` - 如果你知道图片的尺寸，那么可以在这里指定。这一尺寸会被用作`<Image/>`组件的默认尺寸。
-* `scale` - 图片的缩放系数。默认是 1.0，意味着每一个图片像素都对应一个设备独立像素（DIP）。
+- `uri` - a string representing the resource identifier for the image, which should be either a local file path or the name of a static image resource (which should be wrapped in the `require('./path/to/image.png')` function).
+- `width`, `height` - can be specified if known at build time, in which case these will be used to set the default `<Image/>` component dimensions.
+- `scale` - used to indicate the scale factor of the image. Defaults to 1.0 if unspecified, meaning that one image pixel equates to one display point / DIP.
 
-* `number` - 静态图片引用语法`require('./image.jpg')`所返回的资源 id。
+If passing a number:
 
-> **注意：** 在Android的debug版本上本属性不会生效（但在release版本中会生效）。
+- `number` - Opaque type returned by something like `require('./image.jpg')`.
+
+> **Note:** On Android, the default source prop is ignored on debug builds.
 
 ---
 
 ### `onPartialLoad`
 
-如果图片本身支持逐步加载，则逐步加载的过程中会调用此方法。“逐步加载”的具体定义与具体的标准和实现有关。
+Invoked when a partial load of the image is complete. The definition of what constitutes a "partial load" is loader specific though this is meant for progressive JPEG loads.
 
-| 类型     | 必填 | 平台 |
-| -------- | ---- | ---- |
-| function | 否   | iOS  |
+| Type     | Required | Platform |
+| -------- | -------- | -------- |
+| function | No       | iOS      |
 
 ---
 
 ### `onProgress`
 
-在加载过程中不断调用，参数为`{nativeEvent: {loaded, total}}`。
+Invoked on download progress with `{nativeEvent: {loaded, total}}`.
 
-| 类型     | 必填 | 平台 |
-| -------- | ---- | ---- |
-| function | 否   | iOS  |
+| Type     | Required | Platform |
+| -------- | -------- | -------- |
+| function | No       | iOS      |
 
 ---
 
@@ -389,9 +360,9 @@ If passing an object, the general shape is `{uri: string, width: number, height:
 
 Android only. By default, it is 300ms.
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| number | 否   | Android |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
 
 ---
 
@@ -399,12 +370,11 @@ Android only. By default, it is 300ms.
 
 Android only. When true, enables progressive jpeg streaming. https://frescolib.org/docs/progressive-jpegs.html
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
-
-## 方法
+## Methods
 
 ### `getSize()`
 
@@ -412,19 +382,17 @@ Android only. When true, enables progressive jpeg streaming. https://frescolib.o
 Image.getSize(uri, success, [failure]);
 ```
 
-在显示图片前获取图片的宽高(以像素为单位)。如果图片地址不正确或下载失败,此方法也会失败。
+Retrieve the width and height (in pixels) of an image prior to displaying it. This method can fail if the image cannot be found, or fails to download.
 
-要获取图片的尺寸,首先需要加载或下载图片(同时会被缓存起来)。这意味着理论上你可以用这个方法来预加载图片，虽然此方法并没有针对这一用法进行优化，而且将来可能会换一些实现方案使得并不需要完整下载图片即可获取尺寸。所以更好的预加载方案是使用下面那个专门的预加载方法。
+In order to retrieve the image dimensions, the image may first need to be loaded or downloaded, after which it will be cached. This means that in principle you could use this method to preload images, however it is not optimized for that purpose, and may in future be implemented in a way that does not fully load/download the image data. A proper, supported way to preload images will be provided as a separate API.
 
-此方法不能用于静态图片资源。
+**Parameters:**
 
-**参数：**
-
-| 名称    | 类型     | 必填 | 说明                             |
-| ------- | -------- | ---- | -------------------------------- |
-| uri     | string   | 是   | 图片地址                         |
-| success | function | 是   | 成功的回调函数，返回图片宽高数据 |
-| failure | function | 否   | 失败的回调函数                   |
+| Name    | Type     | Required | Description                                                                                          |
+| ------- | -------- | -------- | ---------------------------------------------------------------------------------------------------- |
+| uri     | string   | Yes      | The location of the image.                                                                           |
+| success | function | Yes      | The function that will be called if the image was successfully found and width and height retrieved. |
+| failure | function | No       | The function that will be called if there was an error, such as failing to retrieve the image.       |
 
 ---
 
@@ -457,13 +425,13 @@ Does not work for static image resources.
 Image.prefetch(url);
 ```
 
-预加载一个远程图片(将其下载到本地磁盘缓存)。
+Prefetches a remote image for later use by downloading it to the disk cache
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | 必填 | 说明           |
-| ---- | ------ | ---- | -------------- |
-| url  | string | 是   | 图片的远程地址 |
+| Name | Type   | Required | Description                       |
+| ---- | ------ | -------- | --------------------------------- |
+| url  | string | Yes      | The remote location of the image. |
 
 ---
 
@@ -473,13 +441,13 @@ Image.prefetch(url);
 Image.abortPrefetch(requestId);
 ```
 
-中断预加载操作。仅 Android 可用。
+Abort prefetch request. Android-only.
 
-**参数：**
+**Parameters:**
 
-| 名称      | 类型   | 必填 | 说明                |
-| --------- | ------ | ---- | ------------------- |
-| requestId | number | 是   | prefetch()返回的 id |
+| Name      | Type   | Required | Description                  |
+| --------- | ------ | -------- | ---------------------------- |
+| requestId | number | Yes      | Id as returned by prefetch() |
 
 ---
 
@@ -489,13 +457,13 @@ Image.abortPrefetch(requestId);
 Image.queryCache(urls);
 ```
 
-查询图片缓存状态。根据图片 URL 地址返回缓存状态，比如"disk"（缓存在磁盘文件中）或是"memory"（缓存在内存中）。
+Perform cache interrogation. Returns a mapping from URL to cache status, such as "disk" or "memory". If a requested URL is not in the mapping, it means it's not in the cache.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型  | 必填 | 说明                            |
-| ---- | ----- | ---- | ------------------------------- |
-| urls | array | 是   | 要查询缓存状态的图片 URL 数组。 |
+| Name | Type  | Required | Description                                |
+| ---- | ----- | -------- | ------------------------------------------ |
+| urls | array | Yes      | List of image URLs to check the cache for. |
 
 ---
 
@@ -507,10 +475,10 @@ Image.resolveAssetSource(source);
 
 Resolves an asset reference into an object which has the properties `uri`, `width`, and `height`.
 
-**参数：**
+**Parameters:**
 
-| 名称   | 类型           | 必填 | 说明                                                                           |
-| ------ | -------------- | ---- | ------------------------------------------------------------------------------ |
-| source | number, object | 是   | 静态图片引用语法`require('./image.jpg')`所返回的资源 id 或是一个`ImageSource`. |
+| Name   | Type           | Required | Description                                                                  |
+| ------ | -------------- | -------- | ---------------------------------------------------------------------------- |
+| source | number, object | Yes      | A number (opaque type returned by require('./foo.png')) or an `ImageSource`. |
 
-> `ImageSource`是一个对象，其结构为`{ uri: '<http location || file path>' }`
+> `ImageSource` is an object like `{ uri: '<http location || file path>' }`

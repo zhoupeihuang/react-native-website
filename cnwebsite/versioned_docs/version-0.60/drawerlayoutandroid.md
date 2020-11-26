@@ -1,18 +1,13 @@
 ---
-id: version-0.60-drawerlayoutandroid
+id: drawerlayoutandroid
 title: DrawerLayoutAndroid
-original_id: drawerlayoutandroid
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(89.27%), [troy](https://github.com/search?q=troy%40tencoe.com+in%3Aemail&type=Users)(10.73%)
+React component that wraps the platform `DrawerLayout` (Android only). The Drawer (typically used for navigation) is rendered with `renderNavigationView` and direct children are the main view (where your content goes). The navigation view is initially not visible on the screen, but can be pulled in from the side of the window specified by the `drawerPosition` prop and its width can be set by the `drawerWidth` prop.
 
-封装了 Android 平台`DrawerLayout`的 React 组件。抽屉（通常用于导航切换）是通过`renderNavigationView`方法渲染的，并且 DrawerLayoutAndroid 的直接子视图会成为主视图（用于放置内容）。导航视图一开始在屏幕上并不可见，不过可以从`drawerPosition`指定的窗口侧面拖拽出来，并且抽屉的宽度可以使用`drawerWidth`属性来指定。
+Example:
 
-> 译注：此组件仅能在 Android 上使用。我们推荐使用跨平台的[react-navigation](https://reactnavigation.org/)中的 DrawerNavigation 来代替此组件。
-
-示例：
-
-```
+```jsx
 render: function() {
   var navigationView = (
     <View style={{flex: 1, backgroundColor: '#fff'}}>
@@ -33,161 +28,140 @@ render: function() {
 },
 ```
 
-### 查看 Props
-
-* [View props...](view.md#props)
-
-- [`renderNavigationView`](drawerlayoutandroid.md#rendernavigationview)
-- [`onDrawerClose`](drawerlayoutandroid.md#ondrawerclose)
-- [`drawerPosition`](drawerlayoutandroid.md#drawerposition)
-- [`drawerWidth`](drawerlayoutandroid.md#drawerwidth)
-- [`keyboardDismissMode`](drawerlayoutandroid.md#keyboarddismissmode)
-- [`drawerLockMode`](drawerlayoutandroid.md#drawerlockmode)
-- [`onDrawerOpen`](drawerlayoutandroid.md#ondraweropen)
-- [`onDrawerSlide`](drawerlayoutandroid.md#ondrawerslide)
-- [`onDrawerStateChanged`](drawerlayoutandroid.md#ondrawerstatechanged)
-- [`drawerBackgroundColor`](drawerlayoutandroid.md#drawerbackgroundcolor)
-- [`statusBarBackgroundColor`](drawerlayoutandroid.md#statusbarbackgroundcolor)
-
-### 查看方法
-
-* [`openDrawer`](drawerlayoutandroid.md#opendrawer)
-* [`closeDrawer`](drawerlayoutandroid.md#closedrawer)
-
 ---
 
-# 文档
+# Reference
 
 ## Props
 
+Inherits [View Props](view.md#props).
+
 ### `renderNavigationView`
 
-被拉入的导航视图的内容。
+The navigation view that will be rendered to the side of the screen and can be pulled in.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 是   |
+| Type     | Required |
+| -------- | -------- |
+| function | Yes      |
 
 ---
 
 ### `onDrawerClose`
 
-导航视图被关闭后的回调函数。
+Function called whenever the navigation view has been closed.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `drawerPosition`
 
-设置导航视图从屏幕的哪一边拉入。
+Specifies the side of the screen from which the drawer will slide in.
 
-| 类型                                                                      | 必填 |
-| ------------------------------------------------------------------------- | ---- |
-| enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right) | 否   |
+| Type                                                                      | Required |
+| ------------------------------------------------------------------------- | -------- |
+| enum(DrawerConsts.DrawerPosition.Left, DrawerConsts.DrawerPosition.Right) | No       |
 
 ---
 
 ### `drawerWidth`
 
-设置导航视图从窗口边缘拉入的视图的宽度。
+Specifies the width of the drawer, more precisely the width of the view that be pulled in from the edge of the window.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `keyboardDismissMode`
 
-设置拖动过程中是否隐藏软键盘
+Determines whether the keyboard gets dismissed in response to a drag.
 
-* 'none' (默认)，拖动时不隐藏软键盘。
-* 'on-drag'，拖动时隐藏软键盘。
+- 'none' (the default), drags do not dismiss the keyboard.
+- 'on-drag', the keyboard is dismissed when a drag begins.
 
-| 类型                    | 必填 |
-| ----------------------- | ---- |
-| enum('none', 'on-drag') | 否   |
+| Type                    | Required |
+| ----------------------- | -------- |
+| enum('none', 'on-drag') | No       |
 
 ---
 
 ### `drawerLockMode`
 
-设置导航视图的锁定模式。有 3 种状态：
+Specifies the lock mode of the drawer. The drawer can be locked in 3 states:
 
-* unlocked (默认)，不锁定，导航视图可以响应打开和关闭操作；
-* locked-closed，导航视图保持关闭，不能用手势打开；
-* locked-open，导航视图保持打开，不能用手势关闭，但仍然可以通过程序打开或关闭。 (`openDrawer`/`closeDrawer`).
+- unlocked (default), meaning that the drawer will respond (open/close) to touch gestures.
+- locked-closed, meaning that the drawer will stay closed and not respond to gestures.
+- locked-open, meaning that the drawer will stay opened and not respond to gestures. The drawer may still be opened and closed programmatically (`openDrawer`/`closeDrawer`).
 
-| 类型                                             | 必填 |
-| ------------------------------------------------ | ---- |
-| enum('unlocked', 'locked-closed', 'locked-open') | 否   |
+| Type                                             | Required |
+| ------------------------------------------------ | -------- |
+| enum('unlocked', 'locked-closed', 'locked-open') | No       |
 
 ---
 
 ### `onDrawerOpen`
 
-导航视图被打开后的回调函数。
+Function called whenever the navigation view has been opened.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onDrawerSlide`
 
-导航视图发生交互时的回调函数。
+Function called whenever there is an interaction with the navigation view.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onDrawerStateChanged`
 
-导航视图的状态发生变化时的回调函数。有 3 种状态：
+Function called when the drawer state has changed. The drawer can be in 3 states:
 
-* idle, 导航视图没有发生任何交互；
-* dragging, 导航视图正在发生交互；
-* settling，导航视图正在发生交互，并且导航视图正在完成其关闭或打开的动画。
+- idle, meaning there is no interaction with the navigation view happening at the time
+- dragging, meaning there is currently an interaction with the navigation view
+- settling, meaning that there was an interaction with the navigation view, and the navigation view is now finishing its closing or opening animation
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `drawerBackgroundColor`
 
-设置导航视图的背景颜色。默认值为白色。如果你想设置导航视图的不透明度，请使用 rgba。例如：
+Specifies the background color of the drawer. The default value is `white`. If you want to set the opacity of the drawer, use rgba. Example:
 
-```
+```jsx
 return (
-  <DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)">
-  </DrawerLayoutAndroid>
+  <DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)" />
 );
 ```
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `statusBarBackgroundColor`
 
-使抽屉占满整个屏幕，并设置状态栏颜色(支持API21+/安卓系统5.0以上)
-使导航视图占满整个屏幕，并设置状态栏背景，允许他在状态栏上打开。仅在 API 21 及以上版本有效。
+Make the drawer take the entire screen and draw the background of the status bar to allow it to open over the status bar. It will only have an effect on API 21+.
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
-## 方法
+## Methods
 
 ### `openDrawer()`
 
@@ -195,7 +169,7 @@ return (
 openDrawer();
 ```
 
-打开导航视图。
+Opens the drawer.
 
 ---
 
@@ -205,4 +179,4 @@ openDrawer();
 closeDrawer();
 ```
 
-关闭导航视图。
+Closes the drawer.

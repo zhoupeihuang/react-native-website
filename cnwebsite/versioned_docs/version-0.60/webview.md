@@ -1,16 +1,13 @@
 ---
-id: version-0.60-webview
-title: WebView
-original_id: webview
+id: webview
+title: '🚧 WebView'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(97.11%), [yahoo.007](https://github.com/search?q=yahoo.007%40163.com+in%3Aemail&type=Users)(2.89%)
+> **Deprecated.** Use [react-native-community/react-native-webview](https://github.com/react-native-community/react-native-webview) instead.
 
-> **Warning** Please use the [react-native-community/react-native-webview](https://github.com/react-native-community/react-native-webview) fork of this component instead. To reduce the surface area of React Native, `<WebView/>` is going to be removed from the React Native core. For more information, please read [The Slimmening proposal](https://github.com/react-native-community/discussions-and-proposals/issues/6).
+`WebView` renders web content in a native view.
 
-`WebView` 创建一个原生的 WebView，可以用于访问一个网页。
-
-```
+```jsx
 import React, { Component } from 'react';
 import { WebView } from 'react-native';
 
@@ -18,20 +15,23 @@ class MyWeb extends Component {
   render() {
     return (
       <WebView
-        source={{uri: 'https://github.com/facebook/react-native'}}
-        style={{marginTop: 20}}
+        source={{
+          uri: 'https://github.com/facebook/react-native'
+        }}
+        style={{ marginTop: 20 }}
       />
     );
   }
 }
 ```
 
-还可以直接嵌入html代码：
+Minimal example with inline HTML:
 
-```
+```jsx
 import React, { Component } from 'react';
 import { WebView } from 'react-native';
- class MyInlineWeb extends Component {
+
+class MyInlineWeb extends Component {
   render() {
     return (
       <WebView
@@ -43,478 +43,425 @@ import { WebView } from 'react-native';
 }
 ```
 
-你可以使用这个组件进行网页的来回导航，并且为网页内容设置多方面的属性。
+You can use this component to navigate back and forth in the web view's history and configure various properties for the web content.
 
 On iOS, the `useWebKit` prop can be used to opt into a WKWebView-backed implementation.
 
-> **安全提示:** 目前, `onMessage` and `postMessage` 方法不能够指定源。当`WebView`加载某些非预期文档时可能导致跨站脚本攻击。请查阅 MDN 文档获取更多安全方面的细节[`Window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) .
-
-### 查看 Props
-
-* [View props...](view.md#props)
-
-- [`allowsInlineMediaPlayback`](webview.md#allowsinlinemediaplayback)
-- [`allowFileAccess`](webview.md#allowFileAccess)
-- [`allowUniversalAccessFromFileURLs`](webview.md#allowUniversalAccessFromFileURLs)
-- [`automaticallyAdjustContentInsets`](webview.md#automaticallyadjustcontentinsets)
-- [`bounces`](webview.md#bounces)
-- [`contentInset`](webview.md#contentinset)
-- [`dataDetectorTypes`](webview.md#datadetectortypes)
-- [`decelerationRate`](webview.md#decelerationrate)
-- [`domStorageEnabled`](webview.md#domstorageenabled)
-- [`geolocationEnabled`](webview.md#geolocationenabled)
-- [`html`](webview.md#html)
-- [`injectedJavaScript`](webview.md#injectedjavascript)
-- [`injectJavaScript`](webview.md#injectjavascript)
-- [`javaScriptEnabled`](webview.md#javascriptenabled)
-- [`mediaPlaybackRequiresUserAction`](webview.md#mediaplaybackrequiresuseraction)
-- [`mixedContentMode`](webview.md#mixedcontentmode)
-- [`nativeConfig`](webview.md#nativeconfig)
-- [`onError`](webview.md#onerror)
-- [`onLoad`](webview.md#onload)
-- [`onLoadEnd`](webview.md#onloadend)
-- [`onLoadStart`](webview.md#onloadstart)
-- [`onMessage`](webview.md#onmessage)
-- [`onNavigationStateChange`](webview.md#onnavigationstatechange)
-- [`onShouldStartLoadWithRequest`](webview.md#onshouldstartloadwithrequest)
-- [`originWhitelist`](webview.md#originwhitelist)
-- [`renderError`](webview.md#rendererror)
-- [`renderLoading`](webview.md#renderloading)
-- [`scalesPageToFit`](webview.md#scalespagetofit)
-- [`scrollEnabled`](webview.md#scrollenabled)
-- [`startInLoadingState`](webview.md#startinloadingstate)
-- [`source`](webview.md#source)
-- [`style`](webview.md#style)
-- [`thirdPartyCookiesEnabled`](webview.md#thirdpartycookiesenabled)
-- [`useWebKit`](webview.md#usewebkit)
-- [`userAgent`](webview.md#useragent)
-- [`url`](webview.md#url)
-
-### 查看方法
-
-* [`extraNativeComponentConfig`](webview.md#extranativecomponentconfig)
-* [`goForward`](webview.md#goforward)
-* [`goBack`](webview.md#goback)
-* [`reload`](webview.md#reload)
-* [`stopLoading`](webview.md#stoploading)
+> **Security Warning:** Currently, `onMessage` and `postMessage` do not allow specifying an origin. This can lead to cross-site scripting attacks if an unexpected document is loaded within a `WebView` instance. Please refer to the MDN documentation for [`Window.postMessage()`](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) for more details on the security implications of this.
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
-### `allowUniversalAccessFromFileURLs`
-
-Boolean that sets whether JavaScript running in the context of a file scheme URL should be allowed to access content from any origin. Including accessing content from other file scheme URLs. The default value is `false`.
-
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
-
----
-
-### `allowFileAccess`
-
- Boolean that sets whether the `WebView` has access to the file system. The default value is `false`.
-
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
- ---
-
-### `geolocationEnabled`
-
-Set whether Geolocation is enabled in the `WebView`. The default value is `false`. Used only in Android.
-
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+Inherits [View Props](view.md#props).
 
 ---
 
 ### `source`
 
-在 WebView 中载入一段静态的 html 代码或是一个 url（还可以附带一些 header 选项）。注意如果是载入html代码，则需要设置`originWhitelist`，比如可以设为`["*"]`来允许运行本地代码。
+Loads static HTML or a URI (with optional headers) in the WebView. Note that static HTML will require setting [`originWhitelist`](webview#originwhitelist) to `["*"]`.
 
 The object passed to `source` can have either of the following shapes:
 
 **Load uri**
 
-* `uri` (string) - The URI to load in the `WebView`. Can be a local or remote file.
-* `method` (string) - The HTTP Method to use. Defaults to GET if not specified. On Android, the only supported methods are GET and POST.
-* `headers` (object) - Additional HTTP headers to send with the request. On Android, this can only be used with GET requests.
-* `body` (string) - The HTTP body to send with the request. This must be a valid UTF-8 string, and will be sent exactly as specified, with no additional encoding (e.g. URL-escaping or base64) applied. On Android, this can only be used with POST requests.
+- `uri` (string) - The URI to load in the `WebView`. Can be a local or remote file.
+- `method` (string) - The HTTP Method to use. Defaults to GET if not specified. On Android, the only supported methods are GET and POST.
+- `headers` (object) - Additional HTTP headers to send with the request. On Android, this can only be used with GET requests.
+- `body` (string) - The HTTP body to send with the request. This must be a valid UTF-8 string, and will be sent exactly as specified, with no additional encoding (e.g. URL-escaping or base64) applied. On Android, this can only be used with POST requests.
 
 **Static HTML**
 
-* `html` (string) - A static HTML page to display in the WebView.
-* `baseUrl` (string) - The base URL to be used for any relative links in the HTML.
+- `html` (string) - A static HTML page to display in the WebView.
+- `baseUrl` (string) - The base URL to be used for any relative links in the HTML.
 
-| 类别   | 必填 |
-| ------ | ---- |
-| object | No   |
+| Type   | Required |
+| ------ | -------- |
+| object | No       |
 
 ---
 
 ### `automaticallyAdjustContentInsets`
 
-控制插入到导航栏，标签栏或者工具条之后的 web 内容是否自适应。默认为`true`。
+Controls whether to adjust the content inset for web views that are placed behind a navigation bar, tab bar, or toolbar. The default value is `true`.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
 ### `injectJavaScript`
 
-在网页加载完成之后，还可以主动调用此方法（以 ref 形式调用）继续给 WebView 注入 JS 代码。注入后会立即执行。
+Function that accepts a string that will be passed to the WebView and executed immediately as JavaScript.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `injectedJavaScript`
 
-设置 js 字符串，在网页加载之前注入的一段 JS 代码。
+Set this to provide JavaScript that will be injected into the web page when the view loads.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
 ### `mediaPlaybackRequiresUserAction`
 
-布尔值，控制 HTML5 音频和视频播放前是否需要用户点击。默认为`true`。
+Boolean that determines whether HTML5 audio and video requires the user to tap them before they start playing. The default value is `true`.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
 ### `nativeConfig`
 
-覆盖渲染 WebView 的原生组件。启用一个 js 和初始 WebView 一样的定制的原生 WebView。
+Override the native component used to render the WebView. Enables a custom native WebView which uses the same JavaScript as the original WebView.
 
 The `nativeConfig` prop expects an object with the following keys:
 
-* `component` (any)
-* `props` (object)
-* `viewManager` (object)
+- `component` (any)
+- `props` (object)
+- `viewManager` (object)
 
-| 类型   | 必填 |
-| ------ | ---- |
-| object | 否   |
+| Type   | Required |
+| ------ | -------- |
+| object | No       |
 
 ---
 
 ### `onError`
 
-当 `WebView`加载失败时调用的函数
+Function that is invoked when the `WebView` load fails.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoad`
 
-当 `WebView`加载成功后执行的函数
+Function that is invoked when the `WebView` has finished loading.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoadEnd`
 
-函数，当加载结束调用，不管是成功还是失败。
+Function that is invoked when the `WebView` load succeeds or fails.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onLoadStart`
 
-当 `WebView`刚开始加载时调用的函数
+Function that is invoked when the `WebView` starts loading.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onMessage`
 
-在 webview 内部的网页中调用 window.postMessage 方法时可以触发此属性对应的函数，从而实现网页和 RN 之间的数据交换。 设置此属性的同时会在 webview 中注入一个 postMessage 的全局函数并覆盖可能已经存在的同名实现。
+A function that is invoked when the webview calls `window.postMessage`. Setting this property will inject a `postMessage` global into your webview, but will still call pre-existing values of `postMessage`.
 
-网页端的 window.postMessage 只发送一个参数 data，此参数封装在 RN 端的 event 对象中，即 event.nativeEvent.data。data 只能是一个字符串。
+`window.postMessage` accepts one argument, `data`, which will be available on the event object, `event.nativeEvent.data`. `data` must be a string.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onNavigationStateChange`
 
-当导航状态发生变化的时候调用。
+Function that is invoked when the `WebView` loading starts or ends.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
-
----
-
-### `renderError`
-
-设置一个函数，返回一个视图用于显示错误。
-
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
-
----
-
-### `renderLoading`
-
-设置一个函数，返回一个加载指示器。。为了使用这个属性必须将 startInLoadingState 属性设置为 true。
-
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
-
----
-
-### `scalesPageToFit`
-
-布尔值，控制网页内容是否自动适配视图的大小，同时启用用户缩放功能。默认为`true`。
-
-On iOS, when [`useWebKit=true`](webview.md#usewebkit), this prop will not work.
-
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
-
----
-
-### `onShouldStartLoadWithRequest`
-
-允许为 webview 发起的请求运行一个自定义的处理函数。返回 true 或 false 表示是否要继续执行响应的请求。
-
-| 类型     | 必填 | 平台 |
-| -------- | ---- | ---- |
-| function | 否   | iOS  |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `originWhitelist`
 
-List of origin strings to allow being navigated to. The strings allow wildcards and get matched against _just_ the origin (not the full URL). If the user taps to navigate to a new page but the new page is not in this whitelist, the URL will be handled by the OS. The default whitelisted origins are "http://*" and "https://*".
+List of origin strings to allow being navigated to. The strings allow wildcards and get matched against _only_ the origin (not the full URL). If the user taps to navigate to a new page but the new page is not in this safelist, the URL will be handled by the OS. The default safelistlisted origins are "http://*" and "https://*".
 
-| 类型             | 必填 |
-| ---------------- | ---- |
-| array of strings | 否   |
+| Type             | Required |
+| ---------------- | -------- |
+| array of strings | No       |
+
+---
+
+### `renderError`
+
+Function that returns a view to show if there's an error.
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+---
+
+### `renderLoading`
+
+Function that returns a loading indicator. The startInLoadingState prop must be set to true in order to use this prop.
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+---
+
+### `scalesPageToFit`
+
+Boolean that controls whether the web content is scaled to fit the view and enables the user to change the scale. The default value is `true`.
+
+On iOS, when [`useWebKit=true`](webview#usewebkit), this prop will not work.
+
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
+
+---
+
+### `onShouldStartLoadWithRequest`
+
+Function that allows custom handling of any web view requests. Return `true` from the function to continue loading the request and `false` to stop loading.
+
+| Type     | Required | Platform |
+| -------- | -------- | -------- |
+| function | No       | iOS      |
 
 ---
 
 ### `startInLoadingState`
 
-布尔值，控制`WebView`第一次加载时是否显示加载视图（如指示器）。当设置了`renderLoading`时必须将这个属性设置为`true` 才能正常显示。
+Boolean value that forces the `WebView` to show the loading view on the first load. This prop must be set to `true` in order for the `renderLoading` prop to work.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
-
----
-
-### `style`
-
-设置 `WebView`的样式。
-
-| 类型       | 必填 |
-| ---------- | ---- |
-| View.style | 否   |
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
 ### `decelerationRate`
 
-指定一个浮点数，用于设置在用户停止触摸之后，此视图应以多快的速度停止滚动。也可以指定预设的字符串值，如"normal"和"fast"，分别对应 UIScrollViewDecelerationRateNormal 和 UIScrollViewDecelerationRateFast。
+A floating-point number that determines how quickly the scroll view decelerates after the user lifts their finger. You may also use the string shortcuts `"normal"` and `"fast"` which match the underlying iOS settings for `UIScrollViewDecelerationRateNormal` and `UIScrollViewDecelerationRateFast` respectively:
 
-* normal: 0.998
-* fast: 0.99 (ios web view 默认)
+- normal: 0.998
+- fast: 0.99 (the default for iOS web view)
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| number | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | iOS      |
 
 ---
 
 ### `domStorageEnabled`
 
-仅限 Android 平台。指定是否开启 DOM 本地存储。
+Boolean value to control whether DOM Storage is enabled. Used only in Android.
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `javaScriptEnabled`
 
-布尔值，控制是否启用 JavaScript。仅在安卓下使用，因为 IOS 默认为启用 JavaScript。默认值为`true`。
+Boolean value to enable JavaScript in the `WebView`. Used on Android only as JavaScript is enabled by default on iOS. The default value is `true`.
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `mixedContentMode`
 
-指定混合内容模式。即 WebView 是否应该允许安全链接（https）页面中加载非安全链接（http）的内容,
+Specifies the mixed content mode. i.e WebView will allow a secure origin to load content from any other origin.
 
-* `never` (默认) - WebView 不允许安全链接页面中加载非安全链接的内容
-* `always` - WebView 允许安全链接页面中加载非安全链接的内容。
-* `compatibility` - WebView 会尽量和浏览器当前对待此情况的行为一致
+Possible values for `mixedContentMode` are:
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| string | 否   | Android |
+- `never` (default) - WebView will not allow a secure origin to load content from an insecure origin.
+- `always` - WebView will allow a secure origin to load content from any other origin, even if that origin is insecure.
+- `compatibility` - WebView will attempt to be compatible with the approach of a modern web browser with regard to mixed content.
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | Android  |
 
 ---
 
 ### `thirdPartyCookiesEnabled`
 
-布尔值，是否启用第三方 cookie。仅在安卓 Lollipop 版本或以上使用，因为安卓 Kitkat 以下版本和 IOS 系统默认都启用第三方 cookie。 默认为 `true`。
+Boolean value to enable third party cookies in the `WebView`. Used on Android Lollipop and above only as third party cookies are enabled by default on Android Kitkat and below and on iOS. The default value is `true`.
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `userAgent`
 
-设置 `WebView`的 user agent 字符串。目前仅支持 Android。
+Sets the user-agent for the `WebView`.
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| string | 否   | Android |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | Android  |
 
 ---
 
 ### `allowsInlineMediaPlayback`
 
-布尔值，控制 HTML5 视频是在内部播放(非全屏)还是使用原生的全屏控制器。默认为 `false`。
+Boolean that determines whether HTML5 videos play inline or use the native full-screen controller. The default value is `false`.
 
-> **注意** : 
-> 
-> 为了确保内联播放，除了这个属性需要被设置成`true`, 在 html 代码中视频元素也需要包含 `webkit-playsinline`属性。
+> **NOTE**
+>
+> In order for video to play inline, not only does this property need to be set to `true`, but the video element in the HTML document must also include the `webkit-playsinline` attribute.
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ---
 
 ### `bounces`
 
-布尔值，控制当 webview 内容到达底部时是否进行回弹。默认为 `true`。
+Boolean value that determines whether the web view bounces when it reaches the edge of the content. The default value is `true`.
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ---
 
 ### `contentInset`
 
-webview 插入到滑动视图时距离边缘的距离。默认为`{top: 0, left: 0, bottom: 0, right: 0}`。
+The amount by which the web view content is inset from the edges of the scroll view. Defaults to {top: 0, left: 0, bottom: 0, right: 0}.
 
-| 类型                                                               | 必填 | 平台 |
-| ------------------------------------------------------------------ | ---- | ---- |
-| object: {top: number, left: number, bottom: number, right: number} | 否   | iOS  |
+| Type                                                               | Required | Platform |
+| ------------------------------------------------------------------ | -------- | -------- |
+| object: {top: number, left: number, bottom: number, right: number} | No       | iOS      |
 
 ---
 
 ### `dataDetectorTypes`
 
-检测 webview 内容，并将指定类型的数据变成可点击的 URL。默认只对手机号码进行变换。
+Determines the types of data converted to clickable URLs in the web view's content. By default only phone numbers are detected.
 
-你可以提供单一类型或者数组类型。
+You can provide one type or an array of many types.
 
-可用的 `dataDetectorTypes` 如下:
+Possible values for `dataDetectorTypes` are:
 
-* `phoneNumber`
-* `link`
-* `address`
-* `calendarEvent`
-* `none`
-* `all`
+- `phoneNumber`
+- `link`
+- `address`
+- `calendarEvent`
+- `none`
+- `all`
 
-如果启用新的[WKWebView](webview.md#usewebkit)实现，还有额外的三个值可用：
+With the [new WebKit](webview#usewebkit) implementation, we have three new values:
 
-* `trackingNumber`
-* `flightNumber`
-* `lookupSuggestion`
-  
-| 类型             | 必填 | 平台 |
-| ---------------- | ---- | ---- |
-| string, or array | 否   | iOS  |
+- `trackingNumber`
+- `flightNumber`
+- `lookupSuggestion`
+
+| Type             | Required | Platform |
+| ---------------- | -------- | -------- |
+| string, or array | No       | iOS      |
 
 ---
 
 ### `scrollEnabled`
 
-控制是否在 `WebView`中启用滑动。默认为 `true`。
+Boolean value that determines whether scrolling is enabled in the `WebView`. The default value is `true`.
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
+
+---
+
+### `geolocationEnabled`
+
+Set whether Geolocation is enabled in the `WebView`. The default value is `false`. Used only in Android.
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `allowUniversalAccessFromFileURLs`
+
+Boolean that sets whether JavaScript running in the context of a file scheme URL should be allowed to access content from any origin. Including accessing content from other file scheme URLs. The default value is `false`.
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `allowFileAccess`
+
+Boolean that sets whether the `WebView` has access to the file system. The default value is `false`.
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `useWebKit`
 
-设置true的时候会使用新的WKWebView来代替老的UIWebView。
+If true, use WKWebView instead of UIWebView.
 
-| 类型    | 必填 | 平台 |
-| ------- | ---- | ---- |
-| boolean | 否   | iOS  |
+| Type    | Required | Platform |
+| ------- | -------- | -------- |
+| boolean | No       | iOS      |
 
 ---
 
 ### `url`
 
-**已过期.** 请使用 `source` 属性代替.
+**Deprecated.** Use the `source` prop instead.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
 ### `html`
 
-**已过期.** 请使用 `source` 属性代替.
+**Deprecated.** Use the `source` prop instead.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
-## 方法
+## Methods
 
 ### `extraNativeComponentConfig()`
 
@@ -528,7 +475,7 @@ static extraNativeComponentConfig()
 goForward();
 ```
 
-根据webview的历史访问记录往前一个页面。
+Go forward one page in the web view's history.
 
 ### `goBack()`
 
@@ -536,7 +483,7 @@ goForward();
 goBack();
 ```
 
-根据webview的历史访问记录往后一个页面。
+Go back one page in the web view's history.
 
 ### `reload()`
 
@@ -544,7 +491,7 @@ goBack();
 reload();
 ```
 
-刷新当前页面。
+Reloads the current page.
 
 ### `stopLoading()`
 
@@ -552,6 +499,4 @@ reload();
 stopLoading();
 ```
 
-停止载入当前页面。
-
-[1]: https://github.com/facebook/react-native/commit/da9a712a9e17942dcd05b8d955f0764c2026a4ad
+Stop loading the current page.

@@ -1,55 +1,125 @@
 ---
-id: version-0.60-dimensions
+id: dimensions
 title: Dimensions
-original_id: dimensions
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-本模块用于获取设备屏幕的宽高。
-
-### 查看方法
-
-- [`set`](dimensions.md#set)
-- [`get`](dimensions.md#get)
-- [`addEventListener`](dimensions.md#addeventlistener)
-- [`removeEventListener`](dimensions.md#removeeventlistener)
-
----
-
-# 文档
-
-## 方法
-
-### `set()`
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 ```jsx
-static set(dims)
+import { Dimensions } from 'react-native';
 ```
 
-这个函数只应该被原生代码调用。 by sending the didUpdateDimensions event.
-
-@param {object} dims Simple string-keyed object of dimensions to set
-
----
-
-### `get()`
+You can get the application window's width and height using below code:
 
 ```jsx
-static get(dim)
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 ```
 
-初始的尺寸信息应该在`runApplication`之后被执行，这样才可以在任何其他的 require 被执行之前使用。不过在稍后可能还会更新。
+> Although dimensions are available immediately, they may change (e.g due to device rotation, foldable devices etc) so any rendering logic or styles that depend on these constants should try to call this function on every render, rather than caching the value (for example, using inline styles rather than setting a value in a `StyleSheet`).
 
-> 注意：尽管尺寸信息立即就可用，但它可能会在将来被修改（譬如设备的方向改变），所以基于这些常量的渲染逻辑和样式应当每次 render 之后都调用此函数，而不是将对应的值保存下来。（举例来说，你可能需要使用内联的样式而不是在<code>StyleSheet</code>中保存相应的尺寸）。
+If you are targeting foldable devices or devices which can change the screen size or app window size, you can use the event listener available in the Dimensions module as shown in the below example.
 
-示例： `var {height, width} = Dimensions.get('window');`
+### Example
 
-@param {string} dim 想要获取的尺寸信息的字段名。 @returns {Object?} 返回的尺寸信息值。
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
-> For Android the `window` dimension will exclude the size used by the `status bar` (if not translucent) and `bottom navigation bar`
+```SnackPlayer name=Dimensions
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 
----
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
+
+export default function App() {
+  const [dimensions, setDimensions] = useState({ window, screen });
+
+  const onChange = ({ window, screen }) => {
+    setDimensions({ window, screen });
+  };
+
+  useEffect(() => {
+    Dimensions.addEventListener("change", onChange);
+    return () => {
+      Dimensions.removeEventListener("change", onChange);
+    };
+  });
+
+  return (
+    <View style={styles.container}>
+      <Text>{`Window Dimensions: height - ${dimensions.window.height}, width - ${dimensions.window.width}`}</Text>
+      <Text>{`Screen Dimensions: height - ${dimensions.screen.height}, width - ${dimensions.screen.width}`}</Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
+```
+
+</TabItem>
+<TabItem value="classical">
+
+```SnackPlayer name=Dimensions
+import React, { Component } from "react";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
+
+const window = Dimensions.get("window");
+const screen = Dimensions.get("screen");
+
+export default class App extends Component {
+  state = {
+    dimensions: {
+      window,
+      screen
+    }
+  };
+
+  onChange = ({ window, screen }) => {
+    this.setState({ dimensions: { window, screen } });
+  };
+
+  componentDidMount() {
+    Dimensions.addEventListener("change", this.onChange);
+  }
+
+  componentWillUnmount() {
+    Dimensions.removeEventListener("change", this.onChange);
+  }
+
+  render() {
+    const { dimensions } = this.state;
+
+    return (
+      <View style={styles.container}>
+        <Text>{`Window Dimensions: height - ${dimensions.window.height}, width - ${dimensions.window.width}`}</Text>
+        <Text>{`Screen Dimensions: height - ${dimensions.screen.height}, width - ${dimensions.screen.width}`}</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
+});
+```
+
+</TabItem>
+</Tabs>
+
+# Reference
+
+## Methods
 
 ### `addEventListener()`
 
@@ -63,6 +133,24 @@ Add an event handler. Supported events:
 
 ---
 
+### `get()`
+
+```jsx
+static get(dim)
+```
+
+Initial dimensions are set before `runApplication` is called so they should be available before any other require's are run, but may be updated later.
+
+> Note: Although dimensions are available immediately, they may change (e.g due to device rotation) so any rendering logic or styles that depend on these constants should try to call this function on every render, rather than caching the value (for example, using inline styles rather than setting a value in a `StyleSheet`).
+
+Example: `var {height, width} = Dimensions.get('window');`
+
+@param {string} dim Name of dimension as defined when calling `set`. @returns {Object?} Value for the dimension.
+
+> For Android the `window` dimension will exclude the size used by the `status bar` (if not translucent) and `bottom navigation bar`
+
+---
+
 ### `removeEventListener()`
 
 ```jsx
@@ -70,3 +158,15 @@ static removeEventListener(type, handler)
 ```
 
 Remove an event handler.
+
+---
+
+### `set()`
+
+```jsx
+static set(dims)
+```
+
+This should only be called from native code by sending the didUpdateDimensions event.
+
+@param {object} dims string-keyed object of dimensions to set

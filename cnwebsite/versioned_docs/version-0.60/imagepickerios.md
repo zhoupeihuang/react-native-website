@@ -1,23 +1,15 @@
 ---
-id: version-0.60-imagepickerios
+id: imagepickerios
 title: ImagePickerIOS
-original_id: imagepickerios
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-### 查看方法
-
-* [`canRecordVideos`](imagepickerios.md#canrecordvideos)
-* [`canUseCamera`](imagepickerios.md#canusecamera)
-* [`openCameraDialog`](imagepickerios.md#opencameradialog)
-* [`openSelectDialog`](imagepickerios.md#openselectdialog)
+> **Deprecated.** Use [@react-native-community/image-picker-ios](https://github.com/react-native-community/react-native-image-picker-ios) instead.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `canRecordVideos()`
 

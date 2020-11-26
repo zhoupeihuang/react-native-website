@@ -1,132 +1,129 @@
 ---
-id: version-0.61-image-style-props
-title: Image样式属性
-original_id: image-style-props
+id: image-style-props
+title: Image Style Props
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-# 文档
+# Reference
 
 ## Props
 
 ### `borderTopRightRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `backfaceVisibility`
 
-| 类型                      | 必填 |
-| ------------------------- | ---- |
-| enum('visible', 'hidden') | 否   |
+| Type                      | Required |
+| ------------------------- | -------- |
+| enum('visible', 'hidden') | No       |
 
 ---
 
 ### `borderBottomLeftRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderBottomRightRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderTopLeftRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `backgroundColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `opacity`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `overflow`
 
-| 类型                      | 必填 |
-| ------------------------- | ---- |
-| enum('visible', 'hidden') | 否   |
+| Type                      | Required |
+| ------------------------- | -------- |
+| enum('visible', 'hidden') | No       |
 
 ---
 
 ### `resizeMode`
 
-| 类型                                                    | 必填 |
-| ------------------------------------------------------- | ---- |
-| enum('cover', 'contain', 'stretch', 'repeat', 'center') | 否   |
+| Type                                                    | Required |
+| ------------------------------------------------------- | -------- |
+| enum('cover', 'contain', 'stretch', 'repeat', 'center') | No       |
 
 ---
 
 ### `tintColor`
 
-为所有非透明的像素指定一个颜色。
+Changes the color of all the non-transparent pixels to the tintColor.
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `overlayColor`
 
-当图片有圆角的时候，指定一个颜色用于填充圆角处的空白。虽然一般情况下圆角处是透明的，但在某些情况下，Android 并不支持圆角透明，比如：
+When the image has rounded corners, specifying an overlayColor will cause the remaining space in the corners to be filled with a solid color. This is useful in cases which are not supported by the Android implementation of rounded corners:
 
-* 某些 resize 模式比如'contain'
-* GIF 动画
+- Certain resize modes, such as 'contain'
+- Animated GIFs
 
-常见的用法就是在不能圆角透明时，设置`overlayColor`和背景色一致。
+A typical way to use this prop is with images displayed on a solid background and setting the `overlayColor` to the same color as the background.
 
-详细说明可参考<https://frescolib.org/docs/rounded-corners-and-circles.html>。
+For details of how this works under the hood, see https://frescolib.org/docs/rounded-corners-and-circles.html
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| string | 否   | Android |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | Android  |

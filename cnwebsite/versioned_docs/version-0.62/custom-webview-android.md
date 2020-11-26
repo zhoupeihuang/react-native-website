@@ -1,10 +1,7 @@
 ---
-id: version-0.62-custom-webview-android
+id: custom-webview-android
 title: Custom WebView
-original_id: custom-webview-android
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 While the built-in web view has a lot of features, it is not possible to handle every use-case in React Native. You can, however, extend the web view with native code without forking React Native or duplicating all the existing web view code.
 
@@ -245,7 +242,7 @@ export default class CustomWebView extends Component {
 }
 ```
 
-Just like for regular native components, you must provide all your prop types in the component to have them forwarded on to the native component. However, if you have some prop types that are only used internally in component, you can add them to the `nativeOnly` property of the third argument previously mentioned. For event handlers, you have to use the value `true` instead of a regular prop type.
+Similar to regular native components, you must provide all your prop types in the component to have them forwarded on to the native component. However, if you have some prop types that are only used internally in component, you can add them to the `nativeOnly` property of the third argument previously mentioned. For event handlers, you have to use the value `true` instead of a regular prop type.
 
 For example, if you wanted to add an internal event handler called `onScrollToBottom`, you would use,
 

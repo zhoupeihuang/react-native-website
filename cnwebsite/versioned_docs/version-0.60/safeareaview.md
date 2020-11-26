@@ -1,37 +1,42 @@
 ---
-id: version-0.60-safeareaview
+id: safeareaview
 title: SafeAreaView
-original_id: safeareaview
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(97.30%), [2725285+biaji](https://github.com/search?q=2725285%2Bbiaji%40users.noreply.github.com+in%3Aemail&type=Users)(2.70%)
+The purpose of `SafeAreaView` is to render content within the safe area boundaries of a device. It is currently only applicable to iOS devices with iOS version 11 or later.
 
-`SafeAreaView`的目的是在一个“安全”的可视区域内渲染内容。具体来说就是因为目前有 iPhone X 这样的带有“刘海”的全面屏设备，所以需要避免内容渲染到不可见的“刘海”范围内。本组件目前仅支持 iOS 设备以及 iOS 11 或更高版本。
+`SafeAreaView` renders nested content and automatically applies padding to reflect the portion of the view that is not covered by navigation bars, tab bars, toolbars, and other ancestor views. Moreover, and most importantly, Safe Area's paddings reflect the physical limitation of the screen, such as rounded corners or camera notches (i.e. the sensor housing area on iPhone X).
 
-`SafeAreaView`会自动根据系统的各种导航栏、工具栏等预留出空间来渲染内部内容。更重要的是，它还会考虑到设备屏幕的局限，比如屏幕四周的圆角或是顶部中间不可显示的“刘海”区域。
+### Usage Example
 
-### 示例
+To use, wrap your top level view with a `SafeAreaView` with a `flex: 1` style applied to it. You may also want to use a background color that matches your application's design.
 
-只需简单地把你原有的视图用`SafeAreaView`包起来，同时设置一个`flex: 1`的样式。当然可能还需要一些和你的设计相匹配的背景色。
+```SnackPlayer name=SafeAreaView
+import React from 'react';
+import { StyleSheet, Text, SafeAreaView } from 'react-native';
 
-```jsx
-<SafeAreaView style={{flex: 1, backgroundColor: '#fff'}}>
-  <View style={{ flex: 1 }}>
-    <Text>Hello World!</Text>
-  </View>
-</SafeAreaView>
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text>Page content</Text>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 ```
 
-### Props
-
-- [View props...](view.md#props)
-- [`emulateUnlessSupported`](safeareaview.md#emulateUnlessSupported)
-
 ---
 
-# 文档
+# Reference
 
 ## Props
+
+Inherits [View Props](view.md#props).
 
 ### `emulateUnlessSupported`
 

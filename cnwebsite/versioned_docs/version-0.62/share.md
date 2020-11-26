@@ -1,31 +1,20 @@
 ---
-id: version-0.62-share
+id: share
 title: Share
-original_id: share
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-## 示例
+## Example
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Function%20Component%20Example&supportedPlatforms=ios,android
 import React from 'react';
 import { Share, View, Button } from 'react-native';
 
-const ShareExample = () => {
+export default ShareExample = () => {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -51,11 +40,10 @@ const ShareExample = () => {
     </View>
   );
 };
-
-export default ShareExample;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Class%20Component%20Example&supportedPlatforms=ios,android
 import React, { Component } from 'react';
@@ -95,13 +83,12 @@ class ShareExample extends Component {
 export default ShareExample;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
----
+# Reference
 
-# 文档
-
-## 方法
+## Methods
 
 ### `share()`
 
@@ -109,22 +96,21 @@ export default ShareExample;
 static share(content, options)
 ```
 
-打开一个对话框来共享文本内容。
+Open a dialog to share text content.
 
-在 iOS 中，返回一个 Promise，最终会解析为一个对象，包含有`action`和`activityType`两个属性。如果用户取消对话框，则 Promise 仍将被解析，最终返回的`action`属性会是`Share.dismissedAction`，而其他属性为 undefined。Note that some share options will not appear or work on the iOS simulator.
+In iOS, returns a Promise which will be invoked with an object containing `action` and `activityType`. If the user dismissed the dialog, the Promise will still be resolved with action being `Share.dismissedAction` and all the other keys being undefined. Note that some share options will not appear or work on the iOS simulator.
 
-在 Android 中同样返回一个 Promise，但返回的`action`始终为`Share.sharedAction`。
+In Android, returns a Promise which will always be resolved with action being `Share.sharedAction`.
 
 ### Content
 
-- `message` - 要分享的消息
-- `title` - 消息的标题
+- `message` - a message to share
 
 #### iOS
 
-- `url` - 要分享的网址
+- `url` - an URL to share
 
-至少需要一个 URL 和消息。
+At least one of URL and message is required.
 
 #### Android
 
@@ -134,7 +120,7 @@ static share(content, options)
 
 #### iOS
 
-- `subject` - 通过邮件分享的标题
+- `subject` - a subject to share via email
 - `excludedActivityTypes`
 - `tintColor`
 
@@ -144,20 +130,20 @@ static share(content, options)
 
 ---
 
-### `sharedAction`
+### `sharedAction()`
 
 ```jsx
-static sharedAction
+static sharedAction()
 ```
 
-表示内容已成功分享。
+The content was successfully shared.
 
 ---
 
-### `dismissedAction`
+### `dismissedAction()`
 
 ```jsx
-static dismissedAction
+static dismissedAction()
 ```
 
-表示对话框被取消。仅限 iOS。
+_iOS Only_. The dialog has been dismissed.

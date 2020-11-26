@@ -1,39 +1,31 @@
 ---
-id: version-0.60-pickerios
+id: pickerios
 title: PickerIOS
-original_id: pickerios
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-### Props
-
-- [View props...](view.md#props)
-
-* [`itemStyle`](pickerios.md#itemstyle)
-* [`onValueChange`](pickerios.md#onvaluechange)
-* [`onChange`](pickerios.md#onchange)
-* [`selectedValue`](pickerios.md#selectedvalue)
+> **Deprecated.** Use [Picker](picker.md) instead.
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
+Inherits [View Props](view.md#props).
+
 ### `itemStyle`
 
-| 类型                               | 必填 |
-| ---------------------------------- | ---- |
-| [text styles](text-style-props.md) | 否   |
+| Type                               | Required |
+| ---------------------------------- | -------- |
+| [text styles](text-style-props.md) | No       |
 
 ---
 
 ### `onValueChange`
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
@@ -47,6 +39,6 @@ original_id: pickerios
 
 ### `selectedValue`
 
-| 类型             | 必填 |
-| ---------------- | ---- |
-| number or string | 否   |
+| Type             | Required |
+| ---------------- | -------- |
+| number or string | No       |

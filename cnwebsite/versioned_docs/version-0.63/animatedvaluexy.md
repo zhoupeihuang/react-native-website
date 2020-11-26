@@ -1,14 +1,11 @@
 ---
-id: version-0.63-animatedvaluexy
+id: animatedvaluexy
 title: Animated.ValueXY
-original_id: animatedvaluexy
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+2D Value for driving 2D animations, such as pan gestures. Almost identical API to normal [`Animated.Value`](animatedvalue), but multiplexed. Contains two regular `Animated.Value`s under the hood.
 
-2D Value for driving 2D animations, such as pan gestures. Almost identical API to normal [`Animated.Value`](animatedvalue.md), but multiplexed. Contains two regular `Animated.Value`s under the hood.
-
-## 示例
+## Example
 
 ```SnackPlayer name=Animated.ValueXY
 import React, { useRef } from "react";
@@ -63,9 +60,9 @@ export default DraggableView;
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `setValue()`
 
@@ -75,11 +72,11 @@ setValue(value);
 
 Directly set the value. This will stop any animations running on the value and update all the bound properties.
 
-**参数：**
+**Parameters:**
 
-| 名称  | 类型   | 必填 | 说明 |
-| ----- | ------ | ---- | ---- |
-| value | number | 是   |      |
+| Name  | Type   | Required | Description |
+| ----- | ------ | -------- | ----------- |
+| value | number | Yes      | Value       |
 
 ---
 
@@ -91,11 +88,11 @@ setOffset(offset);
 
 Sets an offset that is applied on top of whatever value is set, whether via `setValue`, an animation, or `Animated.event`. Useful for compensating things like the start of a pan gesture.
 
-**参数：**
+**Parameters:**
 
-| 名称   | 类型   | 必填 | 说明 |
-| ------ | ------ | ---- | ---- |
-| offset | number | 是   |      |
+| Name   | Type   | Required | Description  |
+| ------ | ------ | -------- | ------------ |
+| offset | number | Yes      | Offset value |
 
 ---
 
@@ -129,11 +126,11 @@ Adds an asynchronous listener to the value so you can observe updates from anima
 
 Returns a string that serves as an identifier for the listener.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                                                                        |
-| -------- | -------- | ---- | ------------------------------------------------------------------------------------------- |
-| callback | function | 是   | The callback function which will receive an object with a `value` key set to the new value. |
+| Name     | Type     | Required | Description                                                                                 |
+| -------- | -------- | -------- | ------------------------------------------------------------------------------------------- |
+| callback | function | Yes      | The callback function which will receive an object with a `value` key set to the new value. |
 
 ---
 
@@ -145,11 +142,11 @@ removeListener(id);
 
 Unregister a listener. The `id` param shall match the identifier previously returned by `addListener()`.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | 必填 | 说明                               |
-| ---- | ------ | ---- | ---------------------------------- |
-| id   | string | 是   | Id for the listener being removed. |
+| Name | Type   | Required | Description                        |
+| ---- | ------ | -------- | ---------------------------------- |
+| id   | string | Yes      | Id for the listener being removed. |
 
 ---
 
@@ -171,11 +168,11 @@ stopAnimation([callback]);
 
 Stops any running animation or tracking. `callback` is invoked with the final value after stopping the animation, which is useful for updating state to match the animation position with layout.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                          |
-| -------- | -------- | ---- | --------------------------------------------- |
-| callback | function | 否   | A function that will receive the final value. |
+| Name     | Type     | Required | Description                                   |
+| -------- | -------- | -------- | --------------------------------------------- |
+| callback | function | No       | A function that will receive the final value. |
 
 ---
 
@@ -187,11 +184,11 @@ resetAnimation([callback]);
 
 Stops any animation and resets the value to its original.
 
-**参数：**
+**Parameters:**
 
-| 名称     | 类型     | 必填 | 说明                                             |
-| -------- | -------- | ---- | ------------------------------------------------ |
-| callback | function | 否   | A function that will receive the original value. |
+| Name     | Type     | Required | Description                                      |
+| -------- | -------- | -------- | ------------------------------------------------ |
+| callback | function | No       | A function that will receive the original value. |
 
 ---
 

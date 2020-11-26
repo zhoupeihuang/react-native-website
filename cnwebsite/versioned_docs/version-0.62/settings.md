@@ -1,10 +1,7 @@
 ---
-id: version-0.62-settings
+id: settings
 title: Settings
-original_id: settings
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 `Settings` serves as a wrapper for [`NSUserDefaults`](https://developer.apple.com/documentation/foundation/nsuserdefaults), a persistent key-value store available only on iOS.
 
@@ -14,7 +11,7 @@ original_id: settings
 import React, { useState } from "react";
 import { Button, Settings, StyleSheet, Text, View } from "react-native";
 
-const App = () => {
+export default App = () => {
   const [data, setData] = useState(Settings.get("data"));
 
   const storeData = data => {
@@ -49,8 +46,6 @@ const styles = StyleSheet.create({
     marginVertical: 12
   }
 });
-
-export default App;
 ```
 
 ---

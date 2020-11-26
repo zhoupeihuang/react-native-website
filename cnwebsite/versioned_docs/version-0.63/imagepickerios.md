@@ -1,16 +1,15 @@
 ---
-id: version-0.63-imagepickerios
-title: 🚧 ImagePickerIOS
-original_id: imagepickerios
+id: imagepickerios
+title: '🚧 ImagePickerIOS'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/image-picker-ios](https://github.com/react-native-community/react-native-image-picker-ios) instead.
 
-**已过时。** Use [@react-native-community/image-picker-ios](https://github.com/react-native-community/react-native-image-picker-ios) instead.
+---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `canRecordVideos()`
 
@@ -34,7 +33,7 @@ static canUseCamera(callback)
 static openCameraDialog(config, successCallback, cancelCallback)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name            | Type     | Required | Description |
 | --------------- | -------- | -------- | ----------- |
@@ -60,7 +59,7 @@ static openCameraDialog(config, successCallback, cancelCallback)
 static openSelectDialog(config, successCallback, cancelCallback)
 ```
 
-**参数：**
+**Parameters:**
 
 | Name            | Type     | Required | Description |
 | --------------- | -------- | -------- | ----------- |

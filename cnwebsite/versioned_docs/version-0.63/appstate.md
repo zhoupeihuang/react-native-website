@@ -1,42 +1,31 @@
 ---
-id: version-0.63-appstate
+id: appstate
 title: AppState
-original_id: appstate
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-`AppState`能告诉你应用当前是在前台还是在后台，并且能在状态变化的时候通知你。
+`AppState` can tell you if the app is in the foreground or background, and notify you when the state changes.
 
-AppState 通常在处理推送通知的时候用来决定内容和对应的行为。
+AppState is frequently used to determine the intent and proper behavior when handling push notifications.
 
 ### App States
 
-- `active` - 应用正在前台运行
-- `background` - 应用正在后台运行。用户可能面对以下几种情况：
-  - 在别的应用中
-  - 停留在桌面
-  - 对 Android 来说还可能处在另一个`Activity`中（即便是由你的应用拉起的）
-- [iOS] `inactive` - 此状态表示应用正在前后台的切换过程中，或是处在系统的多任务视图，又或是处在来电状态中。
+- `active` - The app is running in the foreground
+- `background` - The app is running in the background. The user is either:
+  - in another app
+  - on the home screen
+  - [Android] on another `Activity` (even if it was launched by your app)
+- [iOS] `inactive` - This is a state that occurs when transitioning between foreground & background, and during periods of inactivity such as entering the Multitasking view or in the event of an incoming call
 
-要了解更多信息，可以阅读[Apple 的文档](https://developer.apple.com/documentation/uikit/app_and_scenes/managing_your_app_s_life_cycle)。
+For more information, see [Apple's documentation](https://developer.apple.com/documentation/uikit/app_and_scenes/managing_your_app_s_life_cycle)
 
-## 基本用法
+## Basic Usage
 
-要获取当前的状态，你可以使用`AppState.currentState`，这个变量会一直保持更新。不过在启动的过程中，`currentState`可能为 null，直到`AppState`从原生代码得到通知为止。
+To see the current state, you can check `AppState.currentState`, which will be kept up-to-date. However, `currentState` will be null at launch while `AppState` retrieves it over the bridge.
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=AppState%20Function%20Component%20Example
 import React, { useRef, useState, useEffect } from "react";
@@ -87,7 +76,8 @@ export default AppStateExample;
 
 If you don't want to see the AppState update from `active` to `inactive` on iOS you can remove the state variable and use the `appState.current` value.
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=AppState%20Class%20Component%20Example
 import React, { Component } from "react";
@@ -136,33 +126,34 @@ const styles = StyleSheet.create({
 export default AppStateExample;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
-上面的这个例子只会显示"Current state is: active"，这是因为应用只有在`active`状态下才能被用户看到。并且 null 状态只会在一开始的一瞬间出现。If you want to experiment with the code we recommend to use your own device instead of embedded preview.
+This example will only ever appear to say "Current state is: active" because the app is only visible to the user when in the `active` state, and the null state will happen only momentarily. If you want to experiment with the code we recommend to use your own device instead of embedded preview.
 
 ---
 
-# 文档
+# Reference
 
-## 事件
-
-### `blur`
-
-[Android only] Received when the user is not actively interacting with the app. Useful in situations when the user pulls down the [notification drawer](https://developer.android.com/guide/topics/ui/notifiers/notifications#bar-and-drawer). `AppState` won't change but the `blur` event will get fired.
+## Events
 
 ### `change`
 
-This even is received when the app state has changed. The listener is called with one of [the current app state values](appstate.md#app-states).
-
-### `focus`
-
-[Android only] Received when the app gains focus (the user is interacting with the app).
+This event is received when the app state has changed. The listener is called with one of [the current app state values](appstate#app-states).
 
 ### `memoryWarning`
 
 This event is used in the need of throwing memory warning or releasing it.
 
-## 方法
+### `focus`
+
+[Android only] Received when the app gains focus (the user is interacting with the app).
+
+### `blur`
+
+[Android only] Received when the user is not actively interacting with the app. Useful in situations when the user pulls down the [notification drawer](https://developer.android.com/guide/topics/ui/notifiers/notifications#bar-and-drawer). `AppState` won't change but the `blur` event will get fired.
+
+## Methods
 
 ### `addEventListener()`
 
@@ -170,7 +161,7 @@ This event is used in the need of throwing memory warning or releasing it.
 addEventListener(type, handler);
 ```
 
-添加一个监听函数，用于监听应用状态的变化。type 参数应填`change`。
+Add a handler to AppState changes by listening to the `change` event type and providing the handler
 
 TODO: now that AppState is a subclass of NativeEventEmitter, we could deprecate `addEventListener` and `removeEventListener` and use `addListener` and `listener.remove()` directly. That will be a breaking change though, as both the method and event names are different (addListener events are currently required to be globally unique).
 
@@ -182,9 +173,9 @@ TODO: now that AppState is a subclass of NativeEventEmitter, we could deprecate 
 removeEventListener(type, handler);
 ```
 
-移除一个监听函数。type 参数应填`change`。
+Remove a handler by passing the `change` event type and the handler
 
-## 属性
+## Properties
 
 ### `currentState`
 

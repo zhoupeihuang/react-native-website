@@ -1,20 +1,17 @@
 ---
-id: version-0.62-security
+id: security
 title: Security
-original_id: security
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 Security is often overlooked when building apps. It is true that it is impossible to build software that is completely impenetrable—we’ve yet to invent a completely impenetrable lock (bank vaults do, after all, still get broken into). However, the probability of falling victim to a malicious attack or being exposed for a security vulnerability is inversely proportional to the effort you’re willing to put in to protecting your application against any such eventuality. Although an ordinary padlock is pickable, it is still much harder to get past than a cabinet hook!
-
-<img src="/docs/assets/d_security_chart.svg" width="283" alt=" " style="float:right" />
 
 In this guide, you will learn about best practices for storing sensitive information, authentication, network security, and tools that will help you secure your app. This is not a preflight checklist—it is a catalogue of options, each of which will help further protect your app and users.
 
 ## Storing Sensitive Info
 
-Never store sensitive API keys in your app code. Anything included in your code could be accessed in plain text by anyone inspecting the app bundle. Tools like [react-native-dotenv](https://github.com/zetachang/react-native-dotenv) and [react-native-config](https://github.com/luggit/react-native-config/) are great for adding environment-specific variables like API endpoints, but they should not be confused with server-side environment variables, which can often contain secrets and api keys.
+Never store sensitive API keys in your app code. Anything included in your code could be accessed in plain text by anyone inspecting the app bundle. Tools like [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv) and [react-native-config](https://github.com/luggit/react-native-config/) are great for adding environment-specific variables like API endpoints, but they should not be confused with server-side environment variables, which can often contain secrets and api keys.
 
 If you must have an API key or a secret to access some resource from your app, the most secure way to handle this would be to build an orchestration layer between your app and the resource. This could be a serverless function (e.g. using AWS Lambda or Google Cloud Functions) which can forward the request with the required API key or secret. Secrets in server side code cannot be accessed by the API consumers the same way secrets in your app code can.
 
@@ -26,25 +23,23 @@ If you must have an API key or a secret to access some resource from your app, t
 
 [Async Storage](https://github.com/react-native-community/async-storage) is a community-maintained module for React Native that provides an asynchronous, unencrypted, key-value store. Async Storage is not shared between apps: every app has its own sandbox environment and has no access to data from other apps.
 
-| **Do** use async storage when...              | **Don't** use async storage for... |
-| --------------------------------------------- | ---------------------------------- |
-| Persisting non-sensitive data across app runs | Token storage                      |
-| Persisting Redux state                        | Secrets                            |
-| Persisting GraphQL state                      |                                    |
-| Storing global app-wide variables             |                                    |
+| **Do** use asynch storage when...             | **Don't** use asynch storage for... |
+| --------------------------------------------- | ----------------------------------- |
+| Persisting non-sensitive data across app runs | Token storage                       |
+| Persisting Redux state                        | Secrets                             |
+| Persisting GraphQL state                      |                                     |
+| Storing global app-wide variables             |                                     |
 
-<div class="toggler">
-  <span>Developer Notes</span>
-  <span role="tablist" class="toggle-devNotes">
-    <button role="tab" class="button-webNote active" onclick="displayTabs('devNotes', 'webNote')" aria-selected="true">Web</button>
-  </span>
-</div>
+#### Developer Notes
 
-<block class="webNote devNotes" />
+<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["web"])}>
+
+<TabItem value="web">
 
 > Async Storage is the React Native equivalent of Local Storage from the web
 
-<block class="endBlock devNotes" />
+</TabItem>
+</Tabs>
 
 ### Secure Storage
 
@@ -72,8 +67,6 @@ In order to use iOS Keychain services or Android Secure Shared Preferences, you 
 
 ## Authentication and Deep Linking
 
-<img src="/docs/assets/d_security_deep-linking.svg" width="225" alt=" " style="float:right; margin: 0 0 1em 1em" />
-
 Mobile apps have a unique vulnerability that is non-existent in the web: **deep linking**. Deep linking is a way of sending data directly to a native application from an outside source. A deep link looks like `app://` where `app` is your app scheme and anything following the // could be used internally to handle the request.
 
 For example, if you were building an ecommerce app, you could use `app://products/1` to deep link to your app and open the product detail page for a product with id 1. You can think of these kind of like URLs on the web, but with one crucial distinction:
@@ -92,7 +85,7 @@ The OAuth2 authentication protocol is incredibly popular nowadays, prided as the
 
 On the web, this redirect step is secure, because URLs on the web are guaranteed to be unique. This is not true for apps because, as mentioned earlier, there is no centralized method of registering URL schemes! In order to address this security concern, an additional check must be added in the form of PKCE.
 
-[PKCE](https://oauth.net/2/pkce/), pronounced “Pixy” stands for Proof of Key Code Exchange, and is an extension to the OAuth 2 spec. This involves adding an additional layer of security which verifies that the authentication and token exchange requests come from the same client. PKCE uses the [SHA 256](https://www.movable-type.co.uk/scripts/sha256.html) Cryptographic Hash Algorithm. SHA 256 creates a unique “signature” for a text or file of any size, but it is:
+[PKCE](https://oauth.net/2/pkce/), pronounced “Pixy” stands for Proof of Key Code Exchange, and is an extension to the OAuth 2 spec. This involves adding an additional layer of security which verifies that the authentication and token exchange requests come from the same client. PKCE uses the [SHA 265](https://www.movable-type.co.uk/scripts/sha256.html) Cryptographic Hash Algorithm. SHA 265 creates a unique “signature” for a text or file of any size, but it is:
 
 - Always the same length regardless of the input file
 - Guaranteed to be always produce the same result for the same input
@@ -101,7 +94,7 @@ On the web, this redirect step is secure, because URLs on the web are guaranteed
 Now you have two values:
 
 - **code_verifier** - a large random string generated by the client
-- **code_challenge** - the SHA 256 of the code_verifier
+- **code_challenge** - the SHA 265 of the code_verifier
 
 During the initial `/authorize` request, the client also sends the `code_challenge` for the `code_verifier` it keeps in memory. After the authorize request has returned correctly, the client also sends the `code_verifier` that was used to generate the `code_challenge`. The IDP will then calculate the `code_challenge`, see if it matches what was set on the very first `/authorize` request, and only send the access token if the values match.
 

@@ -1,16 +1,14 @@
 ---
-id: version-0.63-view-style-props
-title: View样式属性
-original_id: view-style-props
+id: view-style-props
+title: View Style Props
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.62%), [yahoo.007](https://github.com/search?q=yahoo.007%40163.com&type=Users)(0.38%)
-
-### 示例
+### Example
 
 ```SnackPlayer name=ViewStyleProps
 import React from "react";
 import { View, StyleSheet } from "react-native";
+
 const ViewStyleProps = () => {
     return (
       <View style={styles.container}>
@@ -20,6 +18,7 @@ const ViewStyleProps = () => {
       </View>
     );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -48,217 +47,220 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
   },
 });
+
 export default ViewStyleProps;
 ```
 
-# 文档
+# Reference
 
 ## Props
 
 ### `borderRightColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `backfaceVisibility`
 
-| 类型                      | 必填 |
-| ------------------------- | ---- |
-| enum('visible', 'hidden') | 否   |
+| Type                      | Required |
+| ------------------------- | -------- |
+| enum('visible', 'hidden') | No       |
 
 ---
 
 ### `borderBottomColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderBottomEndRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderBottomLeftRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderBottomRightRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderBottomStartRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderBottomWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderEndColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderLeftColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderLeftWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+If the rounded border is not visible, try applying `overflow: 'hidden'` as well.
+
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `backgroundColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderRightWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderStartColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderStyle`
 
-| 类型                              | 必填 |
-| --------------------------------- | ---- |
-| enum('solid', 'dotted', 'dashed') | 否   |
+| Type                              | Required |
+| --------------------------------- | -------- |
+| enum('solid', 'dotted', 'dashed') | No       |
 
 ---
 
 ### `borderTopColor`
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderTopEndRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderTopLeftRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderTopRightRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderTopStartRadius`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderTopWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `borderWidth`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `opacity`
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `elevation`
 
-(限 Android)使用 Android 原生的 elevation API 来设置视图的高度（ [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation)）。这样可以为视图添加一个投影，并且会影响视图层叠的顺序。此属性仅支持 Android5.0 及以上版本。
+(Android-only) Sets the elevation of a view, using Android's underlying [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation). This adds a drop shadow to the item and affects z-order for overlapping views. Only supported on Android 5.0+, has no effect on earlier versions.
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| number | 否   | Android |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |

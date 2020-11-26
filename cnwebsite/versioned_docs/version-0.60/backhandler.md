@@ -1,26 +1,24 @@
 ---
-id: version-0.60-backhandler
+id: backhandler
 title: BackHandler
-original_id: backhandler
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+Detect hardware button presses for back navigation.
 
-监听设备上的后退按钮事件。
+Android: Detect hardware back button presses, and programmatically invoke the default back button functionality to exit the app if there are no listeners or if none of the listeners return true.
 
-Android：监听后退按钮事件。如果没有添加任何监听函数，或者所有的监听函数都返回 false，则会执行默认行为，退出应用。
+tvOS: Detect presses of the menu button on the TV remote. (Still to be implemented: programmatically disable menu button handling functionality to exit the app if there are no listeners or if none of the listeners return true.)
 
-tvOS(即 Apple TV 机顶盒)：监听遥控器上的后退按钮事件（阻止应用退出的功能尚未实现）。
+iOS: Not applicable.
 
-iOS：尚无作用。
+The event subscriptions are called in reverse order (i.e. last registered subscription first), and if one subscription returns true then subscriptions registered earlier will not be called. Beware: If your app shows an opened `Modal`, BackHandler will not publish any events ([see `Modal` docs](/docs/modal#onrequestclose)).
 
-监听函数是按倒序的顺序执行（即后添加的函数先执行）。如果某一个函数返回 true，则后续的函数都不会被调用。
-
-示例：
+Example:
 
 ```jsx
-BackHandler.addEventListener("hardwareBackPress", function() {
-  // this.onMainScreen()和this.goBack()两个方法都只是伪方法，需要你自己去实现！
+BackHandler.addEventListener('hardwareBackPress', function() {
+  // this.onMainScreen and this.goBack are just examples, you need to use your own implementation here
+  // Typically you would use the navigator here to go to the last state.
 
   if (!this.onMainScreen()) {
     this.goBack();
@@ -30,15 +28,15 @@ BackHandler.addEventListener("hardwareBackPress", function() {
 });
 ```
 
-在生命周期方法中使用的示例：
+Lifecycle example:
 
 ```jsx
   componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+    this.backHandler.remove()
   }
 
   handleBackPress = () => {
@@ -47,7 +45,7 @@ BackHandler.addEventListener("hardwareBackPress", function() {
   }
 ```
 
-在生命周期方法中使用的另一种写法：
+Lifecycle alternative:
 
 ```jsx
   componentDidMount() {
@@ -62,18 +60,11 @@ BackHandler.addEventListener("hardwareBackPress", function() {
   }
 ```
 
-### 查看方法
-
-- [`exitApp`](backhandler.md#exitapp)
-- [`addEventListener`](backhandler.md#addeventlistener)
-- [`exitApp`](backhandler.md#exitapp)
-- [`removeEventListener`](backhandler.md#removeeventlistener)
-
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `addEventListener()`
 

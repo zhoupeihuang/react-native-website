@@ -1,40 +1,36 @@
 ---
-id: version-0.61-handling-touches
-title: 处理触摸事件
-original_id: handling-touches
+id: handling-touches
+title: Handling Touches
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(99.43%), [xgqfrms](https://github.com/search?q=xgqfrms%40outlook.com+in%3Aemail&type=Users)(0.57%)
+Users interact with mobile apps mainly through touch. They can use a combination of gestures, such as tapping on a button, scrolling a list, or zooming on a map. React Native provides components to handle all sorts of common gestures, as well as a comprehensive [gesture responder system](gesture-responder-system.md) to allow for more advanced gesture recognition, but the one component you will most likely be interested in is the basic Button.
 
-移动应用上的用户交互基本靠“摸”。当然，“摸”也是有各种姿势的：在一个按钮上点击，在一个列表上滑动，或是在一个地图上缩放。React Native 提供了可以处理常见触摸手势（例如点击或滑动）的组件， 以及可用于识别更复杂的手势的完整的[手势响应系统](gesture-responder-system.md)。
+## Displaying a basic button
 
-
-## 显示一个简单的按钮
-
-[Button](button.md)是一个简单的跨平台的按钮组件。下面是一个最简示例：
+[Button](button.md) provides a basic button component that is rendered nicely on all platforms. The minimal example to display a button looks like this:
 
 ```jsx
 <Button
   onPress={() => {
-    Alert.alert("你点击了按钮！");
+    alert('You tapped the button!');
   }}
-  title="点我！"
+  title="Press Me"
 />
 ```
 
-上面这段代码会在 iOS 上渲染一个蓝色的标签状按钮，在 Android 上则会渲染一个蓝色圆角矩形带白字的按钮。点击这个按钮会调用"onPress"函数，具体作用就是显示一个 alert 弹出框。你还可以指定"color"属性来修改按钮的颜色。
+This will render a blue label on iOS, and a blue rounded rectangle with light text on Android. Pressing the button will call the "onPress" function, which in this case displays an alert popup. If you like, you can specify a "color" prop to change the color of your button.
 
-![](assets/Button.png)
+![](/docs/assets/Button.png)
 
-再试试下面这个使用`Button`的例子吧。你可以点击"Tap to Play"来预览真实效果。（下面会显示一个嵌在网页中的手机模拟器，国内用户可能打不开这个网页模拟器，或速度非常慢）。
+Go ahead and play around with the `Button` component using the example below. You can select which platform your app is previewed in by clicking on the toggle in the bottom right, then click on "Tap to Play" to preview the app.
 
 ```SnackPlayer name=Button%20Basics
 import React, { Component } from 'react';
-import { Alert, Button, StyleSheet, View } from 'react-native';
+import { Button, StyleSheet, View } from 'react-native';
 
 export default class ButtonBasics extends Component {
   _onPressButton() {
-    Alert.alert('You tapped the button!')
+    alert('You tapped the button!')
   }
 
   render() {
@@ -82,39 +78,38 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between'
   }
-})
-
+});
 ```
 
-## Touchable 系列组件
+## Touchables
 
-这个组件的样式是固定的。所以如果它的外观并不怎么搭配你的设计，那就需要使用`TouchableOpacity`或是`TouchableNativeFeedback`组件来定制自己所需要的按钮，视频教程[如何制作一个按钮](http://v.youku.com/v_show/id_XMTQ5OTE3MjkzNg==.html?f=26822355&from=y1.7-1.3)讲述了完整的过程。或者你也可以在 github.com 网站上搜索 'react native button' 来看看社区其他人的作品。
+If the basic button doesn't look right for your app, you can build your own button using any of the "Touchable" components provided by React Native. The "Touchable" components provide the capability to capture tapping gestures, and can display feedback when a gesture is recognized. These components do not provide any default styling, however, so you will need to do a bit of work to get them looking nicely in your app.
 
-具体使用哪种组件，取决于你希望给用户什么样的视觉反馈：
+Which "Touchable" component you use will depend on what kind of feedback you want to provide:
 
-* 一般来说，你可以使用[**TouchableHighlight**](touchablehighlight.md)来制作按钮或者链接。注意此组件的背景会在用户手指按下时变暗。
+- Generally, you can use [**TouchableHighlight**](touchablehighlight.md) anywhere you would use a button or link on web. The view's background will be darkened when the user presses down on the button.
 
-* 在 Android 上还可以使用[**TouchableNativeFeedback**](touchablenativefeedback.md)，它会在用户手指按下时形成类似墨水涟漪的视觉效果。
+- You may consider using [**TouchableNativeFeedback**](touchablenativefeedback.md) on Android to display ink surface reaction ripples that respond to the user's touch.
 
-* [**TouchableOpacity**](touchableopacity.md)会在用户手指按下时降低按钮的透明度，而不会改变背景的颜色。
+- [**TouchableOpacity**](touchableopacity.md) can be used to provide feedback by reducing the opacity of the button, allowing the background to be seen through while the user is pressing down.
 
-* 如果你想在处理点击事件的同时不显示任何视觉反馈，则需要使用[**TouchableWithoutFeedback**](touchablewithoutfeedback.md)。
+- If you need to handle a tap gesture but you don't want any feedback to be displayed, use [**TouchableWithoutFeedback**](touchablewithoutfeedback.md).
 
-某些场景中你可能需要检测用户是否进行了长按操作。可以在上面列出的任意组件中使用`onLongPress`属性来实现。
+In some cases, you may want to detect when a user presses and holds a view for a set amount of time. These long presses can be handled by passing a function to the `onLongPress` props of any of the "Touchable" components.
 
-我们来看一下示例：
+Let's see all of these in action:
 
-```SnackPlayer platform=android&name=Touchables
+```SnackPlayer name=Touchables
 import React, { Component } from 'react';
-import { Alert, Platform, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View } from 'react-native';
+import { Platform, StyleSheet, Text, TouchableHighlight, TouchableOpacity, TouchableNativeFeedback, TouchableWithoutFeedback, View } from 'react-native';
 
 export default class Touchables extends Component {
   _onPressButton() {
-    Alert.alert('You tapped the button!')
+    alert('You tapped the button!')
   }
 
   _onLongPressButton() {
-    Alert.alert('You long-pressed the button!')
+    alert('You long-pressed the button!')
   }
 
 
@@ -135,7 +130,7 @@ export default class Touchables extends Component {
             onPress={this._onPressButton}
             background={Platform.OS === 'android' ? TouchableNativeFeedback.SelectableBackground() : ''}>
           <View style={styles.button}>
-            <Text style={styles.buttonText}>TouchableNativeFeedback</Text>
+            <Text style={styles.buttonText}>TouchableNativeFeedback {Platform.OS !== 'android' ? '(Android only)' : ''}</Text>
           </View>
         </TouchableNativeFeedback>
         <TouchableWithoutFeedback
@@ -171,9 +166,9 @@ const styles = StyleSheet.create({
     padding: 20,
     color: 'white'
   }
-})
+});
 ```
 
-## 在列表中上下滑动、在视图上左右滑动以及双指缩放
+## Scrolling lists, swiping pages, and pinch-to-zoom
 
-另一个在移动应用中常见的手势就是滑动。用户会在列表中上下滑动，或是在视图上左右滑动。要处理这样的手势，你可以看一下[如何使用滚动视图](using-a-scrollview.md)这篇文档。
+Another gesture commonly used in mobile apps is the swipe or pan. This gesture allows the user to scroll through a list of items, or swipe through pages of content. In order to handle these and other gestures, we'll learn [how to use a ScrollView](using-a-scrollview.md) next.

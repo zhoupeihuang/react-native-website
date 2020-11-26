@@ -1,23 +1,15 @@
 ---
-id: version-0.60-clipboard
+id: clipboard
 title: Clipboard
-original_id: clipboard
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(97.96%), [774866545](https://github.com/search?q=774866545%40qq.com+in%3Aemail&type=Users)(2.04%)
-
-`Clipboard`组件可以在 iOS 和 Android 的剪贴板中读写内容。
-
-### 查看方法
-
-* [`getString`](clipboard.md#getstring)
-* [`setString`](clipboard.md#setstring)
+`Clipboard` gives you an interface for setting and getting content from Clipboard on both Android and iOS
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `getString()`
 
@@ -25,7 +17,7 @@ original_id: clipboard
 static getString()
 ```
 
-获取剪贴板的文本内容。返回一个`Promise`，然后你可以用下面的方式来读取剪贴板内容。
+Get content of string type, this method returns a `Promise`, so you can use following code to get clipboard content
 
 ```jsx
 async _getContent() {
@@ -41,7 +33,7 @@ async _getContent() {
 static setString(content)
 ```
 
-设置剪贴板的文本内容，然后你可以用下面的方式来设置剪贴板内容。
+Set content of string type. You can use following code to set clipboard content
 
 ```jsx
 _setContent() {
@@ -49,4 +41,4 @@ _setContent() {
 }
 ```
 
-@param 要写入剪贴板的内容
+@param the content to be stored in the clipboard.

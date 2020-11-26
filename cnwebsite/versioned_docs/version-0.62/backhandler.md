@@ -1,65 +1,58 @@
 ---
-id: version-0.62-backhandler
+id: backhandler
 title: BackHandler
-original_id: backhandler
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-BackHandler API 用于监听设备上的后退按钮事件，可以调用你自己的函数来处理后退行为。此 API 仅能在 Android 上使用。
+The Backhandler API detects hardware button presses for back navigation, lets you register event listeners for the system's back action, and lets you control how your application responds. It is Android-only.
 
-回调函数是倒序执行的（即后添加的函数先执行）。
+The event subscriptions are called in reverse order (i.e. the last registered subscription is called first).
 
-- **如果某一个函数返回 true**，则后续的函数都不会被调用。
-- **如果没有添加任何监听函数，或者所有的监听函数都返回 false**，则会执行默认行为，退出应用。
+- **If one subscription returns true,** then subscriptions registered earlier will not be called.
+- **If no subscription returns true or none are registered,** it programmatically invokes the default back button functionality to exit the app.
 
-> 注意：如果 app 当前打开了一个`Modal`窗口，则 BackHandler 不会触发事件。([查看`Modal`的文档](modal.md#onrequestclose)).
+> **Warning for modal users:** If your app shows an opened `Modal`, `BackHandler` will not publish any events ([see `Modal` docs](modal#onrequestclose)).
 
-## 用法
+## Pattern
 
 ```jsx
 BackHandler.addEventListener('hardwareBackPress', function() {
   /**
-   * this.onMainScreen()和this.goBack()两个方法都只是伪方法，需要你自己去实现
-   * 一般来说都要配合导航器组件使用
+   * this.onMainScreen and this.goBack are just examples,
+   * you need to use your own implementation here.
+   *
+   * Typically you would use the navigator here to go to the last state.
    */
 
   if (!this.onMainScreen()) {
     this.goBack();
     /**
-     * 返回true时会阻止事件冒泡传递，因而不会执行默认的后退行为
+     * When true is returned the event will not be bubbled up
+     * & no other back action will execute
      */
     return true;
   }
   /**
-   * 返回false时会使事件继续传递，触发其他注册的监听函数，或是系统默认的后退行为
+   * Returning false will let the event to bubble up & let other event listeners
+   * or the system's default back action to be executed.
    */
   return false;
 });
 ```
 
-## 示例
+## Example
 
 The following example implements a scenario where you confirm if the user wants to exit the app:
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <lClass组件示例"button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class Component Example
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=BackHandler&supportedPlatforms=android
 import React, { useEffect } from "react";
 import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
 
-const App = () => {
+export default function App() {
   useEffect(() => {
     const backAction = () => {
       Alert.alert("Hold on!", "Are you sure you want to go back?", [
@@ -86,7 +79,7 @@ const App = () => {
       <Text style={styles.text}>Click Back button!</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -99,17 +92,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=BackHandler&supportedPlatforms=android
 import React, { Component } from "react";
 import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
 
-class App extends Component {
+export default class App extends Component {
   backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       {
@@ -140,7 +132,7 @@ class App extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -153,34 +145,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 `BackHandler.addEventListener` creates an event listener & returns a `NativeEventSubscription` object which should be cleared using `NativeEventSubscription.remove` method.
 
 Additionally `BackHandler.removeEventListener` can also be used to clear the event listener. Ensure the callback has the reference to the same function used in the `addEventListener` call as shown the following example ﹣
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <lClass组件示例"button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class Component Example
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=BackHandler&supportedPlatforms=android
 import React, { useEffect } from "react";
 import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
 
-const App = () => {
+export default function App() {
   const backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       {
@@ -205,7 +186,7 @@ const App = () => {
       <Text style={styles.text}>Click Back button!</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -218,17 +199,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=BackHandler&supportedPlatforms=android
 import React, { Component } from "react";
 import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
 
-class App extends Component {
+export default class App extends Component {
   backAction = () => {
     Alert.alert("Hold on!", "Are you sure you want to go back?", [
       {
@@ -256,7 +236,7 @@ class App extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -269,11 +249,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ## Usage with React Navigation
 
@@ -285,9 +264,9 @@ If you are using React Navigation to navigate across different screens, you can 
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `addEventListener()`
 

@@ -1,34 +1,23 @@
 ---
-id: version-0.62-accessibilityinfo
+id: accessibilityinfo
 title: AccessibilityInfo
-original_id: accessibilityinfo
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-有时候我们希望知道用户的设备是否正在运行读屏应用。`AccessibilityInfo`正是用于此目的。你可以用它来查询读屏应用的当前状态，并且可以监听其状态变化。
+Sometimes it's useful to know whether or not the device has a screen reader that is currently active. The `AccessibilityInfo` API is designed for this purpose. You can use it to query the current state of the screen reader as well as to register to be notified when the state of the screen reader changes.
 
-## 示例
+## Example
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=AccessibilityInfo%20Function%20Component%20Example
 
 import React, { useState, useEffect } from "react";
 import { AccessibilityInfo, View, Text, StyleSheet } from "react-native";
 
-const App = () => {
+export default function App() {
   const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
   const [screenReaderEnabled, setScreenReaderEnabled] = useState(false);
 
@@ -91,18 +80,17 @@ const styles = StyleSheet.create({
     margin: 30
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=AccessibilityInfo%20Class%20Component%20Example
 
-import React, { Component } from 'react';
+import React from 'react';
 import { AccessibilityInfo, View, Text, StyleSheet } from 'react-native';
 
-class AccessibilityStatusExample extends Component {
+export default class AccessibilityStatusExample extends React.Component {
   state = {
     reduceMotionEnabled: false,
     screenReaderEnabled: false,
@@ -172,17 +160,16 @@ class AccessibilityStatusExample extends Component {
     },
   });
 }
-
-export default AccessibilityStatusExample;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `isBoldTextEnabled()`
 
@@ -230,7 +217,7 @@ static isReduceTransparencyEnabled()
 static isScreenReaderEnabled()
 ```
 
-查询读屏应用当前是否开启。返回值为一个 promise，最终解析值为一个布尔值。`true`表示开启状态，`false`反之。
+Query whether a screen reader is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when a screen reader is enabled and `false` otherwise.
 
 ---
 
@@ -240,17 +227,17 @@ static isScreenReaderEnabled()
 static addEventListener(eventName, handler)
 ```
 
-添加一个监听函数，支持的事件类型如下：
+Add an event handler. Supported events:
 
 - `boldTextChanged`: iOS-only event. Fires when the state of the bold text toggle changes. The argument to the event handler is a boolean. The boolean is `true` when bold text is enabled and `false` otherwise.
 - `grayscaleChanged`: iOS-only event. Fires when the state of the gray scale toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a gray scale is enabled and `false` otherwise.
 - `invertColorsChanged`: iOS-only event. Fires when the state of the invert colors toggle changes. The argument to the event handler is a boolean. The boolean is `true` when invert colors is enabled and `false` otherwise.
 - `reduceMotionChanged`: Fires when the state of the reduce motion toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a reduce motion is enabled (or when "Transition Animation Scale" in "Developer options" is "Animation off") and `false` otherwise.
-- `screenReaderChanged`: 读屏应用状态改变时触发。传递给监听函数的参数为布尔值，`true`表示开启状态，`false`反之。
+- `screenReaderChanged`: Fires when the state of the screen reader changes. The argument to the event handler is a boolean. The boolean is `true` when a screen reader is enabled and `false` otherwise.
 - `reduceTransparencyChanged`: iOS-only event. Fires when the state of the reduce transparency toggle changes. The argument to the event handler is a boolean. The boolean is `true` when reduce transparency is enabled and `false` otherwise.
-- `announcementFinished`: 仅 iOS 可用。在读屏软件完成一次朗读后触发。传递给监听函数的参数为一个字典，包含以下两个字段：
-  - `announcement`: 读屏软件所读的字符串。
-  - `success`: 此次朗读是否成功完成。
+- `announcementFinished`: iOS-only event. Fires when the screen reader has finished making an announcement. The argument to the event handler is a dictionary with these keys:
+  - `announcement`: The string announced by the screen reader.
+  - `success`: A boolean indicating whether the announcement was successfully made.
 
 ---
 
@@ -260,7 +247,7 @@ static addEventListener(eventName, handler)
 static setAccessibilityFocus(reactTag)
 ```
 
-将读屏软件的焦点设置到某个 react 组件上。在 Android 等同于调用 `UIManager.sendAccessibilityEvent(reactTag, UIManager.AccessibilityEventTypes.typeViewFocused);`.
+Set accessibility focus to a React component. On Android, this calls `UIManager.sendAccessibilityEvent(reactTag, UIManager.AccessibilityEventTypes.typeViewFocused);`.
 
 > **Note**: Make sure that any `View` you want to receive the accessibility focus has `accessible={true}`.
 
@@ -272,7 +259,7 @@ static setAccessibilityFocus(reactTag)
 static announceForAccessibility(announcement)
 ```
 
-发送一个字符串给读屏应用朗读。
+Post a string to be announced by the screen reader.
 
 ---
 
@@ -282,4 +269,4 @@ static announceForAccessibility(announcement)
 static removeEventListener(eventName, handler)
 ```
 
-移除一个监听函数。
+Remove an event handler.

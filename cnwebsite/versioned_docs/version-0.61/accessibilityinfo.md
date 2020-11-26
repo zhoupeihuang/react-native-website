@@ -1,58 +1,59 @@
 ---
-id: version-0.61-accessibilityinfo
+id: accessibilityinfo
 title: AccessibilityInfo
-original_id: accessibilityinfo
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+Sometimes it's useful to know whether or not the device has a screen reader that is currently active. The `AccessibilityInfo` API is designed for this purpose. You can use it to query the current state of the screen reader as well as to register to be notified when the state of the screen reader changes.
 
-有时候我们希望知道用户的设备是否正在运行读屏应用。`AccessibilityInfo`正是用于此目的。你可以用它来查询读屏应用的当前状态，并且可以监听其状态变化。
-
-下面是一个使用`AccessibilityInfo`的小例子:
+Here's a small example illustrating how to use `AccessibilityInfo`:
 
 ```jsx
 class AccessibilityStatusExample extends React.Component {
   state = {
     reduceMotionEnabled: false,
-    screenReaderEnabled: false,
+    screenReaderEnabled: false
   };
 
   componentDidMount() {
     AccessibilityInfo.addEventListener(
       'reduceMotionChanged',
-      this._handleReduceMotionToggled,
+      this._handleReduceMotionToggled
     );
     AccessibilityInfo.addEventListener(
       'screenReaderChanged',
-      this._handleScreenReaderToggled,
+      this._handleScreenReaderToggled
     );
 
-    AccessibilityInfo.isReduceMotionEnabled().then((reduceMotionEnabled) => {
-      this.setState({reduceMotionEnabled});
-    });
-    AccessibilityInfo.isScreenReaderEnabled().then((screenReaderEnabled) => {
-      this.setState({screenReaderEnabled});
-    });
+    AccessibilityInfo.isReduceMotionEnabled().then(
+      (reduceMotionEnabled) => {
+        this.setState({ reduceMotionEnabled });
+      }
+    );
+    AccessibilityInfo.isScreenReaderEnabled().then(
+      (screenReaderEnabled) => {
+        this.setState({ screenReaderEnabled });
+      }
+    );
   }
 
   componentWillUnmount() {
     AccessibilityInfo.removeEventListener(
       'reduceMotionChanged',
-      this._handleReduceMotionToggled,
+      this._handleReduceMotionToggled
     );
 
     AccessibilityInfo.removeEventListener(
       'screenReaderChanged',
-      this._handleScreenReaderToggled,
+      this._handleScreenReaderToggled
     );
   }
 
   _handleReduceMotionToggled = (reduceMotionEnabled) => {
-    this.setState({reduceMotionEnabled});
+    this.setState({ reduceMotionEnabled });
   };
 
   _handleScreenReaderToggled = (screenReaderEnabled) => {
-    this.setState({screenReaderEnabled});
+    this.setState({ screenReaderEnabled });
   };
 
   render() {
@@ -60,11 +61,17 @@ class AccessibilityStatusExample extends React.Component {
       <View>
         <Text>
           The reduce motion is{' '}
-          {this.state.reduceMotionEnabled ? 'enabled' : 'disabled'}.
+          {this.state.reduceMotionEnabled
+            ? 'enabled'
+            : 'disabled'}
+          .
         </Text>
         <Text>
           The screen reader is{' '}
-          {this.state.screenReaderEnabled ? 'enabled' : 'disabled'}.
+          {this.state.screenReaderEnabled
+            ? 'enabled'
+            : 'disabled'}
+          .
         </Text>
       </View>
     );
@@ -74,9 +81,9 @@ class AccessibilityStatusExample extends React.Component {
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `isBoldTextEnabled()`
 
@@ -124,7 +131,7 @@ static isReduceTransparencyEnabled()
 static isScreenReaderEnabled()
 ```
 
-查询读屏应用当前是否开启。返回值为一个 promise，最终解析值为一个布尔值。`true`表示开启状态，`false`反之。
+Query whether a screen reader is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when a screen reader is enabled and `false` otherwise.
 
 ---
 
@@ -134,17 +141,17 @@ static isScreenReaderEnabled()
 static addEventListener(eventName, handler)
 ```
 
-添加一个监听函数，支持的事件类型如下：
+Add an event handler. Supported events:
 
 - `boldTextChanged`: iOS-only event. Fires when the state of the bold text toggle changes. The argument to the event handler is a boolean. The boolean is `true` when bold text is enabled and `false` otherwise.
 - `grayscaleChanged`: iOS-only event. Fires when the state of the gray scale toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a gray scale is enabled and `false` otherwise.
 - `invertColorsChanged`: iOS-only event. Fires when the state of the invert colors toggle changes. The argument to the event handler is a boolean. The boolean is `true` when invert colors is enabled and `false` otherwise.
 - `reduceMotionChanged`: Fires when the state of the reduce motion toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a reduce motion is enabled (or when "Transition Animation Scale" in "Developer options" is "Animation off") and `false` otherwise.
-- `screenReaderChanged`: 读屏应用状态改变时触发。传递给监听函数的参数为布尔值，`true`表示开启状态，`false`反之。
+- `screenReaderChanged`: Fires when the state of the screen reader changes. The argument to the event handler is a boolean. The boolean is `true` when a screen reader is enabled and `false` otherwise.
 - `reduceTransparencyChanged`: iOS-only event. Fires when the state of the reduce transparency toggle changes. The argument to the event handler is a boolean. The boolean is `true` when reduce transparency is enabled and `false` otherwise.
-- `announcementFinished`: 仅 iOS 可用。在读屏软件完成一次朗读后触发。传递给监听函数的参数为一个字典，包含以下两个字段：
-  - `announcement`: 读屏软件所读的字符串。
-  - `success`: 此次朗读是否成功完成。
+- `announcementFinished`: iOS-only event. Fires when the screen reader has finished making an announcement. The argument to the event handler is a dictionary with these keys:
+  - `announcement`: The string announced by the screen reader.
+  - `success`: A boolean indicating whether the announcement was successfully made.
 
 ---
 
@@ -154,9 +161,7 @@ static addEventListener(eventName, handler)
 static setAccessibilityFocus(reactTag)
 ```
 
-将读屏软件的焦点设置到某个 react 组件上。在 Android 等同于调用 `UIManager.sendAccessibilityEvent(reactTag, UIManager.AccessibilityEventTypes.typeViewFocused);`.
-
-> **Note**: Make sure that any `View` you want to receive the accessibility focus has `accessible={true}`.
+Set accessibility focus to a React component. On Android, this is equivalent to `UIManager.sendAccessibilityEvent(reactTag, UIManager.AccessibilityEventTypes.typeViewFocused);`.
 
 ---
 
@@ -166,7 +171,7 @@ static setAccessibilityFocus(reactTag)
 static announceForAccessibility(announcement)
 ```
 
-发送一个字符串给读屏应用朗读。
+Post a string to be announced by the screen reader.
 
 ---
 
@@ -176,4 +181,4 @@ static announceForAccessibility(announcement)
 static removeEventListener(eventName, handler)
 ```
 
-移除一个监听函数。
+Remove an event handler.

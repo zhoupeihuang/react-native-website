@@ -1,14 +1,11 @@
 ---
-id: version-0.63-refreshcontrol
+id: refreshcontrol
 title: RefreshControl
-original_id: refreshcontrol
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+This component is used inside a ScrollView or ListView to add pull to refresh functionality. When the ScrollView is at `scrollY: 0`, swiping down triggers an `onRefresh` event.
 
-这一组件可以用在 ScrollView 或 FlatList 内部，为其添加下拉刷新的功能。当 ScrollView 处于竖直方向的起点位置（scrollY: 0），此时下拉会触发一个`onRefresh`事件。
-
-## 示例
+## Example
 
 ```SnackPlayer name=RefreshControl&supportedPlatforms=ios,android
 import React from 'react';
@@ -66,108 +63,110 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-**注意：** `refreshing`是一个受控属性， 所以必须在`onRefresh`函数中设置为 true，否则 loading 指示器会立即停止。
+**Note:** `refreshing` is a controlled prop, this is why it needs to be set to true in the `onRefresh` function otherwise the refresh indicator will stop immediately.
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
+Inherits [View Props](view.md#props).
+
 ### `refreshing`
 
-视图是否应该在刷新时显示指示器。
+Whether the view should be indicating an active refresh.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 是   |
+| Type | Required |
+| ---- | -------- |
+| bool | Yes      |
 
 ---
 
 ### `onRefresh`
 
-在视图开始刷新时调用。
+Called when the view starts refreshing.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `colors`
 
-指定至少一种颜色用来绘制刷新指示器。
+The colors (at least one) that will be used to draw the refresh indicator.
 
-| 类型                        | 必填 | 平台    |
-| --------------------------- | ---- | ------- |
-| array of [color](colors.md) | 否   | Android |
+| Type                        | Required | Platform |
+| --------------------------- | -------- | -------- |
+| array of [color](colors.md) | No       | Android  |
 
 ---
 
 ### `enabled`
 
-指定是否要启用刷新指示器。
+Whether the pull to refresh functionality is enabled.
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `progressBackgroundColor`
 
-指定刷新指示器的背景色。
+The background color of the refresh indicator.
 
-| 类型               | 必填 | 平台    |
-| ------------------ | ---- | ------- |
-| [color](colors.md) | 否   | Android |
+| Type               | Required | Platform |
+| ------------------ | -------- | -------- |
+| [color](colors.md) | No       | Android  |
 
 ---
 
 ### `progressViewOffset`
 
-指定刷新指示器的垂直起始位置(top offset)。
+Progress view top offset
 
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| number | 否   | Android |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | Android  |
 
 ---
 
 ### `size`
 
-指定刷新指示器的大小，具体数值可参阅 RefreshControl.SIZE.
+Size of the refresh indicator, see RefreshControl.SIZE.
 
-| 类型                                                                   | 必填 | 平台    |
-| ---------------------------------------------------------------------- | ---- | ------- |
-| enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) | 否   | Android |
+| Type                                                                   | Required | Platform |
+| ---------------------------------------------------------------------- | -------- | -------- |
+| enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) | No       | Android  |
 
 ---
 
 ### `tintColor`
 
-指定刷新指示器的颜色。
+The color of the refresh indicator.
 
-| 类型               | 必填 | 平台 |
-| ------------------ | ---- | ---- |
-| [color](colors.md) | 否   | iOS  |
+| Type               | Required | Platform |
+| ------------------ | -------- | -------- |
+| [color](colors.md) | No       | iOS      |
 
 ---
 
 ### `title`
 
-指定刷新指示器下显示的文字。
+The title displayed under the refresh indicator.
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| string | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | iOS      |
 
 ---
 
 ### `titleColor`
 
-指定刷新指示器下显示的文字的颜色。
+Title color.
 
-| 类型               | 必填 | 平台 |
-| ------------------ | ---- | ---- |
-| [color](colors.md) | 否   | iOS  |
+| Type               | Required | Platform |
+| ------------------ | -------- | -------- |
+| [color](colors.md) | No       | iOS      |

@@ -1,16 +1,15 @@
 ---
-id: version-0.63-imageeditor
-title: 🚧 ImageEditor
-original_id: imageeditor
+id: imageeditor
+title: '🚧 ImageEditor'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/image-editor](https://github.com/react-native-community/react-native-image-editor) instead.
 
-> **已过时。** 请使用[@react-native-community/image-editor](https://github.com/react-native-community/react-native-image-editor)代替。
+---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `cropImage()`
 
@@ -18,9 +17,9 @@ original_id: imageeditor
 static cropImage(uri, cropData, success, failure)
 ```
 
-根据指定的 URI 参数剪裁对应的图片。如果 URI 指向一个远程图片，则首先会自动下载该图片。如果图片无法下载或读取，则调用`failure`回调函数。
+Crop the image specified by the URI param. If URI points to a remote image, it will be downloaded automatically. If the image cannot be loaded/downloaded, the `failure` callback will be called.
 
-如果剪裁成功完成，则剪裁好的图片会被存放在[`ImageStore`](imagestore.md)中，同时`success`回调函数中返回的 URI 参数会指向 ImageStore 中的此图片。请记得在完成处理逻辑后删除 ImageStore 中的图片。
+If the cropping process is successful, the resultant cropped image will be stored in the ImageStore, and the URI returned in the `success` callback will point to the image in the store. Remember to delete the cropped image from the ImageStore when you are done with it.
 
 ### cropData
 

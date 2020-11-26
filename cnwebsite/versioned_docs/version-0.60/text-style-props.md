@@ -1,68 +1,41 @@
 ---
-id: version-0.60-text-style-props
-title: Text样式属性
-original_id: text-style-props
+id: text-style-props
+title: Text Style Props
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-### Props
-
-* [`textShadowOffset`](text-style-props.md#textshadowoffset)
-* [`color`](text-style-props.md#color)
-* [`fontSize`](text-style-props.md#fontsize)
-* [`fontStyle`](text-style-props.md#fontstyle)
-* [`fontWeight`](text-style-props.md#fontweight)
-* [`lineHeight`](text-style-props.md#lineheight)
-* [`textAlign`](text-style-props.md#textalign)
-* [`textDecorationLine`](text-style-props.md#textdecorationline)
-* [`textShadowColor`](text-style-props.md#textshadowcolor)
-* [`fontFamily`](text-style-props.md#fontfamily)
-* [`textShadowRadius`](text-style-props.md#textshadowradius)
-* [`includeFontPadding`](text-style-props.md#includefontpadding)
-* [`textAlignVertical`](text-style-props.md#textalignvertical)
-* [`fontVariant`](text-style-props.md#fontvariant)
-* [`letterSpacing`](text-style-props.md#letterspacing)
-* [`textDecorationColor`](text-style-props.md#textdecorationcolor)
-* [`textDecorationStyle`](text-style-props.md#textdecorationstyle)
-* [`textTransform`](text-style-props.md#texttransform)
-* [`writingDirection`](text-style-props.md#writingdirection)
-
----
-
-# 文档
+# Reference
 
 ## Props
 
 ### `textShadowOffset`
 
-| 类型                                   | 必填 |
+| Type                                   | Required |
 | -------------------------------------- | -------- |
-| object: {width: number,height: number} | 否       |
+| object: {width: number,height: number} | No       |
 
 ---
 
 ### `color`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `fontSize`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `fontStyle`
 
-| 类型                     | 必填 |
+| Type                     | Required |
 | ------------------------ | -------- |
-| enum('normal', 'italic') | 否       |
+| enum('normal', 'italic') | No       |
 
 ---
 
@@ -70,17 +43,17 @@ original_id: text-style-props
 
 Specifies font weight. The values 'normal' and 'bold' are supported for most fonts. Not all fonts have a variant for each of the numeric values, in that case the closest one is chosen.
 
-| 类型                                                                                  | 必填 |
+| Type                                                                                  | Required |
 | ------------------------------------------------------------------------------------- | -------- |
-| enum('normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900') | 否       |
+| enum('normal', 'bold', '100', '200', '300', '400', '500', '600', '700', '800', '900') | No       |
 
 ---
 
 ### `lineHeight`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
@@ -88,41 +61,41 @@ Specifies font weight. The values 'normal' and 'bold' are supported for most fon
 
 Specifies text alignment. The value 'justify' is only supported on iOS and fallbacks to `left` on Android.
 
-| 类型                                               | 必填 |
+| Type                                               | Required |
 | -------------------------------------------------- | -------- |
-| enum('auto', 'left', 'right', 'center', 'justify') | 否       |
+| enum('auto', 'left', 'right', 'center', 'justify') | No       |
 
 ---
 
 ### `textDecorationLine`
 
-| 类型                                                                | 必填 |
+| Type                                                                | Required |
 | ------------------------------------------------------------------- | -------- |
-| enum('none', 'underline', 'line-through', 'underline line-through') | 否       |
+| enum('none', 'underline', 'line-through', 'underline line-through') | No       |
 
 ---
 
 ### `textShadowColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `fontFamily`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| string | 否       |
+| string | No       |
 
 ---
 
 ### `textShadowRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
@@ -130,55 +103,55 @@ Specifies text alignment. The value 'justify' is only supported on iOS and fallb
 
 Set to `false` to remove extra font padding intended to make space for certain ascenders / descenders. With some fonts, this padding can make text look slightly misaligned when centered vertically. For best results also set `textAlignVertical` to `center`. Default is true.
 
-| 类型 | 必填 | 平台 |
+| Type | Required | Platform |
 | ---- | -------- | -------- |
-| bool | 否       | Android  |
+| bool | No       | Android  |
 
 ---
 
 ### `textAlignVertical`
 
-| 类型                                    | 必填 | 平台 |
+| Type                                    | Required | Platform |
 | --------------------------------------- | -------- | -------- |
-| enum('auto', 'top', 'bottom', 'center') | 否       | Android  |
+| enum('auto', 'top', 'bottom', 'center') | No       | Android  |
 
 ---
 
 ### `fontVariant`
 
-| 类型                                                                                             | 必填 | 平台 |
+| Type                                                                                             | Required | Platform |
 | ------------------------------------------------------------------------------------------------ | -------- | -------- |
-| array of enum('small-caps', 'oldstyle-nums', 'lining-nums', 'tabular-nums', 'proportional-nums') | 否       | iOS      |
+| array of enum('small-caps', 'oldstyle-nums', 'lining-nums', 'tabular-nums', 'proportional-nums') | No       | iOS      |
 
 ---
 
 ### `letterSpacing`
 
-| 类型   | 必填 | 平台 |
+| Type   | Required | Platform            |
 | ------ | -------- | ------------------- |
-| number | 否       | iOS, Android >= 5.0 |
+| number | No       | iOS, Android >= 5.0 |
 
 ---
 
 ### `textDecorationColor`
 
-| 类型               | 必填 | 平台 |
+| Type               | Required | Platform |
 | ------------------ | -------- | -------- |
-| [color](colors.md) | 否       | iOS      |
+| [color](colors.md) | No       | iOS      |
 
 ---
 
 ### `textDecorationStyle`
 
-| 类型                                        | 必填 | 平台 |
+| Type                                        | Required | Platform |
 | ------------------------------------------- | -------- | -------- |
-| enum('solid', 'double', 'dotted', 'dashed') | 否       | iOS      |
+| enum('solid', 'double', 'dotted', 'dashed') | No       | iOS      |
 
 ---
 
 ### `textTransform`
 
-| 类型                                                 | 必填 |
+| Type                                                 | Required |
 | ---------------------------------------------------- | -------- |
 | enum('none', 'uppercase', 'lowercase', 'capitalize') | No       |
 
@@ -186,6 +159,6 @@ Set to `false` to remove extra font padding intended to make space for certain a
 
 ### `writingDirection`
 
-| 类型                       | 必填 | 平台 |
+| Type                       | Required | Platform |
 | -------------------------- | -------- | -------- |
-| enum('auto', 'ltr', 'rtl') | 否       | iOS      |
+| enum('auto', 'ltr', 'rtl') | No       | iOS      |

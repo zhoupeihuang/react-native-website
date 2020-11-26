@@ -1,35 +1,25 @@
 ---
-id: version-0.63-alert
+id: alert
 title: Alert
-original_id: alert
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-启动一个提示对话框，包含对应的标题和信息。
+Launches an alert dialog with the specified title and message.
 
-你还可以指定一系列的按钮，点击对应的按钮会调用对应的 onPress 回调并且关闭提示框。默认情况下，对话框会仅有一个'确定'按钮。
+Optionally provide a list of buttons. Tapping any button will fire the respective onPress callback and dismiss the alert. By default, the only button will be an 'OK' button.
 
-本接口可以在 iOS 和 Android 上显示一个静态的提示框。如果要在显示提示框的同时接受用户输入一些信息，那你可能需要[`AlertIOS`](alertios.md)。
+This is an API that works both on Android and iOS and can show static alerts. To show an alert that prompts the user to enter some information, see `AlertIOS`; entering text in an alert is common on iOS only.
 
-### 示例
+### Example
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Alert%20Function%20Component%20Example&supportedPlatforms=ios,android
 import React, { useState } from "react";
 import { View, StyleSheet, Button, Alert } from "react-native";
+
 const App = () => {
   const createTwoButtonAlert = () =>
     Alert.alert(
@@ -42,8 +32,10 @@ const App = () => {
           style: "cancel"
         },
         { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      ],
+      { cancelable: false }
     );
+
   const createThreeButtonAlert = () =>
     Alert.alert(
       "Alert Title",
@@ -59,15 +51,19 @@ const App = () => {
           style: "cancel"
         },
         { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      ],
+      { cancelable: false }
     );
+
   return (
     <View style={styles.container}>
       <Button title={"2-Button Alert"} onPress={createTwoButtonAlert} />
+
       <Button title={"3-Button Alert"} onPress={createThreeButtonAlert} />
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -75,14 +71,17 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
 export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Alert%20Class%20Component%20Example&supportedPlatforms=ios,android
 import React, { Component } from "react";
 import { View, StyleSheet, Button, Alert } from "react-native";
+
 class App extends Component {
   createTwoButtonAlert = () =>
     Alert.alert(
@@ -95,8 +94,10 @@ class App extends Component {
           style: "cancel"
         },
         { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      ],
+      { cancelable: false }
     );
+
   createThreeButtonAlert = () =>
     Alert.alert(
       "Alert Title",
@@ -112,12 +113,15 @@ class App extends Component {
           style: "cancel"
         },
         { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
+      ],
+      { cancelable: false }
     );
+
   render() {
     return (
       <View style={styles.container}>
         <Button title={"2-Button Alert"} onPress={this.createTwoButtonAlert} />
+
         <Button
           title={"3-Button Alert"}
           onPress={this.createThreeButtonAlert}
@@ -126,6 +130,7 @@ class App extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -133,53 +138,57 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
 export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ## iOS
 
-在 iOS 上你可以指定任意数量的按钮。每个按钮还都可以指定自己的样式，此外还可以指定提示的类别。参阅[AlertIOS](alertios.md)来了解更多细节。
+On iOS you can specify any number of buttons. Each button can optionally specify a style, which is one of 'default', 'cancel', or 'destructive'.
 
 ## Android
 
-在 Android 上最多能指定三个按钮，这三个按钮分别具有“中间态”、“消极态”和“积极态”的概念：
+On Android at most three buttons can be specified. Android has a concept of a neutral, negative and a positive button:
 
-如果你只指定一个按钮，则它具有“积极态”的属性（比如“确定”）；两个按钮，则分别是“消极态”和“积极态”（比如“取消”和“确定”）；三个按钮则意味着“中间态”、“消极态”和“积极态”（比如“稍候再说”，“取消”，“确定”）。
+- If you specify one button, it will be the 'positive' one (such as 'OK')
+- Two buttons mean 'negative', 'positive' (such as 'Cancel', 'OK')
+- Three buttons mean 'neutral', 'negative', 'positive' (such as 'Later', 'Cancel', 'OK')
 
-在 Android 上可以通过点击提示框的外面来取消提示框，但这一行为默认没有启用。你可以在`options`中提供一个额外参数来启用这一行为：`{ cancelable: true }`。
+By default alerts on Android can be dismissed by tapping outside of the alert box. This event can be handled by providing an optional `options` parameter, with an `onDismiss` callback property `{ onDismiss: () => {} }`.
 
-The cancel event can be handled by providing an `onDismiss` callback property `{ onDismiss: () => {} }` inside the `options` parameter.
+Alternatively, the dismissing behavior can be disabled altogether by providing an optional options parameter with the cancelable property set to false i.e. `{ cancelable: false }`.
 
-一个简单的例子：
+Example usage:
 
 ```jsx
-Alert.alert('Alert Title', 'My Alert Msg', [
-  {
-    text: 'Ask me later',
-    onPress: () => console.log('Ask me later pressed')
-  },
-  {
-    text: 'Cancel',
-    onPress: () => console.log('Cancel Pressed'),
-    style: 'cancel'
-  },
-  { text: 'OK', onPress: () => console.log('OK Pressed') },
-  {
-    // cancelable and onDismiss only work on Android.
-    cancelable: true,
-    onDismiss: () =>
-      console.log(
-        'This alert was dismissed by tapping outside of the alert dialog.'
-      )
-  }
-]);
+// Works on both Android and iOS
+Alert.alert(
+  'Alert Title',
+  'My Alert Msg',
+  [
+    {
+      text: 'Ask me later',
+      onPress: () => console.log('Ask me later pressed')
+    },
+    {
+      text: 'Cancel',
+      onPress: () => console.log('Cancel Pressed'),
+      style: 'cancel'
+    },
+    { text: 'OK', onPress: () => console.log('OK Pressed') }
+  ],
+  { cancelable: false }
+);
 ```
 
-# 文档
+---
 
-## 方法
+# Reference
+
+## Methods
 
 ### `alert()`
 

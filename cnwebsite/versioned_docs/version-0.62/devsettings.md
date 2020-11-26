@@ -1,18 +1,15 @@
 ---
-id: version-0.62-devsettings
+id: devsettings
 title: DevSettings
-original_id: devsettings
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 The `DevSettings` module exposes methods for customizing settings for developers in development.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `addMenuItem()`
 
@@ -20,7 +17,7 @@ The `DevSettings` module exposes methods for customizing settings for developers
 static addMenuItem(title: string, handler: function)
 ```
 
-在开发者菜单中添加一个自定义的菜单项：
+Add a custom menu item to the developer menu:
 
 ```jsx
 DevSettings.addMenuItem('Show Secret Dev Screen', () => {

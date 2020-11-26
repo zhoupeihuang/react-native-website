@@ -1,20 +1,17 @@
 ---
-id: version-0.60-touchablenativefeedback
+id: touchablenativefeedback
 title: TouchableNativeFeedback
-original_id: touchablenativefeedback
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A wrapper for making views respond properly to touches (Android only). On Android this component uses native state drawable to display touch feedback.
 
-本组件用于封装视图，使其可以正确响应触摸操作（仅限Android平台）。在Android设备上，这个组件利用原生状态来渲染触摸的反馈。
+At the moment it only supports having a single View instance as a child node, as it's implemented by replacing that View with another instance of RCTView node with some additional properties set.
 
-目前它只支持一个单独的View实例作为子节点。在底层实现上，实际会创建一个新的RCTView节点替换当前的子View，并附带一些额外的属性。
+Background drawable of native feedback touchable can be customized with `background` property.
 
-原生触摸操作反馈的背景可以使用`background`属性来自定义。
+Example:
 
-例子：
-
-```
+```jsx
 renderButton: function() {
   return (
     <TouchableNativeFeedback
@@ -28,33 +25,21 @@ renderButton: function() {
 },
 ```
 
-### 查看Props
-
-* [TouchableWithoutFeedback props...](touchablewithoutfeedback.md#props)
-
-- [`background`](touchablenativefeedback.md#background)
-- [`useForeground`](touchablenativefeedback.md#useforeground)
-
-### 查看方法
-
-* [`SelectableBackground`](touchablenativefeedback.md#selectablebackground)
-* [`SelectableBackgroundBorderless`](touchablenativefeedback.md#selectablebackgroundborderless)
-* [`Ripple`](touchablenativefeedback.md#ripple)
-* [`canUseNativeForeground`](touchablenativefeedback.md#canusenativeforeground)
-
 ---
 
-# 文档
+# Reference
 
 ## Props
 
+Inherits [TouchableWithoutFeedback Props](touchablewithoutfeedback.md#props).
+
 ### `background`
 
-决定在触摸反馈的时候显示什么类型的背景。它接受一个有着`type`属性和一些基于`type`属性的额外数据的对象。我们推荐选用本组件的几个静态方法来创建这个对象。
+Determines the type of background drawable that's going to be used to display feedback. It takes an object with `type` property and extra data depending on the `type`. It's recommended to use one of the static methods to generate that dictionary.
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| backgroundPropType | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| backgroundPropType | No       |
 
 ---
 
@@ -64,11 +49,71 @@ Set to true to add the ripple effect to the foreground of the view, instead of t
 
 Check TouchableNativeFeedback.canUseNativeForeground() first, as this is only available on Android 6.0 and above. If you try to use this on older versions you will get a warning and fallback to background.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
-## 方法
+---
+
+### `hasTVPreferredFocus`
+
+TV preferred focus (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusDown`
+
+TV next focus down (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusForward`
+
+TV next focus forward (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusLeft`
+
+TV next focus left (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusRight`
+
+TV next focus right (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusUp`
+
+TV next focus up (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+## Methods
 
 ### `SelectableBackground()`
 
@@ -76,7 +121,7 @@ Check TouchableNativeFeedback.canUseNativeForeground() first, as this is only av
 static SelectableBackground()
 ```
 
-会创建一个对象，表示安卓主题默认的对于被选中对象的背景(?android:attr/selectableItemBackground)。
+Creates an object that represents android theme's default background for selectable elements (?android:attr/selectableItemBackground).
 
 ---
 
@@ -86,7 +131,7 @@ static SelectableBackground()
 static SelectableBackgroundBorderless()
 ```
 
-会创建一个对象，表示安卓主题默认的对于被选中的无边框对象的背景(?android:attr/selectableItemBackgroundBorderless)。只适用于Android API level 21+。
+Creates an object that represent android theme's default background for borderless selectable elements (?android:attr/selectableItemBackgroundBorderless). Available on android API level 21+.
 
 ---
 
@@ -96,14 +141,14 @@ static SelectableBackgroundBorderless()
 static Ripple(color: string, borderless: boolean)
 ```
 
-会创建一个对象，当按钮被按下时产生一个涟漪状的背景，你可以通过color参数来指定颜色，如果参数`borderless`是true，那么涟漪还会渲染到视图的范围之外（参见原生的actionbar buttons作为该效果的一个例子）。这个背景类型只在Android API level 21+适用。
+Creates an object that represents ripple drawable with specified color (as a string). If property `borderless` evaluates to true the ripple will render outside of the view bounds (see native actionbar buttons as an example of that behavior). This background type is available on Android API level 21+.
 
-**参数：**
+**Parameters:**
 
-| 名称       | 类型    | 必填 | 说明                                         |
-| ---------- | ------- | ---- | -------------------------------------------- |
-| color      | string  | 是   | The ripple color                             |
-| borderless | boolean | 是   | If the ripple can render outside it's bounds |
+| Name       | Type    | Required | Description                                 |
+| ---------- | ------- | -------- | ------------------------------------------- |
+| color      | string  | Yes      | The ripple color                            |
+| borderless | boolean | Yes      | If the ripple can render outside its bounds |
 
 ---
 

@@ -1,26 +1,23 @@
 ---
-id: version-0.60-native-components-ios
-title: 原生UI组件
-original_id: native-components-ios
+id: native-components-ios
+title: Native UI Components
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(99.61%), [2725285+biaji](https://github.com/search?q=2725285%2Bbiaji%40users.noreply.github.com+in%3Aemail&type=Users)(0.39%)
+There are tons of native UI widgets out there ready to be used in the latest apps - some of them are part of the platform, others are available as third-party libraries, and still more might be in use in your very own portfolio. React Native has several of the most critical platform components already wrapped, like `ScrollView` and `TextInput`, but not all of them, and certainly not ones you might have written yourself for a previous app. Fortunately, we can wrap up these existing components for seamless integration with your React Native application.
 
-在如今的 App 中，已经有成千上万的原生 UI 部件了——其中的一些是平台的一部分，另一些可能来自于一些第三方库，而且可能你自己还收藏了很多。React Native 已经封装了大部分最常见的组件，譬如`ScrollView`和`TextInput`，但不可能封装全部组件。而且，说不定你曾经为自己以前的 App 还封装过一些组件，React Native 肯定没法包含它们。幸运的是，在 React Naitve 应用程序中封装和植入已有的组件非常简单。
+Like the native module guide, this too is a more advanced guide that assumes you are somewhat familiar with iOS programming. This guide will show you how to build a native UI component, walking you through the implementation of a subset of the existing `MapView` component available in the core React Native library.
 
-和原生模块向导一样，本向导也是一个相对高级的向导，我们假设你已经对 iOS 编程颇有经验。本向导会引导你如何构建一个原生 UI 组件，带领你了解 React Native 核心库中`MapView`组件的具体实现。
+## iOS MapView example
 
-## iOS MapView 示例
+Let's say we want to add an interactive Map to our app - might as well use [`MKMapView`](https://developer.apple.com/library/prerelease/mac/documentation/MapKit/Reference/MKMapView_Class/index.html), we only need to make it usable from JavaScript.
 
-假设我们要把地图组件植入到我们的 App 中——我们用到的是[`MKMapView`](https://developer.apple.com/library/prerelease/mac/documentation/MapKit/Reference/MKMapView_Class/index.html)，而现在只需要让它可以在 Javascript 端使用。
+Native views are created and manipulated by subclasses of `RCTViewManager`. These subclasses are similar in function to view controllers, but are essentially singletons - only one instance of each is created by the bridge. They expose native views to the `RCTUIManager`, which delegates back to them to set and update the properties of the views as necessary. The `RCTViewManager`s are also typically the delegates for the views, sending events back to JavaScript via the bridge.
 
-原生视图都需要被一个`RCTViewManager`的子类来创建和管理。这些管理器在功能上有些类似“视图控制器”，但它们实际都是单例 - React Native 只会为每个管理器创建一个实例。它们创建原生的视图并提供给`RCTUIManager`，`RCTUIManager`则会反过来委托它们在需要的时候去设置和更新视图的属性。`RCTViewManager`还会代理视图的所有委托，并给 JavaScript 发回对应的事件。
+To expose a view you can:
 
-提供原生视图很简单：
-
-- 首先创建一个`RCTViewManager`的子类。
-- 添加`RCT_EXPORT_MODULE()`宏标记。
-- 实现`-(UIView *)view`方法。
+- Subclass `RCTViewManager` to create a manager for your component.
+- Add the `RCT_EXPORT_MODULE()` marker macro.
+- Implement the `-(UIView *)view` method.
 
 ```objectivec
 // RNTMapManager.m
@@ -43,19 +40,19 @@ RCT_EXPORT_MODULE(RNTMap)
 @end
 ```
 
-**注意：** 请不要在`-view`中给`UIView`实例设置`frame`或是`backgroundColor`属性。为了和 JavaScript 端的布局属性一致，React Native 会覆盖你所设置的值。 如果您需要这种粒度的操作的话，比较好的方法是用另一个`UIView`来封装你想操作的`UIView`实例，并返回外层的`UIView`。请参阅[Issue 2948](https://github.com/facebook/react-native/issues/2948)获取更多信息。
+**Note:** Do not attempt to set the `frame` or `backgroundColor` properties on the `UIView` instance that you expose through the `-view` method. React Native will overwrite the values set by your custom class in order to match your JavaScript component's layout props. If you need this granularity of control it might be better to wrap the `UIView` instance you want to style in another `UIView` and return the wrapper `UIView` instead. See [Issue 2948](https://github.com/facebook/react-native/issues/2948) for more context.
 
-> 在上例中，我们的类名使用了`RNT`前缀以避免与其它框架产生命名冲突。苹果自有框架使用了两个字符的前缀，而 React Native 则使用`RCT`作为前缀。为避免命名冲突，我们建议您在自己的类中使用`RNT`以外的其它三字符前缀。
+> In the example above, we prefixed our class name with `RNT`. Prefixes are used to avoid name collisions with other frameworks. Apple frameworks use two-letter prefixes, and React Native uses `RCT` as a prefix. In order to avoid name collisions, we recommend using a three-letter prefix other than `RCT` in your own classes.
 
-接下来你需要一些 Javascript 代码来让这个视图变成一个可用的 React 组件：
+Then you need a little bit of JavaScript to make this a usable React component:
 
 ```jsx
 // MapView.js
 
 import { requireNativeComponent } from 'react-native';
 
-// requireNativeComponent 自动把'RNTMap'解析为'RNTMapManager'
-export default requireNativeComponent('RNTMap');
+// requireNativeComponent automatically resolves 'RNTMap' to 'RNTMapManager'
+module.exports = requireNativeComponent('RNTMap');
 
 // MyApp.js
 
@@ -68,9 +65,9 @@ render() {
 }
 ```
 
-请确认此处使用了 `RNTMap` 。我们在此对 manager 使用了 require 操作，以暴露 manager 的视图，并于 Javascript 中使用。
+Make sure to use `RNTMap` here. We want to require the manager here, which will expose the view of our manager for use in Javascript.
 
-**注意：** 在渲染时，不要忘记布局视图，否则您只能面对一个空荡荡的屏幕。
+**Note:** When rendering, don't forget to stretch the view, otherwise you'll be staring at a blank screen.
 
 ```jsx
   render() {
@@ -78,33 +75,33 @@ render() {
   }
 ```
 
-现在我们就已经实现了一个完整功能的地图组件了，诸如捏放和其它的手势都已经完整支持。但是现在我们还不能真正的从 Javascript 端控制它。(╯﹏╰)
+This is now a fully-functioning native map view component in JavaScript, complete with pinch-zoom and other native gesture support. We can't really control it from JavaScript yet, though :(
 
-## 属性
+## Properties
 
-我们能让这个组件变得更强大的第一件事情就是要能够封装一些原生属性供 Javascript 使用。举例来说，我们希望能够禁用手指捏放操作，然后指定一个初始的地图可见区域。禁用捏放操作只需要一个布尔值类型的属性就行了，所以我们添加这么一行：
+The first thing we can do to make this component more usable is to bridge over some native properties. Let's say we want to be able to disable zooming and specify the visible region. Disabling zoom is a boolean, so we add this one line:
 
 ```objectivec
 // RNTMapManager.m
 RCT_EXPORT_VIEW_PROPERTY(zoomEnabled, BOOL)
 ```
 
-注意我们现在把类型声明为`BOOL`类型——React Native 用`RCTConvert`来在 JavaScript 和原生代码之间完成类型转换。如果转换无法完成，会产生一个“红屏”的报错提示，这样你就能立即知道代码中出现了问题。如果一切进展顺利，上面这个宏就已经包含了导出属性的全部实现。
+Note that we explicitly specify the type as `BOOL` - React Native uses `RCTConvert` under the hood to convert all sorts of different data types when talking over the bridge, and bad values will show convenient "RedBox" errors to let you know there is an issue ASAP. When things are straightforward like this, the whole implementation is taken care of for you by this macro.
 
-现在要想禁用捏放操作，我们只需要在 JS 里设置对应的属性：
+Now to actually disable zooming, we set the property in JS:
 
 ```jsx
 // MyApp.js
-<MapView zoomEnabled={false} style={{flex: 1}} />
+<MapView zoomEnabled={false} style={{ flex: 1 }} />
 ```
 
-但这样并不能很好的说明这个组件的用法——用户要想知道我们的组件有哪些属性可以用，以及可以取什么样的值，他不得不一路翻到 Objective-C 的代码。要解决这个问题，我们可以创建一个封装组件，并且通过`PropTypes`来说明这个组件的接口。
+To document the properties (and which values they accept) of our MapView component we'll add a wrapper component and document the interface with React `PropTypes`:
 
 ```jsx
 // MapView.js
 import PropTypes from 'prop-types';
 import React from 'react';
-import {requireNativeComponent} from 'react-native';
+import { requireNativeComponent } from 'react-native';
 
 class MapView extends React.Component {
   render() {
@@ -117,17 +114,17 @@ MapView.propTypes = {
    * A Boolean value that determines whether the user may use pinch
    * gestures to zoom in and out of the map.
    */
-  zoomEnabled: PropTypes.bool,
+  zoomEnabled: PropTypes.bool
 };
 
 var RNTMap = requireNativeComponent('RNTMap', MapView);
 
-export default MapView;
+module.exports = MapView;
 ```
 
-现在我们有了一个封装好的组件，还有了一些注释文档，用户使用起来也更方便了。注意我们现在把`requireNativeComponent`的第二个参数从 null 变成了用于封装的组件`MapView`。这使得 React Native 的底层框架可以检查原生属性和包装类的属性是否一致，来减少出现问题的可能。
+Now we have a nicely documented wrapper component to work with. Note that we changed `requireNativeComponent`'s second argument from `null` to the new `MapView` wrapper component. This allows the infrastructure to verify that the propTypes match the native props in order to reduce the chances of mismatches between the Objective-C and JavaScript code.
 
-现在，让我们添加一个更复杂些的`region`属性。我们首先添加原生代码：
+Next, let's add the more complex `region` prop. We start by adding the native code:
 
 ```objectivec
 // RNTMapManager.m
@@ -137,9 +134,9 @@ RCT_CUSTOM_VIEW_PROPERTY(region, MKCoordinateRegion, MKMapView)
 }
 ```
 
-这段代码比刚才的一个简单的`BOOL`要复杂的多了。现在我们多了一个需要做类型转换的`MKCoordinateRegion`类型，还添加了一部分自定义的代码，这样当我们在 JS 里改变地图的可视区域的时候，视角会平滑地移动过去。在我们提供的函数体内，`json`代表了 JS 中传递的尚未解析的原始值。函数里还有一个`view`变量，使得我们可以访问到对应的视图实例。最后，还有一个`defaultView`对象，这样当 JS 给我们发送 null 的时候，可以把视图的这个属性重置回默认值。
+Ok, this is more complicated than the `BOOL` case we had before. Now we have a `MKCoordinateRegion` type that needs a conversion function, and we have custom code so that the view will animate when we set the region from JS. Within the function body that we provide, `json` refers to the raw value that has been passed from JS. There is also a `view` variable which gives us access to the manager's view instance, and a `defaultView` that we use to reset the property back to the default value if JS sends us a null sentinel.
 
-你可以为视图编写任何你所需要的转换函数——下面就是用 `RCTConvert` 实现的 `MKCoordinateRegion`。它使用了 ReactNative 中已经存在的 `RCTConvert+CoreLocation`:
+You could write any conversion function you want for your view - here is the implementation for `MKCoordinateRegion` via a category on `RCTConvert`. It uses an already existing category of ReactNative `RCTConvert+CoreLocation`:
 
 ```objectivec
 // RNTMapManager.m
@@ -182,9 +179,9 @@ RCT_CUSTOM_VIEW_PROPERTY(region, MKCoordinateRegion, MKMapView)
 @end
 ```
 
-这些转换函数被设计为可以安全的处理任何 JS 扔过来的 JSON：当有任何缺少的键或者其它问题发生的时候，显示一个“红屏”的错误提示。
+These conversion functions are designed to safely process any JSON that the JS might throw at them by displaying "RedBox" errors and returning standard initialization values when missing keys or other developer errors are encountered.
 
-为了完成`region`属性的支持，我们还需要在`propTypes`里添加相应的说明（否则我们会立刻收到一个错误提示），然后就可以像使用其他属性一样使用了：
+To finish up support for the `region` prop, we need to document it in `propTypes` (or we'll get an error that the native prop is undocumented), then we can set it like any other prop:
 
 ```jsx
 // MapView.js
@@ -197,21 +194,21 @@ MapView.propTypes = {
   zoomEnabled: PropTypes.bool,
 
   /**
-   * 地图要显示的区域。
+   * The region to be displayed by the map.
    *
-   * 区域由中心点坐标和区域范围坐标来定义。
-   *
+   * The region is defined by the center coordinates and the span of
+   * coordinates to display.
    */
   region: PropTypes.shape({
     /**
-     * 地图中心点的坐标。
+     * Coordinates for the center of the map.
      */
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
 
     /**
-     * 最小/最大经、纬度间的距离。
-     *
+     * Distance between the minimum and the maximum latitude/longitude
+     * to be displayed.
      */
     latitudeDelta: PropTypes.number.isRequired,
     longitudeDelta: PropTypes.number.isRequired,
@@ -237,23 +234,21 @@ render() {
 }
 ```
 
-现在你可以看到 region 属性的整个结构已经加上了文档说明——将来可能我们会自动生成一些类似的代码，但目前还没有实现。
+Here you can see that the shape of the region is explicit in the JS documentation - ideally we could codegen some of this stuff, but that's not happening yet.
 
-有时候你的原生组件有一些特殊的属性希望导出，但并不希望它成为公开的接口。举个例子，`Switch`组件可能会有一个`onChange`属性用来传递原始的原生事件，然后导出一个`onValueChange`属性，这个属性在调用的时候会带上`Switch`的状态作为参数之一。这样的话你可能不希望原生专用的属性出现在 API 之中，也就不希望把它放到`propTypes`里。可是如果你不放的话，又会出现一个报错。解决方案就是带上额外的`nativeOnly`参数，像这样：
+Sometimes your native component will have some reserved properties that you don't want to be part of the API for the associated React component. For example, `Switch` has a custom `onChange` handler for the raw native event, and exposes an `onValueChange` handler property that is invoked with the boolean value rather than the raw event. Since you don't want these native only properties to be part of the API, you don't want to put them in `propTypes`, but if you don't you'll get an error. The solution is to add them to the `nativeOnly` option, e.g.
 
 ```jsx
 var RCTSwitch = requireNativeComponent('RCTSwitch', Switch, {
-  nativeOnly: {onChange: true},
+  nativeOnly: { onChange: true }
 });
 ```
 
 ## Events
 
-事件
+So now we have a native map component that we can control freely from JS, but how do we deal with events from the user, like pinch-zooms or panning to change the visible region?
 
-现在我们已经有了一个原生地图组件，并且从 JS 可以很容易的控制它了。不过我们怎么才能处理来自用户的事件，譬如缩放操作或者拖动来改变可视区域？
-
-截至目前，我们从 manager 的 `-(UIView *)view` 方法返回了 `MKMapView` 实例。我们没法直接为 `MKMapView` 添加新的属性，所以我们只能创建一个 `MKMapView` 的子类用于我们自己的视图中。我们可以在这个子类中添加 `onRegionChange` 回调方法：
+Until now we've only returned a `MKMapView` instance from our manager's `-(UIView *)view` method. We can't add new properties to `MKMapView` so we have to create a new subclass from `MKMapView` which we use for our View. We can then add a `onRegionChange` callback on this subclass:
 
 ```objectivec
 // RNTMapView.h
@@ -277,9 +272,9 @@ var RCTSwitch = requireNativeComponent('RCTSwitch', Switch, {
 @end
 ```
 
-需要注意的是，所有 `RCTBubblingEventBlock` 必须以 `on` 开头。然后在 `RNTMapManager`上声明一个事件处理函数属性，将其作为所暴露出来的所有视图的委托，并调用本地视图的事件处理将事件转发至 JS。
+Note that all `RCTBubblingEventBlock` must be prefixed with `on`. Next, declare an event handler property on `RNTMapManager`, make it a delegate for all the views it exposes, and forward events to JS by calling the event handler block from the native view.
 
-```objectivec{9,17,31-48}
+```objectivec {9,17,31-48}
 // RNTMapManager.m
 
 #import <MapKit/MapKit.h>
@@ -331,7 +326,7 @@ RCT_CUSTOM_VIEW_PROPERTY(region, MKCoordinateRegion, MKMapView)
 @end
 ```
 
-在委托方法`-mapView:regionDidChangeAnimated:`中，根据对应的视图调用事件处理函数并传递区域数据。调用`onRegionChange`事件会触发 JavaScript 端的同名回调函数。这个回调会传递原生事件对象，然后我们通常都会在封装组件里来处理这个对象，以使 API 更简明：
+In the delegate method `-mapView:regionDidChangeAnimated:` the event handler block is called on the corresponding view with the region data. Calling the `onRegionChange` event handler block results in calling the same callback prop in JavaScript. This callback is invoked with the raw event, which we typically process in the wrapper component to simplify API:
 
 ```jsx
 // MapView.js
@@ -393,9 +388,9 @@ A React Native view can have more than one child view in the view tree eg.
 
 ```jsx
 <View>
-<MyNativeView />
-<MyNativeView />
-<Button />
+  <MyNativeView />
+  <MyNativeView />
+  <Button />
 </View>
 ```
 
@@ -405,9 +400,9 @@ When the user interacts with the component, like clicking the button, the `backg
 
 ```jsx
 <View>
-<MyNativeView ref={this.myNativeReference}>/>
-<MyNativeView ref={this.myNativeReference2}>/>
-<Button onPress={() => { this.myNativeReference.callNativeMethod() }}/>
+  <MyNativeView ref={this.myNativeReference}>/>
+  <MyNativeView ref={this.myNativeReference2}>/>
+  <Button onPress={() => { this.myNativeReference.callNativeMethod() }}/>
 </View>
 ```
 
@@ -417,25 +412,26 @@ Now the above component has a reference to a particular `MyNativeView` which all
 
 ```jsx
 class MyNativeView extends React.Component<> {
-callNativeMethod = () => {
-  UIManager.dispatchViewManagerCommand(
-    ReactNative.findNodeHandle(this),
-    UIManager.getViewManagerConfig('RNCMyNativeView').Commands
-      .callNativeMethod,
-    [],
-  );
-};
+  callNativeMethod = () => {
+    UIManager.dispatchViewManagerCommand(
+      ReactNative.findNodeHandle(this),
+      UIManager.getViewManagerConfig('RNCMyNativeView').Commands
+        .callNativeMethod,
+      []
+    );
+  };
+
   render() {
-  return <NativeComponent ref={NATIVE_COMPONENT_REF} />;
-}
+    return <NativeComponent ref={NATIVE_COMPONENT_REF} />;
+  }
 }
 ```
 
 `callNativeMethod` is our custom iOS method which for example changes the `backgroundColor` which is exposed through `MyNativeView`. This method uses `UIManager.dispatchViewManagerCommand` which needs 3 parameters:
 
-- (nonnull NSNumber \*)reactTag  -  id of react view.
-- commandID:(NSInteger)commandID  -  Id of the native method that should be called
-- commandArgs:(NSArray<id> \*)commandArgs  -  Args of the native method that we can pass from JS to native.
+- `(nonnull NSNumber \*)reactTag`  -  id of react view.
+- commandID:`(NSInteger)commandID`  -  Id of the native method that should be called
+- commandArgs:`(NSArray<id> \*)commandArgs`  -  Args of the native method that we can pass from JS to native.
 
 `RNCMyNativeViewManager.m`
 
@@ -443,23 +439,25 @@ callNativeMethod = () => {
 #import <React/RCTViewManager.h>
 #import <React/RCTUIManager.h>
 #import <React/RCTLog.h>
+
 RCT_EXPORT_METHOD(callNativeMethod:(nonnull NSNumber*) reactTag) {
-  [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
-      NativeView *view = viewRegistry[reactTag];
-      if (!view || ![view isKindOfClass:[NativeView class]]) {
-          RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
-          return;
-      }
-      [view callNativeMethod];
-  }];
+    [self.bridge.uiManager addUIBlock:^(RCTUIManager *uiManager, NSDictionary<NSNumber *,UIView *> *viewRegistry) {
+        NativeView *view = viewRegistry[reactTag];
+        if (!view || ![view isKindOfClass:[NativeView class]]) {
+            RCTLogError(@"Cannot find NativeView with tag #%@", reactTag);
+            return;
+        }
+        [view callNativeMethod];
+    }];
+
 }
 ```
 
 Here the `callNativeMethod` is defined in the `RNCMyNativeViewManager.m` file and contains only one parameter which is `(nonnull NSNumber*) reactTag`. This exported function will find a particular view using `addUIBlock` which contains the `viewRegistry` parameter and returns the component based on `reactTag` allowing it to call the method on the correct component.
 
-## 样式
+## Styles
 
-因为我们所有的视图都是`UIView`的子类，大部分的样式属性应该直接就可以生效。但有一部分组件会希望使用自己定义的默认样式，例如`UIDatePicker`希望自己的大小是固定的。这个默认属性对于布局算法的正常工作来说很重要，但我们也希望在使用这个组件的时候可以覆盖这些默认的样式。`DatePickerIOS`实现这个功能的办法是通过封装一个拥有弹性样式的额外视图，然后在内层的视图上应用一个固定样式（通过原生传递来的常数生成）：
+Since all our native react views are subclasses of `UIView`, most style attributes will work like you would expect out of the box. Some components will want a default style, however, for example `UIDatePicker` which is a fixed size. This default style is important for the layout algorithm to work as expected, but we also want to be able to override the default style when using the component. `DatePickerIOS` does this by wrapping the native component in an extra view, which has flexible styling, and using a fixed style (which is generated with constants passed in from native) on the inner native component:
 
 ```jsx
 // DatePickerIOS.ios.js
@@ -488,7 +486,7 @@ var styles = StyleSheet.create({
 });
 ```
 
-常量`RCTDatePickerIOSConsts`在原生代码中导出，从一个组件的实际布局上获取到：
+The `RCTDatePickerIOSConsts` constants are exported from native by grabbing the actual frame of the native component like so:
 
 ```objectivec
 // RCTDatePickerManager.m
@@ -510,4 +508,4 @@ var styles = StyleSheet.create({
 }
 ```
 
-本向导覆盖了包装原生组件所需了解的许多方面，不过你可能还有很多知识需要了解，譬如特殊的方式来插入和布局子视图。如果你想更深入了解，可以尝试阅读一些[源代码](https://github.com/facebook/react-native/blob/master/React/Views)。
+This guide covered many of the aspects of bridging over custom native components, but there is even more you might need to consider, such as custom hooks for inserting and laying out subviews. If you want to go even deeper, check out the [source code](https://github.com/facebook/react-native/blob/master/React/Views) of some of the implemented components.

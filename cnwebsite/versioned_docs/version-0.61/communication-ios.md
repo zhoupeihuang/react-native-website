@@ -1,30 +1,27 @@
 ---
-id: version-0.61-communication-ios
-title: 和原生端通信
-original_id: communication-ios
+id: communication-ios
+title: Communication between native and React Native
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+In [Integrating with Existing Apps guide](integration-with-existing-apps.md) and [Native UI Components guide](native-components-ios.md) we learn how to embed React Native in a native component and vice versa. When we mix native and React Native components, we'll eventually find a need to communicate between these two worlds. Some ways to achieve that have been already mentioned in other guides. This article summarizes available techniques.
 
-通过[植入原生应用](integration-with-existing-apps.md)和[原生 UI 组件](native-component-ios.md)两篇文档，我们学习了 React Native 和原生组件的互相整合。在整合的过程中，我们会需要在两个世界间互相通信。有些方法已经在其他的指南中提到了，这篇文章总结了所有可行的技术。
+## Introduction
 
-## 简介
+React Native is inspired by React, so the basic idea of the information flow is similar. The flow in React is one-directional. We maintain a hierarchy of components, in which each component depends only on its parent and its own internal state. We do this with properties: data is passed from a parent to its children in a top-down manner. If an ancestor component relies on the state of its descendant, one should pass down a callback to be used by the descendant to update the ancestor.
 
-React Native 是从 React 中得到的灵感，因此基本的信息流是类似的。在 React 中信息是单向的。我们维护着组件层次，在其中每个组件都仅依赖于它父组件和自己的状态。通过属性（props）我们将信息从上而下的从父组件传递到子元素。如果一个祖先组件需要自己子孙的状态，推荐的方法是传递一个回调函数给对应的子元素。
+The same concept applies to React Native. As long as we are building our application purely within the framework, we can drive our app with properties and callbacks. But, when we mix React Native and native components, we need some specific, cross-language mechanisms that would allow us to pass information between them.
 
-React Native 也运用了相同的概念。只要我们完全在框架内构建应用，就可以通过属性和回调函数来调动整个应用。但是，当我们混合 React Native 和原生组件时，我们需要一些特殊的，跨语言的机制来传递信息。
+## Properties
 
-## 属性
+Properties are the simplest way of cross-component communication. So we need a way to pass properties both from native to React Native, and from React Native to native.
 
-属性是最简单的跨组件通信。因此我们需要一个方法从原生组件传递属性到 React Native 或者从 React Native 到原生组件。
+### Passing properties from native to React Native
 
-### 从原生组件传递属性到 React Native
+In order to embed a React Native view in a native component, we use `RCTRootView`. `RCTRootView` is a `UIView` that holds a React Native app. It also provides an interface between native side and the hosted app.
 
-我们使用`RCTRootView`将 React Natvie 视图封装到原生组件中。`RCTRootView`是一个`UIView`容器，承载着 React Native 应用。同时它也提供了一个联通原生端和被托管端的接口。
+`RCTRootView` has an initializer that allows you to pass arbitrary properties down to the React Native app. The `initialProperties` parameter has to be an instance of `NSDictionary`. The dictionary is internally converted into a JSON object that the top-level JS component can reference.
 
-通过`RCTRootView`的初始化函数你可以将任意属性传递给 React Native 应用。参数`initialProperties`必须是`NSDictionary`的一个实例。这一字典参数会在内部被转化为一个可供 JS 组件调用的 JSON 对象。
-
-```
+```objectivec
 NSArray *imageList = @[@"http://foo.com/bar1.png",
                        @"http://foo.com/bar2.png"];
 
@@ -35,100 +32,94 @@ RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                           initialProperties:props];
 ```
 
-```
+```jsx
 import React from 'react';
-import {
-  View,
-  Image
-} from 'react-native';
+import { View, Image } from 'react-native';
 
 export default class ImageBrowserApp extends React.Component {
   renderImage(imgURI) {
-    return (
-      <Image source={{uri: imgURI}} />
-    );
+    return <Image source={{ uri: imgURI }} />;
   }
   render() {
-    return (
-      <View>
-        {this.props.images.map(this.renderImage)}
-      </View>
-    );
+    return <View>{this.props.images.map(this.renderImage)}</View>;
   }
 }
-
 ```
 
-`RCTRootView`同样提供了一个可读写的属性`appProperties`。在`appProperties`设置之后，React Native 应用将会根据新的属性重新渲染。当然，只有在新属性和之前的属性有区别时更新才会被触发。
+`RCTRootView` also provides a read-write property `appProperties`. After `appProperties` is set, the React Native app is re-rendered with new properties. The update is only performed when the new updated properties differ from the previous ones.
 
-```
+```objectivec
 NSArray *imageList = @[@"http://foo.com/bar3.png",
                        @"http://foo.com/bar4.png"];
 
 rootView.appProperties = @{@"images" : imageList};
 ```
 
-你可以随时更新属性，但是更新必须在主线程中进行，读取则可以在任何线程中进行。
+It is fine to update properties anytime. However, updates have to be performed on the main thread. You use the getter on any thread.
 
-> **_注意:_** 目前有一个已知问题，如果在 bridge 还没初始化完成前就设置 appProperties，设置可能会无效，具体讨论请见 https://github.com/facebook/react-native/issues/20115
+> **_Note:_** Currently, there is a known issue where setting appProperties during the bridge startup, the change can be lost. See https://github.com/facebook/react-native/issues/20115 for more information.
 
-更新属性时并不能做到只更新一部分属性。我们建议你自己封装一个函数来构造属性。
+There is no way to update only a few properties at a time. We suggest that you build it into your own wrapper instead.
 
-> **_注意：_** 目前，最顶层的 RN 组件（即 registerComponent 方法中调用的那个）的`componentWillReceiveProps`和`componentWillUpdateProps`方法在属性更新后不会触发。但是，你可以通过`componentWillMount`访问新的属性值。
+> **_Note:_** Currently, JS function `componentWillUpdateProps` of the top level RN component will not be called after a prop update. However, you can access the new props in `componentDidMount` function.
 
-### 从 React Native 传递属性到原生组件
+### Passing properties from React Native to native
 
-这篇[文档](native-component-ios.html#属性)详细讨论了暴露原生组件属性的问题。简而言之，在你自定义的原生组件中通过`RCT_CUSTOM_VIEW_PROPERTY`宏导出属性，就可以直接在 React Native 中使用，就好像它们是普通的 React Native 组件一样。
+The problem exposing properties of native components is covered in detail in [this article](native-components-ios.md#properties). In short, export properties with `RCT_CUSTOM_VIEW_PROPERTY` macro in your custom native component, then use them in React Native as if the component was an ordinary React Native component.
 
-## 属性的限制
+### Limits of properties
 
-跨语言属性的主要缺点是不支持回调方法，因而无法实现自下而上的数据绑定。设想你有一个小的 RN 视图，当一个 JS 动作触发时你想从原生的父视图中移除它。此时你会发现根本做不到，因为信息需要自下而上进行传递。
+The main drawback of cross-language properties is that they do not support callbacks, which would allow us to handle bottom-up data bindings. Imagine you have a small RN view that you want to be removed from the native parent view as a result of a JS action. There is no way to do that with props, as the information would need to go bottom-up.
 
-虽然我们有跨语言回调（[参阅这里](native-modules-ios.md#回调函数)），但是这些回调函数并不总能满足需求。最主要的问题是它们并不是被设计来当作属性进行传递。这一机制的本意是允许我们从 JS 触发一个原生动作，然后用 JS 处理那个动作的处理结果。
+Although we have a flavor of cross-language callbacks ([described here](native-modules-ios.md#callbacks)), these callbacks are not always the thing we need. The main problem is that they are not intended to be passed as properties. Rather, this mechanism allows us to trigger a native action from JS, and handle the result of that action in JS.
 
-## 其他的跨语言交互（事件和原生模块）
+## Other ways of cross-language interaction (events and native modules)
 
-如上一章所说，使用属性总会有一些限制。有时候属性并不足以满足应用逻辑，因此我们需要更灵活的解决办法。这一章描述了其他的在 React Native 中可用的通信方法。他们可以用来内部通信（在 JS 和 RN 的原生层之间），也可以用作外部通信（在 RN 和纯原生部分之间）。
+As stated in the previous chapter, using properties comes with some limitations. Sometimes properties are not enough to drive the logic of our app and we need a solution that gives more flexibility. This chapter covers other communication techniques available in React Native. They can be used for internal communication (between JS and native layers in RN) as well as for external communication (between RN and the 'pure native' part of your app).
 
-React Native 允许使用跨语言的函数调用。你可以在 JS 中调用原生代码，也可以在原生代码中调用 JS。在不同端需要用不同的方法来实现相同的目的。在原生代码中我们使用事件机制来调度 JS 中的处理函数，而在 React Native 中我们直接使用原生模块导出的方法。
+React Native enables you to perform cross-language function calls. You can execute custom native code from JS and vice versa. Unfortunately, depending on the side we are working on, we achieve the same goal in different ways. For native - we use events mechanism to schedule an execution of a handler function in JS, while for React Native we directly call methods exported by native modules.
 
-### 从原生代码调用 React Natvie 函数（事件）
+### Calling React Native functions from native (events)
 
-事件的详细用法在这篇[文章](native-component-ios.md#事件)中进行了讨论。注意使用事件无法确保执行的时间，因为事件的处理函数是在单独的线程中执行。
+Events are described in detail in [this article](native-components-ios.md#events). Note that using events gives us no guarantees about execution time, as the event is handled on a separate thread.
 
-事件很强大，它可以不需要引用直接修改 React Native 组件。但是，当你使用时要注意下面这些陷阱：
+Events are powerful, because they allow us to change React Native components without needing a reference to them. However, there are some pitfalls that you can fall into while using them:
 
-- 由于事件可以从各种地方产生，它们可能导致混乱的依赖。
-- 事件共享相同的命名空间，因此你可能遇到名字冲突。冲突不会在编写代码时被探测到，因此很难排错。
-- 如果你使用了同一个 React Native 组件的多个引用，然后想在事件中区分它们，name 你很可能需要在事件中同时传递一些标识（你可以使用原生视图中的`reactTag`作为标识）。
+- As events can be sent from anywhere, they can introduce spaghetti-style dependencies into your project.
+- Events share namespace, which means that you may encounter some name collisions. Collisions will not be detected statically, which makes them hard to debug.
+- If you use several instances of the same React Native component and you want to distinguish them from the perspective of your event, you'll likely need to introduce identifiers and pass them along with events (you can use the native view's `reactTag` as an identifier).
 
-在 React Native 中嵌入原生组件时，通常的做法是用原生组件的 RCTViewManager 作为视图的代理，通过 bridge 向 JS 发送事件。这样可以集中在一处调用相关的事件。
+The common pattern we use when embedding native in React Native is to make the native component's RCTViewManager a delegate for the views, sending events back to JavaScript via the bridge. This keeps related event calls in one place.
 
-### 从 React Native 中调用原生方法（原生模块）
+### Calling native functions from React Native (native modules)
 
-原生模块是 JS 中也可以使用的 Objective-C 类。一般来说这样的每一个模块的实例都是在每一次通过 JS bridge 通信时创建的。他们可以导出任意的函数和常量给 React Native。相关细节可以参阅这篇[文章](native-modules-ios.md#content)。
+Native modules are Objective-C classes that are available in JS. Typically one instance of each module is created per JS bridge. They can export arbitrary functions and constants to React Native. They have been covered in detail in [this article](native-modules-ios.md#content).
 
-事实上原生模块的单实例模式限制了嵌入。假设我们有一个 React Native 组件被嵌入了一个原生视图，并且我们希望更新原生的父视图。使用原生模块机制，我们可以导出一个函数，不仅要接收预设参数，还要接收父视图的标识。这个标识将会用来获得父视图的引用以更新父视图。那样的话，我们需要维持模块中标识到原生模块的映射。虽然这个解决办法很复杂，它仍被用在了管理所有 React Native 视图的`RCTUIManager`类中，
+The fact that native modules are singletons limits the mechanism in the context of embedding. Let's say we have a React Native component embedded in a native view and we want to update the native, parent view. Using the native module mechanism, we would export a function that not only takes expected arguments, but also an identifier of the parent native view. The identifier would be used to retrieve a reference to the parent view to update. That said, we would need to keep a mapping from identifiers to native views in the module.
 
-原生模块同样可以暴露已有的原生库给 JS，[地理定位库](https://github.com/facebook/react-native/tree/master/Libraries/Geolocation)就是一个现成的例子。
+Although this solution is complex, it is used in `RCTUIManager`, which is an internal React Native class that manages all React Native views.
 
-> 警告：所有原生模块共享同一个命名空间。创建新模块时注意避免命名冲突。
+Native modules can also be used to expose existing native libraries to JS. The [Geolocation library](https://github.com/facebook/react-native/tree/master/Libraries/Geolocation) is a living example of the idea.
 
-## 布局计算流
+> **_Warning_**: All native modules share the same namespace. Watch out for name collisions when creating new ones.
 
-当集成原生模块和 React Natvie 时，我们同样需要一个能协同不同的布局系统的办法。这一章节讨论了常见的布局问题，并且提供了解决机制的简单说明。
+## Layout computation flow
 
-### 在 React Native 中嵌入一个原生组件
+When integrating native and React Native, we also need a way to consolidate two different layout systems. This section covers common layout problems and provides a brief description of mechanisms to address them.
 
-这个情况在[这篇文章](native-component-ios.md#样式)中进行了讨论。基本上，由于所有的原生视图都是`UIView`的子集，大多数类型和尺寸属性将和你期望的一样可以使用。
+### Layout of a native component embedded in React Native
 
-### 在原生中嵌入一个 React Native 组件
+This case is covered in [this article](native-components-ios.md#styles). To summarize, as all our native react views are subclasses of `UIView`, most style and size attributes will work like you would expect out of the box.
 
-#### 固定大小的 React Native 内容
+### Layout of a React Native component embedded in native
 
-最简单的情况是一个对于原生端已知的，固定大小的 React Native 应用，尤其是一个全屏的 React Native 视图。如果我们需要一个小一点的根视图，我们可以明确的设置`RCTRootView`的 frame。比如说，创建一个 200 像素高，宿主视图那样宽的 RN app，我们可以这样做：
+#### React Native content with fixed size
 
-```
+The simplest scenario is when we have a React Native app with a fixed size, which is known to the native side. In particular, a full-screen React Native view falls into this case. If we want a smaller root view, we can explicitly set RCTRootView's frame.
+
+For instance, to make an RN app 200 (logical) pixels high, and the hosting view's width wide, we could do:
+
+```objectivec
 // SomeViewController.m
 
 - (void)viewDidLoad
@@ -142,18 +133,20 @@ React Native 允许使用跨语言的函数调用。你可以在 JS 中调用原
 }
 ```
 
-当我们创建了一个固定大小的根视图，则需要在 JS 中遵守它的边界。换句话说，我们需要确保 React Native 内容能够在固定的大小中放下。最简单的办法是使用 flexbox 布局。如果你使用绝对定位，并且 React 组件在根视图边界外可见，则 React Native 组件将会和原生视图重叠，导致某些不符合期望的行为。比如说，当你点击根视图边界之外的区域`TouchableHighlight`将不会高亮。通过重新设置 frame 的属性来动态更新根视图的大小是完全可行的。React Native 将会关注内容布局的变化。
+When we have a fixed size root view, we need to respect its bounds on the JS side. In other words, we need to ensure that the React Native content can be contained within the fixed-size root view. The easiest way to ensure this is to use flexbox layout. If you use absolute positioning, and React components are visible outside the root view's bounds, you'll get overlap with native views, causing some features to behave unexpectedly. For instance, 'TouchableHighlight' will not highlight your touches outside the root view's bounds.
 
-#### 弹性大小的 React Native
+It's totally fine to update root view's size dynamically by re-setting its frame property. React Native will take care of the content's layout.
 
-有时候我们需要渲染一些不知道大小的内容。假设尺寸将会在 JS 中动态指定。我们有两个解决办法。
+#### React Native content with flexible size
 
-1.  你可以将 React Native 视图包裹在`ScrollView`中。这样可以保证你的内容总是可以访问，并且不会和原生视图重叠。
-2.  React Native 允许你在 JS 中决定 RN 应用的尺寸，并且将它传递给宿主视图`RCTRootView`。然后宿主视图将重新布局子视图，保证 UI 统一。我们通过`RCTRootView`的弹性模式来达到目的。
+In some cases we'd like to render content of initially unknown size. Let's say the size will be defined dynamically in JS. We have two solutions to this problem.
 
-`RCTRootView`支持 4 种不同的弹性模式：
+1. You can wrap your React Native view in a `ScrollView` component. This guarantees that your content will always be available and it won't overlap with native views.
+2. React Native allows you to determine, in JS, the size of the RN app and provide it to the owner of the hosting `RCTRootView`. The owner is then responsible for re-laying out the subviews and keeping the UI consistent. We achieve this with `RCTRootView`'s flexibility modes.
 
-```
+`RCTRootView` supports 4 different size flexibility modes:
+
+```objectivec
 // RCTRootView.h
 
 typedef NS_ENUM(NSInteger, RCTRootViewSizeFlexibility) {
@@ -164,13 +157,13 @@ typedef NS_ENUM(NSInteger, RCTRootViewSizeFlexibility) {
 };
 ```
 
-默认值是`RCTRootViewSizeFlexibilityNone`，表示使用固定大小的根视图（仍然可以通过`setFrame`更改）。其他三种模式可以跟踪 React Native 尺寸的变化。比如说，设置模式为`RCTRootViewSizeFlexibilityHeight`，React Native 将会测量内容的高度然后传递回`RCTRootView`的代理。代理可以执行任意的行为，包括设置根视图的 frame 以使内容尺寸相匹配。代理仅仅在内容的尺寸发生变化时才进行调用。
+`RCTRootViewSizeFlexibilityNone` is the default value, which makes a root view's size fixed (but it still can be updated with `setFrame:`). The other three modes allow us to track React Native content's size updates. For instance, setting mode to `RCTRootViewSizeFlexibilityHeight` will cause React Native to measure the content's height and pass that information back to `RCTRootView`'s delegate. An arbitrary action can be performed within the delegate, including setting the root view's frame, so the content fits. The delegate is called only when the size of the content has changed.
 
-> **_注意：_** 在 JS 和原生中都设置弹性尺寸可能导致不确定的行为。比如--不要在设置`RCTRootView`为`RCTRootViewSizeFlexibilityWidth`时同时指定最顶层的 RN 组件宽度可变（使用 Flexbox）。
+> **_Warning:_** Making a dimension flexible in both JS and native leads to undefined behavior. For example - don't make a top-level React component's width flexible (with `flexbox`) while you're using `RCTRootViewSizeFlexibilityWidth` on the hosting `RCTRootView`.
 
-看一个例子：
+Let's look at an example.
 
-```
+```objectivec
 // FlexibleSizeExampleView.m
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -196,10 +189,12 @@ typedef NS_ENUM(NSInteger, RCTRootViewSizeFlexibility) {
 }
 ```
 
-在例子中我们使用一个`FlexibleSizeExampleView`视图来包含根视图。我们创建了根视图，初始化并且设置了代理。代理将会处理尺寸更新。然后，我们设置根视图的弹性尺寸为`RCTRootViewSizeFlexibilityHeight`，意味着`rootViewDidChangeIntrinsicSize:`方法将会在每次 React Native 内容高度变化时进行调用。最后，我们设置根视图的宽度和位置。注意我们也设置了高度，但是并没有效果，因为我们已经将高度设置为根据 RN 内容进行弹性变化了。
+In the example we have a `FlexibleSizeExampleView` view that holds a root view. We create the root view, initialize it and set the delegate. The delegate will handle size updates. Then, we set the root view's size flexibility to `RCTRootViewSizeFlexibilityHeight`, which means that `rootViewDidChangeIntrinsicSize:` method will be called every time the React Native content changes its height. Finally, we set the root view's width and position. Note that we set there height as well, but it has no effect as we made the height RN-dependent.
 
-你可以在这里查看完整的例子[源代码](https://github.com/facebook/react-native/blob/master/RNTester/RNTester/NativeExampleViews/FlexibleSizeExampleView.m)。
+You can checkout full source code of the example [here](https://github.com/facebook/react-native/blob/master/packages/rn-tester/RNTester/NativeExampleViews/FlexibleSizeExampleView.m).
 
-动态改变根视图的弹性模式是可行的。改变根视图的弹性模式将会导致布局的重新计算，并且在重新量出内容尺寸时会调用`rootViewDidChangeIntrinsicSize`方法。
+It's fine to change root view's size flexibility mode dynamically. Changing flexibility mode of a root view will schedule a layout recalculation and the delegate `rootViewDidChangeIntrinsicSize:` method will be called once the content size is known.
 
-> **_注意：_** React Native 布局是通过一个单独的线程进行计算，而原生 UI 视图是通过主线程更新。这可能导致短暂的原生端和 React Native 端的不一致。这是一个已知的问题，我们的团队已经在着手解决不同源的 UI 同步更新。 **_注意：_** 除非根视图成为其他视图的子视图，否则 React Native 不会进行任何的布局计算。如果你想在还没有获得 React Native 视图的尺寸之前先隐藏视图，请将根视图添加为子视图并且在初始化的时候进行隐藏（使用`UIView`的`hidden`属性），然后在代理方法中改变它的可见性。
+> **_Note:_** React Native layout calculation is performed on a separate thread, while native UI view updates are done on the main thread. This may cause temporary UI inconsistencies between native and React Native. This is a known problem and our team is working on synchronizing UI updates coming from different sources.
+
+> **_Note:_** React Native does not perform any layout calculations until the root view becomes a subview of some other views. If you want to hide React Native view until its dimensions are known, add the root view as a subview and make it initially hidden (use `UIView`'s `hidden` property). Then change its visibility in the delegate method.

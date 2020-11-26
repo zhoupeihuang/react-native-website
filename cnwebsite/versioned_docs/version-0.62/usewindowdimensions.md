@@ -1,10 +1,7 @@
 ---
-id: version-0.62-usewindowdimensions
+id: usewindowdimensions
 title: useWindowDimensions
-original_id: usewindowdimensions
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 ```jsx
 import { useWindowDimensions } from 'react-native';
@@ -23,7 +20,7 @@ const windowHeight = useWindowDimensions().height;
 import React from "react";
 import { View, StyleSheet, Text, useWindowDimensions } from "react-native";
 
-const App = () => {
+export default function App() {
   const window = useWindowDimensions();
   return (
     <View style={styles.container}>
@@ -38,8 +35,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
-
-export default App;
 ```
 
 - The [useDimensions](https://github.com/react-native-community/react-native-hooks#usedimensions) hook from the community [React native hooks](https://github.com/react-native-community/react-native-hooks) library aims to make handling screen/window size changes easier to work with.

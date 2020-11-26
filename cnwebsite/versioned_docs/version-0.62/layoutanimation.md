@@ -1,20 +1,17 @@
 ---
-id: version-0.62-layoutanimation
+id: layoutanimation
 title: LayoutAnimation
-original_id: layoutanimation
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-当布局变化时，自动将视图运动到它们新的位置上。
+Automatically animates views to their new positions when the next layout happens.
 
-一个常用的调用此 API 的办法是在状态更新前调用。
+A common way to use this API is to call it before updating the state hook in functional components and calling `setState` in class components.
 
-注意如果要在**Android**上使用此动画，则需要在代码中启用：
+Note that in order to get this to work on **Android** you need to set the following flags via `UIManager`:
 
-```
-import { UIManager } from 'react-native';
-
+```js
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -22,9 +19,7 @@ if (Platform.OS === 'android') {
 }
 ```
 
-上面这段代码应该写在任何组件加载之前，比如可以写到 index.js 的开头。
-
-## 示例
+## Example
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -73,15 +68,14 @@ const style = StyleSheet.create({
 });
 
 export default App;
-```
 
-<block class="endBlock syntax" />
+```
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `configureNext()`
 
@@ -89,20 +83,30 @@ export default App;
 static configureNext(config, onAnimationDidEnd?)
 ```
 
-计划下一次布局要发生的动画。
+Schedules an animation to happen on the next layout.
 
-#### 参数：
+#### Parameters:
 
-| 名称              | 类型     | 必填 | 说明                                |
-| ----------------- | -------- | ---- | ----------------------------------- |
-| config            | object   | 是   | 看下面的说明。                      |
-| onAnimationDidEnd | function | 否   | 动画结束后的回调。目前仅 iOS 可用。 |
+| Name              | Type     | Required | Description                                                |
+| ----------------- | -------- | -------- | ---------------------------------------------------------- |
+| config            | object   | Yes      | See config description below.                              |
+| onAnimationDidEnd | function | No       | Called when the animation finished. Only supported on iOS. |
 
-##### config
+The `config` parameter is an object with the keys below. [`create`](layoutanimation.md#create) returns a valid object for `config`, and the [`Presets`](layoutanimation.md#presets) objects can also all be passed as the `config`.
 
-- `duration` 动画持续时间，单位是毫秒。
-- `create`，配置创建新视图时的动画。（参阅`Anim`类型）
-- `update`，配置被更新的视图的动画。（参阅`Anim`类型）
+- `duration` in milliseconds
+- `create`, optional config for animating in new views
+- `update`, optional config for animating views that have been updated
+- `delete`, optional config for animating views as they are removed
+
+The config that's passed to `create`, `update`, or `delete` has the following keys:
+
+- `type`, the [animation type](layoutanimation.md#types) to use
+- `property`, the [layout property](layoutanimation.md#properties) to animate (optional, but recommended for `create` and `delete`)
+- `springDamping` (number, optional and only for use with `type: Type.spring`)
+- `initialVelocity` (number, optional)
+- `delay` (number, optional)
+- `duration` (number, optional)
 
 ---
 
@@ -112,25 +116,15 @@ static configureNext(config, onAnimationDidEnd?)
 static create(duration, type, creationProp)
 ```
 
-用来创建`configureNext`所需的 config 参数的辅助函数。
+Helper that creates an object (with `create`, `update`, and `delete` fields) to pass into [`configureNext`](layoutanimation.md#configurenext). The `type` parameter is an [animation type](layoutanimation.md#types), and the `creationProp` parameter is a [layout property](layoutanimation.md#properties).
 
 Example usage:
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import {
   View,
   Platform,
@@ -147,7 +141,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App = () => {
+export default function App() {
   const [boxPosition, setBoxPosition] = useState("left");
 
   const toggleBox = () => {
@@ -195,11 +189,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { Component } from "react";
@@ -219,7 +212,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-class App extends Component {
+export default class App extends Component {
   state = {
     boxPosition: "left"
   };
@@ -276,11 +269,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ## Properties
 
@@ -314,7 +306,7 @@ An enumeration of layout properties to be animated to be used in the [`create`](
 
 ### Presets
 
-A set of predefined animation config.
+A set of predefined animation configs to pass into [`configureNext`](layoutanimation.md#configurenext).
 
 | Presets       | Value                                                                                                                                                                 |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -324,36 +316,26 @@ A set of predefined animation config.
 
 ---
 
-### easeInEaseOut
+### `easeInEaseOut()`
 
-Shortcut to bind `configureNext()` methods with `Presets.easeInEaseOut`.
-
----
-
-### linear
-
-Shortcut to bind `configureNext()` methods with `Presets.linear`.
+Calls `configureNext()` with `Presets.easeInEaseOut`.
 
 ---
 
-### spring
+### `linear()`
 
-Shortcut to bind `configureNext()` methods with `Presets.spring`.
+Calls `configureNext()` with `Presets.linear`.
+
+---
+
+### `spring()`
+
+Calls `configureNext()` with `Presets.spring`.
 
 Example usage:
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -373,7 +355,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const App = () => {
+export default function App() {
   const [firstBoxPosition, setFirstBoxPosition] = useState("left");
   const [secondBoxPosition, setSecondBoxPosition] = useState("left");
   const [thirdBoxPosition, setThirdBoxPosition] = useState("left");
@@ -446,11 +428,10 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { Component } from "react";
@@ -470,7 +451,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-class App extends Component {
+export default class App extends Component {
   state = {
     firstBoxPosition: "left",
     secondBoxPosition: "left",
@@ -556,8 +537,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   }
 });
-
-export default App;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>

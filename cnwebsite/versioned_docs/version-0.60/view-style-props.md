@@ -1,253 +1,218 @@
 ---
-id: version-0.60-view-style-props
-title: View样式属性
-original_id: view-style-props
+id: view-style-props
+title: View Style Props
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(99.60%), [yahoo.007](https://github.com/search?q=yahoo.007%40163.com+in%3Aemail&type=Users)(0.40%)
-
-### Props
-
-* [布局属性](layout-props.md#props)
-* [阴影样式属性](shadow-props.md#props)
-* [Transforms](transforms.md#props)
-* [`borderRightColor`](view-style-props.md#borderrightcolor)
-* [`backfaceVisibility`](view-style-props.md#backfacevisibility)
-* [`borderBottomColor`](view-style-props.md#borderbottomcolor)
-* [`borderBottomEndRadius`](view-style-props.md#borderbottomendradius)
-* [`borderBottomLeftRadius`](view-style-props.md#borderbottomleftradius)
-* [`borderBottomRightRadius`](view-style-props.md#borderbottomrightradius)
-* [`borderBottomStartRadius`](view-style-props.md#borderbottomstartradius)
-* [`borderBottomWidth`](view-style-props.md#borderbottomwidth)
-* [`borderColor`](view-style-props.md#bordercolor)
-* [`borderEndColor`](view-style-props.md#borderendcolor)
-* [`borderLeftColor`](view-style-props.md#borderleftcolor)
-* [`borderLeftWidth`](view-style-props.md#borderleftwidth)
-* [`borderRadius`](view-style-props.md#borderradius)
-* [`backgroundColor`](view-style-props.md#backgroundcolor)
-* [`borderRightWidth`](view-style-props.md#borderrightwidth)
-* [`borderStartColor`](view-style-props.md#borderstartcolor)
-* [`borderStyle`](view-style-props.md#borderstyle)
-* [`borderTopColor`](view-style-props.md#bordertopcolor)
-* [`borderTopEndRadius`](view-style-props.md#bordertopendradius)
-* [`borderTopLeftRadius`](view-style-props.md#bordertopleftradius)
-* [`borderTopRightRadius`](view-style-props.md#bordertoprightradius)
-* [`borderTopStartRadius`](view-style-props.md#bordertopstartradius)
-* [`borderTopWidth`](view-style-props.md#bordertopwidth)
-* [`borderWidth`](view-style-props.md#borderwidth)
-* [`opacity`](view-style-props.md#opacity)
-* [`elevation`](view-style-props.md#elevation)
-
----
-
-# 文档
+# Reference
 
 ## Props
 
 ### `borderRightColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `backfaceVisibility`
 
-| 类型                      | 必填 |
+| Type                      | Required |
 | ------------------------- | -------- |
-| enum('visible', 'hidden') | 否       |
+| enum('visible', 'hidden') | No       |
 
 ---
 
 ### `borderBottomColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderBottomEndRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderBottomLeftRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderBottomRightRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderBottomStartRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderBottomWidth`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderEndColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderLeftColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderLeftWidth`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderRadius`
 
-| 类型   | 必填 |
+If the rounded border is not visible, try applying `overflow: 'hidden'` as well.
+
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `backgroundColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderRightWidth`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderStartColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderStyle`
 
-| 类型                              | 必填 |
+| Type                              | Required |
 | --------------------------------- | -------- |
-| enum('solid', 'dotted', 'dashed') | 否       |
+| enum('solid', 'dotted', 'dashed') | No       |
 
 ---
 
 ### `borderTopColor`
 
-| 类型               | 必填 |
+| Type               | Required |
 | ------------------ | -------- |
-| [color](colors.md) | 否       |
+| [color](colors.md) | No       |
 
 ---
 
 ### `borderTopEndRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderTopLeftRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderTopRightRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderTopStartRadius`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderTopWidth`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `borderWidth`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `opacity`
 
-| 类型   | 必填 |
+| Type   | Required |
 | ------ | -------- |
-| number | 否       |
+| number | No       |
 
 ---
 
 ### `elevation`
 
-(限Android)使用Android原生的 elevation API来设置视图的高度（ [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation)）。这样可以为视图添加一个投影，并且会影响视图层叠的顺序。此属性仅支持Android5.0及以上版本。
+(Android-only) Sets the elevation of a view, using Android's underlying [elevation API](https://developer.android.com/training/material/shadows-clipping.html#Elevation). This adds a drop shadow to the item and affects z-order for overlapping views. Only supported on Android 5.0+, has no effect on earlier versions.
 
-| 类型   | 必填 | 平台 |
+| Type   | Required | Platform |
 | ------ | -------- | -------- |
-| number | 否       | Android  |
+| number | No       | Android  |

@@ -1,13 +1,10 @@
 ---
-id: version-0.62-libraries
-title: 使用第三方库
+id: libraries
+title: Using Libraries
 author: Brent Vatne
-authorURL: https://twitter.com/notbrent
+authorURL: 'https://twitter.com/notbrent'
 description: This guide introduces React Native developers to finding, installing, and using third-party libraries in their apps.
-original_id: libraries
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 React Native provides a set of built-in [Core Components and APIs](./components-and-apis) ready to use in your app. You're not limited to the components and APIs bundled with React Native. React Native has a community of thousands of developers. If the Core Components and APIs don't have what you are looking for, you may be able to find and install a library from the community to add the functionality to your app.
 
@@ -73,7 +70,7 @@ Usually libraries built _specifically for other platforms_ will not work with Re
 
 ### Does it work for the platforms that my app supports?
 
-[React Native Directory](https://reactnative.directory/) allows you to filter by platform compatibility, such as iOS, Android, Web, and Windows. If the library you would like to use is not currently listed there, refer to the README for the library to learn more.
+[React Native Directory](https://reactnative.directory) allows you to filter by platform compatibility, such as iOS, Android, Web, and Windows. If the library you would like to use is not currently listed there, refer to the README for the library to learn more.
 
 ### Does it work with my app version of React Native?
 

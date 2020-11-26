@@ -1,16 +1,13 @@
 ---
-id: version-0.62-shadow-props
-title: 阴影样式属性
-original_id: shadow-props
+id: shadow-props
+title: Shadow Props
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 ```SnackPlayer name=Shadow%20Props&supportedPlatforms=ios
 import React, { useState } from "react";
 import { Text, View, StyleSheet, Slider } from "react-native";
 
-const ShadowPropSlider = ({ label, value, ...props }) => {
+function ShadowPropSlider({ label, value, ...props }) {
   return (
     <>
       <Text>
@@ -21,7 +18,7 @@ const ShadowPropSlider = ({ label, value, ...props }) => {
   );
 }
 
-const App = () => {
+export default function App() {
   const [shadowOffsetWidth, setShadowOffsetWidth] = useState(0);
   const [shadowOffsetHeight, setShadowOffsetHeight] = useState(0);
   const [shadowRadius, setShadowRadius] = useState(0);
@@ -96,11 +93,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12
   }
 });
-
-export default App;
 ```
 
-# 文档
+# Reference
 
 These properties are iOS only - for similar functionality on Android, use the [`elevation` property](view-style-props#elevation).
 
@@ -108,38 +103,38 @@ These properties are iOS only - for similar functionality on Android, use the [`
 
 ### `shadowColor`
 
-设置阴影色。
+Sets the drop shadow color
 
-| 类型               | 必填 | 平台 |
-| ------------------ | ---- | ---- |
-| [color](colors.md) | 否   | iOS  |
+| Type               | Required | Platform |
+| ------------------ | -------- | -------- |
+| [color](colors.md) | No       | iOS      |
 
 ---
 
 ### `shadowOffset`
 
-设置阴影偏移量。
+Sets the drop shadow offset
 
-| 类型                                   | 必填 | 平台 |
-| -------------------------------------- | ---- | ---- |
-| object: {width: number,height: number} | 否   | iOS  |
+| Type                                   | Required | Platform |
+| -------------------------------------- | -------- | -------- |
+| object: {width: number,height: number} | No       | iOS      |
 
 ---
 
 ### `shadowOpacity`
 
-设置阴影不透明度 (乘以颜色的 alpha 分量)。
+Sets the drop shadow opacity (multiplied by the color's alpha component)
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| number | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | iOS      |
 
 ---
 
 ### `shadowRadius`
 
-设置阴影模糊半径。
+Sets the drop shadow blur radius
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| number | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| number | No       | iOS      |

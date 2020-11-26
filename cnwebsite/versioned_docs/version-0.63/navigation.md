@@ -1,19 +1,127 @@
 ---
-id: version-0.63-navigation
-title: 使用导航器跳转页面
-original_id: navigation
+id: navigation
+title: Navigating Between Screens
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(93.75%), [noclip](https://github.com/search?q=noclip%40foxmail.com&type=Users)(6.25%)
+Mobile apps are rarely made up of a single screen. Managing the presentation of, and transition between, multiple screens is typically handled by what is known as a navigator.
 
-移动应用基本不会只由一个页面组成。管理多个页面的呈现、跳转的组件就是我们通常所说的导航器（navigator）。
+This guide covers the various navigation components available in React Native. If you are getting started with navigation, you will probably want to use [React Navigation](navigation.md#react-navigation). React Navigation provides a straightforward navigation solution, with the ability to present common stack navigation and tabbed navigation patterns on both Android and iOS.
 
-本文档总结对比了 React Native 中现有的几个导航组件。如果你刚开始接触，那么直接选择[React Navigation](navigation.md#react-navigation)就好。 React Navigation 提供了简单易用的跨平台导航方案，在 iOS 和 Android 上都可以进行翻页式、tab 选项卡式和抽屉式的导航布局。
-
-如果你想同时在 iOS 和 Android 上达到看起来像原生，或者你想把 RN 整合到一个已经有原生导航管理的 APP 里, 下面这个库提供了在两个平台都适用的原生导航: [react-native-navigation](https://github.com/wix/react-native-navigation).
+If you'd like to achieve a native look and feel on both Android and iOS, or you're integrating React Native into an app that already manages navigation natively, the following library provides native navigation on both platforms: [react-native-navigation](https://github.com/wix/react-native-navigation).
 
 ## React Navigation
 
-社区今后主推的方案是一个单独的导航库`react-navigation`，它的使用十分简单。React Navigation 中的视图是原生组件，同时用到了运行在原生线程上的`Animated`动画库，因而性能表现十分流畅。此外其动画形式和手势都非常便于定制。
+The community solution to navigation is a standalone library that allows developers to set up the screens of an app with a few lines of code.
 
-要想详细了解 React Navigation 的具体用法，请访问其[官方网站](https://reactnavigation.org/)，网站右上角有中文翻译，但内容可能会有所滞后。
+### Installation and setup
+
+First, you need to install them in your project:
+
+```shell
+npm install @react-navigation/native @react-navigation/stack
+```
+
+Next, install the required peer dependencies. You need to run different commands depending on whether your project is an Expo managed project or a bare React Native project.
+
+- If you have an Expo managed project, install the dependencies with `expo`:
+
+  ```shell
+  expo install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+  ```
+
+- If you have a bare React Native project, install the dependencies with `npm`:
+
+  ```shell
+  npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+  ```
+
+  For iOS with bare React Native project, make sure you have [Cocoapods](https://cocoapods.org/) installed. Then install the pods to complete the installation:
+
+  ```shell
+  cd ios
+  pod install
+  cd ..
+  ```
+
+> Note: You might get warnings related to peer dependencies after installation. They are usually caused by incorrect version ranges specified in some packages. You can safely ignore most warnings as long as your app builds.
+
+To finalize installation of `react-native-gesture-handler`, add the following at the **top** (make sure it's at the top and there's nothing else before it) of your entry file, such as `index.js` or `App.js`:
+
+```js
+import 'react-native-gesture-handler';
+```
+
+Now, you need to wrap the whole app in `NavigationContainer`. Usually you'd do this in your entry file, such as `index.js` or `App.js`:
+
+```jsx
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      {/* Rest of your app code */}
+    </NavigationContainer>
+  );
+};
+
+export default App;
+```
+
+Now you are ready to build and run your app on the device/simulator.
+
+### Usage
+
+Now you can create an app with a home screen and a profile screen:
+
+```jsx
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
+
+const MyStack = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ title: 'Welcome' }}
+        />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+```
+
+In this example, there are 2 screens (`Home` and `Profile`) defined using the `Stack.Screen` component. Similarly, you can define as many screens as you like.
+
+You can set options such as the screen title for each screen in the `options` prop of `Stack.Screen`.
+
+Each screen takes a `component` prop that is a React component. Those components receive a prop called `navigation` which has various methods to link to other screens. For example, you can use `navigation.navigate` to go to the `Profile` screen:
+
+```jsx
+const HomeScreen = ({ navigation }) => {
+  return (
+    <Button
+      title="Go to Jane's profile"
+      onPress={() =>
+        navigation.navigate('Profile', { name: 'Jane' })
+      }
+    />
+  );
+};
+const ProfileScreen = ({ navigation, route }) => {
+  return <Text>This is {route.params.name}'s profile</Text>;
+};
+```
+
+The views in the stack navigator use native components and the [`Animated`](animated.md) library to deliver 60fps animations that are run on the native thread. Plus, the animations and gestures can be customized.
+
+React Navigation also has packages for different kind of navigators such as tabs and drawer. You can use them to implement various patterns in your app.
+
+For a complete intro to React Navigation, follow the [React Navigation Getting Started Guide](https://reactnavigation.org/docs/getting-started.html).

@@ -1,18 +1,15 @@
 ---
-id: version-0.62-stylesheet
+id: stylesheet
 title: StyleSheet
-original_id: stylesheet
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
-
-StyleSheet 提供了一种类似 CSS 样式表的抽象。
+A StyleSheet is an abstraction similar to CSS StyleSheets
 
 ```SnackPlayer name=StyleSheet
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const App = () => (
+export default App = () => (
   <View style={styles.container}>
     <Text style={styles.title}>React Native</Text>
   </View>
@@ -37,20 +34,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   }
 });
-
-export default App;
 ```
 
-从代码质量角度：
+Code quality tips:
 
-- 从渲染函数中移除具体的样式内容，可以使代码更清晰易读。
-- 给样式命名也可以对渲染函数中的组件增加语义化的描述。
+- By moving styles away from the render function, you're making the code easier to understand.
+- Naming the styles is a good way to add meaning to the low level components in the render function.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `compose()`
 
@@ -64,7 +59,7 @@ Combines two styles such that `style2` will override any styles in `style1`. If 
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => (
+export default App = () => (
   <View style={container}>
     <Text style={text}>React Native</Text>
   </View>
@@ -96,7 +91,6 @@ const lists = StyleSheet.create({
 const container = StyleSheet.compose(page.container, lists.listContainer);
 const text = StyleSheet.compose(page.text, lists.listItem);
 
-export default App;
 ```
 
 ---
@@ -125,7 +119,7 @@ Flattens an array of style objects, into one aggregated style object. Alternativ
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const App = () => (
+export default App = () => (
   <View style={page.container}>
     <Text style={flattenStyle}>React Native</Text>
     <Text>Flatten Style</Text>
@@ -167,8 +161,6 @@ const flattenStyle = StyleSheet.flatten([
   page.text,
   typography.header
 ]);
-
-export default App;
 ```
 
 This method internally uses `StyleSheetRegistry.getStyleByID(style)` to resolve style objects represented by IDs. Thus, an array of style objects (instances of `StyleSheet.create()`), are individually resolved to, their respective objects, merged as one and then returned. This also explains the alternative use.
@@ -177,15 +169,17 @@ This method internally uses `StyleSheetRegistry.getStyleByID(style)` to resolve 
 
 ### `setStyleAttributePreprocessor()`
 
-```jsx
-static setStyleAttributePreprocessor(property, process)
-```
+> **WARNING: EXPERIMENTAL.** Breaking changes will probably happen a lot and will not be reliably announced. The whole thing might be deleted, who knows? Use at your own risk.
 
-WARNING: EXPERIMENTAL. Breaking changes will probably happen a lot and will not be reliably announced. The whole thing might be deleted, who knows? Use at your own risk.
+```jsx
+static setStyleAttributePreprocessor(property: string, process: (propValue: any) => any)
+```
 
 Sets a function to use to pre-process a style property value. This is used internally to process color and transform values. You should not use this unless you really know what you are doing and have exhausted other options.
 
-## 常量
+## Properties
+
+---
 
 ### `absoluteFill`
 
@@ -195,7 +189,7 @@ A very common pattern is to create overlays with position absolute and zero posi
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => (
+export default App = () => (
   <View style={styles.container}>
     <View style={styles.box1}>
       <Text style={styles.text}>1</Text>
@@ -240,8 +234,6 @@ const styles = StyleSheet.create({
     fontSize: 80
   }
 });
-
-export default App;
 ```
 
 ---
@@ -254,7 +246,7 @@ Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillOb
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const App = () => (
+export default App = () => (
   <View style={styles.container}>
     <View style={styles.box1}>
       <Text style={styles.text}>1</Text>
@@ -301,19 +293,19 @@ const styles = StyleSheet.create({
     fontSize: 80
   }
 });
-
-export default App;
 ```
 
 ---
 
 ### `hairlineWidth`
 
+This is defined as the width of a thin line on the platform. It can be used as the thickness of a border or division between two elements. Example:
+
 ```SnackPlayer name=hairlineWidth
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-const App = () => (
+export default App = () => (
   <View style={styles.container}>
     <Text style={styles.row}>React</Text>
     <Text style={styles.row}>Native</Text>
@@ -331,13 +323,11 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth
   }
 });
-
-export default App;
 ```
 
-这一常量始终是一个整数的像素值（线看起来会像头发丝一样细），并会尽量符合当前平台最细的线的标准。可以用作边框或是两个元素间的分隔线。然而，你不能把它“视为一个常量”，因为不同的平台和不同的屏幕像素密度会导致不同的结果。
+This constant will always be a round number of pixels (so a line defined by it can look crisp) and will try to match the standard width of a thin line on the underlying platform. However, you should not rely on it being a constant size, because on different platforms and screen densities its value may be calculated differently.
 
-如果模拟器缩放过，可能会看不到这么细的线。
+A line with hairline width may not be visible if your simulator is downscaled.
 
 ---
 

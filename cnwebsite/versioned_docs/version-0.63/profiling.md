@@ -1,10 +1,7 @@
 ---
-id: version-0.63-profiling
+id: profiling
 title: Profiling
-original_id: profiling
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 Use the built-in profiler to get detailed information about work done in the JavaScript thread and main thread side-by-side. Access it by selecting Perf Monitor from the Debug menu.
 
@@ -26,7 +23,7 @@ The first step for debugging this jank is to answer the fundamental question of 
 
 First, connect a device that exhibits the stuttering you want to investigate to your computer via USB and get it to the point right before the navigation/animation you want to profile. Run `systrace` as follows:
 
-```sh
+```shell
 $ <path_to_android_sdk>/platform-tools/systrace/systrace.py --time=10 -o trace.html sched gfx view -a <your_package_name>
 ```
 
@@ -114,7 +111,7 @@ If you identified a JS problem, look for clues in the specific JS that you're ex
 
 ![Too much JS](/docs/assets/SystraceBadJS2.png)
 
-This doesn't seem right. Why is it being called so often? Are they actually different events? The answers to these questions will probably depend on your product code. And many times, you'll want to look into [shouldComponentUpdate](https://zh-hans.reactjs.org/docs/react-component.html#shouldcomponentupdate).
+This doesn't seem right. Why is it being called so often? Are they actually different events? The answers to these questions will probably depend on your product code. And many times, you'll want to look into [shouldComponentUpdate](https://reactjs.org/docs/react-component.html#shouldcomponentupdate).
 
 ## Resolving native UI Issues
 

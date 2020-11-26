@@ -1,50 +1,52 @@
 ---
-id: version-0.61-stylesheet
+id: stylesheet
 title: StyleSheet
-original_id: stylesheet
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A StyleSheet is an abstraction similar to CSS StyleSheets
 
-StyleSheet 提供了一种类似 CSS 样式表的抽象。
+Create a new StyleSheet:
 
-创建一个样式表：
-
-```
+```jsx
 const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
     borderWidth: 0.5,
-    borderColor: '#d6d7da',
+    borderColor: '#d6d7da'
   },
   title: {
     fontSize: 19,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   activeTitle: {
-    color: 'red',
-  },
+    color: 'red'
+  }
 });
 ```
 
-使用一个样式表：
+Use a StyleSheet:
 
-```
+```jsx
 <View style={styles.container}>
-  <Text style={[styles.title, this.props.isActive && styles.activeTitle]} />
+  <Text
+    style={[
+      styles.title,
+      this.props.isActive && styles.activeTitle
+    ]}
+  />
 </View>
 ```
 
-从代码质量角度：
+Code quality:
 
-- 从 render 函数中移除具体的样式内容，可以使代码更清晰易懂。
-- 给样式命名也可以对 render 函数中的组件增加语义化的描述。
+- By moving styles away from the render function, you're making the code easier to understand.
+- Naming the styles is a good way to add meaning to the low level components in the render function.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `setStyleAttributePreprocessor()`
 
@@ -81,38 +83,38 @@ Flattens an array of style objects, into one aggregated style object. Alternativ
 Example:
 
 ```jsx
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   listItem: {
     flex: 1,
     fontSize: 16,
-    color: 'white',
+    color: 'white'
   },
   selectedListItem: {
-    color: 'green',
-  },
+    color: 'green'
+  }
 });
 
 StyleSheet.flatten([styles.listItem, styles.selectedListItem]);
-// 返回值为 { flex: 1, fontSize: 16, color: 'green' }
+// returns { flex: 1, fontSize: 16, color: 'green' }
 ```
 
 Alternative use:
 
 ```jsx
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   listItem: {
     flex: 1,
     fontSize: 16,
-    color: 'white',
+    color: 'white'
   },
   selectedListItem: {
-    color: 'green',
-  },
+    color: 'green'
+  }
 });
 
 StyleSheet.flatten(styles.listItem);
-// 返回值为 { flex: 1, fontSize: 16, color: 'white' }
-// 如果直接打印 styles.listItem，则返回值是一个整数型的ID
+// returns { flex: 1, fontSize: 16, color: 'white' }
+// Simply styles.listItem would return its ID (number)
 ```
 
 This method internally uses `StyleSheetRegistry.getStyleByID(style)` to resolve style objects represented by IDs. Thus, an array of style objects (instances of `StyleSheet.create()`), are individually resolved to, their respective objects, merged as one and then returned. This also explains the alternative use.
@@ -127,22 +129,24 @@ Combines two styles such that `style2` will override any styles in `style1`. If 
 static compose(style1, style2)
 ```
 
-## 常量
+## Properties
 
 ### `hairlineWidth`
 
+This is defined as the width of a thin line on the platform. It can be used as the thickness of a border or division between two elements. Example:
+
 ```jsx
-const styles = StyleSheet.create({
+var styles = StyleSheet.create({
   separator: {
     borderBottomColor: '#bbb',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
+    borderBottomWidth: StyleSheet.hairlineWidth
+  }
 });
 ```
 
-这一常量始终是一个整数的像素值（线看起来会像头发丝一样细），并会尽量符合当前平台最细的线的标准。可以用作边框或是两个元素间的分隔线。然而，你不能把它“视为一个常量”，因为不同的平台和不同的屏幕像素密度会导致不同的结果。
+This constant will always be a round number of pixels (so a line defined by it can look crisp) and will try to match the standard width of a thin line on the underlying platform. However, you should not rely on it being a constant size, because on different platforms and screen densities its value may be calculated differently.
 
-如果模拟器缩放过，可能会看不到这么细的线。
+A line with hairline width may not be visible if your simulator is downscaled.
 
 ---
 
@@ -153,11 +157,29 @@ A very common pattern is to create overlays with position absolute and zero posi
 ```jsx
 const styles = StyleSheet.create({
   wrapper: {
-    ...StyleSheet.absoluteFill,
-    top: 10,
-    backgroundColor: 'transparent',
-  },
+    ...StyleSheet.absoluteFill
+  }
 });
 ```
 
 ---
+
+### `absoluteFillObject`
+
+Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be used to create a customized entry in a `StyleSheet`, e.g.:
+
+```jsx
+const styles = StyleSheet.create({
+  wrapper: {
+    ...StyleSheet.absoluteFillObject,
+    top: 10,
+    backgroundColor: 'transparent'
+  }
+});
+```
+
+---
+
+### `absoluteFill` vs. `absoluteFillObject`
+
+Currently, there is no difference between using `absoluteFill` vs. `absoluteFillObject` as you can see in the [source code](https://github.com/facebook/react-native/blob/master/Libraries/StyleSheet/StyleSheet.js#L255)

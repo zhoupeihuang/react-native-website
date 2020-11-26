@@ -1,27 +1,24 @@
 ---
-id: version-0.61-linking
+id: linking
 title: Linking
-original_id: linking
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(98.26%), [kt.tian](https://github.com/search?q=kt.tian%40gmail.com+in%3Aemail&type=Users)(1.74%)
-
-<div class="banner-crna-ejected">
-  <h3>仅用在原生代码的项目</h3>
+<div class="banner-native-code-required">
+  <h3>Projects with Native Code Only</h3>
   <p>
-    本节仅适用于使用 <code>react-native init</code> 或使用 Create React Native App 创建的项目，这些项目已经弹出。 有关"弹出"的详细信息，请参阅 Create React Native App 代码库中的<a href="https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md" target="_blank">指南</a>。
+    The following section only applies to projects with native code exposed. If you are using the managed `expo-cli` workflow, see the guide on <a href="http://docs.expo.io/versions/latest/workflow/linking/">Linking</a> in the Expo documentation for the appropriate alternative.
   </p>
 </div>
 
-`Linking`提供了一个通用的接口来与传入和传出的 App 链接进行交互。
+`Linking` gives you a general interface to interact with both incoming and outgoing app links.
 
-### 基本用法
+### Basic Usage
 
-#### 处理链接
+#### Handling deep links
 
-如果你的应用被其注册过的外部 url 调起，则可以在任何组件内这样获取和处理它：
+If your app was launched from an external url registered to your app you can access and handle it from any component you want with:
 
-```
+```jsx
 componentDidMount() {
   Linking.getInitialURL().then((url) => {
     if (url) {
@@ -31,20 +28,20 @@ componentDidMount() {
 }
 ```
 
-> 要了解更多如何在 Android 上支持深度链接的说明，请参阅[Enabling Deep Links for App Content - Add Intent Filters for Your Deep Links](http://developer.android.com/training/app-indexing/deep-linking.html#adding-filters).
+> For instructions on how to add support for deep linking on Android, refer to [Enabling Deep Links for App Content - Add Intent Filters for Your Deep Links](http://developer.android.com/training/app-indexing/deep-linking.html#adding-filters).
 
-如果要在现有的 MainActivity 中监听传入的 intent，那么需要在`AndroidManifest.xml`中将 MainActivity 的`launchMode`设置为`singleTask`。相关解释可参考[`<activity>`](http://developer.android.com/guide/topics/manifest/activity-element.html)文档。
+If you wish to receive the intent in an existing instance of MainActivity, you may set the `launchMode` of MainActivity to `singleTask` in `AndroidManifest.xml`. See [`<activity>`](http://developer.android.com/guide/topics/manifest/activity-element.html) documentation for more information.
 
-```
+```xml
 <activity
   android:name=".MainActivity"
   android:launchMode="singleTask">
 ```
 
-注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios.html#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
+NOTE: On iOS, you'll need to link `RCTLinking` to your project by following the steps described [here](linking-libraries-ios.md#manual-linking). If you also want to listen to incoming app links during your app's execution, you'll need to add the following lines to your `*AppDelegate.m`:
 
-```
-// iOS 9.x 或更高版本
+```objectivec
+// iOS 9.x or newer
 #import <React/RCTLinkingManager.h>
 
 - (BOOL)application:(UIApplication *)application
@@ -55,8 +52,10 @@ componentDidMount() {
 }
 ```
 
-```
-// iOS 8.x 或更低版本
+If you're targeting iOS 8.x or older, you can use the following code instead:
+
+```objectivec
+// iOS 8.x or older
 #import <React/RCTLinkingManager.h>
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
@@ -67,11 +66,11 @@ componentDidMount() {
 }
 ```
 
-如果你的 app 用了 [Universal Links](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html)，需要正确的把下述代码添加进去：
+If your app is using [Universal Links](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/UniversalLinks.html), you'll need to add the following code as well:
 
-```
+```objectivec
 - (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
-  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
 {
  return [RCTLinkingManager application:application
                   continueUserActivity:userActivity
@@ -79,45 +78,49 @@ componentDidMount() {
 }
 ```
 
-然后你的 React 组件就可以监听`Linking`的相关事件：
+And then on your React component you'll be able to listen to the events on `Linking` as follows:
 
-```
+```jsx
 componentDidMount() {
   Linking.addEventListener('url', this._handleOpenURL);
-}
+},
 componentWillUnmount() {
   Linking.removeEventListener('url', this._handleOpenURL);
-}
+},
 _handleOpenURL(event) {
   console.log(event.url);
 }
 ```
 
-#### 打开外部链接
+#### Opening external links
 
-要启动一个链接相对应的应用（打开浏览器、邮箱或者其它的应用），只需调用：
+To start the corresponding activity for a link (web URL, email, contact etc.), call:
 
+```jsx
+Linking.openURL(url).catch((err) =>
+  console.error('An error occurred', err)
+);
 ```
-Linking.openURL(url).catch(err => console.error('An error occurred', err));
-```
 
-如果想在打开链接前先检查是否安装了对应的应用，则调用以下方法：
+If you want to check if any installed app can handle a given URL beforehand you can call:
 
-```
-Linking.canOpenURL(url).then(supported => {
-  if (!supported) {
-    console.log('Can\'t handle url: ' + url);
-  } else {
-    return Linking.openURL(url);
-  }
-}).catch(err => console.error('An error occurred', err));
+```jsx
+Linking.canOpenURL(url)
+  .then((supported) => {
+    if (!supported) {
+      console.log("Can't handle url: " + url);
+    } else {
+      return Linking.openURL(url);
+    }
+  })
+  .catch((err) => console.error('An error occurred', err));
 ```
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `constructor()`
 
@@ -133,7 +136,7 @@ constructor();
 addEventListener(type, handler);
 ```
 
-添加一个监听 Linking 变化的事件。type 参数应填`url`，并提供一个处理函数。
+Add a handler to Linking changes by listening to the `url` event type and providing the handler.
 
 ---
 
@@ -143,7 +146,7 @@ addEventListener(type, handler);
 removeEventListener(type, handler);
 ```
 
-删除一个事件处理函数。type 参数应填`url`。
+Remove a handler by passing the `url` event type and the handler.
 
 ---
 
@@ -153,23 +156,21 @@ removeEventListener(type, handler);
 openURL(url);
 ```
 
-尝试使用设备上已经安装的应用打开指定的`url`。
+Try to open the given `url` with any of the installed apps.
 
-你还可以使用其他类型的 URL，比如一个地理位置（形如"geo:37.484847,-122.148386"或是一个通讯录名片，只要是可以通过已安装的应用打开的即可。
+You can use other URLs, like a location (e.g. "geo:37.484847,-122.148386" on Android or "http://maps.apple.com/?ll=37.484847,-122.148386" on iOS), a contact, or any other URL that can be opened with the installed apps.
 
-本方法会返回一个`Promise`对象。如果用户在弹出的对话框中点击了确认或是 url 自动打开了，则 promise 成功完成。如果用户在弹出的对话框中点击取消或是没有对应应用可以处理此类型的 url，则 promise 会失败。
+The method returns a `Promise` object. If the user confirms the open dialog or the url automatically opens, the promise is resolved. If the user cancels the open dialog or there are no registered applications for the url, the promise is rejected.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | 必填 | 说明         |
-| ---- | ------ | ---- | ------------ |
-| url  | string | 是   | 要打开的 URL |
+| Name | Type   | Required | Description      |
+| ---- | ------ | -------- | ---------------- |
+| url  | string | Yes      | The URL to open. |
 
-> 如果系统不知道如何处理给定的 URL，则此方法会调用失败。如果你传入的 URL 不是一个 http 链接，则最好先通过{@code canOpenURL}方法检查一下。
+> This method will fail if the system doesn't know how to open the specified URL. If you're passing in a non-http(s) URL, it's best to check {@code canOpenURL} first.
 
-> 对于 web 链接来说，协议头("http://", "https://")不能省略！
-
-> This method may behave differently in a simulator e.g. "tel:" links are not able to be handled in the iOS simulator as there's no access to the dialer app.
+> For web URLs, the protocol ("http://", "https://") must be set accordingly!
 
 ---
 
@@ -179,21 +180,21 @@ openURL(url);
 canOpenURL(url);
 ```
 
-判断设备上是否有已经安装的应用可以处理指定的 URL。
+Determine whether or not an installed app can handle a given URL.
 
-本方法会返回一个`Promise`对象。当确定传入的 URL 可以被处理时，promise 就会返回，值的第一个参数是表示是否可以打开 URL。
+The method returns a `Promise` object. When it is determined whether or not the given URL can be handled, the promise is resolved and the first parameter is whether or not it can be opened.
 
 The `Promise` will reject on Android if it was impossible to check if the URL can be opened, and on iOS if you didn't add the specific scheme in the `LSApplicationQueriesSchemes` key inside `Info.plist` (see bellow).
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | 必填 | 说明         |
-| ---- | ------ | ---- | ------------ |
-| url  | string | 是   | 要打开的 URL |
+| Name | Type   | Required | Description      |
+| ---- | ------ | -------- | ---------------- |
+| url  | string | Yes      | The URL to open. |
 
-> 对于 web 链接来说，协议头("http://", "https://")不能省略！
+> For web URLs, the protocol ("http://", "https://") must be set accordingly!
 
-> 对于 iOS 9 来说，你需要在`Info.plist`中添加`LSApplicationQueriesSchemes`字段，否则`canOpenURL`可能一直返回 false。
+> As of iOS 9, your app needs to provide the `LSApplicationQueriesSchemes` key inside `Info.plist` or canOpenURL will always return false.
 
 > This method has limitations on iOS 9+. From [the official Apple documentation](https://developer.apple.com/documentation/uikit/uiapplication/1622952-canopenurl):
 
@@ -203,7 +204,7 @@ The `Promise` will reject on Android if it was impossible to check if the URL ca
 
 ### `openSettings()`
 
- ```jsx
+```jsx
 openSettings();
 ```
 
@@ -217,9 +218,9 @@ Open the Settings app and displays the app’s custom settings, if it has any.
 getInitialURL();
 ```
 
-如果应用是被一个链接调起的，则会返回相应的链接地址。否则它会返回`null`。
+If the app launch was triggered by an app link, it will give the link url, otherwise it will give `null`.
 
-> 如果要在 Android 上支持深度链接，请参阅<http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents>
+> To support deep linking on Android, refer http://developer.android.com/training/app-indexing/deep-linking.html#handling-intents
 
 ---
 
@@ -230,4 +231,5 @@ sendIntent(action: string, extras?: Array<{key: string, value: string | number |
 ```
 
 > @platform android
+
 **Android-Only.** Launch an Android intent with extras (optional)

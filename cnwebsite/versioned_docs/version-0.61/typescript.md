@@ -1,10 +1,7 @@
 ---
-id: version-0.61-typescript
-title: 使用TypeScript
-original_id: typescript
+id: typescript
+title: Using TypeScript with React Native
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
 
 [TypeScript][ts] is a language which extends JavaScript by adding type definitions, much like [Flow][flow]. While React Native is built in Flow, it supports both TypeScript _and_ Flow by default.
 
@@ -12,20 +9,21 @@ original_id: typescript
 
 If you're starting a new project, there are a few different ways to get started. You can use the [TypeScript template][ts-template]:
 
-```sh
-npx react-native init MyApp --template react-native-template-typescript
+```shell
+# Template version is specifically for React Native 0.61
+npx react-native init MyTSProject --template react-native-template-typescript@6.3.16
 ```
 
 You can use [Expo][expo] which has two TypeScript templates:
 
-```sh
+```shell
 npm install -g expo-cli
 expo init MyTSProject
 ```
 
 Or you could use [Ignite][ignite], which also has a TypeScript template:
 
-```sh
+```shell
 npm install -g ignite-cli
 ignite new MyTSProject
 ```
@@ -34,8 +32,8 @@ ignite new MyTSProject
 
 1. Add TypeScript and the types for React Native and Jest to your project.
 
-```sh
-yarn add --dev typescript @types/jest @types/react @types/react-native @types/react-test-renderer
+```shell
+yarn add typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 # or for npm
 npm install --save-dev typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 ```
@@ -70,13 +68,11 @@ npm install --save-dev typescript @types/jest @types/react @types/react-native @
 ```js
 module.exports = {
   preset: 'react-native',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 };
 ```
 
 4. Rename a JavaScript file to be `*.tsx`
-
-> You should leave the `./index.js` entrypoint file as it is otherwise you may run into an issue when it comes to bundling a production build.
 
 5. Run `yarn tsc` to type-check your new TypeScript files.
 
@@ -86,7 +82,7 @@ Out of the box, transforming your files to JavaScript works via the same [Babel 
 
 ## What does React Native + TypeScript look like
 
-You can provide an interface for a React Component's [Props][props] and [State][state] via `React.Component<Props, State>` which will provide type-checking and editor auto-completing when working with that component in JSX.
+You can provide an interface for a React Component's [Props]](props) and [State]](state) via `React.Component<Props, State>` which will provide type-checking and editor auto-completing when working with that component in JSX.
 
 ```tsx
 // components/Hello.tsx
@@ -107,32 +103,33 @@ const Hello: React.FC<Props> = (props) => {
     const getExclamationMarks = (numChars: number) => Array(numChars + 1).join('!');
     return (
         <View style={styles.root}>
-            <Text style={styles.greeting}>
-                Hello{' '}
-                {props.name + getExclamationMarks(enthusiasmLevel || 0)}
-            </Text>
+        <Text style={styles.greeting}>
+            Hello{' '}
+            {props.name + getExclamationMarks(enthusiasmLevel || 0)}
+        </Text>
 
-            <View style={styles.buttons}>
-                <View style={styles.button}>
-                <Button
-                    title="-"
-                    onPress={onDecrement}
-                    accessibilityLabel="decrement"
-                    color="red"
-                />
-                </View>
+        <View style={styles.buttons}>
+            <View style={styles.button}>
+            <Button
+                title="-"
+                onPress={onDecrement}
+                accessibilityLabel="decrement"
+                color="red"
+            />
+            </View>
 
-                <View style={styles.button}>
-                <Button
-                    title="+"
-                    onPress={onIncrement}
-                    accessibilityLabel="increment"
-                    color="blue"
-                />
-                </View>
+            <View style={styles.button}>
+            <Button
+                title="+"
+                onPress={onIncrement}
+                accessibilityLabel="increment"
+                color="blue"
+            />
             </View>
         </View>
+        </View>
     );
+    }
 }
 
 // styles
@@ -142,7 +139,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     buttons: {
-        flexDirection: 'row',
+       flexDirection: 'row',
         minHeight: 70,
         alignItems: 'stretch',
         alignSelf: 'center',
@@ -157,8 +154,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
-export default Hello;
 ```
 
 You can explore the syntax more in the [TypeScript playground][tsplay].
@@ -180,15 +175,14 @@ To use custom path aliases with TypeScript, you need to set the path aliases to 
 +     "baseUrl": ".",
 +     "paths": {
 +       "*": ["src/*"],
-+       "tests": ["tests/*"],
-+       "@components/*": ["src/components/*"],
++       "tests": ["tests/*"]
 +     },
     }
 ```
 
 2. Configure the Babel side done by adding a new dependency, [`babel-plugin-module-resolver`][bpmr]:
 
-```sh
+```shell
 yarn add --dev babel-plugin-module-resolver
 # or
 npm install --save-dev babel-plugin-module-resolver
@@ -205,8 +199,7 @@ npm install --save-dev babel-plugin-module-resolver
 +         root: ['./src'],
 +         extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
 +         alias: {
-+           "tests": ["./tests/"],
-+           "@components": "./src/components",
++           "test/*": ["./test/"],
 +         }
 +       }
 +     ]
@@ -218,12 +211,10 @@ npm install --save-dev babel-plugin-module-resolver
 [ts]: https://www.typescriptlang.org/
 [flow]: https://flow.org
 [ts-template]: https://github.com/react-native-community/react-native-template-typescript
-[babel]: /react-native/docs/javascript-environment#javascript-syntax-transformers
+[babel]: /docs/javascript-environment#javascript-syntax-transformers
 [babel-7-caveats]: https://babeljs.io/docs/en/next/babel-plugin-transform-typescript
-[cheat]: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#reacttypescript-cheatsheets
+[cheats]: https://github.com/typescript-cheatsheets/react-typescript-cheatsheet#reacttypescript-cheatsheets
 [ts-handbook]: http://www.typescriptlang.org/docs/home.html
-[props]: /react-native/docs/props.html
-[state]: /react-native/docs/state.html
 [path-map]: https://www.typescriptlang.org/docs/handbook/module-resolution.html#path-mapping
 [bpmr]: https://github.com/tleunen/babel-plugin-module-resolver
 [expo]: https://expo.io

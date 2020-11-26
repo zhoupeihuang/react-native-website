@@ -1,14 +1,13 @@
 ---
-id: version-0.62-pickerios
-title: 🚧 PickerIOS
-original_id: pickerios
+id: pickerios
+title: '🚧 PickerIOS'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/picker](https://github.com/react-native-community/react-native-picker) instead.
 
-> **Deprecated.** Use [Picker](picker.md) instead.
+---
 
-# 文档
+# Reference
 
 ## Props
 
@@ -16,17 +15,17 @@ Inherits [View Props](view.md#props).
 
 ### `itemStyle`
 
-| 类型                               | 必填 |
-| ---------------------------------- | ---- |
-| [text styles](text-style-props.md) | 否   |
+| Type                               | Required |
+| ---------------------------------- | -------- |
+| [text styles](text-style-props.md) | No       |
 
 ---
 
 ### `onValueChange`
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
@@ -40,6 +39,6 @@ Inherits [View Props](view.md#props).
 
 ### `selectedValue`
 
-| 类型             | 必填 |
-| ---------------- | ---- |
-| number or string | 否   |
+| Type             | Required |
+| ---------------- | -------- |
+| number or string | No       |

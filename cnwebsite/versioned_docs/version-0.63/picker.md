@@ -1,14 +1,13 @@
 ---
-id: version-0.63-picker
-title: 🚧 Picker
-original_id: picker
+id: picker
+title: '🚧 Picker'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-picker/picker](https://github.com/react-native-picker/react-native-picker) instead.
 
-> **已过时。** Use [@react-native-community/picker](https://github.com/react-native-community/react-native-picker) instead.
+Renders the native picker component on Android and iOS.
 
-本组件可以在 iOS 和 Android 上渲染原生的选择器（Picker）。
+## Example
 
 ```SnackPlayer name=picker
 import React, { useState } from "react";
@@ -43,90 +42,90 @@ export default App;
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
-继承所有[View Props](view.md#props).
-
-### `onValueChange`
-
-某一项被选中时执行此回调。调用时带有如下参数：
-
-- `itemValue`: 被选中项的`value`属性
-- `itemPosition`: 被选中项在 picker 中的索引位置
-
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
-
----
-
-### `selectedValue`
-
-默认选中的值。可以是字符串或整数。
-
-| 类型 | 必填 |
-| ---- | ---- |
-| any  | 否   |
-
----
-
-### `style`
-
-| 类型            | 必填 |
-| --------------- | ---- |
-| pickerStyleType | 否   |
-
----
-
-### `testID`
-
-用于在端对端测试中定位此视图。
-
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
-
----
+Inherits [View Props](view.md#props).
 
 ### `enabled`
 
-如果设为 false，则会禁用此选择器。
+If set to false, the picker will be disabled, i.e. the user will not be able to make a selection.
 
-| 类型 | 必填 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
-
----
-
-### `mode`
-
-在 Android 上，可以指定在用户点击选择器时，以怎样的形式呈现选项：
-
-- 'dialog': 显示一个模态对话框。默认选项。
-- 'dropdown': 以选择器所在位置为锚点展开一个下拉框。
-
-| 类型                       | 必填 | 平台    |
-| -------------------------- | ---- | ------- |
-| enum('dialog', 'dropdown') | 否   | Android |
-
----
-
-### `prompt`
-
-设置选择器的提示字符串。在 Android 的对话框模式中用作对话框的标题。
-
-| 类型   | 必填 | 平台    |
-| ------ | ---- | ------- |
-| string | 否   | Android |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
 
 ---
 
 ### `itemStyle`
 
-指定应用在每项标签上的样式。
+Style to apply to each of the item labels.
 
-| 类型                               | 必填 | 平台 |
-| ---------------------------------- | ---- | ---- |
-| [text styles](text-style-props.md) | 否   | iOS  |
+| Type                               | Required | Platform |
+| ---------------------------------- | -------- | -------- |
+| [text styles](text-style-props.md) | No       | iOS      |
+
+---
+
+### `mode`
+
+On Android, specifies how to display the selection items when the user taps on the picker:
+
+- 'dialog': Show a modal dialog. This is the default.
+- 'dropdown': Shows a dropdown anchored to the picker view
+
+| Type                       | Required | Platform |
+| -------------------------- | -------- | -------- |
+| enum('dialog', 'dropdown') | No       | Android  |
+
+---
+
+### `onValueChange`
+
+Callback for when an item is selected. This is called with the following parameters:
+
+- `itemValue`: the `value` prop of the item that was selected
+- `itemPosition`: the index of the selected item in this picker
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+---
+
+### `prompt`
+
+Prompt string for this picker, used on Android in dialog mode as the title of the dialog.
+
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| string | No       | Android  |
+
+---
+
+### `selectedValue`
+
+Value matching value of one of the items. Can be a string or an integer.
+
+| Type | Required |
+| ---- | -------- |
+| any  | No       |
+
+---
+
+### `style`
+
+| Type            | Required |
+| --------------- | -------- |
+| pickerStyleType | No       |
+
+---
+
+### `testID`
+
+Used to locate this view in end-to-end tests.
+
+| Type   | Required |
+| ------ | -------- |
+| string | No       |

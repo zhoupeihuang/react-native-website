@@ -1,22 +1,19 @@
 ---
-id: version-0.62-progressviewios
-title: 🚧 ProgressViewIOS
-original_id: progressviewios
+id: progressviewios
+title: '🚧 ProgressViewIOS'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/progress-view](https://github.com/react-native-progress-view/progress-view) instead.
 
-> **Deprecated.** Use [@react-native-community/progress-view](https://github.com/react-native-community/progress-view) instead.
+Uses `ProgressViewIOS` to render a UIProgressView on iOS.
 
-使用`ProgressViewIOS`来在 iOS 上渲染一个 UIProgressView。
-
-### 示例
+### Example
 
 ```SnackPlayer name=ProgressViewIOS&supportedPlatforms=ios
 import React from 'react';
 import {View, StyleSheet, ProgressViewIOS, Text} from 'react-native';
 
-const App = () => {
+export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.example}>
@@ -56,70 +53,70 @@ const styles = StyleSheet.create({
     width: 200,
   },
 });
-
-export default App;
 ```
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
+Inherits [View Props](view.md#props).
+
 ### `progress`
 
-当前的进度值（0 到 1 之间）。
+The progress value (between 0 and 1).
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `progressImage`
 
-一个可以拉伸的图片，用于显示进度条。
+A stretchable image to display as the progress bar.
 
-| 类型                   | 必填 |
-| ---------------------- | ---- |
-| Image.propTypes.source | 否   |
+| Type                   | Required |
+| ---------------------- | -------- |
+| Image.propTypes.source | No       |
 
 ---
 
 ### `progressTintColor`
 
-进度条本身染上的颜色。
+The tint color of the progress bar itself.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
 ### `progressViewStyle`
 
-进度条的样式。
+The progress bar style.
 
-| 类型                   | 必填 |
-| ---------------------- | ---- |
-| enum('default', 'bar') | 否   |
+| Type                   | Required |
+| ---------------------- | -------- |
+| enum('default', 'bar') | No       |
 
 ---
 
 ### `trackImage`
 
-一个可拉伸的图片，用于显示进度条后面的轨道。
+A stretchable image to display behind the progress bar.
 
-| 类型                   | 必填 |
-| ---------------------- | ---- |
-| Image.propTypes.source | 否   |
+| Type                   | Required |
+| ---------------------- | -------- |
+| Image.propTypes.source | No       |
 
 ---
 
 ### `trackTintColor`
 
-进度条轨道染上的颜色。
+The tint color of the progress bar track.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |

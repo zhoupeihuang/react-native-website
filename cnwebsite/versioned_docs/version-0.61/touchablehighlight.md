@@ -1,20 +1,17 @@
 ---
-id: version-0.61-touchablehighlight
+id: touchablehighlight
 title: TouchableHighlight
-original_id: touchablehighlight
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A wrapper for making views respond properly to touches. On press down, the opacity of the wrapped view is decreased, which allows the underlay color to show through, darkening or tinting the view.
 
-本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。
+The underlay comes from wrapping the child in a new View, which can affect layout, and sometimes cause unwanted visual artifacts if not used correctly, for example if the backgroundColor of the wrapped view isn't explicitly set to an opaque color.
 
-在底层实现上，实际会创建一个新的视图到视图层级中，如果使用的方法不正确，有时候会导致一些不希望出现的视觉效果。譬如没有给视图的backgroundColor显式声明一个不透明的颜色。
+TouchableHighlight must have one child (not zero or more than one). If you wish to have several child components, wrap them in a View.
 
-注意`TouchableHighlight`只支持一个子节点（不能没有子节点也不能多于一个）。如果你希望包含多个子组件，可以用一个View来包装它们。
+Example:
 
-例子：
-
-```
+```jsx
 renderButton: function() {
   return (
     <TouchableHighlight onPress={this._onPressButton}>
@@ -27,9 +24,9 @@ renderButton: function() {
 },
 ```
 
-### 示例
+### Example
 
-```ReactNativeWebPlayer
+```SnackPlayer name=TouchableHighlight
 import React, { Component } from 'react'
 import {
   StyleSheet,
@@ -90,9 +87,27 @@ const styles = StyleSheet.create({
 })
 ```
 
+### Props
+
+- [TouchableWithoutFeedback props...](touchablewithoutfeedback.md#props)
+
+* [`activeOpacity`](touchablehighlight.md#activeopacity)
+* [`onHideUnderlay`](touchablehighlight.md#onhideunderlay)
+* [`onShowUnderlay`](touchablehighlight.md#onshowunderlay)
+* [`style`](touchablehighlight.md#style)
+* [`underlayColor`](touchablehighlight.md#underlaycolor)
+* [`hasTVPreferredFocus`](touchablehighlight.md#hastvpreferredfocus)
+* [`tvParallaxProperties`](touchablehighlight.md#tvparallaxproperties)
+* [`nextFocusDown`](touchablehighlight.md#nextFocusDown)
+* [`nextFocusForward`](touchablehighlight.md#nextFocusForward)
+* [`nextFocusLeft`](touchablehighlight.md#nextFocusLeft)
+* [`nextFocusRight`](touchablehighlight.md#nextFocusRight)
+* [`nextFocusUp`](touchablehighlight.md#nextFocusUp)
+* [`testOnly_pressed`](touchablehighlight.md#testOnly_pressed)
+
 ---
 
-# 文档
+# Reference
 
 ## Props
 
@@ -100,49 +115,49 @@ Inherits [TouchableWithoutFeedback Props](touchablewithoutfeedback.md#props).
 
 ### `activeOpacity`
 
-指定封装的视图在被触摸操作激活时以多少不透明度显示（0到1之间，默认值为0.85）。需要设置`underlayColor`。
+Determines what the opacity of the wrapped view should be when touch is active. The value should be between 0 and 1. Defaults to 0.85. Requires `underlayColor` to be set.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| number | 否   |
+| Type   | Required |
+| ------ | -------- |
+| number | No       |
 
 ---
 
 ### `onHideUnderlay`
 
-底层的颜色被隐藏的时候调用。
+Called immediately after the underlay is hidden.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `onShowUnderlay`
 
-当底层的颜色被显示的时候调用。
+Called immediately after the underlay is shown.
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 否   |
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
 
 ---
 
 ### `style`
 
-| 类型       | 必填 |
-| ---------- | ---- |
-| View.style | 否   |
+| Type       | Required |
+| ---------- | -------- |
+| View.style | No       |
 
 ---
 
 ### `underlayColor`
 
-有触摸操作时显示出来的底层的颜色。
+The color of the underlay that will show through when the touch is active.
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
@@ -150,9 +165,9 @@ Inherits [TouchableWithoutFeedback Props](touchablewithoutfeedback.md#props).
 
 _(Apple TV only)_ TV preferred focus (see documentation for the View component).
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ---
 
@@ -162,6 +177,66 @@ _(Apple TV only)_ Object with properties to control Apple TV parallax effects.
 
 enabled: If true, parallax effects are enabled. Defaults to true. shiftDistanceX: Defaults to 2.0. shiftDistanceY: Defaults to 2.0. tiltAngle: Defaults to 0.05. magnification: Defaults to 1.0. pressMagnification: Defaults to 1.0. pressDuration: Defaults to 0.3. pressDelay: Defaults to 0.0.
 
-| 类型   | 必填 | 平台 |
-| ------ | ---- | ---- |
-| object | 否   | iOS  |
+| Type   | Required | Platform |
+| ------ | -------- | -------- |
+| object | No       | iOS      |
+
+---
+
+### `nextFocusDown`
+
+TV next focus down (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusForward`
+
+TV next focus forward (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusLeft`
+
+TV next focus left (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusRight`
+
+TV next focus right (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `nextFocusUp`
+
+TV next focus up (see documentation for the View component).
+
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | Android  |
+
+---
+
+### `testOnly_pressed`
+
+Handy for snapshot tests.
+
+| Type | Required |
+| ---- | -------- |
+| bool | No       |

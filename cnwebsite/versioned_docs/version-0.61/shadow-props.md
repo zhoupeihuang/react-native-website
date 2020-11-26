@@ -1,49 +1,46 @@
 ---
-id: version-0.61-shadow-props
-title: 阴影样式属性
-original_id: shadow-props
+id: shadow-props
+title: Shadow Props
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-# 文档
+# Reference
 
 ## Props
 
 ### `shadowColor`
 
-设置阴影色。
+Sets the drop shadow color
 
-| 类型               | 必填 | 平台 |
+| Type               | Required | Platform |
 | ------------------ | -------- | -------- |
-| [color](colors.md) | 否       | iOS      |
+| [color](colors.md) | No       | iOS      |
 
 ---
 
 ### `shadowOffset`
 
-设置阴影偏移量。
+Sets the drop shadow offset
 
-| 类型                                   | 必填 | 平台 |
+| Type                                   | Required | Platform |
 | -------------------------------------- | -------- | -------- |
-| object: {width: number,height: number} | 否       | iOS      |
+| object: {width: number,height: number} | No       | iOS      |
 
 ---
 
 ### `shadowOpacity`
 
-设置阴影不透明度 (乘以颜色的alpha分量)。
+Sets the drop shadow opacity (multiplied by the color's alpha component)
 
-| 类型   | 必填 | 平台 |
+| Type   | Required | Platform |
 | ------ | -------- | -------- |
-| number | 否       | iOS      |
+| number | No       | iOS      |
 
 ---
 
 ### `shadowRadius`
 
-设置阴影模糊半径。
+Sets the drop shadow blur radius
 
-| 类型   | 必填 | 平台 |
+| Type   | Required | Platform |
 | ------ | -------- | -------- |
-| number | 否       | iOS      |
+| number | No       | iOS      |

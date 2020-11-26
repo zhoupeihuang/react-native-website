@@ -1,17 +1,24 @@
 {
   "docs": {
-    "入门基础": [
+    "The Basics": [
       "getting-started",
       "intro-react-native-components",
       "intro-react",
       "handling-text-input",
       "using-a-scrollview",
       "using-a-listview",
-      "sample-application-movies",
+      "troubleshooting",
       "platform-specific-code",
       "more-resources"
     ],
-    "开发流程": [
+    "Environment setup": [
+      "environment-setup",
+      "integration-with-existing-apps",
+      "integration-with-android-fragment",
+      "building-for-tv",
+      "out-of-tree-platforms"
+    ],
+    "Workflow": [
       "running-on-device",
       "fast-refresh",
       "debugging",
@@ -21,34 +28,34 @@
       "typescript",
       "upgrading"
     ],
-    "设计": ["style", "height-and-width", "flexbox", "images", "colors"],
-    "交互": [
+    "Design": ["style", "height-and-width", "flexbox", "images", "colors"],
+    "Interaction": [
       "handling-touches",
       "navigation",
       "animations",
       "gesture-responder-system"
     ],
-    "性能调优": [
+    "Inclusion": ["accessibility"],
+    "Performance": [
       "performance",
       "optimizing-flatlist-configuration",
       "ram-bundles-inline-requires",
       "profiling",
       "profile-hermes"
     ],
-    "JavaScript 运行环境": ["javascript-environment", "timers", "hermes"],
-    "网络连接": ["network", "security"],
-    "进阶指南": [
-      "accessibility",
-      "direct-manipulation",
-      "integration-with-existing-apps",
-      "integration-with-android-fragment",
-      "building-for-tv",
+    "JavaScript Runtime": ["javascript-environment", "timers", "hermes"],
+    "Connectivity": ["network", "security"],
+    "Native Components and Modules": [
       "native-modules-setup",
-      "out-of-tree-platforms",
-      "building-from-source",
-      "publishing-forks"
+      "direct-manipulation"
     ],
-    "iOS 指南": [
+    "Guides (Android)": [
+      "native-modules-android",
+      "native-components-android",
+      "headless-js-android",
+      "signed-apk-android"
+    ],
+    "Guides (iOS)": [
       "native-modules-ios",
       "native-components-ios",
       "linking-libraries-ios",
@@ -56,13 +63,6 @@
       "communication-ios",
       "app-extensions",
       "publishing-to-app-store"
-    ],
-    "Android 指南": [
-      "native-modules-android",
-      "native-components-android",
-      "headless-js-android",
-      "signed-apk-android",
-      "removing-default-permissions"
     ]
   },
   "api": {
@@ -91,24 +91,27 @@
       "transforms",
       "vibration",
       {
-        "type": "subcategory",
+        "type": "category",
         "label": "Hooks",
-        "ids": ["usecolorscheme", "usewindowdimensions"]
+        "collapsed": false,
+        "items": ["usecolorscheme", "usewindowdimensions"]
       },
       {
-        "type": "subcategory",
+        "type": "category",
         "label": "Android APIs",
-        "ids": ["backhandler", "permissionsandroid", "toastandroid"]
+        "collapsed": false,
+        "items": ["backhandler", "permissionsandroid", "toastandroid"]
       },
       {
-        "type": "subcategory",
+        "type": "category",
         "label": "iOS APIs",
-        "ids": ["actionsheetios", "dynamiccolorios", "settings"]
+        "collapsed": false,
+        "items": ["actionsheetios", "dynamiccolorios", "settings"]
       }
     ]
   },
-  "组件": {
-    "核心组件": [
+  "components": {
+    "Core Components": [
       "components-and-apis",
       "activityindicator",
       "button",
@@ -131,24 +134,26 @@
       "view",
       "virtualizedlist",
       {
-        "type": "subcategory",
-        "label": "Android 组件",
-        "ids": ["drawerlayoutandroid", "touchablenativefeedback"]
+        "type": "category",
+        "label": "Android Components",
+        "collapsed": false,
+        "items": ["drawerlayoutandroid", "touchablenativefeedback"]
       },
       {
-        "type": "subcategory",
-        "label": "iOS 组件",
-        "ids": ["inputaccessoryview", "maskedviewios", "safeareaview"]
+        "type": "category",
+        "label": "iOS Components",
+        "collapsed": false,
+        "items": ["inputaccessoryview", "safeareaview"]
       }
     ],
-    "属性": [
+    "Props": [
       "image-style-props",
       "layout-props",
       "shadow-props",
       "text-style-props",
       "view-style-props"
     ],
-    "内部对象类型": [
+    "Object Types": [
       "layoutevent",
       "pressevent",
       "react-node",

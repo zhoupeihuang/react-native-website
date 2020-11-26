@@ -1,54 +1,51 @@
 ---
-id: version-0.61-easing
+id: easing
 title: Easing
-original_id: easing
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
-
-`Easing`模块实现了常见的动画缓动函数。 This module is used by [Animated.timing()](animated.md#timing) to convey physically believable motion in animations.
+The `Easing` module implements common easing functions. This module is used by [Animated.timing()](animated.md#timing) to convey physically believable motion in animations.
 
 You can find a visualization of some common easing functions at http://easings.net/
 
-### 查看预置动画
+### Predefined animations
 
-`Easing`模块通过以下几个方法提供了几种预置的动画：
+The `Easing` module provides several predefined animations through the following methods:
 
-* [`back`](easing.md#back) provides a simple animation where the object goes slightly back before moving forward
-* [`bounce`](easing.md#bounce) provides a bouncing animation
-* [`ease`](easing.md#ease) provides a simple inertial animation
-* [`elastic`](easing.md#elastic) provides a simple spring interaction
+- [`back`](easing.md#back) provides a basic animation where the object goes slightly back before moving forward
+- [`bounce`](easing.md#bounce) provides a bouncing animation
+- [`ease`](easing.md#ease) provides a basic inertial animation
+- [`elastic`](easing.md#elastic) provides a basic spring interaction
 
-### 查看标准函数
+### Standard functions
 
-目前提供了三种标准缓动函数：
+Three standard easing functions are provided:
 
-* [`linear`](easing.md#linear)
-* [`quad`](easing.md#quad)
-* [`cubic`](easing.md#cubic)
+- [`linear`](easing.md#linear)
+- [`quad`](easing.md#quad)
+- [`cubic`](easing.md#cubic)
 
 The [`poly`](easing.md#poly) function can be used to implement quartic, quintic, and other higher power functions.
 
-### 查看补充函数
+### Additional functions
 
-此外还通过以下几个方法提供了几种数学函数：
+Additional mathematical functions are provided by the following methods:
 
-* [`bezier`](easing.md#bezier) provides a cubic bezier curve
-* [`circle`](easing.md#circle) provides a circular function
-* [`sin`](easing.md#sin) provides a sinusoidal function
-* [`exp`](easing.md#exp) provides an exponential function
+- [`bezier`](easing.md#bezier) provides a cubic bezier curve
+- [`circle`](easing.md#circle) provides a circular function
+- [`sin`](easing.md#sin) provides a sinusoidal function
+- [`exp`](easing.md#exp) provides an exponential function
 
 The following helpers are used to modify other easing functions.
 
-* [`in`](easing.md#in) runs an easing function forwards
-* [`inOut`](easing.md#inout) makes any easing function symmetrical
-* [`out`](easing.md#out) runs an easing function backwards
+- [`in`](easing.md#in) runs an easing function forwards
+- [`inOut`](easing.md#inout) makes any easing function symmetrical
+- [`out`](easing.md#out) runs an easing function backwards
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `step0()`
 
@@ -88,7 +85,7 @@ http://cubic-bezier.com/#0,0,1,1
 static ease(t)
 ```
 
-A simple inertial interaction, similar to an object slowly accelerating to speed.
+A basic inertial interaction, similar to an object slowly accelerating to speed.
 
 http://cubic-bezier.com/#.42,0,1,1
 
@@ -172,7 +169,7 @@ http://easings.net/#easeInExpo
 static elastic(bounciness)
 ```
 
-A simple elastic interaction, similar to a spring oscillating back and forth.
+A basic elastic interaction, similar to a spring oscillating back and forth.
 
 Default bounciness is 1, which overshoots a little bit once. 0 bounciness doesn't overshoot at all, and bounciness of N > 1 will overshoot about N times.
 
@@ -186,7 +183,7 @@ http://easings.net/#easeInElastic
 static back(s)
 ```
 
-Use with `Animated.parallel()` to create a simple effect where the object animates back slightly as the animation starts.
+Use with `Animated.parallel()` to create a basic effect where the object animates back slightly as the animation starts.
 
 ---
 
@@ -196,7 +193,7 @@ Use with `Animated.parallel()` to create a simple effect where the object animat
 static bounce(t)
 ```
 
-Provides a simple bouncing effect.
+Provides a basic bouncing effect.
 
 http://easings.net/#easeInBounce
 
@@ -217,7 +214,7 @@ A useful tool to visualize cubic bezier curves can be found at http://cubic-bezi
 ### `in()`
 
 ```jsx
-static in(easing);
+static in easing;
 ```
 
 Runs an easing function forwards.

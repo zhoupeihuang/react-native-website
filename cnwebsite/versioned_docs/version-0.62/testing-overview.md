@@ -1,29 +1,26 @@
 ---
-id: version-0.62-testing-overview
+id: testing-overview
 title: Testing
 author: Vojtech Novak
-authorURL: https://twitter.com/vonovak
+authorURL: 'https://twitter.com/vonovak'
 description: This guide introduces React Native developers to the key concepts behind testing, how to write good tests, and what kinds of tests you can incorporate into your workflow.
-original_id: testing-overview
 ---
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 As your codebase expands, small errors and edge cases you don’t expect can cascade into larger failures. Bugs lead to bad user experience and ultimately, business losses. One way to prevent fragile programming is to test your code before releasing it into the wild.
 
 In this guide, we will cover different, automated ways to ensure your app works as expected, ranging from static analysis to end-to-end tests.
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/diagram_testing.svg" alt="Testing is a cycle of fixing, testing, and either passing to release or failing back into testing." />
+<img src="/docs/assets/diagram_testing.svg" alt="Testing is a cycle of fixing, testing, and either passing to release or failing back into testing." />
 
 ## Why Test
 
-We're humans, and humans make mistakes. Testing is important because it helps you uncover these mistakes and verifies that your code is working. Perhaps even more importantly, testing ensures that your code continues to work in the future as you add new features, refactor the existing ones, or upgrade major dependencies of your project.
+We're humans, and humans make mistakes. Testing is important because it helps you uncover these mistakes or verifies that your code is working. Perhaps even more importantly, testing ensures that your code continues to work in the future as you add new features, refactor the existing ones, or upgrade major dependencies of your project.
 
 There is more value in testing than you might realize. One of the best ways to fix a bug in your code is to write a failing test that exposes it. Then when you fix the bug and re-run the test, if it passes it means the bug is fixed, never reintroduced into the code base.
 
 Tests can also serve as documentation for new people joining your team. For people who have never seen a codebase before, reading tests can help them understand how the existing code works.
 
-Last but not least, more automated testing means less time spent with manual <abbr title="Quality Assurance">QA</abbr>, freeing up valuable time.
+Last but not least, more automated testing means less time spent with manual <abbr title="Quality Assurance">QA</abbr>, freeing up valuable development time.
 
 ## Static Analysis
 
@@ -44,7 +41,7 @@ To make your app more testable, start by separating the view part of your app—
 
 Theoretically, you could go so far as to move all logic and data fetching out of your components. This way your components would be solely dedicated to rendering. Your state would be entirely independent of your components. Your app’s logic would work without any React components at all!
 
-> We encourage you to further explore the topic of testable code in other learning resources.
+> We encourage you to further explore the topic of testabile coding in other learning resources.
 
 ## Writing Tests
 
@@ -84,7 +81,7 @@ When the object being tested has any dependencies, you’ll often need to mock t
 
 The great thing about unit tests is that they are quick to write and run. Therefore, as you work, you get fast feedback about whether your tests are passing. Jest even has an option to continuously run tests that are related to code you’re editing: [Watch mode](https://jestjs.io/docs/en/cli#watch).
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/p_tests-unit.svg" alt=" " />
+<img src="/docs/assets/p_tests-unit.svg" alt=" " />
 
 ### Mocking
 
@@ -110,12 +107,11 @@ In integration testing, real individual units are combined (same as in your app)
 
 > Please note that the terminology around what integration testing means is not always consistent. Also, the line between what is a unit test and what is an integration test may not always be clear. For this guide, your test falls into "integration testing" if it:
 >
-> - Combines several modules of your app as described above
-> - Uses an external system
-> - Makes a network call to other application (such as the weather service API)
+> - Uses an external system (such as weather service API)
+> - Makes a network call to other application
 > - Does any kind of file or database <abbr title="Input/Output">I/O</abbr>
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/p_tests-integration.svg" alt=" " />
+<img src="/docs/assets/p_tests-integration.svg" alt=" " />
 
 ## Component Tests
 
@@ -131,12 +127,11 @@ For example, if you have a button that has an `onPress` listener, you want to te
 There are several libraries that can help you testing these:
 
 - React’s [Test Renderer](https://reactjs.org/docs/test-renderer.html), developed alongside its core, provides a React renderer that can be used to render React components to pure JavaScript objects, without depending on the DOM or a native mobile environment.
-- [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library) builds on top of React’s test renderer and adds `fireEvent` and `query` APIs described in the next paragraph.
-- [`@testing-library/react-native`](https://www.native-testing-library.com/) is another alternative that also builds on top of React’s test renderer and adds `fireEvent` and `query` APIs described in the next paragraph.
+- [React Native Testing Library](https://callstack.github.io/react-native-testing-library/) builds on top of React’s test renderer and adds `fireEvent` and `query` APIs described in the next paragraph.
 
 > Component tests are only JavaScript tests running in Node.js environment. They do _not_ take into account any iOS, Android, or other platform code which is backing the React Native components. It follows that they cannot give you a 100% confidence that everything works for the user. If there is a bug in the iOS or Android code, they will not find it.
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/p_tests-component.svg" alt=" " />
+<img src="/docs/assets/p_tests-component.svg" alt=" " />
 
 ### Testing User Interactions
 
@@ -186,7 +181,7 @@ Avoid testing implementation details like props or state—while such tests work
 
 > React class components are especially prone to testing their implementation details such as internal state, props or event handlers. To avoid testing implementation details, prefer using function components with Hooks, which make relying on component internals _harder_.
 
-Component testing libraries such as [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library) facilitate writing user-centric tests by careful choice of provided APIs. The following example uses `fireEvent` methods `changeText` and `press` that simulate a user interacting with the component and a query function `getAllByText` that finds matching `Text` nodes in the rendered output.
+Component testing libraries such as [React Native Testing Library](https://callstack.github.io/react-native-testing-library/) facilitate writing user-centric tests by careful choice of provided APIs. The following example uses `fireEvent` methods `changeText` and `press` that simulate a user interacting with the component and a query function `getAllByText` that finds matching `Text` nodes in the rendered output.
 
 ```jsx
 test('given empty GroceryShoppingList, user can add an item to it', () => {
@@ -237,7 +232,7 @@ Snapshots themselves do not ensure that your component render logic is correct, 
 
 We recommend that you only use small snapshots (see [`no-large-snapshots` rule](https://github.com/jest-community/eslint-plugin-jest/blob/master/docs/rules/no-large-snapshots.md)). If you want to test a _change_ between two React component states, use [`snapshot-diff`](https://github.com/jest-community/snapshot-diff). When in doubt, prefer explicit expectations as described in the previous paragraph.
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/p_tests-snapshot.svg" alt=" " />
+<img src="/docs/assets/p_tests-snapshot.svg" alt=" " />
 
 ## End-to-End Tests
 
@@ -250,14 +245,14 @@ Instead, E2E testing libraries allow you to find and control elements in the scr
 E2E tests give you the highest possible confidence that part of your app is working. The tradeoffs include:
 
 - writing them is more time consuming compared to the other types of tests
-- they are slower to run
+- they can be slower to run
 - they are more prone to flakiness (a "flaky" test is a test which randomly passes and fails without any change to code)
 
 Try to cover the vital parts of your app with E2E tests: authentication flow, core functionalities, payments, etc. Use faster JS tests for the non-vital parts of your app. The more tests you add, the higher your confidence, but also, the more time you'll spend maintaining and running them. Consider the tradeoffs and decide what's best for you.
 
 There are several E2E testing tools available: in the React Native community, [Detox](https://github.com/wix/detox/) is a popular framework because it’s tailored for React Native apps. Another popular library in the space of iOS and Android apps is [Appium](http://appium.io/).
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/p_tests-e2e.svg" alt=" " />
+<img src="/docs/assets/p_tests-e2e.svg" alt=" " />
 
 ## Summary
 
@@ -266,8 +261,7 @@ We hope you enjoyed reading and learned something from this guide. There are man
 ### Links
 
 - [React testing overview](https://reactjs.org/docs/testing.html)
-- [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library)
-- [`@testing-library/react-native`](https://www.native-testing-library.com/)
+- [React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 - [Jest docs](https://jestjs.io/docs/en/tutorial-react-native)
 - [Detox](https://github.com/wix/detox/)
 - [Appium](http://appium.io/)

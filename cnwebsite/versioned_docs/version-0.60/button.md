@@ -1,111 +1,172 @@
 ---
-id: version-0.60-button
+id: button
 title: Button
-original_id: button
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+A basic button component that should render nicely on any platform. Supports a minimal level of customization.
 
-一个简单的跨平台的按钮组件。可以进行一些简单的定制。
+If this button doesn't look right for your app, you can build your own button using [TouchableOpacity](touchableopacity.md) or [TouchableNativeFeedback](touchablenativefeedback.md). For inspiration, look at the [source code for this button component](https://github.com/facebook/react-native/blob/master/Libraries/Components/Button.js). Or, take a look at the [wide variety of button components built by the community](https://js.coach/?menu%5Bcollections%5D=React%20Native&page=1&query=button).
 
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/buttonExample.png"></img></center>
+### Example
 
-这个组件的样式是固定的。所以如果它的外观并不怎么搭配你的设计，那你需要使用`TouchableOpacity`或是`TouchableNativeFeedback`组件来定制自己所需要的按钮，视频教程[如何制作一个按钮](http://v.youku.com/v_show/id_XMTQ5OTE3MjkzNg==.html?f=26822355&from=y1.7-1.3)讲述了完整的过程。或者你也可以在 github.com 网站上搜索 'react native button' 来看看社区其他人的作品。
+```SnackPlayer name=rn-buttons
+import React from 'react';
+import {
+  StyleSheet,
+  Button,
+  View,
+  SafeAreaView,
+  Text,
+  Alert,
+} from 'react-native';
+import Constants from 'expo-constants';
 
-示例：
+function Separator() {
+  return <View style={styles.separator} />;
+}
 
+export default function App() {
+  return (
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>
+          The title and onPress handler are required. It is recommended to set
+          accessibilityLabel to help make your app usable by everyone.
+        </Text>
+        <Button
+          title="Press me"
+          onPress={() => Alert.alert('Simple Button pressed')}
+        />
+      </View>
+      <Separator />
+      <View>
+        <Text style={styles.title}>
+          Adjust the color in a way that looks standard on each platform. On
+          iOS, the color prop controls the color of the text. On Android, the
+          color adjusts the backgroud color of the button.
+        </Text>
+        <Button
+          title="Press me"
+          color="#f194ff"
+          onPress={() => Alert.alert('Button with adjusted color pressed')}
+        />
+      </View>
+      <Separator />
+      <View>
+        <Text style={styles.title}>
+          All interaction for the component are disabled.
+        </Text>
+        <Button
+          title="Press me"
+          disabled
+          onPress={() => Alert.alert('Cannot press this one')}
+        />
+      </View>
+      <Separator />
+      <View>
+        <Text style={styles.title}>
+          This layout strategy lets the title define the width of the button.
+        </Text>
+        <View style={styles.fixToText}>
+          <Button
+            title="Left button"
+            onPress={() => Alert.alert('Left button pressed')}
+          />
+          <Button
+            title="Right button"
+            onPress={() => Alert.alert('Right button pressed')}
+          />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: Constants.statusBarHeight,
+    marginHorizontal: 16,
+  },
+  title: {
+    textAlign: 'center',
+    marginVertical: 8,
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  separator: {
+    marginVertical: 8,
+    borderBottomColor: '#737373',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+});
 ```
-import { Button } from 'react-native';
-...
-
-<Button
-  onPress={onPressLearnMore}
-  title="Learn More"
-  color="#841584"
-  accessibilityLabel="Learn more about this purple button"
-/>
-```
-
-### 查看 Props
-
-- [`accessibilityLabel`](button.md#accessibilitylabel)
-- [`color`](button.md#color)
-- [`disabled`](button.md#disabled)
-- [`hasTVPreferredFocus`](button.md#hastvpreferredfocus)
-- [`nextFocusDown`](view.md#nextfocusdown)
-
-* [`nextFocusForward`](view.md#nextfocusForward)
-* [`nextFocusLeft`](view.md#nextfocusleft)
-* [`nextFocusRight`](view.md#nextfocusright)
-* [`nextFocusUp`](view.md#nextfocusleft)
-* [`onPress`](button.md#onpress)
-* [`testID`](button.md#testid)
-* [`title`](button.md#title)
-* [`touchSoundDisabled`](button.md#touchSoundDisabled)
 
 ---
 
-# 文档
+# Reference
 
 ## Props
 
 ### `onPress`
 
-用户点击此按钮时所调用的处理函数
+Handler to be called when the user taps the button
 
-| 类型     | 必填 |
-| -------- | ---- |
-| function | 是   |
+| Type     | Required |
+| -------- | -------- |
+| function | Yes      |
 
 ---
 
 ### `title`
 
-按钮内显示的文本
+Text to display inside the button
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 是   |
+| Type   | Required |
+| ------ | -------- |
+| string | Yes      |
 
 ---
 
 ### `accessibilityLabel`
 
-用于给残障人士显示的文本（比如读屏应用可能会读取这一内容）
+Text to display for blindness accessibility features
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
 ### `color`
 
-文本的颜色(iOS)，或是按钮的背景色(Android)
+Color of the text (iOS), or background color of the button (Android)
 
-| 类型               | 必填 |
-| ------------------ | ---- |
-| [color](colors.md) | 否   |
+| Type               | Required |
+| ------------------ | -------- |
+| [color](colors.md) | No       |
 
 ---
 
 ### `disabled`
 
-设置为 true 时此按钮将不可点击。
+If true, disable all interactions for this component.
 
-| 类型 | 必填 |
-| ---- | ---- |
-| bool | 否   |
+| Type | Required |
+| ---- | -------- |
+| bool | No       |
 
 ---
 
 ### `testID`
 
-用来在端到端测试中定位此视图。
+Used to locate this view in end-to-end tests.
 
-| 类型   | 必填 |
-| ------ | ---- |
-| string | 否   |
+| Type   | Required |
+| ------ | -------- |
+| string | No       |
 
 ---
 
@@ -113,9 +174,9 @@ import { Button } from 'react-native';
 
 _(Apple TV only)_ TV preferred focus (see documentation for the View component).
 
-| 类型 | 必填 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
+| Type | Required | Platform |
+| ---- | -------- | -------- |
+| bool | No       | iOS      |
 
 ### `nextFocusDown`
 

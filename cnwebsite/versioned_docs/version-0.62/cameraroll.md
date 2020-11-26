@@ -1,31 +1,27 @@
 ---
-id: version-0.62-cameraroll
-title: CameraRoll
-original_id: cameraroll
+id: cameraroll
+title: '🚧 CameraRoll'
+
+custom_edit_url: 'https://github.com/facebook/react-native-website/edit/master/website/versioned_docs/version-0.58/cameraroll.md'
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+> **Deprecated.** Use [@react-native-community/cameraroll](https://github.com/react-native-community/react-native-cameraroll) instead.
 
-`CameraRoll`模块提供了访问本地相册的功能。在 iOS 上使用这个模块之前，你需要先链接`RCTCameraRoll`库，具体做法请参考[链接原生库](linking-libraries-ios.md)文档。
+`CameraRoll` provides access to the local camera roll or photo library.
 
-**译注**：本模块只提供了基本的访问图片的功能，并没有提供相册界面。对于多数开发者来说，可能第三方的[react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)的功能更为完整易用（可多选、压缩、裁剪等）。
+On iOS, the `CameraRoll` API requires the `RCTCameraRoll` library to be linked. You can refer to [Linking Libraries (iOS)](linking-libraries-ios.md) to learn more.
 
-### 权限
+### Permissions
 
-从 iOS 10 开始，访问相册需要用户授权。你需要在`Info.plist`中添加一条名为`NSPhotoLibraryUsageDescription`的键，然后在其值中填写向用户请求权限的具体描述。编辑完成后这个键在 Xcode 中实际会显示为`Privacy - Photo Library Usage Description`。
+The user's permission is required in order to access the Camera Roll on devices running iOS 10 or later. Add the `NSPhotoLibraryUsageDescription` key in your `Info.plist` with a string that describes how your app will use this data. This key will appear as `Privacy - Photo Library Usage Description` in Xcode.
 
-从 iOS 11 开始，如果需要保存图片，则需要额外申请用户授权。你需要在`Info.plist`中添加一条名为`NSPhotoLibraryAddUsageDescription`的键，然后在其值中填写向用户请求权限的具体描述。编辑完成后这个键在 Xcode 中实际会显示为`Privacy - Photo Library Additions Usage Description`。而名为`NSPhotoLibraryUsageDescription`的键此时仅控制相册的读取。具体说明请翻阅[官方文档](https://developer.apple.com/library/content/documentation/General/Reference/InfoPlistKeyReference/Articles/CocoaKeys.html)搜索相关键值。
-
-### 查看方法
-
-- [`saveToCameraRoll`](cameraroll.md#savetocameraroll)
-- [`getPhotos`](cameraroll.md#getphotos)
+If you are targeting devices running iOS 11 or later, you will also need to add the `NSPhotoLibraryAddUsageDescription` key in your `Info.plist`. Use this key to define a string that describes how your app will use this data. By adding this key to your `Info.plist`, you will be able to request write-only access permission from the user. If you try to save to the camera roll without this permission, your app will exit.
 
 ---
 
-# 文档
+# Reference
 
-## 方法
+## Methods
 
 ### `saveToCameraRoll()`
 
@@ -33,22 +29,22 @@ original_id: cameraroll
 CameraRoll.saveToCameraRoll(tag, [type]);
 ```
 
-保存一个图片或视频到相册或图库。
+Saves the photo or video to the camera roll or photo library.
 
-在 Android 上，tag 是一个本地 URI，例如`"file:///sdcard/img.png"`.
+On Android, the tag must be a local image or video URI, such as `"file:///sdcard/img.png"`.
 
-在 iOS， tag 可以是任意图片 URI（本地或是远程 asset-library、base64），也可以是本地视频文件的 URI（远程和 base64 目前还不支持）。
+On iOS, the tag can be any image URI (including local, remote asset-library and base64 data URIs) or a local video file URI (remote or data URIs are not supported for saving video at this time).
 
 If the tag has a file extension of .mov or .mp4, it will be inferred as a video. Otherwise it will be treated as a photo. To override the automatic choice, you can pass an optional `type` parameter that must be one of 'photo' or 'video'.
 
-返回一个 Promise，操作成功时解析出新的 URI。
+Returns a Promise which will resolve with the new URI.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型                   | 必填 | 说明                                                       |
-| ---- | ---------------------- | ---- | ---------------------------------------------------------- |
-| tag  | string                 | 是   | 看上面的说明                                               |
-| type | enum('photo', 'video') | 否   | Overrides automatic detection based on the file extension. |
+| Name | Type                   | Required | Description                                                |
+| ---- | ---------------------- | -------- | ---------------------------------------------------------- |
+| tag  | string                 | Yes      | See above.                                                 |
+| type | enum('photo', 'video') | No       | Overrides automatic detection based on the file extension. |
 
 ---
 
@@ -60,11 +56,11 @@ CameraRoll.getPhotos(params);
 
 Returns a Promise with photo identifier objects from the local camera roll of the device matching shape defined by `getPhotosReturnChecker`.
 
-**参数：**
+**Parameters:**
 
-| 名称   | 类型   | 必填 | 说明                                             |
-| ------ | ------ | ---- | ------------------------------------------------ |
-| params | object | 是   | Expects a params with the shape described below. |
+| Name   | Type   | Required | Description                                      |
+| ------ | ------ | -------- | ------------------------------------------------ |
+| params | object | Yes      | Expects a params with the shape described below. |
 
 - `first` : {number} : The number of photos wanted in reverse order of the photo application (i.e. most recent first for SavedPhotos).
 - `after` : {string} : A cursor that matches `page_info { end_cursor }` returned from a previous call to `getPhotos`.
@@ -85,7 +81,7 @@ Returns a Promise with photo identifier objects from the local camera roll of th
 
 Returns a Promise which when resolved will be of the following shape:
 
-- `edges` : {Array<node>} An array of node objects
+- `edges` : {Array&lt;node&gt;} An array of node objects
   - `node`: {object} An object with the following shape:
     - `type`: {string}
     - `group_name`: {string}
@@ -107,11 +103,11 @@ Returns a Promise which when resolved will be of the following shape:
   - `start_cursor`: {string}
   - `end_cursor`: {string}
 
-#### 示例
+#### Example
 
-读取图片：
+Loading images:
 
-```
+```jsx
 _handleButtonPress = () => {
    CameraRoll.getPhotos({
        first: 20,

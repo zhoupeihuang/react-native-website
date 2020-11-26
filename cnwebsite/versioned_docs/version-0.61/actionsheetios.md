@@ -1,14 +1,11 @@
 ---
-id: version-0.61-actionsheetios
+id: actionsheetios
 title: ActionSheetIOS
-original_id: actionsheetios
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
+# Reference
 
-# 文档
-
-## 方法
+## Methods
 
 ### `showActionSheetWithOptions()`
 
@@ -16,29 +13,33 @@ original_id: actionsheetios
 static showActionSheetWithOptions(options, callback)
 ```
 
-在 iOS 设备上显示一个 ActionSheet 弹出框，其中`options`参数为一个对象，其属性必须包含以下一项或多项：
+Display an iOS action sheet. The `options` object must contain one or more of:
 
-* `options` （字符串数组） - 一组按钮的文字（必选）
-* `cancelButtonIndex` （整型） - 取消性质的按钮在`options`中的位置（索引）
-* `destructiveButtonIndex` （整型） - 删除性质的按钮在`options`中的位置（索引）
-* `title` （字符串） - 弹出框顶部的标题
-* `message` （字符串） - 弹出框顶部标题下方的信息
-* `anchor` (number) - the node to which the action sheet should be anchored (used for iPad)
-* `tintColor` (字符串) - 指定删除性质的按钮的文字的[颜色](colors.md)
+- `options` (array of strings) - a list of button titles (required)
+- `cancelButtonIndex` (int) - index of cancel button in `options`
+- `destructiveButtonIndex` (int) - index of destructive button in `options`
+- `title` (string) - a title to show above the action sheet
+- `message` (string) - a message to show below the title
+- `anchor` (number) - the node to which the action sheet should be anchored (used for iPad)
+- `tintColor` (string) - the [color](colors.md) used for non-destructive button titles
 
-'callback'函数则仅接受一个参数，即所点击按钮的索引。
+The 'callback' function takes one parameter, the zero-based index of the selected item.
 
-一个例子：
+Minimal example:
 
-```
-ActionSheetIOS.showActionSheetWithOptions({
-  options: ['取消', '删除'],
-  destructiveButtonIndex: 1,
-  cancelButtonIndex: 0,
-},
-(buttonIndex) => {
-if (buttonIndex === 1) { /* 当接收到的索引为1，即点击了删除按钮时，执行对应操作 */ }
-});
+```jsx
+ActionSheetIOS.showActionSheetWithOptions(
+  {
+    options: ['Cancel', 'Remove'],
+    destructiveButtonIndex: 1,
+    cancelButtonIndex: 0
+  },
+  (buttonIndex) => {
+    if (buttonIndex === 1) {
+      /* destructive action */
+    }
+  }
+);
 ```
 
 ---
@@ -49,18 +50,18 @@ if (buttonIndex === 1) { /* 当接收到的索引为1，即点击了删除按钮
 static showShareActionSheetWithOptions(options, failureCallback, successCallback)
 ```
 
-在 iOS 设备上显示一个分享弹出框，其中`options`参数为一个对象，其属性包含以下几项（必须至少有 message 或 url）:
+Display the iOS share sheet. The `options` object should contain one or both of `message` and `url` and can additionally have a `subject` or `excludedActivityTypes`:
 
-* `url` （字符串） - 要分享的 URL 地址
-* `message` （字符串） - 要分享的信息
-* `subject` （字符串） - 要分享的信息主题
-* `excludedActivityTypes` （数组） - 指定在 actionsheet 中不显示的活动
+- `url` (string) - a URL to share
+- `message` (string) - a message to share
+- `subject` (string) - a subject for the message
+- `excludedActivityTypes` (array) - the activities to exclude from the ActionSheet
 
-注：如果`url`指向本地文件，或者是一个 base64 编码的 url，则会直接读取并分享相应的文件。你可以用这样的方式来分享图片、视频以及 PDF 文件等。
+NOTE: if `url` points to a local file, or is a base64-encoded uri, the file it points to will be loaded and shared directly. In this way, you can share images, videos, PDF files, etc.
 
-'failureCallback'函数仅接受一个错误对象参数。此对象中仅包含一个可选的`stack`属性，类型为字符串。
+The 'failureCallback' function takes one parameter, an error object. The only property defined on this object is an optional `stack` property of type `string`.
 
-'successCallback'函数接受两个参数：
+The 'successCallback' function takes two parameters:
 
-* 表示成功与否的布尔值
-* 成功的话返回一个表示分享方式的字符串
+- a boolean value signifying success or failure
+- a string that, in the case of success, indicates the method of sharing
