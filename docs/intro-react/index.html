@@ -6,7 +6,7 @@
 
               ga('create', 'UA-63485149-4', 'auto');
               ga('send', 'pageview');
-            </script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/focus-visible@5.0.2/dist/focus-visible.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/codeblocks.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/tabs.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/doccode120202.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/snack.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
+            </script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/focus-visible@5.0.2/dist/focus-visible.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/codeblocks.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/tabs.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/doccode0814.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/js/snack.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-back-to-top@7.1.14/dist/vanilla-back-to-top.min.js"></script><script>
         document.addEventListener('DOMContentLoaded', function() {
           addBackToTop(
             {"zIndex":100}
@@ -383,13 +383,13 @@
         "
       ></div></div></div><p><code>Image</code> 有<a href="image#props">很多不同的 props</a>，<a href="image#style"><code>style</code></a>也是其中之一，它接受对象形式的样式和布局键值对。</p>
 <blockquote>
-<p>请留意我们在指定<code>style</code>属性的宽高时所用到的双层括号<code>{{ }}</code>。在JSX中，引用JS值时需要使用<code>{}</code>括起来。在你需要传递非字符串值（比如数组或者数字）的时候会经常用到这种写法：<code>&lt;Cat food={[&quot;fish&quot;, &quot;kibble&quot;]} /&gt; age={2}</code>。然而我们在JS中定义一个对象时，本来<strong><em>也</em></strong>需要用括号括起来：<code>{width: 200, height: 200}</code>。因此要在JSX中传递一个JS对象值的时候，就必须用到两层括号：<code>{{width: 200, height: 200}}</code>。</p>
+<p>请留意我们在指定<code>style</code>属性的宽高时所用到的双层括号<code>{{ }}</code>。在 JSX 中，引用 JS 值时需要使用<code>{}</code>括起来。在你需要传递非字符串值（比如数组或者数字）的时候会经常用到这种写法：<code>&lt;Cat food={[&quot;fish&quot;, &quot;kibble&quot;]} /&gt; age={2}</code>。然而我们在 JS 中定义一个对象时，本来<strong><em>也</em></strong>需要用括号括起来：<code>{width: 200, height: 200}</code>。因此要在 JSX 中传递一个 JS 对象值的时候，就必须用到两层括号：<code>{{width: 200, height: 200}}</code>。</p>
 </blockquote>
-<p>使用核心组件<a href="text"><code>Text</code></a>, <a href="image"><code>Image</code></a>以及<a href="view"><code>View</code></a>搭配props已经可以做不少东西了！但是如果想要做一些用户交互，那我们还需要用到状态（state）。</p>
+<p>使用核心组件<a href="text"><code>Text</code></a>, <a href="image"><code>Image</code></a>以及<a href="view"><code>View</code></a>搭配 props 已经可以做不少东西了！但是如果想要做一些用户交互，那我们还需要用到状态（state）。</p>
 <h2><a class="anchor" aria-hidden="true" id="state-状态"></a><a href="#state-状态" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>State 状态</h2>
-<p>While you can think of props as arguments you use to configure how components render, <strong>state</strong>就像是组件的私人数据记录。 Sate is useful for handling data that changes over time or that comes from user interaction. State gives your components memory!</p>
+<p>如果把 props 理解为定制组件渲染的参数， 那么<strong>state</strong>就像是组件的私人数据记录。状态用于记录那些随时间或者用户交互而变化的数据。状态使组件拥有了记忆！</p>
 <blockquote>
-<p>As a general rule, use props to configure a component when it renders. Use state to keep track of any component data that you expect to change over time. The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.</p>
+<p>按惯例来说，props用来配置组件的第一次渲染（初始状态）。Use state to keep track of any component data that you expect to change over time. The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.</p>
 </blockquote>
 <div class="toggler">
   <ul role="tablist" class="toggle-syntax">
@@ -461,7 +461,7 @@
 <li>it creates a function to set that state variable’s value—<code>setIsHungry</code></li>
 </ul>
 <p>取什么名字并不重要。但脑海中应该形成这样一种模式：<code>[&lt;取值&gt;, &lt;设值&gt;] = useState(&lt;initialValue&gt;)</code>.</p>
-<p>下面我们添加一个按钮<a href="button"><code>Button</code></a>组件，并给它一个<code>onPress</code>的prop：</p>
+<p>下面我们添加一个按钮<a href="button"><code>Button</code></a>组件，并给它一个<code>onPress</code>的 prop：</p>
 <pre><code class="hljs css language-jsx"><span class="token operator">&lt;</span>Button
   onPress<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
     <span class="token function">setIsHungry</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -469,7 +469,7 @@
   <span class="token comment">//..</span>
 <span class="token operator">/</span><span class="token operator">></span>
 </code></pre>
-<p>现在当用户点击按钮时，<code>onPress</code>函数会被触发，从而调用<code>setIsHungry(false)</code>。此时状态变量<code>isHungry</code>就被设为了<code>false</code>。当<code>isHungry</code>为false的时候，<code>Button</code>的<code>disabled</code>属性就变成了<code>true</code> ，其<code>title</code>也相应变化：</p>
+<p>现在当用户点击按钮时，<code>onPress</code>函数会被触发，从而调用<code>setIsHungry(false)</code>。此时状态变量<code>isHungry</code>就被设为了<code>false</code>。当<code>isHungry</code>为 false 的时候，<code>Button</code>的<code>disabled</code>属性就变成了<code>true</code> ，其<code>title</code>也相应变化：</p>
 <pre><code class="hljs css language-jsx"><span class="token operator">&lt;</span>Button
   <span class="token comment">//..</span>
   disabled<span class="token operator">=</span><span class="token punctuation">{</span><span class="token operator">!</span>isHungry<span class="token punctuation">}</span>
@@ -547,7 +547,7 @@
   <span class="token comment">//..</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>和使用<code>this.props</code>获取props一样，在组件中获取状态也是通过<code>this.state</code>：</p>
+<p>和使用<code>this.props</code>获取 props 一样，在组件中获取状态也是通过<code>this.state</code>：</p>
 <pre><code class="hljs css language-jsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">Text</span></span><span class="token punctuation">></span></span><span class="token plain-text">
   I am </span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>name<span class="token punctuation">}</span><span class="token plain-text">, and I am
   </span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>isHungry <span class="token operator">?</span> <span class="token string">' hungry'</span> <span class="token punctuation">:</span> <span class="token string">' full'</span><span class="token punctuation">}</span><span class="token plain-text">!
@@ -588,10 +588,10 @@
 </code></pre>
 <p><block class="endBlock syntax" /></p>
 <blockquote>
-<p>注意到上面的<code>&lt;&gt;</code>和<code>&lt;/&gt;</code>了吗？ 这一对JSX标签称为<a href="https://zh-hans.reactjs.org/docs/fragments.html">Fragments（片段）</a>。由于JSX的语法要求根元素必须为单个元素，如果我们需要在根节点处并列多个元素，在这之前就不得不额外套一个没有实际用处的<code>View</code>。但有了Fragment后就不需要引入额外的容器视图了。</p>
+<p>注意到上面的<code>&lt;&gt;</code>和<code>&lt;/&gt;</code>了吗？ 这一对 JSX 标签称为<a href="https://zh-hans.reactjs.org/docs/fragments.html">Fragments（片段）</a>。由于 JSX 的语法要求根元素必须为单个元素，如果我们需要在根节点处并列多个元素，在这之前就不得不额外套一个没有实际用处的<code>View</code>。但有了 Fragment 后就不需要引入额外的容器视图了。</p>
 </blockquote>
 <hr>
-<p>现在你应该已经差不多了解React和React Native的核心组件与思想了。下面可以试着深入学习一些核心组件的用法，比如如何<a href="handling-text-input">处理文本输入<code>&lt;TextInput&gt;</code></a>。</p>
+<p>现在你应该已经差不多了解 React 和 React Native 的核心组件与思想了。下面可以试着深入学习一些核心组件的用法，比如如何<a href="handling-text-input">处理文本输入<code>&lt;TextInput&gt;</code></a>。</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/intro-react-native-components"><span class="arrow-prev">← </span><span>核心组件与原生组件</span></a><a class="docs-next button" href="/docs/handling-text-input"><span>处理文本输入</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#尝试编写一个组件">尝试编写一个组件</a></li><li><a href="#jsx">JSX</a></li><li><a href="#自定义组件">自定义组件</a></li><li><a href="#props-属性">Props 属性</a></li><li><a href="#state-状态">State 状态</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="copyright"><p style="color:inherit">React Native中文网 © 2020 武汉青罗网络科技有限公司</p><p style="color:inherit"><a href="http://beian.miit.gov.cn/">鄂ICP备20002031号</a><img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="鄂公网安备 42011202001821号"/><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011202001821">鄂公网安备 42011202001821号</a></p></section><script>
         (function(){
           var c = document.createElement("div");
