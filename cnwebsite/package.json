@@ -4,10 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "license": "CC-BY-4.0",
-  "homepage": "https://reactnative.dev/",
-  "repository": "github:facebook/react-native-website",
+  "homepage": "https://reactnative.cn/",
+  "repository": "github:reactnativecn/react-native-website",
   "bugs": {
-    "url": "https://github.com/facebook/react-native-website/issues"
+    "url": "https://github.com/reactnativecn/react-native-website/issues"
   },
   "scripts": {
     "start": "docusaurus start",

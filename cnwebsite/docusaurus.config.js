@@ -1,8 +1,10 @@
-const users = require('./showcase.json');
+// const users = require('./showcase.json');
+const cdnUrl =
+  'https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/';
 
 module.exports = {
-  title: 'React Native',
-  tagline: 'A framework for building native apps using React',
+  title: 'React Native 中文网',
+  tagline: '使用React来编写原生应用的框架',
   organizationName: 'reactnativecn',
   projectName: 'react-native',
   url: 'https://reactnative.cn',
@@ -11,17 +13,17 @@ module.exports = {
   scripts: [
     {
       src:
-        'https://cdn.jsdelivr.net/npm/focus-visible@5.0.2/dist/focus-visible.min.js',
+        'https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js',
       defer: true,
     },
     {src: 'https://snack.expo.io/embed.js', defer: true},
   ],
-  favicon: 'img/favicon.ico',
+  favicon: cdnUrl + 'img/favicon.ico',
   titleDelimiter: '·',
-  customFields: {
-    users,
-    facebookAppId: '1677033832619985',
-  },
+  // customFields: {
+  //   users,
+  //   facebookAppId: '1677033832619985',
+  // },
   onBrokenLinks: 'throw',
   presets: [
     [
@@ -31,7 +33,7 @@ module.exports = {
           showLastUpdateAuthor: false,
           showLastUpdateTime: true,
           editUrl:
-            'https://github.com/reactnativecn/react-native-website/blob/master/cnwebsite/',
+            '//github.com/reactnativecn/react-native-website/blob/production/cnwebsite',
           path: '../cndocs',
           sidebarPath: require.resolve('./sidebars.json'),
           remarkPlugins: [require('@react-native-website/remark-snackplayer')],
@@ -64,21 +66,21 @@ module.exports = {
       additionalLanguages: ['java', 'kotlin', 'objectivec', 'swift', 'groovy'],
     },
     navbar: {
-      title: 'React Native',
+      title: 'React Native 中文网',
       logo: {
-        src: 'img/header_logo.svg',
-        alt: 'React Native',
+        src: cdnUrl + 'img/header_logo.svg',
+        alt: 'React Native 中文网',
       },
       style: 'dark',
       items: [
         {
-          label: 'Docs',
+          label: '文档',
           type: 'doc',
           docId: 'getting-started',
           position: 'right',
         },
         {
-          label: 'Components',
+          label: '组件',
           type: 'doc',
           docId: 'components-and-apis',
           position: 'right',
@@ -90,10 +92,25 @@ module.exports = {
           position: 'right',
         },
         {
-          to: '/help',
-          label: 'Community',
+          label: '讨论',
+          href: '//github.com/reactnativecn/react-native-website/issues',
           position: 'right',
         },
+        {
+          label: '热更新',
+          href: '//pushy.reactnative.cn',
+          position: 'right',
+        },
+        {
+          to: '/about',
+          label: '关于',
+          position: 'right',
+        },
+        // {
+        //   to: '/help',
+        //   label: 'Community',
+        //   position: 'right',
+        // },
         // {
         //   to: '/blog',
         //   label: 'Blog',
@@ -118,7 +135,7 @@ module.exports = {
         },
       ],
     },
-    image: 'img/logo-og.png',
+    image: cdnUrl + 'img/logo-og.png',
     footer: {
       style: 'dark',
       links: [
@@ -137,111 +154,111 @@ module.exports = {
               label: 'Components and APIs',
               to: 'docs/components-and-apis',
             },
-            {
-              label: 'More Resources',
-              to: 'docs/more-resources',
-            },
+            // {
+            //   label: 'More Resources',
+            //   to: 'docs/more-resources',
+            // },
           ],
         },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'The React Native Community',
-              to: 'help',
-            },
-            {
-              label: "Who's using React Native?",
-              to: 'showcase',
-            },
-            {
-              label: 'Ask Questions on Stack Overflow',
-              to: 'https://stackoverflow.com/questions/tagged/react-native',
-            },
-            {
-              label: 'Contributor Guide',
-              to:
-                'https://github.com/facebook/react-native/blob/master/CONTRIBUTING.md',
-            },
-            {
-              label: 'DEV Community',
-              to: 'https://dev.to/t/reactnative',
-            },
-          ],
-        },
-        {
-          title: 'Find us',
-          items: [
-            {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/reactnative',
-            },
-            {
-              label: 'GitHub',
-              href: 'https://github.com/facebook/react-native',
-            },
-          ],
-        },
-        {
-          title: 'More',
-          items: [
-            {
-              label: 'React',
-              href: 'https://reactjs.org/',
-            },
-            {
-              label: 'Privacy Policy',
-              to: 'https://opensource.facebook.com/legal/privacy',
-            },
-            {
-              label: 'Terms of Service',
-              href: 'https://opensource.facebook.com/legal/terms',
-            },
-          ],
-        },
+        // {
+        //   title: 'Community',
+        //   items: [
+        //     {
+        //       label: 'The React Native Community',
+        //       to: 'help',
+        //     },
+        //     {
+        //       label: "Who's using React Native?",
+        //       to: 'showcase',
+        //     },
+        //     {
+        //       label: 'Ask Questions on Stack Overflow',
+        //       to: 'https://stackoverflow.com/questions/tagged/react-native',
+        //     },
+        //     {
+        //       label: 'Contributor Guide',
+        //       to:
+        //         'https://github.com/facebook/react-native/blob/master/CONTRIBUTING.md',
+        //     },
+        //     {
+        //       label: 'DEV Community',
+        //       to: 'https://dev.to/t/reactnative',
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: 'Find us',
+        //   items: [
+        //     {
+        //       label: 'Blog',
+        //       to: 'blog',
+        //     },
+        //     {
+        //       label: 'Twitter',
+        //       href: 'https://twitter.com/reactnative',
+        //     },
+        //     {
+        //       label: 'GitHub',
+        //       href: 'https://github.com/facebook/react-native',
+        //     },
+        //   ],
+        // },
+        // {
+        //   title: 'More',
+        //   items: [
+        //     {
+        //       label: 'React',
+        //       href: 'https://reactjs.org/',
+        //     },
+        //     {
+        //       label: 'Privacy Policy',
+        //       to: 'https://opensource.facebook.com/legal/privacy',
+        //     },
+        //     {
+        //       label: 'Terms of Service',
+        //       href: 'https://opensource.facebook.com/legal/terms',
+        //     },
+        //   ],
+        // },
       ],
-      logo: {
-        alt: 'Facebook Open Source Logo',
-        src: 'img/oss_logo.png',
-        href: 'https://opensource.facebook.com',
-      },
-      copyright: `Copyright © ${new Date().getFullYear()} Facebook, Inc.`,
+      // logo: {
+      //   alt: 'Facebook Open Source Logo',
+      //   src: 'img/oss_logo.png',
+      //   href: 'https://opensource.facebook.com',
+      // },
+      copyright: `React Native 中文网 © ${new Date().getFullYear()} 武汉青罗网络科技有限公司`,
     },
     algolia: {
-      apiKey: '2c98749b4a1e588efec53b2acec13025',
-      indexName: 'react-native-v2',
+      apiKey: '7ab53ed26928639bae06ef0f6165f68b',
+      indexName: 'reactnative_cn',
       contextualSearch: true,
     },
     googleAnalytics: {
-      trackingID: 'UA-41298772-2',
+      trackingID: 'UA-63485149-4',
     },
     gtag: {
-      trackingID: 'UA-41298772-2',
+      trackingID: 'UA-63485149-4',
     },
     metadatas: [
       {
         name: 'description',
-        content: 'A framework for building native apps using React',
+        content: '使用React来编写原生应用的框架',
       },
       {property: 'og:title', content: 'React Native'},
       {
         property: 'og:description',
-        content: 'A framework for building native apps using React',
+        content: '使用React来编写原生应用的框架',
       },
-      {property: 'og:url', content: 'https://reactnative.dev/'},
+      {property: 'og:url', content: 'https://reactnative.cn/'},
       {
         property: 'og:image',
-        content: 'https://reactnative.dev/img/logo-og.png',
+        content: cdnUrl + 'img/logo-og.png',
       },
-      {name: 'twitter:card', content: 'summary'},
-      {
-        name: 'twitter:image',
-        content: 'https://reactnative.dev/img/logo-og.png',
-      },
+      // {name: 'twitter:card', content: 'summary'},
+      // {
+      //   name: 'twitter:image',
+      //   content: 'https://reactnative.dev/img/logo-og.png',
+      // },
     ],
   },
 };

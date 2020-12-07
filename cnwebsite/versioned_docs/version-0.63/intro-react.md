@@ -303,15 +303,15 @@ export default CatApp;
 
 `Image` has [many different props](image#props), including [`style`](image#style), which accepts a JS object of design and layout related property-value pairs.
 
-> 请留意我们在指定`style`属性的宽高时所用到的双层括号`{{ }}`。在 JSX 中，引用 JS 值时需要使用`{}`括起来。在你需要传递非字符串值（比如数组或者数字）的时候会经常用到这种写法：`<Cat food={["fish", "kibble"]} /> age={2}`。然而我们在 JS 中定义一个对象时，本来**_也_**需要用括号括起来：`{width: 200, height: 200}`。因此要在 JSX 中传递一个 JS 对象值的时候，就必须用到两层括号：`{{width: 200, height: 200}}`。
+> Notice the double curly braces `{{ }}` surrounding `style`‘s width and height. In JSX, JavaScript values are referenced with `{}`. This is handy if you are passing something other than a string as props, like an array or number: `<Cat food={["fish", "kibble"]} age={2} />`. However, JS objects are **_also_** denoted with curly braces: `{width: 200, height: 200}`. Therefore, to pass a JS object in JSX, you must wrap the object in **another pair** of curly braces: `{{width: 200, height: 200}}`
 
-使用核心组件[`Text`](text), [`Image`](image)以及[`View`](view)搭配 props 已经可以做不少东西了！但是如果想要做一些用户交互，那我们还需要用到状态（state）。
+You can build many things with props and the Core Components [`Text`](text), [`Image`](image), and [`View`](view)! But to build something interactive, you’ll need state.
 
 ## State
 
-如果把 props 理解为定制组件渲染的参数， 那么**state**就像是组件的私人数据记录。状态用于记录那些随时间或者用户交互而变化的数据。状态使组件拥有了记忆！
+While you can think of props as arguments you use to configure how components render, **state** is like a component’s personal data storage. State is useful for handling data that changes over time or that comes from user interaction. State gives your components memory!
 
-> 按惯例来说，props用来配置组件的第一次渲染（初始状态）。Use state to keep track of any component data that you expect to change over time. The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.
+> As a general rule, use props to configure a component when it renders. Use state to keep track of any component data that you expect to change over time.
 
 The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.
 
@@ -379,7 +379,7 @@ Calling `useState` does two things:
 
 It doesn’t matter what names you use. But it can be handy to think of the pattern as `[<getter>, <setter>] = useState(<initialValue>)`.
 
-下面我们添加一个按钮[`Button`](button)组件，并给它一个`onPress`的 prop：
+Next you add the [`Button`](button) Core Component and give it an `onPress` prop:
 
 ```jsx
 <Button
@@ -390,7 +390,7 @@ It doesn’t matter what names you use. But it can be handy to think of the patt
 />
 ```
 
-现在当用户点击按钮时，`onPress`函数会被触发，从而调用`setIsHungry(false)`。此时状态变量`isHungry`就被设为了`false`。当`isHungry`为 false 的时候，`Button`的`disabled`属性就变成了`true` ，其`title`也相应变化：
+Now, when someone presses the button, `onPress` will fire, calling the `setIsHungry(false)`. This sets the state variable `isHungry` to `false`. When `isHungry` is false, the `Button`’s `disabled` prop is set to `true` and its `title` also changes:
 
 ```jsx
 <Button
@@ -477,7 +477,7 @@ export class Cat extends Component {
 }
 ```
 
-和使用`this.props`获取 props 一样，在组件中获取状态也是通过`this.state`：
+As with accessing props with `this.props`, you access this object inside your component with `this.state`:
 
 ```jsx
 <Text>
@@ -533,8 +533,8 @@ export default Cafe;
 </TabItem>
 </Tabs>
 
-> 注意到上面的`<>`和`</>`了吗？ 这一对 JSX 标签称为[Fragments（片段）](https://zh-hans.reactjs.org/docs/fragments.html)。由于 JSX 的语法要求根元素必须为单个元素，如果我们需要在根节点处并列多个元素，在这之前就不得不额外套一个没有实际用处的`View`。但有了 Fragment 后就不需要引入额外的容器视图了。
+> See the `<>` and `</>` above? These bits of JSX are [fragments](https://reactjs.org/docs/fragments.html). Adjacent JSX elements must be wrapped in an enclosing tag. Fragments let you do that without nesting an extra, unnecessary wrapping element like `View`.
 
 ---
 
-现在你应该已经差不多了解 React 和 React Native 的核心组件与思想了。下面可以试着深入学习一些核心组件的用法，比如如何[处理文本输入`<TextInput>`](handling-text-input)。
+Now that you’ve covered both React and React Native’s Core Components, let’s dive deeper on some of these core components by looking at [handling `<TextInput>`](handling-text-input).

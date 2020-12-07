@@ -18,7 +18,7 @@ import {
   useVersions,
   useActiveVersion,
 } from '@theme/hooks/useDocs';
-import DocsRating from '../../../core/DocsRating';
+// import DocsRating from '../../../core/DocsRating';
 
 function DocItem(props) {
   const {siteConfig = {}} = useDocusaurusContext();
@@ -98,7 +98,7 @@ function DocItem(props) {
                 <DocContent />
               </div>
             </article>
-            <DocsRating label={unversionedId} />
+            {/* <DocsRating label={unversionedId} /> */}
             {(editUrl || lastUpdatedAt || lastUpdatedBy) && (
               <div className="docMetadata margin-vert--xl">
                 <div className="row">

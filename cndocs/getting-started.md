@@ -1,5 +1,5 @@
 ---
-id: getting-started
+id: environment-setup
 title: 搭建开发环境
 ---
 
