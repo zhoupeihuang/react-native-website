@@ -6,7 +6,7 @@ While you can use any editor of your choice to develop your app, you will need t
 
 <h3>Node, JDK</h3>
 
-We recommend installing Node via [Chocolatey](https://chocolatey.org), a popular package manager for Windows. 
+We recommend installing Node via [Chocolatey](https://chocolatey.org), a popular package manager for Windows.
 
 If you want to be able to switch between different Node versions, you might want to install Node via [nvm-windows](https://github.com/coreybutler/nvm-windows), a Node version manager for Windows.
 
@@ -199,7 +199,7 @@ Now that you have successfully run the app, let's modify it.
 
 Congratulations! You've successfully run and modified your first React Native app.
 
-<center><img src="/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 <h2>Now what?</h2>
 

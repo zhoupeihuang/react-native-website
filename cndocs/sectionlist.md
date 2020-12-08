@@ -393,19 +393,19 @@ This may improve scroll performance for large lists.
 
 每个组的尾部组件。
 
-| 类型                                                 | 必填 |
-| ---------------------------------------------------- | ---- |
-| [(info: {section: SectionT}) => ?React.Element<any>] | 否   |
+| Type                                                                   |
+| ---------------------------------------------------------------------- |
+| (info: { section: [Section](sectionlist#section) }) => element, `null` |
 
 ---
 
 ### `renderSectionHeader`
 
-在每个 section 的头部渲染。在 iOS 上，这些 headers 是默认粘接在`ScrollView`的顶部的. 参见[`stickySectionHeadersEnabled`]。
+在每个 section 的头部渲染。在 iOS 上，这些 headers 是默认粘接在`ScrollView`的顶部的. 参见[`stickySectionHeadersEnabled`](#stickySectionHeadersEnabled)。
 
-| 类型                                                 | 必填 |
-| ---------------------------------------------------- | ---- |
-| [(info: {section: SectionT}) => ?React.Element<any>] | 否   |
+| Type                                                                   |
+| ---------------------------------------------------------------------- |
+| (info: { section: [Section](sectionlist#section) }) => element, `null` |
 
 ---
 
@@ -413,9 +413,9 @@ This may improve scroll performance for large lists.
 
 在每个`section`的顶部和底部渲染(区别于`ItemSeparatorComponent`，它仅在列表项之间渲染)。它的作用是为了从视觉上把`section`与它上方或下方的`headers`区别开来，从这个意义上讲，它的作用和`ItemSeparatorComponent`是一样的. 它也接受`highlighted`, `[leading/trailing][Item/Separator]`这两个默认提供的属性或其他通过`separators.updateProps`添加的自定义属性.
 
-| 类型              | 必填 |
-| ----------------- | ---- |
-| [ReactClass<any>] | 否   |
+| Type                         |
+| ---------------------------- |
+| component, element, function |
 
 ---
 
