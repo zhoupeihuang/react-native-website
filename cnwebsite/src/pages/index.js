@@ -5,7 +5,7 @@ import GitHubButton from 'react-github-btn';
 import Head from '@docusaurus/Head';
 
 import useBaseUrl from '@docusaurus/useBaseUrl';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+// import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 import CrossPlatformSVG from '../../static/img/homepage/cross-platform.svg';
 import {setupDissectionAnimation} from './animations/_dissectionAnimation';
@@ -72,11 +72,6 @@ for whole new teams of developers, and can let existing native teams work much f
 React Native lets you iterate at lightning speed. No more waiting for native builds to finish.
 Save, see, repeat.
   `,
-  talks: `
-Members of the React Native team frequently speak at various conferences.
-<br/><br/>
-You can follow the latest news from the React Native team on Twitter
-  `,
 };
 
 function Heading({text}) {
@@ -117,17 +112,6 @@ function HomeCallToAction() {
         Learn basics
       </ActionButton>
     </>
-  );
-}
-
-function TwitterButton() {
-  return (
-    <a
-      href="https://twitter.com/intent/follow?screen_name=reactnative&region=follow_link"
-      className="twitter-follow-button">
-      <div className="icon" />
-      Follow @reactnative
-    </a>
   );
 }
 
@@ -243,7 +227,6 @@ function HeaderHero() {
   return (
     <Section background="dark" className="HeaderHero">
       <div className="socialLinks">
-        <TwitterButton />
         <GitHubStarButton />
       </div>
       <TwoColumns
@@ -363,60 +346,6 @@ function FastRefresh() {
   );
 }
 
-function Talks() {
-  return (
-    <Section className="Talks" background="tint">
-      <TwoColumns
-        columnOne={
-          <TextColumn
-            title="Talks"
-            text={textContent.talks}
-            moreContent={<TwitterButton />}
-          />
-        }
-        columnTwo={
-          <div className="vidWrapper">
-            <iframe
-              src="https://www.youtube.com/embed/NCAY0HIfrwc"
-              title="Mobile Innovation with React Native, ComponentKit, and Litho"
-              frameBorder="0"
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
-        }
-      />
-    </Section>
-  );
-}
-
-/* Community */
-
-function AppList() {
-  const {siteConfig} = useDocusaurusContext();
-  const apps = siteConfig.customFields.users.filter(app => app.pinned);
-
-  return (
-    <ul className="AppList">
-      {apps.map((app, i) => {
-        const imgSource = !app.icon.startsWith('http')
-          ? useBaseUrl('img/showcase/' + app.icon)
-          : app.icon;
-        return (
-          <li key={i} className="item">
-            {app.infoLink ? (
-              <a href={app.infoLink}>
-                <img src={imgSource} alt={app.name} />
-              </a>
-            ) : (
-              <img src={imgSource} alt={app.name} />
-            )}
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
 
 function Community() {
   return (
@@ -452,37 +381,27 @@ function Community() {
                 <a href="https://www.microsoft.com/">Microsoft</a> and{' '}
                 <a href="https://swmansion.com/">Software Mansion</a>.
               </p>
-              <p>
-                Our community is always shipping exciting new projects and
-                exploring platforms beyond Android and iOS with repos like{' '}
-                <span>
-                  <a href="https://github.com/microsoft/react-native-windows#readme">
-                    React Native Windows
-                  </a>
-                </span>
-                ,{' '}
-                <a href="https://github.com/microsoft/react-native-macos#readme">
-                  React Native macOS
-                </a>{' '}
-                and{' '}
-                <a href="https://github.com/necolas/react-native-web#readme">
-                  React Native Web
-                </a>
-                .
-              </p>
             </>
           }
           columnTwo={
-            <>
-              <p>
-                React Native is being used in thousands of apps, but it's likely
-                you've already used it in one of these apps:
-              </p>
-              <AppList />
-              <p>
-                and <a href={useBaseUrl(`showcase`)}>many more</a>.
-              </p>
-            </>
+            <p>
+              Our community is always shipping exciting new projects and
+              exploring platforms beyond Android and iOS with repos like{' '}
+              <span>
+                <a href="https://github.com/microsoft/react-native-windows#readme">
+                  React Native Windows
+                </a>
+              </span>
+              ,{' '}
+              <a href="https://github.com/microsoft/react-native-macos#readme">
+                React Native macOS
+              </a>{' '}
+              and{' '}
+              <a href="https://github.com/necolas/react-native-web#readme">
+                React Native Web
+              </a>
+              .
+            </p>
           }
         />
       </div>
@@ -532,7 +451,6 @@ const Index = () => {
       <NativeDevelopment />
       <CrossPlatform />
       <FastRefresh />
-      <Talks />
       <Community />
       <GetStarted />
     </Layout>
