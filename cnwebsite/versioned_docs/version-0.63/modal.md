@@ -3,14 +3,24 @@ id: modal
 title: Modal
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.15%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(0.57%), [hqwlkj](https://github.com/search?q=hqwlkj&type=Users)(0.28%)
 
-The Modal component is a basic way to present content above an enclosing view.
+Modal 组件是一种简单的覆盖在其他视图之上显示内容的方式。
 
-## Example
+## 示例
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=Modal&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -33,6 +43,7 @@ const App = () => {
         visible={modalVisible}
         onRequestClose={() => {
           Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
         }}
       >
         <View style={styles.centeredView}>
@@ -105,8 +116,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
 ```SnackPlayer name=Modal&supportedPlatforms=android,ios
 import React, { Component } from "react";
@@ -138,6 +148,7 @@ class App extends Component {
           visible={modalVisible}
           onRequestClose={() => {
             Alert.alert("Modal has been closed.");
+            this.setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.centeredView}>
@@ -211,102 +222,88 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
-### `animated`
+### `visible`
 
-> **Deprecated.** Use the [`animationType`](modal.md#animationtype) prop instead.
+`visible`属性决定 modal 是否显示。
 
----
-
-### `animationType`
-
-The `animationType` prop controls how the modal animates.
-
-- `slide` slides in from the bottom
-- `fade` fades into view
-- `none` appears without an animation
-
-Default is set to `none`.
-
-| Type                          | Required |
-| ----------------------------- | -------- |
-| enum('none', 'slide', 'fade') | No       |
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 否   |
 
 ---
 
-### `hardwareAccelerated`
+### `supportedOrientations`
 
-The `hardwareAccelerated` prop controls whether to force hardware acceleration for the underlying window.
+`supportedOrientations`用于指定在设备切换横竖屏方向时，modal 会在哪些屏幕朝向下跟随旋转。在 iOS 上，除了本属性外，还会受到应用的 Info.plist 文件中`UISupportedInterfaceOrientations`的限制。如果还设置了`presentationStyle`属性为`pageSheet`或`formSheet`，则在 iOS 上本属性将被忽略。
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
----
-
-### `onDismiss`
-
-The `onDismiss` prop allows passing a function that will be called once the modal has been dismissed.
-
-| Type     | Required | Platform |
-| -------- | -------- | -------- |
-| function | No       | iOS      |
-
----
-
-### `onOrientationChange`
-
-The `onOrientationChange` callback is called when the orientation changes while the modal is being displayed. The orientation provided is only 'portrait' or 'landscape'. This callback is also called on initial render, regardless of the current orientation.
-
-| Type     | Required | Platform |
-| -------- | -------- | -------- |
-| function | No       | iOS      |
+| 类型                                                                                                | 必填 | 平台 |
+| --------------------------------------------------------------------------------------------------- | ---- | ---- |
+| array of enum('portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right') | 否   | iOS  |
 
 ---
 
 ### `onRequestClose`
 
-The `onRequestClose` callback is called when the user taps the hardware back button on Android or the menu button on Apple TV. Because of this required prop, be aware that `BackHandler` events will not be emitted as long as the modal is open.
+`onRequestClose`回调会在用户按下 Android 设备上的后退按键或是 Apple TV 上的菜单键时触发。请务必注意本属性在 Android 平台上为必填，且会在 modal 处于开启状态时阻止`BackHandler`事件。
 
-| Type     | Required | Platform                 |
-| -------- | -------- | ------------------------ |
-| function | Yes      | Android, Platform.isTVOS |
-| function | No       | (Others)                 |
+| 类型     | 必填 | 平台                     |
+| -------- | ---- | ------------------------ |
+| function | 是   | Android, Platform.isTVOS |
+| function | 否   | (Others)                 |
 
 ---
 
 ### `onShow`
 
-The `onShow` prop allows passing a function that will be called once the modal has been shown.
+`onShow`回调函数会在 modal 显示时调用。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
-### `presentationStyle`
+### `transparent`
 
-The `presentationStyle` prop controls how the modal appears (generally on larger devices such as iPad or plus-sized iPhones). See https://developer.apple.com/reference/uikit/uimodalpresentationstyle for details.
+`transparent` 属性是指背景是否透明，默认为白色，将这个属性设为：true 的时候弹出一个透明背景层的 modal。
 
-- `fullScreen` covers the screen completely
-- `pageSheet` covers portrait-width view centered (only on larger devices)
-- `formSheet` covers narrow-width view centered (only on larger devices)
-- `overFullScreen` covers the screen completely, but allows transparency
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 否   |
 
-Default is set to `overFullScreen` or `fullScreen` depending on `transparent` property.
+---
 
-| Type                                                           | Required | Platform |
-| -------------------------------------------------------------- | -------- | -------- |
-| enum('fullScreen', 'pageSheet', 'formSheet', 'overFullScreen') | No       | iOS      |
+### `animationType`
+
+`animationType`指定了 modal 的动画类型。
+
+- `slide` 从底部滑入滑出。
+- `fade` 淡入淡出。
+- `none` 没有动画，直接蹦出来。
+
+默认值为`none`。
+
+| 类型                          | 必填 |
+| ----------------------------- | ---- |
+| enum('none', 'slide', 'fade') | 否   |
+
+---
+
+### `hardwareAccelerated`
+
+`hardwareAccelerated`属性决定是否强制启用硬件加速来绘制弹出层。
+
+| 类型 | 必填 | 平台    |
+| ---- | ---- | ------- |
+| bool | 否   | Android |
 
 ---
 
@@ -314,36 +311,43 @@ Default is set to `overFullScreen` or `fullScreen` depending on `transparent` pr
 
 The `statusBarTranslucent` prop determines whether your modal should go under the system statusbar.
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
+| 类型 | 必填 | 平台    |
+| ---- | ---- | ------- |
+| bool | 否   | Android |
 
 ---
 
-### `supportedOrientations`
+### `onDismiss`
 
-The `supportedOrientations` prop allows the modal to be rotated to any of the specified orientations. On iOS, the modal is still restricted by what's specified in your app's Info.plist's UISupportedInterfaceOrientations field. When using `presentationStyle` of `pageSheet` or `formSheet`, this property will be ignored by iOS.
+`onDismiss`回调会在 modal 被关闭时调用。
 
-| Type                                                                                                | Required | Platform |
-| --------------------------------------------------------------------------------------------------- | -------- | -------- |
-| array of enum('portrait', 'portrait-upside-down', 'landscape', 'landscape-left', 'landscape-right') | No       | iOS      |
-
----
-
-### `transparent`
-
-The `transparent` prop determines whether your modal will fill the entire view. Setting this to `true` will render the modal over a transparent background.
-
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| 类型     | 必填 | 平台 |
+| -------- | ---- | ---- |
+| function | 否   | iOS  |
 
 ---
 
-### `visible`
+### `onOrientationChange`
 
-The `visible` prop determines whether your modal is visible.
+模态窗显示的时候，当设备方向发生更改时，将调用`onOrientationChange`回调方法。 提供的设备方向仅为“竖屏”或“横屏”。 无论当前方向如何，也会在初始渲染时调用此回调方法。
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| 类型     | 必填 | 平台 |
+| -------- | ---- | ---- |
+| function | 否   | iOS  |
+
+---
+
+### `presentationStyle`
+
+`presentationStyle`决定 modal（在较大屏幕的设备比如 iPad 或是 Plus 机型）如何展现。更多细节请参阅<https://developer.apple.com/reference/uikit/uimodalpresentationstyle>。
+
+- `fullScreen`完全盖满屏幕。
+- `pageSheet`竖直方向几乎盖满，水平居中，左右留出一定空白（仅用于大屏设备）。
+- `formSheet`竖直和水平都居中，四周都留出一定空白（仅用于大屏设备）。
+- `overFullScreen`完全盖满屏幕，同时允许透明。
+
+默认会根据`transparent`属性而设置为`overFullScreen`或是`fullScreen`。
+
+| 类型                                                           | 必填 | 平台 |
+| -------------------------------------------------------------- | ---- | ---- |
+| enum('fullScreen', 'pageSheet', 'formSheet', 'overFullScreen') | 否   | iOS  |

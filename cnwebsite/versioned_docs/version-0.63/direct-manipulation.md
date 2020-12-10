@@ -1,17 +1,19 @@
 ---
 id: direct-manipulation
-title: Direct Manipulation
+title: 直接操作
 ---
 
-It is sometimes necessary to make changes directly to a component without using state/props to trigger a re-render of the entire subtree. When using React in the browser for example, you sometimes need to directly modify a DOM node, and the same is true for views in mobile apps. `setNativeProps` is the React Native equivalent to setting properties directly on a DOM node.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(74.50%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(25.10%), [306703082](https://github.com/search?q=306703082&type=Users)(0.40%)
 
-> Use setNativeProps when frequent re-rendering creates a performance bottleneck
+有时候我们需要直接改动组件并触发局部的刷新，但不使用 state 或是 props。譬如在浏览器中使用 React 库，有时候会需要直接修改一个 DOM 节点，而在手机 App 中操作 View 时也会碰到同样的情况。在 React Native 中，`setNativeProps`就是等价于直接操作 DOM 节点的方法。
+
+> 什么时候使用 setNativeProps 呢？在（不得不）频繁刷新而又遇到了性能瓶颈的时候。
 >
-> Direct manipulation will not be a tool that you reach for frequently; you will typically only be using it for creating continuous animations to avoid the overhead of rendering the component hierarchy and reconciling many views. `setNativeProps` is imperative and stores state in the native layer (DOM, UIView, etc.) and not within your React components, which makes your code more difficult to reason about. Before you use it, try to solve your problem with `setState` and [shouldComponentUpdate](https://reactjs.org/docs/optimizing-performance.html#shouldcomponentupdate-in-action).
+> 直接操作组件并不是应该经常使用的工具。一般来说只是用来创建连续的动画，同时避免渲染组件结构和同步太多视图变化所带来的大量开销。`setNativeProps`是一个“简单粗暴”的方法，它直接在底层（DOM、UIView 等）而不是 React 组件中记录 state，这样会使代码逻辑难以理清。所以在使用这个方法之前，请尽量先尝试用`setState`和[shouldComponentUpdate](http://facebook.github.io/react/docs/advanced-performance.html#shouldcomponentupdate-in-action)方法来解决问题。
 
-## setNativeProps with TouchableOpacity
+## setNativeProps 与 TouchableOpacity
 
-[TouchableOpacity](https://github.com/facebook/react-native/blob/master/Libraries/Components/Touchable/TouchableOpacity.js) uses `setNativeProps` internally to update the opacity of its child component:
+[TouchableOpacity](https://github.com/facebook/react-native/blob/master/Libraries/Components/Touchable/TouchableOpacity.js)这个组件就在内部使用了`setNativeProps`方法来更新其子组件的透明度：
 
 ```jsx
 setOpacityTo(value) {
@@ -22,7 +24,7 @@ setOpacityTo(value) {
 },
 ```
 
-This allows us to write the following code and know that the child will have its opacity updated in response to taps, without the child having any knowledge of that fact or requiring any changes to its implementation:
+由此我们可以写出下面这样的代码：子组件可以响应点击事件，更改自己的透明度。而子组件自身并不需要处理这件事情，也不需要在实现中做任何修改。
 
 ```jsx
 <TouchableOpacity onPress={this._handlePress}>
@@ -32,7 +34,7 @@ This allows us to write the following code and know that the child will have its
 </TouchableOpacity>
 ```
 
-Let's imagine that `setNativeProps` was not available. One way that we might implement it with that constraint is to store the opacity value in the state, then update that value whenever `onPress` is fired:
+如果不使用`setNativeProps`来实现这一需求，那么一种可能的办法是把透明值保存到 state 中，然后在`onPress`事件触发时更新这个值：
 
 ```jsx
 constructor(props) {
@@ -52,13 +54,13 @@ render() {
 }
 ```
 
-This is computationally intensive compared to the original example - React needs to re-render the component hierarchy each time the opacity changes, even though other properties of the view and its children haven't changed. Usually this overhead isn't a concern but when performing continuous animations and responding to gestures, judiciously optimizing your components can improve your animations' fidelity.
+比起之前的例子，这一做法会消耗大量的计算 —— 每一次透明值变更的时候 React 都要重新渲染组件结构，即便视图的其他属性和子组件并没有变化。一般来说这一开销也不足为虑，但当执行连续的动画以及响应用户手势的时候，只有正确地优化组件才能提高动画的流畅度。
 
-If you look at the implementation of `setNativeProps` in [NativeMethodsMixin](https://github.com/facebook/react-native/blob/master/Libraries/Renderer/implementations/ReactNativeRenderer-prod.js) you will notice that it is a wrapper around `RCTUIManager.updateView` - this is the exact same function call that results from re-rendering - see [receiveComponent in ReactNativeBaseComponent](https://github.com/facebook/react-native/blob/fb2ec1ea47c53c2e7b873acb1cb46192ac74274e/Libraries/Renderer/oss/ReactNativeRenderer-prod.js#L5793-L5813).
+如果你看过[NativeMethodsMixin](https://github.com/facebook/react-native/blob/master/Libraries/Renderer/oss/ReactNativeRenderer-prod.js)中的`setNativeProps`方法的实现，你就会发现它实际是对`RCTUIManager.updateView`的封装 —— 而这正是重渲染所触发的函数调用，具体可以参看[ReactNativeBaseComponent.js 中的 receiveComponent](https://github.com/facebook/react/blob/master/src/renderers/native/ReactNativeBaseComponent.js).
 
-## Composite components and setNativeProps
+## 复合组件与 setNativeProps
 
-Composite components are not backed by a native view, so you cannot call `setNativeProps` on them. Consider this example:
+复合组件并不是单纯的由一个原生视图构成，所以你不能对其直接使用`setNativeProps`。比如下面这个例子：
 
 ```SnackPlayer name=setNativeProps%20with%20Composite%20Components
 import React from 'react';
@@ -81,11 +83,11 @@ export default App = () => {
 }
 ```
 
-If you run this you will immediately see this error: `Touchable child must either be native or forward setNativeProps to a native component`. This occurs because `MyButton` isn't directly backed by a native view whose opacity should be set. You can think about it like this: if you define a component with `createReactClass` you would not expect to be able to set a style prop on it and have that work - you would need to pass the style prop down to a child, unless you are wrapping a native component. Similarly, we are going to forward `setNativeProps` to a native-backed child component.
+跑这个例子会马上看到一行报错： `Touchable child must either be native or forward setNativeProps to a native component`。这是因为`MyButton`并非直接由原生视图构成，而我们只能给原生视图设置透明值。你可以尝试这样去理解：如果你通过`React.createClass`方法自定义了一个组件，直接给它设置样式 prop 是不会生效的，你得把样式 props 层层向下传递给子组件，直到子组件是一个能够直接定义样式的原生组件。同理，我们也需要把`setNativeProps`传递给由原生组件封装的子组件。
 
-#### Forward setNativeProps to a child
+#### 将 setNativeProps 传递给子组件
 
-All we need to do is provide a `setNativeProps` method on our component that calls `setNativeProps` on the appropriate child with the given arguments.
+具体要做的就是在我们的自定义组件中再封装一个`setNativeProps`方法，其内容为对合适的子组件调用真正的`setNativeProps`方法，并传递要设置的参数。
 
 ```SnackPlayer name=Forwarding%20setNativeProps
 import React from 'react';
@@ -112,9 +114,9 @@ export default App = () => {
 }
 ```
 
-You can now use `MyButton` inside of `TouchableOpacity`! A sidenote for clarity: we used the [ref callback](https://reactjs.org/docs/refs-and-the-dom.html#adding-a-ref-to-a-dom-element) syntax here, rather than the traditional string-based ref.
+现在你可以用`MyButton`来代替`TouchableOpacity`了！有一点需要特别说明：这里我们使用了[ref 回调](https://doc.react-china.org/docs/refs-and-the-dom.html)语法，而不是传统的字符串型 ref 引用。
 
-You may have noticed that we passed all of the props down to the child view using `{...this.props}`. The reason for this is that `TouchableOpacity` is actually a composite component, and so in addition to depending on `setNativeProps` on its child, it also requires that the child perform touch handling. To do this, it passes on [various props](view.md#onmoveshouldsetresponder) that call back to the `TouchableOpacity` component. `TouchableHighlight`, in contrast, is backed by a native view and only requires that we implement `setNativeProps`.
+你可能还会注意到我们在向下传递 props 时使用了`{...this.props}`语法（这一用法的说明请参考[对象的扩展运算符](http://es6.ruanyifeng.com/#docs/object)）。这是因为`TouchableOpacity`本身其实也是个复合组件， 它除了要求在子组件上执行`setNativeProps` 以外，还要求子组件对触摸事件进行处理。因此，它会传递多个 props，其中包含了[onmoveshouldsetresponder](view.html#onmoveshouldsetresponder) 函数，这个函数需要回调给`TouchableOpacity`组件，以完成触摸事件的处理。与之相对的是`TouchableHighlight`组件，它本身是由原生视图构成，因而只需要我们实现`setNativeProps`。
 
 ## setNativeProps to clear TextInput value
 
@@ -143,21 +145,21 @@ export default App = () => {
 }
 ```
 
-## Avoiding conflicts with the render function
+# 避免和 render 方法的冲突
 
-If you update a property that is also managed by the render function, you might end up with some unpredictable and confusing bugs because anytime the component re-renders and that property changes, whatever value was previously set from `setNativeProps` will be completely ignored and overridden.
+如果要更新一个由 render 方法来维护的属性，则可能会碰到一些出人意料的 bug。因为每一次组件重新渲染都可能引起属性变化，这样一来，之前通过`setNativeProps`所设定的值就被完全忽略和覆盖掉了。
 
-## setNativeProps & shouldComponentUpdate
+## setNativeProps 与 shouldComponentUpdate
 
-By [intelligently applying `shouldComponentUpdate`](https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation) you can avoid the unnecessary overhead involved in reconciling unchanged component subtrees, to the point where it may be performant enough to use `setState` instead of `setNativeProps`.
+通过[巧妙运用`shouldComponentUpdate`方法](https://facebook.github.io/react/docs/advanced-performance.html#avoiding-reconciling-the-dom)，可以避免重新渲染那些实际没有变化的子组件所带来的额外开销，此时使用`setState`的性能已经可以与`setNativeProps`相媲美了。
 
-## Other native methods
+## 其他原生方法
 
 The methods described here are available on most of the default components provided by React Native. Note, however, that they are _not_ available on composite components that aren't directly backed by a native view. This will generally include most components that you define in your own app.
 
 ### measure(callback)
 
-Determines the location on screen, width, and height of the given view and returns the values via an async callback. If successful, the callback will be called with the following arguments:
+Determines the location on screen, width, and height in the viewport of the given view and returns the values via an async callback. If successful, the callback will be called with the following arguments:
 
 - x
 - y
@@ -166,7 +168,9 @@ Determines the location on screen, width, and height of the given view and retur
 - pageX
 - pageY
 
-Note that these measurements are not available until after the rendering has been completed in native. If you need the measurements as soon as possible and you don't need `pageX` and `pageY`, consider using the [`onLayout` prop](view.md#onlayout) instead.
+Note that these measurements are not available until after the rendering has been completed in native. If you need the measurements as soon as possible and you don't need `pageX` and `pageY`, consider using the [`onLayout`](view.md#onlayout) property instead.
+
+Also the width and height returned by `measure()` are the width and height of the component in the viewport. If you need the actual size of the component, consider using the [`onLayout`](view.md#onlayout) property instead.
 
 ### measureInWindow(callback)
 
@@ -177,14 +181,67 @@ Determines the location of the given view in the window and returns the values v
 - width
 - height
 
-### measureLayout(relativeToNativeNode, onSuccess, onFail)
+### measureLayout(relativeToNativeComponentRef, onSuccess, onFail)
 
-Like `measure()`, but measures the view relative to an ancestor, specified as `relativeToNativeNode`. This means that the returned x, y are relative to the origin x, y of the ancestor view.
+Like `measure()`, but measures the view relative to an ancestor, specified with `relativeToNativeComponentRef` reference. This means that the returned coordinates are relative to the origin `x`, `y` of the ancestor view.
 
-As always, to obtain a native node handle for a component, you can use `findNodeHandle(component)`.
+> Note: This method can also be called with a `relativeToNativeNode` handler (instead of reference), but this variant is deprecated.
 
-```jsx
-import { findNodeHandle } from 'react-native';
+```SnackPlayer name=measureLayout%20example&supportedPlatforms=android,ios
+import React, { useEffect, useRef, useState } from "react";
+import { Text, View, StyleSheet } from "react-native";
+
+const App = () => {
+  const textContainerRef = useRef(null);
+  const textRef = useRef(null);
+  const [measure, setMeasure] = useState(null);
+
+  useEffect(() => {
+    if (textRef.current && textContainerRef.current) {
+      textRef.current.measureLayout(
+        textContainerRef.current,
+        (left, top, width, height) => {
+          setMeasure({ left, top, width, height });
+        }
+      );
+    }
+  }, [measure]);
+
+  return (
+    <View style={styles.container}>
+      <View
+        ref={textContainerRef}
+        style={styles.textContainer}
+      >
+        <Text ref={textRef}>
+          Where am I? (relative to the text container)
+        </Text>
+      </View>
+      <Text style={styles.measure}>
+        {JSON.stringify(measure)}
+      </Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+  },
+  textContainer: {
+    backgroundColor: "#61dafb",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
+  },
+  measure: {
+    textAlign: "center",
+    padding: 12,
+  },
+});
+
+export default App;
 ```
 
 ### focus()

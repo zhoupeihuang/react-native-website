@@ -1,110 +1,107 @@
 ---
 id: intro-react
-title: React Fundamentals
+title: React基础
 description: To understand React Native fully, you need a solid foundation in React. This short introduction to React can help you get started or get refreshed.
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(96.81%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(2.99%), [git](https://github.com/search?q=git&type=Users)(0.20%)
 
-React Native runs on [React](https://reactjs.org/), a popular open source library for building user interfaces with JavaScript. To make the most of React Native, it helps to understand React itself. This section can get you started or can serve as a refresher course.
+React Native 的基础是[React](https://zh-hans.reactjs.org/)， 是在 web 端非常流行的开源 UI 框架。要想掌握 React Native，先了解 React 框架本身是非常有帮助的。本文旨在为初学者介绍一些 react 的入门知识。
 
-We’re going to cover the core concepts behind React:
+本文主要会探讨以下几个 React 的核心概念：
 
-- components
+- components 组件
 - JSX
-- props
-- state
+- props 属性
+- state 状态
 
-If you want to dig deeper, we encourage you to check out [React’s official documentation](https://reactjs.org/docs/getting-started.html).
+如果你想更深一步学习，我们建议你阅读[React 的官方文档](https://zh-hans.reactjs.org/)，它也提供有中文版。
 
-## Your first component
+## 尝试编写一个组件
 
-The rest of this introduction to React uses cats in its examples: friendly, approachable creatures that need names and a cafe to work in. Here is your very first Cat component:
+本文档会用“Cat”这种有个名字和咖啡馆就能开始工作的人畜无害的生物来作为例子。下面是我们的第一个 Cat 组件:
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=Your%20Cat
 import React from 'react';
 import { Text } from 'react-native';
-
-const Cat = () => {
+export default function Cat() {
   return (
     <Text>Hello, I am your cat!</Text>
   );
 }
-
-export default Cat;
 ```
 
-Here is how you do it: To define your `Cat` component, first use JavaScript’s [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) to import React and React Native’s [`Text`](/docs/next/text) Core Component:
+要定义一个`Cat`组件，第一步要使用[`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import)语句来引入`React`以及`React Native`的[`Text`](/react-native/docs/next/text)组件：
 
 ```jsx
-import React from 'react';
-import { Text } from 'react-native';
+import React from "react";
+import { Text } from "react-native";
 ```
 
-Your component starts as a function:
+然后一个简单的函数就可以作为一个组件：
 
 ```jsx
-const Cat = () => {};
+function Cat() {}
 ```
 
-You can think of components as blueprints. Whatever a function component returns is rendered as a **React element.** React elements let you describe what you want to see on the screen.
-
-Here the `Cat` component will render a `<Text>` element:
+这个函数的`返回值`就会被渲染为一个 React 元素。这里`Cat`会渲染一个`<Text>`元素：
 
 ```jsx
-const Cat = () => {
+function Cat() {
   return <Text>Hello, I am your cat!</Text>;
-};
-
-export default Cat;
+}
 ```
 
-You can export your function component with JavaScript’s [`export default`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) for use throughout your app like so:
+这里我们还使用了[`export default`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export)语句来导出这个组件，以使其可以在其他地方引入使用：
 
 ```jsx
-const Cat = () => {
+export default function Cat() {
   return <Text>Hello, I am your cat!</Text>;
-};
-
-export default Cat;
+}
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
-Class components tend to be a bit more verbose than function components.
+Class 组件比函数组件写起来要繁琐一些。
 
 ```SnackPlayer name=Your%20Cat
 import React, { Component } from 'react';
 import { Text } from 'react-native';
-
-class Cat extends Component {
+export default class Cat extends Component {
   render() {
     return (
       <Text>Hello, I am your cat!</Text>
     );
   }
 }
-
-export default Cat;
 ```
 
-You additionally import `Component` from React:
+你还需要从 React 中引入`Component`：
 
 ```jsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 ```
 
-Your component starts as a class extending `Component` instead of as a function:
+定义组件首先要继承(extends)自`Component`：
 
 ```jsx
 class Cat extends Component {}
 ```
 
-Class components have a `render()` function. Whatever is returned inside it is rendered as a React element:
+Class 组件必须有一个`render()`函数，它的返回值会被渲染为一个 React 元素：
 
 ```jsx
 class Cat extends Component {
@@ -114,79 +111,66 @@ class Cat extends Component {
 }
 ```
 
-And as with function components, you can export your class component:
+和函数组件一样，我们也可以导出 class 组件：
 
 ```jsx
-class Cat extends Component {
+export default class Cat extends Component {
   render() {
     return <Text>Hello, I am your cat!</Text>;
   }
 }
-
-export default Cat;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
-> This is one of many ways to export your component. This kind of export works well with the Snack Player. However, depending on your app’s file structure, you might need to use a different convention. This [handy cheatsheet on JavaScript imports and exports](https://medium.com/dailyjs/javascript-module-cheatsheet-7bd474f1d829) can help.
-
-Now take a closer look at that `return` statement. `<Text>Hello, I am your cat!</Text>` is using a kind of JavaScript syntax that makes writing elements convenient: JSX.
+> 上面只是导出组件的写法之一。你还可以看看这篇博客整理[handy cheatsheet on JavaScript imports and exports](https://www.samanthaming.com/tidbits/79-module-cheatsheet/)整理的各种不同的写法。下面我们来看看这个`return` 语句。`<Text>Hello, I am your cat!</Text>`是一种简化 React 元素的写法，这种语法名字叫做 JSX。
 
 ## JSX
 
-React and React Native use **JSX,** a syntax that lets you write elements inside JavaScript like so: `<Text>Hello, I am your cat!</Text>`. The React docs have [a comprehensive guide to JSX](https://reactjs.org/docs/jsx-in-depth.html) you can reference to learn even more. Because JSX is JavaScript, you can use variables inside it. Here you are declaring a name for the cat, `name`, and embedding it with curly braces inside `<Text>`.
+React 和 React Native 都使用**JSX 语法**，这种语法使得你可以在 JavaScript 中直接输出元素：`<Text>Hello, I am your cat!</Text>`。React 的文档有一份完整的[JSX 指南](https://zh-hans.reactjs.org/docs/jsx-in-depth.html#gatsby-focus-wrapper)可供你参考。因为 JSX 本质上也就是 JavaScript，所以你可以在其中直接使用变量。这里我们为猫猫的名字声明了一个变量`name`，并且用括号把它放在了`<Text>`之中。
 
 ```SnackPlayer name=Curly%20Braces
 import React from 'react';
 import { Text } from 'react-native';
-
-const Cat = () => {
+export default function Cat() {
   const name = "Maru";
   return (
     <Text>Hello, I am {name}!</Text>
   );
 }
-
-export default Cat;
 ```
 
-Any JavaScript expression will work between curly braces, including function calls like `{getFullName("Rum", "Tum", "Tugger")}`:
+括号中可以使用任意 JavaScript 表达式，包括调用函数，例如`{getFullName("Rum", Tum", "Tugger")}`：
 
 ```SnackPlayer name=Curly%20Braces
 import React from 'react';
 import { Text } from 'react-native';
-
-const getFullName = (firstName, secondName, thirdName) => {
-  return firstName + " " + secondName + " " + thirdName;
-}
-
-const Cat = () => {
+export default function Cat() {
+  function getFullName(firstName, secondName, thirdName) {
+    return firstName + " " + secondName + " " + thirdName;
+  }
   return (
     <Text>
       Hello, I am {getFullName("Rum", "Tum", "Tugger")}!
     </Text>
   );
 }
-
-export default Cat;
 ```
 
-You can think of curly braces as creating a portal into JS functionality in your JSX!
+你可以把括号`{}`想象成在 JSX 中打开了一个可以调用 JS 功能的传送门！
 
-> Because JSX is included in the React library, it won’t work if you don’t have `import React from 'react'` at the top of your file!
+> 因为 JSX 语法糖的实质是调用`React.createElement`方法，所以你必须在文件头部引用`import React from 'react'`。
 
-## Custom Components
+## 自定义组件
 
-You’ve already met [React Native’s Core Components](intro-react-native-components). React lets you nest these components inside each other to create new components. These nestable, reusable components are at the heart of the React paradigm.
+你应该已经了解[React Native 的核心组件](intro-react-native-components)了。 React 使得你可以通过嵌套这些组件来创造新组件。这些可嵌套可复用的组件正是 React 理念的精髓。
 
-For example, you can nest [`Text`](text) and [`TextInput`](textinput) inside a [`View`](view) below, and React Native will render them together:
+例如你可以把[`Text`](text)和[`TextInput`](textinput)嵌入到[`View`](view) 中，React Native 会把它们一起渲染出来：
 
 ```SnackPlayer name=Custom%20Components
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
-
-const Cat = () => {
+export default function Cat() {
   return (
     <View>
       <Text>Hello, I am...</Text>
@@ -201,39 +185,39 @@ const Cat = () => {
     </View>
   );
 }
-
-export default Cat;
 ```
 
-<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["android", "web"])}>
+<div class="toggler">
+  <span>对开发者的提示：</span>
+  <span role="tablist" class="toggle-devNotes">
+    <button role="tab" class="button-webNote" onclick="displayTabs('devNotes', 'webNote')">Web</button>
+    <button role="tab" class="button-androidNote" onclick="displayTabs('devNotes', 'androidNote')">Android</button>
+  </span>
+</div>
 
-<TabItem value="web">
+<block class="webNote devNotes" />
 
-> If you’re familiar with web development, `<View>` and `<Text>` might remind you of HTML! You can think of them as the `<div>` and `<p>` tags of application development.
+> 如果你熟悉 web 开发，`<View>`和`<Text>`应该能让你想起 HTML。你可以把它们看作是应用开发中的`<div>`和`<p>`标签。
 
-</TabItem>
-<TabItem value="android">
+<block class="androidNote devNotes" />
 
-> On Android, you usually put your views inside `LinearLayout`, `FrameLayout`, `RelativeLayout`, etc. to define how the view’s children will be arranged on the screen. In React Native, `View` uses Flexbox for its children’s layout. You can learn more in [our guide to layout with Flexbox](flexbox).
+> 在 Android 上，常见的做法是把视图放入`LinearLayout`, `FrameLayout`或是`RelativeLayout`等布局容器中来定义子元素如何排列。 In React Native, `View` uses Flexbox for its children’s layout. You can learn more in [our guide to layout with Flexbox](flexbox).
 
-</TabItem>
-</Tabs>
+<block class="endBlock devNotes" />
 
-You can render this component multiple times and multiple places without repeating your code by using `<Cat>`:
+这样你就可以在别处通过`<Cat>`来任意引用这个组件了：
 
 ```SnackPlayer name=Multiple%20Components
 import React from 'react';
 import { Text, TextInput, View } from 'react-native';
-
-const Cat = () => {
+function Cat() {
   return (
     <View>
-      <Text>I am also a cat!</Text>
+      <Text>I am a also cat!</Text>
     </View>
   );
 }
-
-const Cafe = () => {
+export default function Cafe() {
   return (
     <View>
       <Text>Welcome!</Text>
@@ -243,31 +227,27 @@ const Cafe = () => {
     </View>
   );
 }
-
-export default Cafe;
 ```
 
-Any component that renders other components is a **parent component.** Here, `Cafe` is the parent component and each `Cat` is a **child component.**
+我们把包含着其他组件的组件称为**父组件或父容器**。这里`Cafe`是一个父组件，而每个`Cat`则是**子组件**。
 
-You can put as many cats in your cafe as you like. Each `<Cat>` renders a unique element—which you can customize with props.
+你的咖啡店里，想养多少只猫都行！注意每只`<Cat>`渲染的都是不同的元素——你可以使用不同的 props 属性来定制它们。
 
-## Props
+## Props 属性
 
-**Props** is short for “properties.” Props let you customize React components. For example, here you pass each `<Cat>` a different `name` for `Cat` to render:
+**Props** 是“properties”（属性）的简写。Props 使得我们可以定制组件。比如可以给每只`<Cat>`一个不同的`name`：
 
 ```SnackPlayer name=Multiple%20Props
 import React from 'react';
 import { Text, View } from 'react-native';
-
-const Cat = (props) => {
+function Cat(props) {
   return (
     <View>
       <Text>Hello, I am {props.name}!</Text>
     </View>
   );
 }
-
-const Cafe = () => {
+export default function Cafe() {
   return (
     <View>
       <Cat name="Maru" />
@@ -276,57 +256,58 @@ const Cafe = () => {
     </View>
   );
 }
-
-export default Cafe;
 ```
 
-Most of React Native’s Core Components can be customized with props, too. For example, when using [`Image`](image), you pass it a prop named [`source`](image#source) to define what image it shows:
+React Native 的绝大多数核心组件都提供了可定制的 props。例如，在使用[`Image`](image)组件时，你可以给它传递一个[`source`](image#source)属性，用来指定它显示的内容：
 
 ```SnackPlayer name=Props
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-
-const CatApp = () => {
+export default function CatApp() {
   return (
     <View>
       <Image
-        source={{uri: "https://reactnative.dev/docs/assets/p_cat1.png"}}
+        source="https://facebook.github.ioassets/p_cat1.png"
         style={{width: 200, height: 200}}
       />
       <Text>Hello, I am your cat!</Text>
     </View>
   );
 }
-
-export default CatApp;
 ```
 
-`Image` has [many different props](image#props), including [`style`](image#style), which accepts a JS object of design and layout related property-value pairs.
+`Image` 有[很多不同的 props](image#props)，[`style`](image#style)也是其中之一，它接受对象形式的样式和布局键值对。
 
-> Notice the double curly braces `{{ }}` surrounding `style`‘s width and height. In JSX, JavaScript values are referenced with `{}`. This is handy if you are passing something other than a string as props, like an array or number: `<Cat food={["fish", "kibble"]} age={2} />`. However, JS objects are **_also_** denoted with curly braces: `{width: 200, height: 200}`. Therefore, to pass a JS object in JSX, you must wrap the object in **another pair** of curly braces: `{{width: 200, height: 200}}`
+> 请留意我们在指定`style`属性的宽高时所用到的双层括号`{{ }}`。在 JSX 中，引用 JS 值时需要使用`{}`括起来。在你需要传递非字符串值（比如数组或者数字）的时候会经常用到这种写法：`<Cat food={["fish", "kibble"]} /> age={2}`。然而我们在 JS 中定义一个对象时，本来**_也_**需要用括号括起来：`{width: 200, height: 200}`。因此要在 JSX 中传递一个 JS 对象值的时候，就必须用到两层括号：`{{width: 200, height: 200}}`。
 
-You can build many things with props and the Core Components [`Text`](text), [`Image`](image), and [`View`](view)! But to build something interactive, you’ll need state.
+使用核心组件[`Text`](text), [`Image`](image)以及[`View`](view)搭配 props 已经可以做不少东西了！但是如果想要做一些用户交互，那我们还需要用到状态（state）。
 
-## State
+## State 状态
 
-While you can think of props as arguments you use to configure how components render, **state** is like a component’s personal data storage. State is useful for handling data that changes over time or that comes from user interaction. State gives your components memory!
+如果把 props 理解为定制组件渲染的参数， 那么**state**就像是组件的私人数据记录。状态用于记录那些随时间或者用户交互而变化的数据。状态使组件拥有了记忆！
 
-> As a general rule, use props to configure a component when it renders. Use state to keep track of any component data that you expect to change over time.
+> 按惯例来说，props 用来配置组件的第一次渲染（初始状态）。Use state to keep track of any component data that you expect to change over time. The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.
 
-The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件的状态 State
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class 组件的状态 State
+    </li>
+  </ul>
+</div>
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<block class="functional syntax" />
 
-You can add state to a component by calling [React’s `useState` Hook](https://reactjs.org/docs/hooks-state.html). A Hook is a kind of function that lets you “hook into” React features. For example, `useState` is a Hook that lets you add state to function components. You can learn more about [other kinds of Hooks in the React documentation.](https://reactjs.org/docs/hooks-intro.html)
+You can add state to a component by calling [React’s `useState` Hook](https://zh-hans.reactjs.org/docs/hooks-state.html). A Hook is a kind of function that lets you “hook into” React features. For example, `useState` is a Hook that lets you add state to function components. You can learn more about [other kinds of Hooks in the React documentation.](https://zh-hans.reactjs.org/docs/hooks-intro.html)
 
 ```SnackPlayer name=State
 import React, { useState } from "react";
 import { Button, Text, View } from "react-native";
-
-const Cat = (props) => {
+function Cat(props) {
   const [isHungry, setIsHungry] = useState(true);
-
   return (
     <View>
       <Text>
@@ -342,8 +323,7 @@ const Cat = (props) => {
     </View>
   );
 }
-
-const Cafe = () => {
+export default function Cafe() {
   return (
     <>
       <Cat name="Munkustrap" />
@@ -351,35 +331,31 @@ const Cafe = () => {
     </>
   );
 }
-
-export default Cafe;
 ```
 
-First, you will want to import `useState` from React like so:
+首先要从 react 中引入`useState`：
 
 ```jsx
-import React, { useState } from 'react';
+import React, { useState } from "react";
 ```
 
-Then you declare the component’s state by calling `useState` inside its function. In this example, `useState` creates an `isHungry` state variable:
+然后可以通过在函数内调用`useState`来为组件声明状态。In this example, `useState` creates an `isHungry` state variable:
 
 ```jsx
-const Cat = (props) => {
+function Cat(props) {
   const [isHungry, setIsHungry] = useState(true);
   // ...
-};
+}
 ```
 
-> You can use `useState` to track any kind of data: strings, numbers, Booleans, arrays, objects. For example, you can track the number of times a cat has been petted with `const [timesPetted, setTimesPetted] = useState(0)`!
-
-Calling `useState` does two things:
+> 你可以使用`useState`来记录各种类型的数据： strings, numbers, Booleans, arrays, objects。例如你可以这样来记录猫咪被爱抚的次数：`const [timesPetted, setTimesPetted] = useState(0)`。`useState`实质上做了两件事情：
 
 - it creates a “state variable” with an initial value—in this case the state variable is `isHungry` and its initial value is `true`
 - it creates a function to set that state variable’s value—`setIsHungry`
 
-It doesn’t matter what names you use. But it can be handy to think of the pattern as `[<getter>, <setter>] = useState(<initialValue>)`.
+取什么名字并不重要。但脑海中应该形成这样一种模式：`[<取值>, <设值>] = useState(<initialValue>)`.
 
-Next you add the [`Button`](button) Core Component and give it an `onPress` prop:
+下面我们添加一个按钮[`Button`](button)组件，并给它一个`onPress`的 prop：
 
 ```jsx
 <Button
@@ -390,44 +366,39 @@ Next you add the [`Button`](button) Core Component and give it an `onPress` prop
 />
 ```
 
-Now, when someone presses the button, `onPress` will fire, calling the `setIsHungry(false)`. This sets the state variable `isHungry` to `false`. When `isHungry` is false, the `Button`’s `disabled` prop is set to `true` and its `title` also changes:
+现在当用户点击按钮时，`onPress`函数会被触发，从而调用`setIsHungry(false)`。此时状态变量`isHungry`就被设为了`false`。当`isHungry`为 false 的时候，`Button`的`disabled`属性就变成了`true` ，其`title`也相应变化：
 
 ```jsx
 <Button
   //..
   disabled={!isHungry}
-  title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+  title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
 />
 ```
 
-> You might’ve noticed that although `isHungry` is a [const](https://developer.mozilla.org/Web/JavaScript/Reference/Statements/const), it is seemingly reassignable! What is happening is when a state-setting function like `setIsHungry` is called, its component will re-render. In this case the `Cat` function will run again—and this time, `useState` will give us the next value of `isHungry`.
-
-Finally, put your cats inside a `Cafe` component:
+> 你可能注意到虽然`isHungry`使用了常量关键字[const](https://developer.mozilla.org/Web/JavaScript/Reference/Statements/const)，但它看起来还是可以修改！ What is happening is when a state-setting function like `setIsHungry` is called, its component will re-render. In this case the `Cat` function will run again—and this time, `useState` will give us the next value of `isHungry`. Finally, put your cats inside a `Cafe` component:
 
 ```jsx
-const Cafe = () => {
+export default function Cafe() {
   return (
     <>
       <Cat name="Munkustrap" />
       <Cat name="Spot" />
     </>
   );
-};
+}
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
-The older class components approach is a little different when it comes to state.
+老式的 class 组件在使用 state 的写法上有所不同：
 
 ```SnackPlayer name=State%20and%20Class%20Components
 import React, { Component } from "react";
 import { Button, Text, View } from "react-native";
-
-class Cat extends Component {
+export class Cat extends Component {
   state = { isHungry: true };
-
-  render(props) {
+  render() {
     return (
       <View>
         <Text>
@@ -447,8 +418,7 @@ class Cat extends Component {
     );
   }
 }
-
-class Cafe extends Component {
+export default class Cafe extends Component {
   render() {
     return (
       <>
@@ -458,17 +428,15 @@ class Cafe extends Component {
     );
   }
 }
-
-export default  Cafe;
 ```
 
-As always with class components, you must import the `Component` class from React:
+再次强调，对于 class 组件始终要记得从 React 中引入`Component`：
 
 ```jsx
-import React, { Component } from 'react';
+import React, { Component } from "react";
 ```
 
-In class components, state is stored in a state object:
+在 class 组件中， state 以对象的形式存放：
 
 ```jsx
 export class Cat extends Component {
@@ -477,12 +445,12 @@ export class Cat extends Component {
 }
 ```
 
-As with accessing props with `this.props`, you access this object inside your component with `this.state`:
+和使用`this.props`获取 props 一样，在组件中获取状态也是通过`this.state`：
 
 ```jsx
 <Text>
   I am {this.props.name}, and I am
-  {this.state.isHungry ? ' hungry' : ' full'}!
+  {this.state.isHungry ? " hungry" : " full"}!
 </Text>
 ```
 
@@ -497,26 +465,20 @@ And you set individual values inside the state object by passing an object with 
 </Button>
 ```
 
-> Do not change your component's state directly by assigning it a new value with `this.state.hunger = false`. Calling `this.setState()` allows React to track changes made to state that trigger rerendering. Setting state directly can break your app's reactivity!
-
-When `this.state.isHungry` is false, the `Button`’s `disabled` prop is set to `false` and its `title` also changes:
+> 不要直接给组件 state 赋值（比如`this.state.hunger = false`）来修改状态。Calling `this.setState()` allows React to track changes made to state that trigger rerendering. Setting state directly can break your app's reactivity! When `this.state.isHungry` is false, the `Button`’s `disabled` prop is set to `false` and its `title` also changes:
 
 ```jsx
 <Button
   // ..
   disabled={!this.state.isHungry}
-  title={
-    this.state.isHungry
-      ? 'Pour me some milk, please!'
-      : 'Thank you!'
-  }
+  title={this.state.isHungry ? "Pour me some milk, please!" : "Thank you!"}
 />
 ```
 
-Finally, put your cats inside a `Cafe` component:
+最后，把你的猫放到一个咖啡店`Cafe`组件中：
 
 ```jsx
-class Cafe extends Component {
+export default class Cafe extends Component {
   render() {
     return (
       <>
@@ -526,15 +488,12 @@ class Cafe extends Component {
     );
   }
 }
-
-export default Cafe;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
-> See the `<>` and `</>` above? These bits of JSX are [fragments](https://reactjs.org/docs/fragments.html). Adjacent JSX elements must be wrapped in an enclosing tag. Fragments let you do that without nesting an extra, unnecessary wrapping element like `View`.
+> 注意到上面的`<>`和`</>`了吗？ 这一对 JSX 标签称为[Fragments（片段）](https://zh-hans.reactjs.org/docs/fragments.html)。由于 JSX 的语法要求根元素必须为单个元素，如果我们需要在根节点处并列多个元素，在这之前就不得不额外套一个没有实际用处的`View`。但有了 Fragment 后就不需要引入额外的容器视图了。
 
 ---
 
-Now that you’ve covered both React and React Native’s Core Components, let’s dive deeper on some of these core components by looking at [handling `<TextInput>`](handling-text-input).
+现在你应该已经差不多了解 React 和 React Native 的核心组件与思想了。下面可以试着深入学习一些核心组件的用法，比如如何[处理文本输入`<TextInput>`](handling-text-input)。

@@ -13,7 +13,7 @@ brew install node
 brew install watchman
 ```
 
-If you have already installed Node on your system, make sure it is Node 10 or newer.
+If you have already installed Node on your system, make sure it is Node 12 or newer.
 
 [Watchman](https://facebook.github.io/watchman) is a tool by Facebook for watching changes in the filesystem. It is highly recommended you install it for better performance.
 
@@ -126,7 +126,7 @@ Now that you have successfully run the app, let's modify it.
 
 Congratulations! You've successfully run and modified your first React Native app.
 
-<center><img src="/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 ## Now what?
 

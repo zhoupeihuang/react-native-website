@@ -129,7 +129,7 @@ const Versions = () => {
       </table>
       <h2>Archived versions</h2>
       <p>
-        The documentation for versions below <code>0.60</code> can be found on
+        The documentation for versions below <code>0.63</code> can be found on
         the separate website called{' '}
         <a href="https://archive.reactnative.dev/versions">
           React Native Archive

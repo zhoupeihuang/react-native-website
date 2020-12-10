@@ -3,7 +3,7 @@ id: dynamiccolorios
 title: DynamicColorIOS
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 The `DynamicColorIOS` function is a platform color type specific to iOS.
 
@@ -17,29 +17,31 @@ DynamicColorIOS({ light: color, dark: color });
 
 At runtime, the system will choose which of the two colors to display depending on the current system appearance settings. Dynamic colors are useful for branding colors or other app specific colors that still respond automatically to system setting changes.
 
-#### Developer notes
+<div class="toggler">
+  <span>Developer Notes</span>
+  <span role="tablist" class="toggle-devNotes">
+    <button role="tab" class="button-webNote" onclick="displayTabs('devNotes', 'webNote')">Web</button>
+    <button role="tab" class="button-iosNote" onclick="displayTabs('devNotes', 'iosNote')">iOS</button>
+  </span>
+</div>
 
-<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["ios", "web"])}>
-
-<TabItem value="web">
+<block class="webNote devNotes" />
 
 > If you’re familiar with `@media (prefers-color-scheme: dark)` in CSS, this is similar! Only instead of defining all the colors in a media query, you define which color to use under what circumstances right there where you're using it. Neat!
 
-</TabItem>
-<TabItem value="ios">
+<block class="iosNote devNotes" />
 
 > The `DynamicColorIOS` function is similar to the iOS native methods [`UIColor colorWithDynamicProvider:`](https://developer.apple.com/documentation/uikit/uicolor/3238040-colorwithdynamicprovider)
 
-</TabItem>
-</Tabs>
+<block class="endBlock devNotes" />
 
 ## Example
 
 ```jsx
-import { DynamicColorIOS } from 'react-native';
+import { DynamicColorIOS } from "react-native";
 
 const customDynamicTextColor = DynamicColorIOS({
-  dark: 'lightskyblue',
-  light: 'midnightblue'
+  dark: "lightskyblue",
+  light: "midnightblue"
 });
 ```

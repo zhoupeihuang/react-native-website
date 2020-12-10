@@ -1,6 +1,7 @@
 {
   "version-0.63/docs": [
     {
+      "collapsed": true,
       "type": "category",
       "label": "The Basics",
       "items": [
@@ -43,6 +44,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Environment setup",
       "items": [
@@ -56,6 +58,10 @@
         },
         {
           "type": "doc",
+          "id": "version-0.63/integration-with-android-fragment"
+        },
+        {
+          "type": "doc",
           "id": "version-0.63/building-for-tv"
         },
         {
@@ -65,6 +71,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Workflow",
       "items": [
@@ -79,6 +86,10 @@
         {
           "type": "doc",
           "id": "version-0.63/debugging"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/symbolication"
         },
         {
           "type": "doc",
@@ -99,6 +110,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Design",
       "items": [
@@ -125,6 +137,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Interaction",
       "items": [
@@ -147,6 +160,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Inclusion",
       "items": [
@@ -157,6 +171,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Performance",
       "items": [
@@ -175,10 +190,15 @@
         {
           "type": "doc",
           "id": "version-0.63/profiling"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/profile-hermes"
         }
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "JavaScript Runtime",
       "items": [
@@ -197,6 +217,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Connectivity",
       "items": [
@@ -211,38 +232,13 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
-      "label": "Native Modules",
+      "label": "Native Components and Modules",
       "items": [
-        {
-          "type": "doc",
-          "id": "version-0.63/native-modules-intro"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/native-modules-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/native-modules-ios"
-        },
         {
           "type": "doc",
           "id": "version-0.63/native-modules-setup"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Native Components",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.63/native-components-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/native-components-ios"
         },
         {
           "type": "doc",
@@ -251,9 +247,18 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Guides (Android)",
       "items": [
+        {
+          "type": "doc",
+          "id": "version-0.63/native-modules-android"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/native-components-android"
+        },
         {
           "type": "doc",
           "id": "version-0.63/headless-js-android"
@@ -261,17 +266,22 @@
         {
           "type": "doc",
           "id": "version-0.63/signed-apk-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/removing-default-permissions"
         }
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Guides (iOS)",
       "items": [
+        {
+          "type": "doc",
+          "id": "version-0.63/native-modules-ios"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/native-components-ios"
+        },
         {
           "type": "doc",
           "id": "version-0.63/linking-libraries-ios"
@@ -287,12 +297,17 @@
         {
           "type": "doc",
           "id": "version-0.63/app-extensions"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/publishing-to-app-store"
         }
       ]
     }
   ],
   "version-0.63/api": [
     {
+      "collapsed": true,
       "type": "category",
       "label": "APIs",
       "items": [
@@ -389,9 +404,9 @@
           "id": "version-0.63/vibration"
         },
         {
+          "collapsed": false,
           "type": "category",
           "label": "Hooks",
-          "collapsed": false,
           "items": [
             {
               "type": "doc",
@@ -404,9 +419,9 @@
           ]
         },
         {
+          "collapsed": false,
           "type": "category",
           "label": "Android APIs",
-          "collapsed": false,
           "items": [
             {
               "type": "doc",
@@ -423,9 +438,9 @@
           ]
         },
         {
+          "collapsed": false,
           "type": "category",
           "label": "iOS APIs",
-          "collapsed": false,
           "items": [
             {
               "type": "doc",
@@ -446,6 +461,7 @@
   ],
   "version-0.63/components": [
     {
+      "collapsed": true,
       "type": "category",
       "label": "Core Components",
       "items": [
@@ -534,9 +550,9 @@
           "id": "version-0.63/virtualizedlist"
         },
         {
+          "collapsed": false,
           "type": "category",
           "label": "Android Components",
-          "collapsed": false,
           "items": [
             {
               "type": "doc",
@@ -549,17 +565,13 @@
           ]
         },
         {
+          "collapsed": false,
           "type": "category",
           "label": "iOS Components",
-          "collapsed": false,
           "items": [
             {
               "type": "doc",
               "id": "version-0.63/inputaccessoryview"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.63/maskedviewios"
             },
             {
               "type": "doc",
@@ -570,6 +582,7 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Props",
       "items": [
@@ -596,9 +609,14 @@
       ]
     },
     {
+      "collapsed": true,
       "type": "category",
       "label": "Object Types",
       "items": [
+        {
+          "type": "doc",
+          "id": "version-0.63/layoutevent"
+        },
         {
           "type": "doc",
           "id": "version-0.63/pressevent"
@@ -610,6 +628,10 @@
         {
           "type": "doc",
           "id": "version-0.63/rect"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/viewtoken"
         }
       ]
     }

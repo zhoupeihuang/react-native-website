@@ -1,39 +1,42 @@
 ---
 id: datepickerandroid
-title: '🚧 DatePickerAndroid'
+title: 🚧 DatePickerAndroid
 ---
 
-> **Deprecated.** Use [@react-native-community/datetimepicker](https://github.com/react-native-community/react-native-datetimepicker) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-Opens the standard Android date picker dialog.
+> **已过时。** Use [@react-native-community/datetimepicker](https://github.com/react-native-community/react-native-datetimepicker) instead.
 
-### Example
+本组件会打开一个标准的 Android 日期选择器的对话框。
 
-```jsx
+### 示例
+
+```
 try {
-  const {
-    action,
-    year,
-    month,
-    day
-  } = await DatePickerAndroid.open({
-    // Use `new Date()` for current date.
-    // May 25 2020. Month 0 is January.
+  const {action, year, month, day} = await DatePickerAndroid.open({
+    // 要设置默认值为今天的话，使用`new Date()`即可。
+    // 下面显示的会是2020年5月25日。月份是从0开始算的。
     date: new Date(2020, 4, 25)
   });
   if (action !== DatePickerAndroid.dismissedAction) {
-    // Selected year, month (0-11), day
+    // 这里开始可以处理用户选好的年月日三个参数：year, month (0-11), day
   }
-} catch ({ code, message }) {
+} catch ({code, message}) {
   console.warn('Cannot open date picker', message);
 }
 ```
 
+### 查看方法
+
+- [`open`](datepickerandroid.md#open)
+- [`dateSetAction`](datepickerandroid.md#datesetaction)
+- [`dismissedAction`](datepickerandroid.md#dismissedaction)
+
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `open()`
 
@@ -41,19 +44,19 @@ try {
 static open(options)
 ```
 
-Opens the standard Android date picker dialog.
+打开一个标准的 Android 日期选择器的对话框。
 
-The available keys for the `options` object are:
+可选的`options`对象的 key 值如下：
 
-- `date` (`Date` object or timestamp in milliseconds) - date to show by default
-- `minDate` (`Date` or timestamp in milliseconds) - minimum date that can be selected
-- `maxDate` (`Date` object or timestamp in milliseconds) - maximum date that can be selected
-- `mode` (`enum('calendar', 'spinner', 'default')`) - To set the date-picker mode to calendar/spinner/default
+- `date` (`Date`对象或毫秒时间戳) - 默认显示的日期
+- `minDate` (`Date`对象或毫秒时间戳) - 可选的最小日期
+- `maxDate` (`Date`对象或毫秒时间戳) - 可选的最大日期
+- `mode` (`enum('calendar', 'spinner', 'default')`) - 设置选择器的模式：
   - 'calendar': Show a date picker in calendar mode.
   - 'spinner': Show a date picker in spinner mode.
   - 'default': Show a default native date picker(spinner/calendar) based on android versions.
 
-Returns a Promise which will be invoked an object containing `action`, `year`, `month` (0-11), `day` if the user picked a date. If the user dismissed the dialog, the Promise will still be resolved with action being `DatePickerAndroid.dismissedAction` and all the other keys being undefined. **Always** check whether the `action` is equal to `DatePickerAndroid.dateSetAction` before reading the values.
+在用户选好日期后返回一个 Promise，回调参数为一个对象，其中包含有`action`, `year`, `month` (0-11), `day`。如果用户取消了对话框，Promise 仍然会执行，返回的 action 为`DatePickerAndroid.dismissedAction`，其他几项参数则为 undefined。所以请在使用其他值之前**务必**先检查`action`的值是否为`DatePickerAndroid.dateSetAction`。
 
 Note the native date picker dialog has some UI glitches on Android 4 and lower when using the `minDate` and `maxDate` options.
 
@@ -65,7 +68,7 @@ Note the native date picker dialog has some UI glitches on Android 4 and lower w
 static dateSetAction()
 ```
 
-A date has been selected.
+已选中一个日期。
 
 ---
 
@@ -75,4 +78,4 @@ A date has been selected.
 static dismissedAction()
 ```
 
-The dialog has been dismissed.
+对话框已被取消。

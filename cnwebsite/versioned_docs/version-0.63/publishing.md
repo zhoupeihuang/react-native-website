@@ -1,7 +1,9 @@
 ---
 id: publishing-forks
-title: Publish your own version of react native
+title: 发布自己定制的ReactNative包
 ---
+
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 ## TL;DR
 
@@ -36,7 +38,7 @@ With this goal of a shortlived fork of React Native in mind, you can publish you
 
 This binary needs to become available in your project's `node_modules/react-native/android` folder or directly in your gradle dependency of your Android app. You can achieve this in one of two ways: Git dependency branch, Android binary dependency through Maven.
 
-To build the .aar React Native library, you can follow the steps to [build from source](https://github.com/facebook/react-native/wiki/Building-from-source#android) first to install all required tooling. Then to build the actual library, you can run the following in the root of your react-native checkout:
+To build the .aar React Native library, you can follow the steps to [build from source](building-from-source.md) first to install all required tooling. Then to build the actual library, you can run the following in the root of your react-native checkout:
 
 ```$bash
 ./gradlew :ReactAndroid:installArchives --no-daemon
@@ -52,7 +54,7 @@ If you haven't used the Android NDK before or if you have a NDK version not exac
 
 The resulting binary can be made available to app projects in one of the two ways described below.
 
-### Publishing to Maven/Nexus
+### Publishing to Maven/Nexus
 
 Upload the binaries from the `android` folder to maven and point your Android app project gradle dependency for React Native to your Maven/Nexus dependency.
 

@@ -3,15 +3,17 @@ id: layoutanimation
 title: LayoutAnimation
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(98.93%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(1.07%)
 
-Automatically animates views to their new positions when the next layout happens.
+当布局变化时，自动将视图运动到它们新的位置上。
 
-A common way to use this API is to call it before updating the state hook in functional components and calling `setState` in class components.
+一个常用的调用此 API 的办法是在状态更新前调用。
 
-Note that in order to get this to work on **Android** you need to set the following flags via `UIManager`:
+注意如果要在**Android**上使用此动画，则需要在代码中启用：
 
-```js
+```
+import { UIManager } from 'react-native';
+
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
     UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -19,7 +21,9 @@ if (Platform.OS === 'android') {
 }
 ```
 
-## Example
+上面这段代码应该写在任何组件加载之前，比如可以写到 index.js 的开头。
+
+## 示例
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -55,7 +59,7 @@ const App = () => {
 
 const style = StyleSheet.create({
   tile: {
-    backgroundColor: "lightgrey",
+    background: "lightGrey",
     borderWidth: 0.5,
     borderColor: "#d6d7da"
   },
@@ -70,42 +74,35 @@ const style = StyleSheet.create({
 export default App;
 ```
 
+<block class="endBlock syntax" />
+
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `configureNext()`
 
 ```jsx
-static configureNext(config, onAnimationDidEnd?)
+static configureNext(config, onAnimationDidEnd?, onAnimationDidFail?)
 ```
 
-Schedules an animation to happen on the next layout.
+计划下一次布局要发生的动画。
 
-#### Parameters:
+#### 参数：
 
-| Name              | Type     | Required | Description                                                |
-| ----------------- | -------- | -------- | ---------------------------------------------------------- |
-| config            | object   | Yes      | See config description below.                              |
-| onAnimationDidEnd | function | No       | Called when the animation finished. Only supported on iOS. |
+| 名称               | 类型     | 必填 | 说明             |
+| ------------------ | -------- | ---- | ---------------- |
+| config             | object   | 是   | 看下面的说明     |
+| onAnimationDidEnd  | function | 否   | 动画结束后的回调 |
+| onAnimationDidFail | function | 否   | 动画失败后的回调 |
 
-The `config` parameter is an object with the keys below. [`create`](layoutanimation.md#create) returns a valid object for `config`, and the [`Presets`](layoutanimation.md#presets) objects can also all be passed as the `config`.
+##### config
 
-- `duration` in milliseconds
-- `create`, optional config for animating in new views
-- `update`, optional config for animating views that have been updated
-- `delete`, optional config for animating views as they are removed
-
-The config that's passed to `create`, `update`, or `delete` has the following keys:
-
-- `type`, the [animation type](layoutanimation.md#types) to use
-- `property`, the [layout property](layoutanimation.md#properties) to animate (optional, but recommended for `create` and `delete`)
-- `springDamping` (number, optional and only for use with `type: Type.spring`)
-- `initialVelocity` (number, optional)
-- `delay` (number, optional)
-- `duration` (number, optional)
+- `duration` 动画持续时间，单位是毫秒。
+- `create`，配置创建新视图时的动画。（参阅`Anim`类型）
+- `update`，配置被更新的视图的动画。（参阅`Anim`类型）
 
 ---
 
@@ -115,12 +112,22 @@ The config that's passed to `create`, `update`, or `delete` has the following ke
 static create(duration, type, creationProp)
 ```
 
-Helper that creates an object (with `create`, `update`, and `delete` fields) to pass into [`configureNext`](layoutanimation.md#configurenext). The `type` parameter is an [animation type](layoutanimation.md#types), and the `creationProp` parameter is a [layout property](layoutanimation.md#properties).
+用来创建`configureNext`所需的 config 参数的辅助函数。
 
 Example usage:
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -192,8 +199,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { Component } from "react";
@@ -274,8 +280,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
 ## Properties
 
@@ -309,7 +314,7 @@ An enumeration of layout properties to be animated to be used in the [`create`](
 
 ### Presets
 
-A set of predefined animation configs to pass into [`configureNext`](layoutanimation.md#configurenext).
+A set of predefined animation config.
 
 | Presets       | Value                                                                                                                                                                 |
 | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -319,26 +324,36 @@ A set of predefined animation configs to pass into [`configureNext`](layoutanima
 
 ---
 
-### `easeInEaseOut()`
+### easeInEaseOut
 
-Calls `configureNext()` with `Presets.easeInEaseOut`.
-
----
-
-### `linear()`
-
-Calls `configureNext()` with `Presets.linear`.
+Shortcut to bind `configureNext()` methods with `Presets.easeInEaseOut`.
 
 ---
 
-### `spring()`
+### linear
 
-Calls `configureNext()` with `Presets.spring`.
+Shortcut to bind `configureNext()` methods with `Presets.linear`.
+
+---
+
+### spring
+
+Shortcut to bind `configureNext()` methods with `Presets.spring`.
 
 Example usage:
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { useState } from "react";
@@ -435,8 +450,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
 ```SnackPlayer name=LayoutAnimation&supportedPlatforms=android,ios
 import React, { Component } from "react";
@@ -546,5 +560,4 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />

@@ -1,107 +1,107 @@
 ---
 id: slider
-title: '🚧 Slider'
+title: 🚧 Slider
 ---
 
-> **Deprecated.** Use [@react-native-community/slider](https://github.com/react-native-community/react-native-slider) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-A component used to select a single value from a range of values.
+> **已过时。** Use [@react-native-community/slider](https://github.com/react-native-community/react-native-slider) instead.
+
+用于选择一个范围值的组件。
 
 ---
 
-# Reference
+# 文档
 
 ## Props
-
-Inherits [View Props](view.md#props).
 
 ### `style`
 
 Used to style and layout the `Slider`. See `StyleSheet.js` and `ViewStylePropTypes.js` for more info.
 
-| Type       | Required |
-| ---------- | -------- |
-| View.style | No       |
+| 类型       | 必填 |
+| ---------- | ---- |
+| View.style | 否   |
 
 ---
 
 ### `disabled`
 
-If true the user won't be able to move the slider. Default value is false.
+如果为 true，用户就不能移动滑块。默认为 false。
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 否   |
 
 ---
 
 ### `maximumValue`
 
-Initial maximum value of the slider. Default value is 1.
+滑块的最大值（当滑块滑到最右端时表示的值）。默认为 1。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `minimumTrackTintColor`
 
-The color used for the track to the left of the button. Overrides the default blue gradient image on iOS.
+滑块左侧轨道的颜色。在 iOS 上默认为一个蓝色的渐变色。
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               | 必填 |
+| ------------------ | ---- |
+| [color](colors.md) | 否   |
 
 ---
 
 ### `minimumValue`
 
-Initial minimum value of the slider. Default value is 0.
+滑块的最小值（当滑块滑到最左端时表示的值）。默认为 0。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `onSlidingComplete`
 
-Callback that is called when the user releases the slider, regardless if the value has changed. The current value is passed as an argument to the callback handler.
+用户松开滑块的时候调用此回调，无论值是否变化。回调值为当前值。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `onValueChange`
 
-Callback continuously called while the user is dragging the slider.
+在用户拖动滑块的过程中不断调用此回调。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `step`
 
-Step value of the slider. The value should be between 0 and (maximumValue - minimumValue). Default value is 0.
+滑块的步长（拖动变化的最小单元）。这个值应该在 0 到(maximumValue - minimumValue)之间。默认值为 0。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `maximumTrackTintColor`
 
-The color used for the track to the right of the button. Overrides the default gray gradient image on iOS.
+滑块右侧轨道的颜色。在 iOS 上默认为一个灰色的渐变色。
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               | 必填 |
+| ------------------ | ---- |
+| [color](colors.md) | 否   |
 
 ---
 
@@ -109,68 +109,68 @@ The color used for the track to the right of the button. Overrides the default g
 
 Used to locate this view in UI automation tests.
 
-| Type   | Required |
-| ------ | -------- |
-| string | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| string | 否   |
 
 ---
 
 ### `value`
 
-Initial value of the slider. The value should be between minimumValue and maximumValue, which default to 0 and 1 respectively. Default value is 0.
+滑块的初始值。这个值应该在最小值和最大值之间。默认值是 0。
 
-_This is not a controlled component_, you don't need to update the value during dragging.
+*注意：这不是一个受控组件！*也就是说，你不需要在滑动过程中去手动更新值。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `thumbTintColor`
 
-The color used to tint the default thumb images on iOS, or the color of the foreground switch grip on Android.
+Color of the foreground switch grip.
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               | 必填 | 平台    |
+| ------------------ | ---- | ------- |
+| [color](colors.md) | 否   | Android |
 
 ---
 
 ### `maximumTrackImage`
 
-Assigns a maximum track image. Only static images are supported. The leftmost pixel of the image will be stretched to fill the track.
+指定一个滑块右侧轨道背景图。仅支持静态图片。图片最左边的像素会被平铺直至填满右侧轨道。
 
-| Type                   | Required | Platform |
-| ---------------------- | -------- | -------- |
-| Image.propTypes.source | No       | iOS      |
+| 类型                   | 必填 | 平台 |
+| ---------------------- | ---- | ---- |
+| Image.propTypes.source | 否   | iOS  |
 
 ---
 
 ### `minimumTrackImage`
 
-Assigns a minimum track image. Only static images are supported. The rightmost pixel of the image will be stretched to fill the track.
+指定一个滑块左侧轨道背景图。仅支持静态图片。图片最右边的像素会被平铺直至填满左侧轨道。
 
-| Type                   | Required | Platform |
-| ---------------------- | -------- | -------- |
-| Image.propTypes.source | No       | iOS      |
+| 类型                   | 必填 | 平台 |
+| ---------------------- | ---- | ---- |
+| Image.propTypes.source | 否   | iOS  |
 
 ---
 
 ### `thumbImage`
 
-Sets an image for the thumb. Only static images are supported.
+给滑块设置一张图片。只支持静态图片。
 
-| Type                   | Required | Platform |
-| ---------------------- | -------- | -------- |
-| Image.propTypes.source | No       | iOS      |
+| 类型                   | 必填 | 平台 |
+| ---------------------- | ---- | ---- |
+| Image.propTypes.source | 否   | iOS  |
 
 ---
 
 ### `trackImage`
 
-Assigns a single image for the track. Only static images are supported. The center pixel of the image will be stretched to fill the track.
+给轨道设置一张背景图。只支持静态图片。图片最中央的像素会被平铺直至填满轨道。
 
-| Type                   | Required | Platform |
-| ---------------------- | -------- | -------- |
-| Image.propTypes.source | No       | iOS      |
+| 类型                   | 必填 | 平台 |
+| ---------------------- | ---- | ---- |
+| Image.propTypes.source | 否   | iOS  |

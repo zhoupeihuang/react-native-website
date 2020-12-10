@@ -3,9 +3,11 @@ id: picker-item
 title: Picker.Item
 ---
 
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+
 Individual selectable item in a [Picker](picker.md).
 
-### Props
+### 查看 Props
 
 - [`label`](picker-item.md#label)
 - [`color`](picker-item.md#color)
@@ -14,7 +16,7 @@ Individual selectable item in a [Picker](picker.md).
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
@@ -22,30 +24,30 @@ Individual selectable item in a [Picker](picker.md).
 
 Text to display for this item.
 
-| Type   | Required |
-| ------ | -------- |
-| string | Yes      |
+| 类型   | 必填 |
+| ------ | ---- |
+| string | 是   |
 
 ### `color`
 
-Color of this item's text.
+文本的颜色。
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               | 必填 |
+| ------------------ | ---- |
+| [color](colors.md) | 否   |
 
 ### `testID`
 
 Used to locate the item in end-to-end tests.
 
-| Type   | Required |
-| ------ | -------- |
-| string | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| string | 否   |
 
 ### `value`
 
 The value to be passed to picker's `onValueChange` callback when this item is selected. Can be a string or an integer.
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| any  | No       | Android  |
+| 类型 | 必填 | 平台    |
+| ---- | ---- | ------- |
+| any  | 否   | Android |

@@ -3,6 +3,8 @@ id: custom-webview-android
 title: Custom WebView
 ---
 
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+
 While the built-in web view has a lot of features, it is not possible to handle every use-case in React Native. You can, however, extend the web view with native code without forking React Native or duplicating all the existing web view code.
 
 Before you do this, you should be familiar with the concepts in [native UI components](native-components-android). You should also familiarise yourself with the [native code for web views](https://github.com/facebook/react-native/blob/master/ReactAndroid/src/main/java/com/facebook/react/views/webview/ReactWebViewManager.java), as you will have to use this as a reference when implementing new features—although a deep understanding is not required.
@@ -179,24 +181,21 @@ To use your custom web view, you'll need to create a class for it. Your class mu
 To get your native component, you must use `requireNativeComponent`: the same as for regular custom components. However, you must pass in an extra third argument, `WebView.extraNativeComponentConfig`. This third argument contains prop types that are only required for native code.
 
 ```jsx
-import React, { Component, PropTypes } from 'react';
-import { WebView, requireNativeComponent } from 'react-native';
+import React, { Component, PropTypes } from "react";
+import { WebView, requireNativeComponent } from "react-native";
 
 export default class CustomWebView extends Component {
   static propTypes = WebView.propTypes;
 
   render() {
     return (
-      <WebView
-        {...this.props}
-        nativeConfig={{ component: RCTCustomWebView }}
-      />
+      <WebView {...this.props} nativeConfig={{ component: RCTCustomWebView }} />
     );
   }
 }
 
 const RCTCustomWebView = requireNativeComponent(
-  'RCTCustomWebView',
+  "RCTCustomWebView",
   CustomWebView,
   WebView.extraNativeComponentConfig
 );
@@ -217,10 +216,10 @@ export default class CustomWebView extends Component {
   };
 
   static defaultProps = {
-    finalUrl: 'about:blank'
+    finalUrl: "about:blank"
   };
 
-  _onNavigationCompleted = (event) => {
+  _onNavigationCompleted = event => {
     const { onNavigationCompleted } = this.props;
     onNavigationCompleted && onNavigationCompleted(event);
   };
@@ -242,13 +241,13 @@ export default class CustomWebView extends Component {
 }
 ```
 
-Similar to regular native components, you must provide all your prop types in the component to have them forwarded on to the native component. However, if you have some prop types that are only used internally in component, you can add them to the `nativeOnly` property of the third argument previously mentioned. For event handlers, you have to use the value `true` instead of a regular prop type.
+Just like for regular native components, you must provide all your prop types in the component to have them forwarded on to the native component. However, if you have some prop types that are only used internally in component, you can add them to the `nativeOnly` property of the third argument previously mentioned. For event handlers, you have to use the value `true` instead of a regular prop type.
 
 For example, if you wanted to add an internal event handler called `onScrollToBottom`, you would use,
 
 ```jsx
 const RCTCustomWebView = requireNativeComponent(
-  'RCTCustomWebView',
+  "RCTCustomWebView",
   CustomWebView,
   {
     ...WebView.extraNativeComponentConfig,

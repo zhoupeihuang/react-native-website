@@ -3,9 +3,11 @@ id: refreshcontrol
 title: RefreshControl
 ---
 
-This component is used inside a ScrollView or ListView to add pull to refresh functionality. When the ScrollView is at `scrollY: 0`, swiping down triggers an `onRefresh` event.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-## Example
+这一组件可以用在 ScrollView 或 FlatList 内部，为其添加下拉刷新的功能。当 ScrollView 处于竖直方向的起点位置（scrollY: 0），此时下拉会触发一个`onRefresh`事件。
+
+## 示例
 
 ```SnackPlayer name=RefreshControl&supportedPlatforms=ios,android
 import React from 'react';
@@ -63,110 +65,108 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-**Note:** `refreshing` is a controlled prop, this is why it needs to be set to true in the `onRefresh` function otherwise the refresh indicator will stop immediately.
+**注意：** `refreshing`是一个受控属性， 所以必须在`onRefresh`函数中设置为 true，否则 loading 指示器会立即停止。
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
-Inherits [View Props](view.md#props).
-
 ### `refreshing`
 
-Whether the view should be indicating an active refresh.
+视图是否应该在刷新时显示指示器。
 
-| Type | Required |
-| ---- | -------- |
-| bool | Yes      |
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 是   |
 
 ---
 
 ### `onRefresh`
 
-Called when the view starts refreshing.
+在视图开始刷新时调用。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `colors`
 
-The colors (at least one) that will be used to draw the refresh indicator.
+指定至少一种颜色用来绘制刷新指示器。
 
-| Type                        | Required | Platform |
-| --------------------------- | -------- | -------- |
-| array of [color](colors.md) | No       | Android  |
+| 类型                        | 必填 | 平台    |
+| --------------------------- | ---- | ------- |
+| array of [color](colors.md) | 否   | Android |
 
 ---
 
 ### `enabled`
 
-Whether the pull to refresh functionality is enabled.
+指定是否要启用刷新指示器。
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
+| 类型 | 必填 | 平台    |
+| ---- | ---- | ------- |
+| bool | 否   | Android |
 
 ---
 
 ### `progressBackgroundColor`
 
-The background color of the refresh indicator.
+指定刷新指示器的背景色。
 
-| Type               | Required | Platform |
-| ------------------ | -------- | -------- |
-| [color](colors.md) | No       | Android  |
+| 类型               | 必填 | 平台    |
+| ------------------ | ---- | ------- |
+| [color](colors.md) | 否   | Android |
 
 ---
 
 ### `progressViewOffset`
 
-Progress view top offset
+指定刷新指示器的垂直起始位置(top offset)。
 
-| Type   | Required | Platform |
-| ------ | -------- | -------- |
-| number | No       | Android  |
+| 类型   | 必填 | 平台    |
+| ------ | ---- | ------- |
+| number | 否   | Android |
 
 ---
 
 ### `size`
 
-Size of the refresh indicator, see RefreshControl.SIZE.
+指定刷新指示器的大小，具体数值可参阅 RefreshControl.SIZE.
 
-| Type                                                                   | Required | Platform |
-| ---------------------------------------------------------------------- | -------- | -------- |
-| enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) | No       | Android  |
+| 类型                                                                   | 必填 | 平台    |
+| ---------------------------------------------------------------------- | ---- | ------- |
+| enum(RefreshLayoutConsts.SIZE.DEFAULT, RefreshLayoutConsts.SIZE.LARGE) | 否   | Android |
 
 ---
 
 ### `tintColor`
 
-The color of the refresh indicator.
+指定刷新指示器的颜色。
 
-| Type               | Required | Platform |
-| ------------------ | -------- | -------- |
-| [color](colors.md) | No       | iOS      |
+| 类型               | 必填 | 平台 |
+| ------------------ | ---- | ---- |
+| [color](colors.md) | 否   | iOS  |
 
 ---
 
 ### `title`
 
-The title displayed under the refresh indicator.
+指定刷新指示器下显示的文字。
 
-| Type   | Required | Platform |
-| ------ | -------- | -------- |
-| string | No       | iOS      |
+| 类型   | 必填 | 平台 |
+| ------ | ---- | ---- |
+| string | 否   | iOS  |
 
 ---
 
 ### `titleColor`
 
-Title color.
+指定刷新指示器下显示的文字的颜色。
 
-| Type               | Required | Platform |
-| ------------------ | -------- | -------- |
-| [color](colors.md) | No       | iOS      |
+| 类型               | 必填 | 平台 |
+| ------------------ | ---- | ---- |
+| [color](colors.md) | 否   | iOS  |

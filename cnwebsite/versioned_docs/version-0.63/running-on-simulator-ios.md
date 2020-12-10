@@ -1,14 +1,18 @@
 ---
 id: running-on-simulator-ios
-title: Running On Simulator
+title: 在iOS模拟器上运行
 ---
 
-## Starting the simulator
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(81.25%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(18.75%)
 
-Once you have your React Native project initialized, you can run `npx react-native run-ios` inside the newly created project directory. If everything is set up correctly, you should see your new app running in the iOS Simulator shortly.
+## 启动模拟器
 
-## Specifying a device
+当你完成了初始化 React Native 新项目后，就可以在项目目录下运行`npx react-native run-ios`来启动模拟器。如果一切配置都没有问题，应该很快就能看到你的应用在 iOS 模拟器上运行起来。
 
-You can specify the device the simulator should run with the `--simulator` flag, followed by the device name as a string. The default is `"iPhone 11"`. If you wish to run your app on an iPhone SE, run `npx react-native run-ios --simulator="iPhone SE"`.
+## 指定模拟的设备类型
 
-The device names correspond to the list of devices available in Xcode. You can check your available devices by running `xcrun simctl list devices` from the console.
+你可以使用`--simulator`参数，在其后加上要使用的设备名称来指定要模拟的设备类型（目前默认为"iPhone 11"）。如果你要模拟 iPhone 4s，那么这样运行命令即可：`npx react-native run-ios --simulator "iPhone 4s"`。
+
+> 注意：随着 RN 和 Xcode 版本迭代更新，默认和可选的模拟设备可能有变化。
+
+你可以在终端中运行`xcrun simctl list devices`来查看具体可用的设备名称。

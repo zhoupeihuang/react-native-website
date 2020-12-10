@@ -171,27 +171,20 @@ First, create an empty `index.js` file in the root of your React Native project.
 In your `index.js`, create your component. In our sample here, we will add a `<Text>` component within a styled `<View>`
 
 ```jsx
-import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from "react";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 
 class RNHighScores extends React.Component {
   render() {
-    var contents = this.props['scores'].map((score) => (
+    var contents = this.props["scores"].map(score => (
       <Text key={score.name}>
         {score.name}:{score.value}
-        {'\n'}
+        {"\n"}
       </Text>
     ));
     return (
       <View style={styles.container}>
-        <Text style={styles.highScoresTitle}>
-          2048 High Scores!
-        </Text>
+        <Text style={styles.highScoresTitle}>2048 High Scores!</Text>
         <Text style={styles.scores}>{contents}</Text>
       </View>
     );
@@ -201,24 +194,24 @@ class RNHighScores extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF"
   },
   highScoresTitle: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10
   },
   scores: {
-    textAlign: 'center',
-    color: '#333333',
+    textAlign: "center",
+    color: "#333333",
     marginBottom: 5
   }
 });
 
 // Module name
-AppRegistry.registerComponent('RNHighScores', () => RNHighScores);
+AppRegistry.registerComponent("RNHighScores", () => RNHighScores);
 ```
 
 > `RNHighScores` is the name of your module that will be used when you add a view to React Native from within your iOS application.

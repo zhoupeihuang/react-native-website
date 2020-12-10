@@ -1,129 +1,117 @@
 ---
 id: native-modules-android
-title: Android Native Modules
+title: 原生模块
 ---
 
-Welcome to Native Modules for Android. Please start by reading the [Native Modules Intro](native-modules-intro) for an intro to what native modules are.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.57%), [doublingli](https://github.com/search?q=doublingli&type=Users)(0.43%)
 
-## Create a Calendar Native Module
+有时候 App 需要访问平台 API，但 React Native 可能还没有相应的模块包装；或者你需要复用一些 Java 代码，而不是用 Javascript 重新实现一遍；又或者你需要实现某些高性能的、多线程的代码，譬如图片处理、数据库、或者各种高级扩展等等。
 
-In the following guide you will create a native module, `CalendarModule`, that will allow you to access Android’s calendar APIs from JavaScript. By the end, you will be able to call `CalendarModule.createCalendarEvent('Dinner Party', 'My House');` from JavaScript, invoking a Java method that creates a calendar event.
+我们把 React Native 设计为可以在其基础上编写真正的原生代码，并且可以访问平台所有的能力。这是一个相对高级的特性，我们并不认为它应当在日常开发的过程中经常出现，但具备这样的能力是很重要的。如果 React Native 还不支持某个你需要的原生特性，你应当可以自己实现该特性的封装。
 
-> The React Native team is currently working on a re-architecture of the Native Module system. This new system is called TurboModules, and it will help facilitate more efficient type-safe communication between JavaScript and native, without relying on the React Native bridge. It will also enable new extensions that weren't possible with the legacy Native Module system. You can read more about it [here](https://github.com/react-native-community/discussions-and-proposals/issues/40). Throughout these docs we have added notes around parts of Native Modules that will change in the TurboModules release and how you can best prepare for a smooth upgrade to TurboModules.
+## Native Module Setup
 
-### Setup
+Native modules are usually distributed as npm packages, apart from the typical javascript files and resources they will contain an Android library project. This project is, from NPM's perspective just like any other media asset, meaning there isn't anything special about it from this point of view. To get the basic scaffolding make sure to read [Native Modules Setup](native-modules-setup) guide first.
 
-To get started, open up the Android project within your React Native application in Android Studio. You can find your Android project here within a React Native app:
+### 开启 Gradle Daemon
 
-<figure>
-  <img src="/docs/assets/native-modules-android-open-project.png" width="500" alt="Image of opening up an Android project within a React Native app inside of Android Studio." />
-  <figcaption>Image of where you can find your Android project</figcaption>
-</figure>
+我们建议开启[Gradle Daemon](https://docs.gradle.org/2.9/userguide/gradle_daemon.html)来加速 Java 代码编译。
 
-We recommend using Android Studio to write your native code. Android studio is an IDE built for Android development and using it will help you resolve minor issues like code syntax errors quickly.
+## Toast 模块
 
-We also recommend enabling [Gradle Daemon](https://docs.gradle.org/2.9/userguide/gradle_daemon.html) to speed up builds as you iterate on Java code.
+本向导会用[Toast](http://developer.android.com/reference/android/widget/Toast.html)作为例子。假设我们希望可以从 Javascript 发起一个 Toast 消息（一种会在屏幕下方弹出、保持一段时间的消息通知）。
 
-### Create A Custom Native Module File
+我们首先来创建一个原生模块。一个原生模块是一个继承了`ReactContextBaseJavaModule`的 Java 类，它可以实现一些 JavaScript 所需的功能。我们这里的目标是可以在 JavaScript 里写`ToastExample.show('Awesome', ToastExample.SHORT);`，来调起一个短暂的 Toast 通知。
 
-The first step is to create the CalendarModule.java Java file inside `android/app/src/main/java/com/your-app-name/ folder`. This Java file will contain your native module Java class.
-
-<figure>
-  <img src="/docs/assets/native-modules-android-add-class.png" width="700" alt="Image of adding a class called CalendarModule.java within the Android Studio." />
-  <figcaption>Image of how to add the CalendarModuleClass</figcaption>
-</figure>
-
-Then add the following content:
+创建一个新的 Java 类并命名为`ToastModule.java`，放置到`android/app/src/main/java/com/your-app-name/`目录下，其具体代码如下：
 
 ```java
-package com.your-app-name; // replace com.your-app-name with your app’s name
+// ToastModule.java
+
+package com.your-app-name;
+
+import android.widget.Toast;
+
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+
 import java.util.Map;
 import java.util.HashMap;
 
-public class CalendarModule extends ReactContextBaseJavaModule {
-   CalendarModule(ReactApplicationContext context) {
-       super(context);
-   }
+public class ToastModule extends ReactContextBaseJavaModule {
+  private static ReactApplicationContext reactContext;
+
+  private static final String DURATION_SHORT_KEY = "SHORT";
+  private static final String DURATION_LONG_KEY = "LONG";
+
+  public ToastModule(ReactApplicationContext context) {
+    super(context);
+    reactContext = context;
+  }
 }
 ```
 
-As you can see, your `CalendarModule` class extends the `ReactContextBaseJavaModule` class. For Android, Java native modules are written as classes that extend `ReactContextBaseJavaModule` and implement the functionality required by JavaScript.
-
-> It is worth noting that technically Java classes only need to extend the `BaseJavaModule` class or implement the `NativeModule` interface to be considered a Native Module by React Native.
-
-> However we recommend that you use `ReactContextBaseJavaModule`, as shown above. `ReactContextBaseJavaModule` gives access to the `ReactApplicationContext` (RAC), which is useful for Native Modules that need to hook into activity lifecycle methods. Using `ReactContextBaseJavaModule` will also make it easier to make your native module type-safe in the future. For native module type-safety, which is coming in future releases, React Native looks at each native module's JavaScript spec and generates an abstract base class that extends `ReactContextBaseJavaModule`.
-
-### Module Name
-
-All Java native modules in Android need to implement the `getName()` method. This method returns a string, which represents the name of the native module. The native module can then be accessed in JavaScript using its name. For example, in the below code snippet, `getName()` returns `"CalendarModule"`.
+`ReactContextBaseJavaModule`要求派生类实现`getName`方法。这个函数用于返回一个字符串名字，这个名字在 JavaScript 端标记这个模块。这里我们把这个模块叫做`ToastExample`，这样就可以在 JavaScript 中通过`NativeModules.ToastExample`访问到这个模块。**译注：RN 已经内置了一个名为 ToastAndroid 的模块，所以在练习时请勿使用 ToastAndroid 的名字，否则运行时会报错名字冲突！**
 
 ```java
-@Override
-public String getName() {
-   return "CalendarModule";
-}
+  @Override
+  public String getName() {
+    return "ToastExample";
+  }
 ```
 
-The native module can then be accessed in JS like this:
-
-```jsx
-const { CalendarModule } = ReactNative.NativeModules;
-```
-
-### Export a Native Method to JavaScript
-
-Next you will need to add a method to your native module that will create calendar events and can be invoked in JavaScript. All native module methods meant to be invoked from JavaScript must be annotated with `@ReactMethod`.
-
-Set up a method `createCalendarEvent()` for `CalendarModule` that can be invoked in JS through `CalendarModule.createCalendarEvent()`. For now, the method will take in a name and location as strings. Argument type options will be covered shortly.
+一个可选的方法`getContants`返回了需要导出给 JavaScript 使用的常量。它并不一定需要实现，但在定义一些可以被 JavaScript 同步访问到的预定义的值时非常有用。
 
 ```java
-// add to CalendarModule.java
-@ReactMethod
-public void createCalendarEvent(String name, String location) {
-}
+  @Override
+  public Map<String, Object> getConstants() {
+    final Map<String, Object> constants = new HashMap<>();
+    constants.put(DURATION_SHORT_KEY, Toast.LENGTH_SHORT);
+    constants.put(DURATION_LONG_KEY, Toast.LENGTH_LONG);
+    return constants;
+  }
 ```
 
-Add a debug log in the method to confirm it has been invoked when you call it from your application. Below is an example of how you can import and use the [Log](https://developer.android.com/reference/android/util/Log) class from the Android util package:
+要导出一个方法给 JavaScript 使用，Java 方法需要使用注解`@ReactMethod`。方法的返回类型必须为`void`。React Native 的跨语言访问是异步进行的，所以想要给 JavaScript 返回一个值的唯一办法是使用回调函数或者发送事件（参见下文的描述）。
 
 ```java
-import android.util.Log;
-
-@ReactMethod
-public void createCalendarEvent(String name, String location) {
-   Log.d("CalendarModule", "Create event called with name: " + name
-   + " and location: " + location);
-}
+  @ReactMethod
+  public void show(String message, int duration) {
+    Toast.makeText(getReactApplicationContext(), message, duration).show();
+  }
 ```
 
-Once you finish implementing the native module and hook it up in JavaScript, you can follow [these steps](https://developer.android.com/studio/debug/am-logcat.html) to view the logs from your app.
+### 参数类型
 
-### Synchronous Methods
+下面的参数类型在`@ReactMethod`注明的方法中，会被直接映射到它们对应的 JavaScript 类型。
 
-You can pass `isBlockingSynchronousMethod = true` to a native method to mark it as a synchronous method.
-
-```java
-@ReactMethod(isBlockingSynchronousMethod = true)
+```text
+Boolean -> Bool
+Integer -> Number
+Double -> Number
+Float -> Number
+String -> String
+Callback -> function
+ReadableMap -> Object
+ReadableArray -> Array
 ```
 
-At the moment, we do not recommend this, since calling methods synchronously can have strong performance penalties and introduce threading-related bugs to your native modules. Additionally, please note that if you choose to enable `isBlockingSynchronousMethod`, your app can no longer use the Google Chrome debugger. This is because synchronous methods require the JS VM to share memory with the app. For the Google Chrome debugger, React Native runs inside the JS VM in Google Chrome, and communicates asynchronously with the mobile devices via WebSockets.
+参阅[ReadableMap](https://github.com/facebook/react-native/blob/master/ReactAndroid/src/main/java/com/facebook/react/bridge/ReadableMap.java)和[ReadableArray](https://github.com/facebook/react-native/blob/master/ReactAndroid/src/main/java/com/facebook/react/bridge/ReadableArray.java)。
 
-### Register the Module (Android Specific)
+### 注册模块
 
-Once a native module is written, it needs to be registered with React Native. In order to do so, you need to add your native module to a `ReactPackage` and register the `ReactPackage` with React Native. During initialization, React Native will loop over all packages, and for each `ReactPackage`, register each native module within.
+在 Java 这边要做的最后一件事就是注册这个模块。我们需要在应用的 Package 类的`createNativeModules`方法中添加这个模块。如果模块没有被注册，它也无法在 JavaScript 中被访问到。
 
-React Native invokes the method `createNativeModules()` on a `ReactPackage` in order to get the list of native modules to register. For Android, if a module is not instantiated and returned in createNativeModules it will not be available from JavaScript.
-
-To add your Native Module to `ReactPackage`, first create a new Java Class named `MyAppPackage.java` that implements `ReactPackage` inside the `android/app/src/main/java/com/your-app-name/` folder:
-
-Then add the following content:
+创建一个新的 Java 类并命名为`CustomToastPackage.java`，放置到`android/app/src/main/java/com/your-app-name/`目录下，其具体代码如下：
 
 ```java
-package com.your-app-name; // replace your-app-name with your app’s name
+// CustomToastPackage.java
+
+package com.your-app-name;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -133,375 +121,191 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MyAppPackage implements ReactPackage {
+public class CustomToastPackage implements ReactPackage {
 
-   @Override
-   public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-       return Collections.emptyList();
-   }
-
-   @Override
-   public List<NativeModule> createNativeModules(
-           ReactApplicationContext reactContext) {
-       List<NativeModule> modules = new ArrayList<>();
-
-       modules.add(new CalendarModule(reactContext));
-
-       return modules;
-   }
-
-}
-```
-
-This file imports the native module you created, `CalendarModule`. It then instantiates `CalendarModule` within the `createNativeModules()` function and returns it as a list of `NativeModules` to register. If you add more native modules down the line, you can also instantiate them and add them to the list returned here.
-
-> It is worth noting that this way of registering native modules eagerly initializes all native modules when the application starts, which adds to the startup time of an application. You can use [TurboReactPackage](https://github.com/facebook/react-native/blob/master/ReactAndroid/src/main/java/com/facebook/react/TurboReactPackage.java) as an alternative. Instead of `createNativeModules`, which return a list of instantiated native module objects, TurboReactPackage implements a `getModule(String name, ReactApplicationContext rac)` method that creates the native module object, when required. TurboReactPackage is a bit more complicated to implement at the moment. In addition to implementing a `getModule()` method, you have to implement a `getReactModuleInfoProvider()` method, which returns a list of all the native modules the package can instantiate along with a function that instantiates them, example [here](https://github.com/facebook/react-native/blob/8ac467c51b94c82d81930b4802b2978c85539925/ReactAndroid/src/main/java/com/facebook/react/CoreModulesPackage.java#L86-L165). Again, using TurboReactPackage will allow your application to have a faster startup time, but it is currently a bit cumbersome to write. So proceed with caution if you choose to use TurboReactPackages.
-
-To register the `CalendarModule` package, you must add `MyAppPackage` to the list of packages returned in ReactNativeHost's `getPackages()` method. Open up your `MainApplication.java` file, which can be found in the following path: `android/app/src/main/java/com/your-app-name/MainApplication.java`
-
-Locate ReactNativeHost’s `getPackages()` method and add your package to the packages list `getPackages()` returns:
-
-```java
-@Override
-  protected List<ReactPackage> getPackages() {
-    @SuppressWarnings("UnnecessaryLocalVariable")
-    List<ReactPackage> packages = new PackageList(this).getPackages();
-    // below MyAppPackage is added to the list of packages returned
-    packages.add(new MyAppPackage());
-    return packages;
+  @Override
+  public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
+    return Collections.emptyList();
   }
-```
 
-You have now successfully registered your native module for Android!
+  @Override
+  public List<NativeModule> createNativeModules(
+                              ReactApplicationContext reactContext) {
+    List<NativeModule> modules = new ArrayList<>();
 
-### Test What You Have Built
+    modules.add(new ToastModule(reactContext));
 
-At this point, you have set up the basic scaffolding for your native module in Android. Test that out by accessing the native module and invoking its exported method in JavaScript.
+    return modules;
+  }
 
-Find a place in your application where you would like to add a call to the native module’s `createCalendarEvent()` method. Below is an example of a component, `NewModuleButton` you can add in your app. You can invoke the native module inside `NewModuleButton`'s `onPress()` function.
-
-```jsx
-import React from 'react';
-import { NativeModules, Button } from 'react-native';
-
-const NewModuleButton = () => {
-  const onPress = () => {
-    console.log('We will invoke the native module here!');
-  };
-
-  return (
-    <Button
-      title="Click to invoke your native module!"
-      color="#841584"
-      onPress={onPress}
-    />
-  );
-};
-
-export default NewModuleButton;
-```
-
-In order to access your native module from JavaScript you need to first import `NativeModules` from React Native:
-
-```jsx
-import { NativeModules } from 'react-native';
-```
-
-You can then access the `CalendarModule` native module off of `NativeModules`.
-
-```jsx
-const { CalendarModule } = NativeModules;
-```
-
-Now that you have the CalendarModule native module available, you can invoke your native method `createCalendarEvent()`. Below it is added to the `onPress()` method in `NewModuleButton`:
-
-```jsx
-const onPress = () => {
-  CalendarModule.createCalendarEvent('testName', 'testLocation');
-};
-```
-
-The final step is to rebuild the React Native app so that you can have the latest native code (with your new native module!) available. In your command line, where the react native application is located, run the following:
-
-```shell
-npx react-native run-android
-```
-
-### Building as You Iterate
-
-As you work through these guides and iterate on your native module, you will need to do a native rebuild of your application to access your most recent changes from JavaScript. This is because the code that you are writing sits within the native part of your application. While React Native’s metro bundler can watch for changes in JavaScript and rebuild on the fly for you, it will not do so for native code. So if you want to test your latest native changes you need to rebuild by using the `npx react-native run-android` command.
-
-### Recap✨
-
-You should now be able to invoke your `createCalendarEvent()` method on your native module in the app. In our example this occurs by pressing the `NewModuleButton`. You can confirm this by viewing the log you set up in your `createCalendarEvent()` method. You can follow [these steps](https://developer.android.com/studio/debug/am-logcat.html) to view ADB logs in your app. You should then be able to search for your `Log.d` message (in our example “Create event called with name: testName and location: testLocation”) and see your message logged each time you invoke your native module method.
-
-<figure>
-  <img src="/docs/assets/native-modules-android-logs.png" width="1000" alt="Image of logs." />
-  <figcaption>Image of ADB logs in Android Studio</figcaption>
-</figure>
-
-At this point you have created an Android native module and invoked it’s native method from JavaScript in your React Native application. You can read on to learn more about things like argument types available to a native module method and how to setup callbacks and promises.
-
-## Beyond a Calendar Native Module
-
-### Better Native Module Export
-
-Importing your native module by pulling it off of `NativeModules` like above is a bit clunky.
-
-To save consumers of your native module from needing to do that each time they want to access your native module, you can create a JavaScript wrapper for the module. Create a new JavaScript file named `CalendarModule.js` with the following content:
-
-```jsx
-/**
-* This exposes the native CalendarModule module as a JS module. This has a
-* function 'createCalendarEvent' which takes the following parameters:
-
-* 1. String name: A string representing the name of the event
-* 2. String location: A string representing the location of the event
-*/
-import { NativeModules } from 'react-native';
-const { CalendarModule } = NativeModules;
-export default CalendarModule;
-```
-
-This JavaScript file also becomes a good location for you to add any JavaScript side functionality. For example, if you use a type system like Typescript you can add type annotations for your native module here. While React Native does not yet support Native to JS type safety, all your JS code will be type safe. Doing so will also make it easier for you to switch to type-safe native modules down the line. Below is an example of adding type safety to the CalendarModule:
-
-```jsx
-/**
-* This exposes the native CalendarModule module as a JS module. This has a
-* function 'createCalendarEvent' which takes the following parameters:
-*
-* 1. String name: A string representing the name of the event
-* 2. String location: A string representing the location of the event
-*/
-import { NativeModules } from 'react-native';
-const { CalendarModule } = NativeModules
-interface CalendarInterface {
-   createCalendarEvent(name: string, location: string): void;
-}
-export default CalendarModule as CalendarInterface;
-```
-
-In your other JavaScript files you can access the native module and invoke its method like this:
-
-```jsx
-import CalendarModule from './CalendarModule';
-CalendarModule.createCalendarEvent('foo', 'bar');
-```
-
-> This assumes that the place you are importing `CalendarModule` is in the same hierarchy as `CalendarModule.js`. Please update the relative import as necessary.
-
-### Argument Types
-
-When a native module method is invoked in JavaScript, React Native converts the arguments from JS objects to their Java object analogues. So for example, if your Java Native Module method accepts a double, in JS you need to call the method with a number. React Native will handle the conversion for you. Below is a list of the argument types supported for native module methods and the JavaScript equivalents they map to.
-
-| Java          | JavaScript |
-| ------------- | ---------- |
-| Boolean       | ?boolean   |
-| boolean       | boolean    |
-| Double        | ?number    |
-| double        | number     |
-| String        | string     |
-| Callback      | Function   |
-| ReadableMap   | Object     |
-| ReadableArray | Array      |
-
-> The following types are currently supported but will not be supported in TurboModules. Please avoid using them:
->
-> - Integer -> ?number
-> - int -> number
-> - Float -> ?number
-> - float -> number
-
-For argument types not listed above, you will need to handle the conversion yourself. For example, in Android, `Date` conversion is not supported out of the box. You can handle the conversion to the `Date` type within the native method yourself like so:
-
-```java
-    String dateFormat = "yyyy-MM-dd";
-    SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-    Calendar eStartDate = Calendar.getInstance();
-    try {
-        eStartDate.setTime(sdf.parse(startDate));
-    }
-
-```
-
-### Exporting Constants
-
-A native module can export constants by implementing the native method `getConstants()`, which is available in JS. Below you will implement `getConstants()` and return a Map that contains a `DEFAULT_EVENT_NAME` constant you can access in JavaScript:
-
-```java
-@Override
-public Map<String, Object> getConstants() {
-   final Map<String, Object> constants = new HashMap<>();
-   constants.put("DEFAULT_EVENT_NAME", "New Event");
-   return constants;
 }
 ```
 
-The constant can then be accessed by invoking `getConstants` on the native module in JS:
+这个 package 需要在`MainApplication.java`文件的`getPackages`方法中提供。这个文件位于你的 react-native 应用文件夹的 android 目录中。具体路径是: `android/app/src/main/java/com/your-app-name/MainApplication.java`.
 
-```jsx
-const { DEFAULT_EVENT_NAME } = CalendarModule.getConstants();
-console.log(DEFAULT_EVENT_NAME);
+```java
+// MainApplication.java
+...
+import com.your-app-name.CustomToastPackage; // <-- 引入你自己的包
+...
+protected List<ReactPackage> getPackages() {
+  @SuppressWarnings("UnnecessaryLocalVariable")
+  List<ReactPackage> packages = new PackageList(this).getPackages();
+  // Packages that cannot be autolinked yet can be added manually here, for example:
+  // packages.add(new MyReactNativePackage());
+  packages.add(new CustomToastPackage()); // <-- 添加这一行，类名替换成你的Package类的名字 name.
+  return packages;
+}
 ```
 
-Technically it is possible to access constants exported in `getConstants()` directly off the native module object. This will no longer be supported with TurboModules, so we encourage the community to switch to the above approach to avoid necessary migration down the line.
+为了让你的功能从 JavaScript 端访问起来更为方便，通常我们都会把原生模块封装成一个 JavaScript 模块。这不是必须的，但省下了每次都从`NativeModules`中获取对应模块的步骤。这个 JS 文件也可以用于添加一些其他 JavaScript 端实现的功能。
 
-> That currently constants are exported only at initialization time, so if you change getConstants values at runtime it won't affect the JavaScript environment. This will change with Turbomodules. With Turbomodules, `getConstants()` will become a regular native module method), and each invocation will hit the native side.
+```jsx
+// ToastExample.js
+/**
+ * This exposes the native ToastExample module as a JS module. This has a
+ * function 'show' which takes the following parameters:
+ *
+ * 1. String message: A string with the text to toast
+ * 2. int duration: The duration of the toast. May be ToastExample.SHORT or
+ *    ToastExample.LONG
+ */
+import { NativeModules } from "react-native";
+// 下一句中的ToastExample即对应上文
+// public String getName()中返回的字符串
+export default NativeModules.ToastExample;
+```
 
-### Callbacks
+现在，在别处的 JavaScript 代码中可以这样调用你的方法：
 
-Native modules also support a unique kind of argument: a callback. Callbacks are used to pass data from Java to JavaScript for asynchronous methods. They can also be used to asynchronously execute JavaScript from the native side.
+```jsx
+import ToastExample from "./ToastExample";
 
-In order to create a native module method with a callback, first import the `Callback` interface, and then add a new parameter to your native module method of type `Callback`. There are a couple of nuances with callback arguments that will soon be lifted with TurboModules. First off, you can only have two callbacks in your function arguments- a sucessCallback and a failureCallback. In addition, the last argument to a native module method call, if it's a function, is treated as the successCallback, and the second to last argument to a native module method call, if it's a function, is treated as the failure callback.
+ToastExample.show("Awesome", ToastExample.SHORT);
+```
+
+## 更多特性
+
+### 回调函数
+
+原生模块还支持一种特殊的参数——回调函数。它提供了一个函数来把返回值传回给 JavaScript。
 
 ```java
 import com.facebook.react.bridge.Callback;
 
-@ReactMethod
-public void createCalendarEvent(String name, String location, Callback callBack) {
-}
-```
+public class UIManagerModule extends ReactContextBaseJavaModule {
 
-You can invoke the callback in your Java method, providing whatever data you want to pass to JavaScript. Please note that you can only pass serializable data from native code to JavaScript. If you need to pass back a native object you can use `WriteableMaps`, if you need to use a collection use `WritableArrays`. It is also important to highlight that the callback is not invoked immediately after the native function completes. Below the ID of an event created in an earlier call is passed to the callback.
+...
 
-```java
   @ReactMethod
-   public void createCalendarEvent(String name, String location, Callback callBack) {
-       Integer eventId = ...
-       callback.invoke(eventId);
-   }
+  public void measureLayout(
+      int tag,
+      int ancestorTag,
+      Callback errorCallback,
+      Callback successCallback) {
+    try {
+      measureLayout(tag, ancestorTag, mMeasureBuffer);
+      float relativeX = PixelUtil.toDIPFromPixel(mMeasureBuffer[0]);
+      float relativeY = PixelUtil.toDIPFromPixel(mMeasureBuffer[1]);
+      float width = PixelUtil.toDIPFromPixel(mMeasureBuffer[2]);
+      float height = PixelUtil.toDIPFromPixel(mMeasureBuffer[3]);
+      successCallback.invoke(relativeX, relativeY, width, height);
+    } catch (IllegalViewOperationException e) {
+      errorCallback.invoke(e.getMessage());
+    }
+  }
+
+...
 ```
 
-This method could then be accessed in JavaScript using:
+这个函数可以在 JavaScript 里这样使用：
 
 ```jsx
-const onPress = () => {
-  CalendarModule.createCalendarEvent(
-    'Party',
-    'My House',
-    (eventId) => {
-      console.log('Created a new event with id ${eventId}');
-    }
-  );
-};
+UIManager.measureLayout(
+  100,
+  100,
+  msg => {
+    console.log(msg);
+  },
+  (x, y, width, height) => {
+    console.log(x + ":" + y + ":" + width + ":" + height);
+  }
+);
 ```
 
-Another important detail to note is that a native module method can only invoke one callback, one time. This means that you can either call a success callback or a failure callback, but not both, and each callback can only be invoked at most one time. A native module can, however, store the callback and invoke it later.
+原生模块通常只应调用回调函数一次。但是，它可以保存 callback 并在将来调用。
 
-There are two approaches to error handling with callbacks. The first is to follow Node’s convention and treat the first argument passed to the callback as an error object.
-
-```java
-@ReactMethod
-public void createCalendarEvent(String name, String location, Callback myFailureCallback, Callback callBack) {
-    Integer eventId = ...
-    callBack.invoke(null, eventId);
-}
-```
-
-In JavaScript, you can then check the first argument to see if an error was passed through:
-
-```jsx
-const onPress = () => {
-  CalendarModule.createCalendarEventCallback(
-    'testName',
-    'testLocation',
-    (error, eventId) => {
-      if (error) {
-        console.error(`Error found! ${error}`);
-      }
-      console.log(`event id ${eventId} returned`);
-    }
-  );
-};
-```
-
-Another option is to use an onSuccess and onFailure callback:
-
-```java
-@ReactMethod
-public void createCalendarEvent(String name, String location, Callback myFailureCallback, Callback mySuccessCallback) {
-}
-```
-
-Then in JavaScript you can add a seperate callback for error and success responses:
-
-```jsx
-const onPress = () => {
-  CalendarModule.createCalendarEventCallback(
-    'testName',
-    'testLocation',
-    (error) => {
-      console.error(`Error found! ${error}`);
-    },
-    (eventId) => {
-      console.log(`event id ${eventId} returned`);
-    }
-  );
-};
-```
+请务必注意 callback 并非在对应的原生函数返回后立即被执行——注意跨语言通讯是异步的，这个执行过程会通过消息循环来进行。
 
 ### Promises
 
-Native modules can also fulfill a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), which can simplify your JavaScript, especially when using ES2016's [async/await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function) syntax. When the last parameter of a native module Java method is a Promise, its corresponding JS method will return a JS Promise object.
+Promises
 
-Refactoring the above code to use a promise instead of callbacks looks like this:
+**译注**：这一部分涉及到较新的 js 语法和特性，不熟悉的读者建议先阅读 ES6 的相关书籍和文档。
+
+原生模块还可以使用 promise 来简化代码，搭配 ES2016(ES7)标准的`async/await`语法则效果更佳。如果桥接原生方法的最后一个参数是一个`Promise`，则对应的 JS 方法就会返回一个 Promise 对象。
+
+我们把上面的代码用 promise 来代替回调进行重构：
 
 ```java
 import com.facebook.react.bridge.Promise;
 
-@ReactMethod
-public void createCalendarEvent(String name, String location, Promise promise) {
+public class UIManagerModule extends ReactContextBaseJavaModule {
+
+...
+  private static final String E_LAYOUT_ERROR = "E_LAYOUT_ERROR";
+  @ReactMethod
+  public void measureLayout(
+      int tag,
+      int ancestorTag,
+      Promise promise) {
     try {
-        Integer eventId = ...
-        promise.resolve(eventId);
-    } catch(Exception e) {
-        promise.reject("Create Event Error", e);
+      measureLayout(tag, ancestorTag, mMeasureBuffer);
+
+      WritableMap map = Arguments.createMap();
+
+      map.putDouble("relativeX", PixelUtil.toDIPFromPixel(mMeasureBuffer[0]));
+      map.putDouble("relativeY", PixelUtil.toDIPFromPixel(mMeasureBuffer[1]));
+      map.putDouble("width", PixelUtil.toDIPFromPixel(mMeasureBuffer[2]));
+      map.putDouble("height", PixelUtil.toDIPFromPixel(mMeasureBuffer[3]));
+
+      promise.resolve(map);
+    } catch (IllegalViewOperationException e) {
+      promise.reject(E_LAYOUT_ERROR, e);
     }
-}
+  }
+
+...
 ```
 
-> Similar to callbacks, a native module method can either reject or resolve a promise (but not both) and can do so at mosxt once. This means that you can either call a success callback or a failure callback, but not both, and each callback can only be invoked at most one time. A native module can, however, store the callback and invoke it later.
-
-The JavaScript counterpart of this method returns a Promise. This means you can use the `await` keyword within an async function to call it and wait for its result:
+现在 JavaScript 端的方法会返回一个 Promise。这样你就可以在一个声明了`async`的异步函数内使用`await`关键字来调用，并等待其结果返回。（虽然这样写着看起来像同步操作，但实际仍然是异步的，并不会阻塞执行来等待）。
 
 ```jsx
-const onSubmit = async () => {
+async function measureLayout() {
   try {
-    const eventId = await CalendarModule.createCalendarEvent(
-      'Party',
-      'My House'
-    );
-    console.log(`Created a new event with id ${eventId}`);
+    const {
+      relativeX,
+      relativeY,
+      width,
+      height
+    } = await UIManager.measureLayout(100, 100);
+
+    console.log(relativeX + ":" + relativeY + ":" + width + ":" + height);
   } catch (e) {
     console.error(e);
   }
-};
+}
+
+measureLayout();
 ```
 
-The reject method takes different combinations of the following arguments:
+### 多线程
 
-```java
-String code, String message, WritableMap userInfo, Throwable throwable
-```
+原生模块不应对自己被调用时所处的线程做任何假设，当前的状况有可能会在将来的版本中改变。如果一个过程要阻塞执行一段时间，这个工作应当分配到一个内部管理的工作线程，然后从那边可以调用任意的回调函数。_译注_：我们通常用 AsyncTask 来完成这项工作。
 
-For more detail, you can find the `Promise.java` interface [here](https://github.com/facebook/react-native/blob/master/ReactAndroid/src/main/java/com/facebook/react/bridge/Promise.java#L1). If `userInfo` is not provided, ReactNative will set it to null. For the rest of the parameters React Native will use a default value. The `message` argument provides the error `message` shown at the top of an error call stack. Below is an example of the error message shown in JavaScript from the following reject call in Java.
+### 发送事件到 JavaScript
 
-Java reject call:
-
-```java
-promise.reject("Create Event error", "Error parsing date", e);
-```
-
-Error message in React Native App when promise is rejected:
-
-<figure>
-  <img src="/docs/assets/native-modules-android-errorscreen.png" width="200" alt="Image of error message in React Native app." />
-  <figcaption>Image of error message</figcaption>
-</figure>
-
-### Sending Events to JavaScript
-
-Native modules can signal events to JavaScript without being invoked directly. For example, you might want to signal to JavaScript a reminder that a calendar event from the native Android calendar app will occur soon. The easiest way to do this is to use the `RCTDeviceEventEmitter` which can be obtained from the `ReactContext` as in the code snippet below.
+原生模块可以在没有被调用的情况下往 JavaScript 发送事件通知。最简单的办法就是通过`RCTDeviceEventEmitter`，这可以通过`ReactContext`来获得对应的引用，像这样：
 
 ```java
 ...
@@ -510,66 +314,65 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.Arguments;
 ...
 private void sendEvent(ReactContext reactContext,
-                      String eventName,
-                      @Nullable WritableMap params) {
- reactContext
-     .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-     .emit(eventName, params);
+                       String eventName,
+                       @Nullable WritableMap params) {
+  reactContext
+      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+      .emit(eventName, params);
 }
 ...
 WritableMap params = Arguments.createMap();
 params.putString("eventProperty", "someValue");
 ...
-sendEvent(reactContext, "EventReminder", params);x`
+sendEvent(reactContext, "EventReminder", params);
 ```
 
-JavaScript modules can then register to receive events by `addListener` on the [NativeEventEmitter](https://github.com/facebook/react-native/blob/master/Libraries/EventEmitter/NativeEventEmitter.js) class.
+JavaScript 模块可以通过使用`NativeEventEmitter`模块来监听事件：
 
 ```jsx
 import { NativeEventEmitter, NativeModules } from 'react-native';
-...
+// ...
 
- componentDidMount() {
-   ...
-   const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
-   this.eventListener = eventEmitter.addListener('EventReminder', (event) => {
-      console.log(event.eventProperty) // "someValue"
-   });
-   ...
- }
-
- componentWillUnmount() {
-   this.eventListener.remove(); //Removes the listener
- }
+  componentDidMount() {
+    // ...
+    const eventEmitter = new NativeEventEmitter(NativeModules.ToastExample);
+    this.eventEmitter = eventEmitter.addListener('EventReminder', (event) => {
+       console.log(event.eventProperty) // "someValue"
+    };
+    // ...
+  }
+  componentWillUnmount() {
+    this.eventListener.remove(); // Removes the listener
+  }
 ```
 
-### Getting Activity Result from startActivityForResult
+### 从`startActivityForResult`中获取结果
 
-You'll need to listen to `onActivityResult` if you want to get results from an activity you started with `startActivityForResult`. To do this, you must extend `BaseActivityEventListener` or implement `ActivityEventListener`. The former is preferred as it is more resilient to API changes. Then, you need to register the listener in the module's constructor like so:
+如果你使用`startActivityForResult`调起了一个 activity 并想从其中获取返回结果，那么你需要监听`onActivityResult`事件。具体的做法是继承`BaseActivityEventListener`或是实现`ActivityEventListener`。我们推荐前一种做法，因为它相对来说不太会受到 API 变更的影响。然后你需要在模块的构造函数中注册这一监听事件。
 
 ```java
 reactContext.addActivityEventListener(mActivityResultListener);
 ```
 
-Now you can listen to `onActivityResult` by implementing the following method:
+现在你可以通过重写下面的方法来实现对`onActivityResult`的监听：
 
 ```java
 @Override
 public void onActivityResult(
- final Activity activity,
- final int requestCode,
- final int resultCode,
- final Intent intent) {
- // Your logic here
+  final Activity activity,
+  final int requestCode,
+  final int resultCode,
+  final Intent intent) {
+  // 在这里实现你自己的逻辑
 }
 ```
 
-Let's implement a basic image picker to demonstrate this. The image picker will expose the method `pickImage` to JavaScript, which will return the path of the image when called.
+下面我们写一个简单的图片选择器来实践一下。这个图片选择器会把`pickImage`方法暴露给 JavaScript，而这个方法在调用时就会把图片的路径返回到 JS 端。
 
-```jsx
+```java
 public class ImagePickerModule extends ReactContextBaseJavaModule {
 
-  private static final int IMAGE_PICKER_REQUEST = 1;
+  private static final int IMAGE_PICKER_REQUEST = 467081;
   private static final String E_ACTIVITY_DOES_NOT_EXIST = "E_ACTIVITY_DOES_NOT_EXIST";
   private static final String E_PICKER_CANCELLED = "E_PICKER_CANCELLED";
   private static final String E_FAILED_TO_SHOW_PICKER = "E_FAILED_TO_SHOW_PICKER";
@@ -641,31 +444,29 @@ public class ImagePickerModule extends ReactContextBaseJavaModule {
 }
 ```
 
-### Listening to Lifecycle Events
+### 监听生命周期事件
 
-Listening to the activity's LifeCycle events such as `onResume`, `onPause` etc. is very similar to how `ActivityEventListener` was implemented. The module must implement `LifecycleEventListener`. Then, you need to register a listener in the module's constructor like so:
+监听 activity 的生命周期事件（比如`onResume`, `onPause`等等）和我们在前面实现 `ActivityEventListener`的做法类似。模块必须实现`LifecycleEventListener`，然后需要在构造函数中注册一个监听函数：
 
-```jsx
+```java
 reactContext.addLifecycleEventListener(this);
 ```
 
-Now you can listen to the activity's LifeCycle events by implementing the following methods:
+现在你可以通过实现下列方法来监听 activity 的生命周期事件了：
 
-```jsx
+```java
 @Override
 public void onHostResume() {
-   // Activity `onResume`
+    // Activity `onResume`
 }
+
 @Override
 public void onHostPause() {
-   // Activity `onPause`
+    // Activity `onPause`
 }
+
 @Override
 public void onHostDestroy() {
-   // Activity `onDestroy`
+    // Activity `onDestroy`
 }
 ```
-
-### Threading
-
-To date, on Android, all native module async methods execute on one thread. Native modules should not have any assumptions about what thread they are being called on, as the current assignment is subject to change in the future. If a blocking call is required, the heavy work should be dispatched to an internally managed worker thread, and any callbacks distributed from there.

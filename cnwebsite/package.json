@@ -10,6 +10,7 @@
     "url": "https://github.com/reactnativecn/react-native-website/issues"
   },
   "scripts": {
+    "version": "node scripts/create-version",
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",

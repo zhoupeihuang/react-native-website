@@ -1,19 +1,19 @@
 ---
 id: security
-title: Security
+title: 网络安全策略
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.21%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(0.79%)
 
-Security is often overlooked when building apps. It is true that it is impossible to build software that is completely impenetrable—we’ve yet to invent a completely impenetrable lock (bank vaults do, after all, still get broken into). However, the probability of falling victim to a malicious attack or being exposed for a security vulnerability is inversely proportional to the effort you’re willing to put in to protecting your application against any such eventuality. Although an ordinary padlock is pickable, it is still much harder to get past than a cabinet hook!
+开发应用时安全常常是一个被忽视的话题。的确，搭建一个完全无懈可击的软件是不可能的——我们还没有发明一个完全坚不可摧的锁（毕竟，银行金库已经足够坚固但仍然会被闯入）。However, the probability of falling victim to a malicious attack or being exposed for a security vulnerability is inversely proportional to the effort you’re willing to put in to protecting your application against any such eventuality. Although an ordinary padlock is pickable, it is still much harder to get past than a cabinet hook!
 
-<img src="/docs/assets/d_security_chart.svg" width="283" alt=" " style={{float:"right"}} />
+<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/d_security_chart.svg" width="283" alt=" " style="float:right" />
 
 In this guide, you will learn about best practices for storing sensitive information, authentication, network security, and tools that will help you secure your app. This is not a preflight checklist—it is a catalogue of options, each of which will help further protect your app and users.
 
-## Storing Sensitive Info
+## 保存敏感信息
 
-Never store sensitive API keys in your app code. Anything included in your code could be accessed in plain text by anyone inspecting the app bundle. Tools like [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv) and [react-native-config](https://github.com/luggit/react-native-config/) are great for adding environment-specific variables like API endpoints, but they should not be confused with server-side environment variables, which can often contain secrets and api keys.
+Never store sensitive API keys in your app code. Anything included in your code could be accessed in plain text by anyone inspecting the app bundle. Tools like [react-native-dotenv](https://github.com/zetachang/react-native-dotenv) and [react-native-config](https://github.com/luggit/react-native-config/) are great for adding environment-specific variables like API endpoints, but they should not be confused with server-side environment variables, which can often contain secrets and api keys.
 
 If you must have an API key or a secret to access some resource from your app, the most secure way to handle this would be to build an orchestration layer between your app and the resource. This could be a serverless function (e.g. using AWS Lambda or Google Cloud Functions) which can forward the request with the required API key or secret. Secrets in server side code cannot be accessed by the API consumers the same way secrets in your app code can.
 
@@ -32,16 +32,18 @@ If you must have an API key or a secret to access some resource from your app, t
 | Persisting GraphQL state                      |                                    |
 | Storing global app-wide variables             |                                    |
 
-#### Developer Notes
+<div class="toggler">
+  <span>Developer Notes</span>
+  <span role="tablist" class="toggle-devNotes">
+    <button role="tab" class="button-webNote active" onclick="displayTabs('devNotes', 'webNote')" aria-selected="true">Web</button>
+  </span>
+</div>
 
-<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["web"])}>
-
-<TabItem value="web">
+<block class="webNote devNotes" />
 
 > Async Storage is the React Native equivalent of Local Storage from the web
 
-</TabItem>
-</Tabs>
+<block class="endBlock devNotes" />
 
 ### Secure Storage
 
@@ -61,16 +63,15 @@ The [Android Keystore](https://developer.android.com/training/articles/keystore)
 
 In order to use iOS Keychain services or Android Secure Shared Preferences, you can either write a bridge yourself or use a library which wraps them for you and provides a unified API at your own risk. Some libraries to consider:
 
-- [expo-secure-store](https://docs.expo.io/versions/latest/sdk/securestore/)
 - [react-native-keychain](https://github.com/oblador/react-native-keychain)
-- [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) - secure for iOS, but uses Android Shared Preferences for Android (which is not secure by default). There is however a [branch](https://github.com/mCodex/react-native-sensitive-info/tree/keystore) that uses Android Keystore.
-  - [redux-persist-sensitive-storage](https://github.com/CodingZeal/redux-persist-sensitive-storage) - wraps react-native-sensitive-info for Redux.
+- [react-native-sensitive-info](https://github.com/mCodex/react-native-sensitive-info) - secure for iOS, but uses Android Shared Preferences for Android (which is not secure by default). There is however a [fork](https://github.com/mCodex/react-native-sensitive-info/tree/keystore)) that uses Android Keystore
+- [redux-persist-sensitive-storage](https://github.com/CodingZeal/redux-persist-sensitive-storage) - wraps react-native-sensitive-info
 
 > **Be mindful of unintentionally storing or exposing sensitive info.** This could happen accidentally, for example saving sensitive form data in redux state and persisting the whole state tree in Async Storage. Or sending user tokens and personal info to an application monitoring service such as Sentry or Crashlytics.
 
 ## Authentication and Deep Linking
 
-<img src="/docs/assets/d_security_deep-linking.svg" width="225" alt=" " style={{float: "right", margin: "0 0 1em 1em"}} />
+<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/d_security_deep-linking.svg" width="225" alt=" " style="float:right; margin: 0 0 1em 1em" />
 
 Mobile apps have a unique vulnerability that is non-existent in the web: **deep linking**. Deep linking is a way of sending data directly to a native application from an outside source. A deep link looks like `app://` where `app` is your app scheme and anything following the // could be used internally to handle the request.
 
@@ -82,7 +83,7 @@ The reason deep links are not secure is because there is no centralized method o
 
 There is nothing stopping a malicious application from hijacking your deep link by also registering to the same scheme and then obtaining access to the data your link contains. Sending something like `app://products/1` is not harmful, but sending tokens is a security concern.
 
-When the operating system has two or more applications to choose from when opening a link, Android will show the user a modal and ask them to choose which application to use to open the link. On iOS however, the operating system will make the choice for you, so the user will be blissfully unaware. Apple has made steps to address this issue in later iOS versions (iOS 11) where they instituted a first-come-first-served principle, although this vulnerability could still be exploited in different ways which you can read more about [here](https://blog.trendmicro.com/trendlabs-security-intelligence/ios-url-scheme-susceptible-to-hijacking/). Using [universal links](https://developer.apple.com/ios/universal-links/) will allow linking to content within your app securely in iOS.
+When the operating system has two or more applications to choose from when opening a link, Android will show the user a modal and ask them to choose which application to use to open the link. On iOS however, the operating system will make the choice for you, so the user will be blissfully unaware. Apple has made steps to address this issue in later iOS versions (iOS 11) where the instituted a first-come-first-served principle, although this vulnerability could still be exploited in different ways which you can read more about [here](https://blog.trendmicro.com/trendlabs-security-intelligence/ios-url-scheme-susceptible-to-hijacking/). Using [universal links](https://developer.apple.com/ios/universal-links/) will allow linking to content within your app securely in iOS.
 
 ### OAuth2 and Redirects
 

@@ -3,22 +3,24 @@ id: easing
 title: Easing
 ---
 
-The `Easing` module implements common easing functions. This module is used by [Animated.timing()](animated.md#timing) to convey physically believable motion in animations.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+
+`Easing`模块实现了常见的动画缓动函数。 This module is used by [Animated.timing()](animated.md#timing) to convey physically believable motion in animations.
 
 You can find a visualization of some common easing functions at http://easings.net/
 
-### Predefined animations
+### 查看预置动画
 
-The `Easing` module provides several predefined animations through the following methods:
+`Easing`模块通过以下几个方法提供了几种预置的动画：
 
-- [`back`](easing.md#back) provides a basic animation where the object goes slightly back before moving forward
+- [`back`](easing.md#back) provides a simple animation where the object goes slightly back before moving forward
 - [`bounce`](easing.md#bounce) provides a bouncing animation
-- [`ease`](easing.md#ease) provides a basic inertial animation
-- [`elastic`](easing.md#elastic) provides a basic spring interaction
+- [`ease`](easing.md#ease) provides a simple inertial animation
+- [`elastic`](easing.md#elastic) provides a simple spring interaction
 
-### Standard functions
+### 查看标准函数
 
-Three standard easing functions are provided:
+目前提供了三种标准缓动函数：
 
 - [`linear`](easing.md#linear)
 - [`quad`](easing.md#quad)
@@ -26,9 +28,9 @@ Three standard easing functions are provided:
 
 The [`poly`](easing.md#poly) function can be used to implement quartic, quintic, and other higher power functions.
 
-### Additional functions
+### 查看补充函数
 
-Additional mathematical functions are provided by the following methods:
+此外还通过以下几个方法提供了几种数学函数：
 
 - [`bezier`](easing.md#bezier) provides a cubic bezier curve
 - [`circle`](easing.md#circle) provides a circular function
@@ -41,15 +43,13 @@ The following helpers are used to modify other easing functions.
 - [`inOut`](easing.md#inout) makes any easing function symmetrical
 - [`out`](easing.md#out) runs an easing function backwards
 
-## Example
+## 示例
 
 ```SnackPlayer name=Easing%20Demo
 import React from "react";
 import { Animated, Easing, SectionList, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
 const App = () => {
   let opacity = new Animated.Value(0);
-
   const animate = easing => {
     opacity.setValue(0);
     Animated.timing(opacity, {
@@ -58,12 +58,10 @@ const App = () => {
       easing
     }).start();
   };
-
   const size = opacity.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 80]
   });
-
   const animatedStyles = [
     styles.box,
     {
@@ -72,7 +70,6 @@ const App = () => {
       height: size
     }
   ];
-
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
@@ -101,7 +98,6 @@ const App = () => {
     </View>
   );
 };
-
 const SECTIONS = [
   {
     title: "Predefined animations",
@@ -149,7 +145,6 @@ const SECTIONS = [
     ]
   }
 ];
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -184,15 +179,14 @@ const styles = StyleSheet.create({
     padding: 8
   }
 });
-
 export default App;
 ```
 
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `step0()`
 
@@ -232,7 +226,7 @@ http://cubic-bezier.com/#0,0,1,1
 static ease(t)
 ```
 
-A basic inertial interaction, similar to an object slowly accelerating to speed.
+A simple inertial interaction, similar to an object slowly accelerating to speed.
 
 http://cubic-bezier.com/#.42,0,1,1
 
@@ -316,7 +310,7 @@ http://easings.net/#easeInExpo
 static elastic(bounciness)
 ```
 
-A basic elastic interaction, similar to a spring oscillating back and forth.
+A simple elastic interaction, similar to a spring oscillating back and forth.
 
 Default bounciness is 1, which overshoots a little bit once. 0 bounciness doesn't overshoot at all, and bounciness of N > 1 will overshoot about N times.
 
@@ -330,7 +324,7 @@ http://easings.net/#easeInElastic
 static back(s)
 ```
 
-Use with `Animated.parallel()` to create a basic effect where the object animates back slightly as the animation starts.
+Use with `Animated.parallel()` to create a simple effect where the object animates back slightly as the animation starts.
 
 ---
 
@@ -340,7 +334,7 @@ Use with `Animated.parallel()` to create a basic effect where the object animate
 static bounce(t)
 ```
 
-Provides a basic bouncing effect.
+Provides a simple bouncing effect.
 
 http://easings.net/#easeInBounce
 
@@ -360,11 +354,9 @@ A useful tool to visualize cubic bezier curves can be found at http://cubic-bezi
 
 ### `in()`
 
-<!-- prettier-ignore-start -->
 ```jsx
-static in(easing);
+static in easing;
 ```
-<!-- prettier-ignore-end -->
 
 Runs an easing function forwards.
 

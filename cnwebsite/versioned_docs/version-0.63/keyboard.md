@@ -3,16 +3,26 @@ id: keyboard
 title: Keyboard
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(95.98%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(4.02%)
 
-`Keyboard` module to control keyboard events.
+`Keyboard`模块用来控制键盘相关的事件。
 
-### Usage
+### 用法示例
 
-The Keyboard module allows you to listen for native events and react to them, as well as make changes to the keyboard, like dismissing it.
+`Keyboard`模块可以监听原生键盘事件以做出相应回应，比如收回键盘。
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=Keyboard%20Function%20Component%20Example
 
@@ -56,8 +66,7 @@ const s = StyleSheet.create({
 export default Example;
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
 ```SnackPlayer name=Keyboard%20Class%20Component%20Example
 import React, {Component} from 'react';
@@ -106,14 +115,13 @@ const s = StyleSheet.create({
 export default Example;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `addListener()`
 
@@ -121,16 +129,16 @@ export default Example;
 static addListener(eventName, callback)
 ```
 
-The `addListener` function connects a JavaScript function to an identified native keyboard notification event.
+`addListener`用于注册一个 JavaScript 函数来监听处理原生键盘通知事件。
 
-This function then returns the reference to the listener.
+此方法会返回监听函数的引用。
 
-**Parameters:**
+**参数：**
 
-| Name      | Type     | Required | Description                                                                               |
-| --------- | -------- | -------- | ----------------------------------------------------------------------------------------- |
-| eventName | string   | Yes      | The `nativeEvent` is the string that identifies the event you're listening for. See below |
-| callback  | function | Yes      | The function to be called when the event fires                                            |
+| 名称      | 类型     | Required | 说明                                                   |
+| --------- | -------- | -------- | ------------------------------------------------------ |
+| eventName | string   | Yes      | `nativeEvent`参数用来指明要监听的事件，具体有以下几种: |
+| callback  | function | Yes      | 事件触发时调用的 js 函数                               |
 
 **nativeEvent**
 
@@ -143,7 +151,7 @@ This can be any of the following
 - `keyboardWillChangeFrame`
 - `keyboardDidChangeFrame`
 
-Note that if you set `android:windowSoftInputMode` to `adjustResize` or `adjustPan`, only `keyboardDidShow` and `keyboardDidHide` events will be available on Android. If you set `android:windowSoftInputMode` to `adjustNothing`, no events will be available on Android. `keyboardWillShow` as well as `keyboardWillHide` are generally not available on Android since there is no native corresponding event.
+注意如果你把`android:windowSoftInputMode`设置为`adjustResize`或是`adjustPan`，则在 Android 上只有`keyboardDidShow`和`keyboardDidHide`事件有效。如果`android:windowSoftInputMode`设置为`adjustNothing`，则没有任何事件有效。`keyboardWillShow` as well as `keyboardWillHide` are generally not available on Android since there is no native corresponding event.
 
 ---
 
@@ -153,14 +161,14 @@ Note that if you set `android:windowSoftInputMode` to `adjustResize` or `adjustP
 static removeListener(eventName, callback)
 ```
 
-Removes a specific listener.
+移除某个类型事件的监听函数。
 
-**Parameters:**
+**参数：**
 
-| Name      | Type     | Required | Description                                                                    |
-| --------- | -------- | -------- | ------------------------------------------------------------------------------ |
-| eventName | string   | Yes      | The `nativeEvent` is the string that identifies the event you're listening for |
-| callback  | function | Yes      | The function to be called when the event fires                                 |
+| 名称      | 类型     | Required | 说明                             |
+| --------- | -------- | -------- | -------------------------------- |
+| eventName | string   | Yes      | 要移除监听函数的原生事件类型名称 |
+| callback  | function | Yes      | 要移除的监听函数                 |
 
 ---
 
@@ -170,13 +178,7 @@ Removes a specific listener.
 static removeAllListeners(eventName)
 ```
 
-Removes all listeners for a specific event type.
-
-**Parameters:**
-
-| Name      | Type   | Required | Description                                                          |
-| --------- | ------ | -------- | -------------------------------------------------------------------- |
-| eventType | string | Yes      | The native event string listeners are watching which will be removed |
+移除某个类型事件的所有监听函数。
 
 ---
 
@@ -186,7 +188,7 @@ Removes all listeners for a specific event type.
 static dismiss()
 ```
 
-Dismisses the active keyboard and removes focus.
+把弹出的键盘收回去，同时使当前的文本框失去焦点。
 
 ---
 

@@ -3,9 +3,11 @@ id: symbolication
 title: Symbolicating a stack trace
 ---
 
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+
 If a React Native app throws an unhandled exception in a release build, the output may be obfuscated and hard to read:
 
-```shell
+```sh
 07-15 10:58:25.820 18979 18998 E AndroidRuntime: FATAL EXCEPTION: mqt_native_modules
 07-15 10:58:25.820 18979 18998 E AndroidRuntime: Process: com.awesomeproject, PID: 18979 07-15 10:58:25.820 18979 18998 E AndroidRuntime: com.facebook.react.common.JavascriptException: Failed, js engine: hermes, stack:
 07-15 10:58:25.820 18979 18998 E AndroidRuntime: p@1:132161
@@ -20,13 +22,13 @@ The sections like `p@1:132161` are minified function names and bytecode offsets.
 
 From a file containing the stacktrace:
 
-```shell
+```sh
 npx metro-symbolicate android/app/build/generated/sourcemaps/react/release/index.android.bundle.map < stacktrace.txt
 ```
 
 From `adb logcat`directly:
 
-```shell
+```sh
 adb logcat -d | npx metro-symbolicate android/app/build/generated/sourcemaps/react/release/index.android.bundle.map
 ```
 

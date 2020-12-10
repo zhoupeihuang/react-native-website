@@ -155,13 +155,8 @@ First, create an empty `index.js` file in the root of your React Native project.
 In your `index.js`, create your component. In our sample here, we will add a `<Text>` component within a styled `<View>`:
 
 ```jsx
-import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from "react";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 
 class HelloWorld extends React.Component {
   render() {
@@ -175,19 +170,16 @@ class HelloWorld extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: "center"
   },
   hello: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10
   }
 });
 
-AppRegistry.registerComponent(
-  'MyReactNativeApp',
-  () => HelloWorld
-);
+AppRegistry.registerComponent("MyReactNativeApp", () => HelloWorld);
 ```
 
 ##### 3. Configure permissions for development error overlay

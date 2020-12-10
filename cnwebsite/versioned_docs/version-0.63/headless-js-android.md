@@ -1,34 +1,34 @@
 ---
 id: headless-js-android
-title: Headless JS
+title: Headless JS（后台任务）
 ---
 
-Headless JS is a way to run tasks in JavaScript while your app is in the background. It can be used, for example, to sync fresh data, handle push notifications, or play music.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-## The JS API
+Headless JS 是一种使用 js 在后台执行任务的方法。它可以用来在后台同步数据、处理推送通知或是播放音乐等等。
 
-A task is an async function that you register on `AppRegistry`, similar to registering React applications:
+## JS 端的 API
+
+首先我们要通过`AppRegistry`来注册一个异步函数，这个函数我们称之为“任务”。注册方式类似在 index.js 中注册 RN 应用：
 
 ```jsx
-import { AppRegistry } from 'react-native';
-AppRegistry.registerHeadlessTask('SomeTaskName', () =>
-  require('SomeTaskName')
-);
+import { AppRegistry } from "react-native";
+AppRegistry.registerHeadlessTask("SomeTaskName", () => require("SomeTaskName"));
 ```
 
-Then, in `SomeTaskName.js`:
+然后创建 require 中引用的`SomeTaskName.js`文件:
 
 ```jsx
-module.exports = async (taskData) => {
-  // do stuff
+module.exports = async taskData => {
+  // 要做的任务
 };
 ```
 
-You can do anything in your task such as network requests, timers and so on, as long as it doesn't touch UI. Once your task completes (i.e. the promise is resolved), React Native will go into "paused" mode (unless there are other tasks running, or there is a foreground app).
+你可以在任务中处理任何事情（网络请求、定时器等等），但唯独**不要涉及用户界面**！在任务完成后（例如在 promise 中调用 resolve），RN 会进入一个“暂停”模式，直到有新任务需要执行或者是应用回到前台。
 
-## The Java API
+## Java 端的 API
 
-Yes, this does still require some native code, but it's pretty thin. You need to extend `HeadlessJsTaskService` and override `getTaskConfig`, e.g.:
+没错，我们还需要一些原生代码，但是请放心并不麻烦。首先需要像下面这样继承`HeadlessJsTaskService`，然后覆盖`getTaskConfig`方法的实现：
 
 ```java
 package com.your_application_name;
@@ -48,8 +48,8 @@ public class MyTaskService extends HeadlessJsTaskService {
       return new HeadlessJsTaskConfig(
           "SomeTaskName",
           Arguments.fromBundle(extras),
-          5000, // timeout for the task
-          false // optional: defines whether or not  the task is allowed in foreground. Default is false
+          5000, // 任务的超时时间
+          false // 可选参数：是否允许任务在前台运行，默认为false
         );
     }
     return null;
@@ -57,15 +57,13 @@ public class MyTaskService extends HeadlessJsTaskService {
 }
 ```
 
-Then add the service to your `AndroidManifest.xml` file:
+然后记得把服务添加到`AndroidManifest`文件里：
 
 ```
 <service android:name="com.example.MyTaskService" />
 ```
 
-Now, whenever you [start your service][0], e.g. as a periodic task or in response to some system event / broadcast, JS will spin up, run your task, then spin down.
-
-Example:
+好了，现在当你[启动服务时][0]（例如一个周期性的任务或是响应一些系统事件/广播），JS 任务就会开始执行。例如：
 
 ```java
 Intent service = new Intent(getApplicationContext(), MyTaskService.class);
@@ -77,24 +75,23 @@ service.putExtras(bundle);
 getApplicationContext().startService(service);
 ```
 
-## Retries
+## 重试
 
-By default, the headless JS task will not perform any retries. In order to do so, you need to create a `HeadlessJsRetryPolicy` and throw a specific `Error`.
+By default, the headless JS task will not perform any retries. In order to do so, you need to create a `HeadlessJsRetryPolicy` and throw a specfic `Error`.
 
-`LinearCountingRetryPolicy` is an implementation of `HeadlessJsRetryPolicy` that allows you to specify a maximum number of retries with a fixed delay between each attempt. If that does not suit your needs then you can implement your own `HeadlessJsRetryPolicy`. These policies can be passed as an extra argument to the `HeadlessJsTaskConfig` constructor, e.g.
+`LinearCountingRetryPolicy` is an implementation of `HeadlessJsRetryPolicy` that allows you to specify a maximum number of retries with a fixed delay between each attempt. If that does not suit your needs then you can easily implement your own `HeadlessJsRetryPolicy`. These policies can simply be passed as an extra argument to the `HeadlessJsTaskConfig` constructor, e.g.
 
 ```java
 HeadlessJsRetryPolicy retryPolicy = new LinearCountingRetryPolicy(
-  3, // Max number of retry attempts
-  1000 // Delay between each retry attempt
+3, // Max number of retry attempts
+1000 // Delay between each retry attempt
 );
-
 return new HeadlessJsTaskConfig(
-  'SomeTaskName',
-  Arguments.fromBundle(extras),
-  5000,
-  false,
-  retryPolicy
+'SomeTaskName',
+Arguments.fromBundle(extras),
+5000,
+false,
+retryPolicy
 );
 ```
 
@@ -104,26 +101,26 @@ Example:
 
 ```jsx
 import {HeadlessJsTaskError} from 'HeadlessJsTask';
-
 module.exports = async (taskData) => {
-  const condition = ...;
-  if (!condition) {
-    throw new HeadlessJsTaskError();
-  }
+const condition = ...;
+if (!condition) {
+  throw new HeadlessJsTaskError();
+}
 };
 ```
 
 If you wish all errors to cause a retry attempt, you will need to catch them and throw the above error.
 
-## Caveats
+## 注意事项
 
-- The function passed to `setTimeout` does not always behave as expected. Instead the function is called only when the application is launched again. If you only need to wait, use the retry functionality.
-- By default, your app will crash if you try to run a task while the app is in the foreground. This is to prevent developers from shooting themselves in the foot by doing a lot of work in a task and slowing the UI. You can pass a fourth `boolean` argument to control this behaviour.
-- If you start your service from a `BroadcastReceiver`, make sure to call `HeadlessJsTaskService.acquireWakeLockNow()` before returning from `onReceive()`.
+- The function passed to `setTimeout` does not always behave as expected. Instead the function is called only when the application is launched again. If you just need to wait, use the retry functionality.
 
-## Example Usage
+* 默认情况下，如果应用正在前台运行时尝试执行任务，那么应用会崩溃。这是为了防止开发者在任务中处理太多逻辑而拖慢用户界面。如果你必须要这么做，那么可以设置第四个参数为`false`来更改这一限制。
+* 如果你是通过`BroadcastReceiver`来启动的服务，那么谨记在从`onReceive()`返回之前要调用`HeadlessJsTaskService.acquireWakeLockNow()`。
 
-Service can be started from Java API. First you need to decide when the service should be started and implement your solution accordingly. Here is an example that reacts to network connection change.
+## 示例
+
+我们可以使用 Java API 来开启一个 service。. First you need to decide when the service should be started and implement your solution accordingly. Here is a simple example that reacts to network connection change.
 
 Following lines shows part of Android manifest file for registering broadcast receiver.
 
@@ -143,13 +140,11 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, final Intent intent) {
         /**
-          This part will be called everytime network connection is changed
-          e.g. Connected -> Not Connected
+          这部分代码会在每次网络状态变化时调用，比如掉线的时候
         **/
         if (!isAppOnForeground((context))) {
             /**
-              We will start our service and send extra info about
-              network connections
+              启动服务并发送当前的网络状态信息
             **/
             boolean hasInternet = isNetworkAvailable(context);
             Intent serviceIntent = new Intent(context, MyTaskService.class);
@@ -161,7 +156,7 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
 
     private boolean isAppOnForeground(Context context) {
         /**
-          We need to check if app is in foreground otherwise the app will crash.
+          我们需要先检查应用当前是否在前台运行，否则应用会崩溃。
          http://stackoverflow.com/questions/8489993/check-android-application-is-in-foreground-or-not
         **/
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);

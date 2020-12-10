@@ -1,13 +1,15 @@
 ---
 id: progressviewios
-title: '🚧 ProgressViewIOS'
+title: 🚧 ProgressViewIOS
 ---
 
-> **Deprecated.** Use [@react-native-community/progress-view](https://github.com/react-native-progress-view/progress-view) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-Uses `ProgressViewIOS` to render a UIProgressView on iOS.
+> **已过时。** Use [@react-native-community/progress-view](https://github.com/react-native-community/progress-view) instead.
 
-### Example
+使用`ProgressViewIOS`来在 iOS 上渲染一个 UIProgressView。
+
+### 示例
 
 ```SnackPlayer name=ProgressViewIOS&supportedPlatforms=ios
 import React from 'react';
@@ -59,66 +61,64 @@ export default App;
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
-Inherits [View Props](view.md#props).
-
 ### `progress`
 
-The progress value (between 0 and 1).
+当前的进度值（0 到 1 之间）。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `progressImage`
 
-A stretchable image to display as the progress bar.
+一个可以拉伸的图片，用于显示进度条。
 
-| Type                   | Required |
-| ---------------------- | -------- |
-| Image.propTypes.source | No       |
+| 类型                   | 必填 |
+| ---------------------- | ---- |
+| Image.propTypes.source | 否   |
 
 ---
 
 ### `progressTintColor`
 
-The tint color of the progress bar itself.
+进度条本身染上的颜色。
 
-| Type   | Required |
-| ------ | -------- |
-| string | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| string | 否   |
 
 ---
 
 ### `progressViewStyle`
 
-The progress bar style.
+进度条的样式。
 
-| Type                   | Required |
-| ---------------------- | -------- |
-| enum('default', 'bar') | No       |
+| 类型                   | 必填 |
+| ---------------------- | ---- |
+| enum('default', 'bar') | 否   |
 
 ---
 
 ### `trackImage`
 
-A stretchable image to display behind the progress bar.
+一个可拉伸的图片，用于显示进度条后面的轨道。
 
-| Type                   | Required |
-| ---------------------- | -------- |
-| Image.propTypes.source | No       |
+| 类型                   | 必填 |
+| ---------------------- | ---- |
+| Image.propTypes.source | 否   |
 
 ---
 
 ### `trackTintColor`
 
-The tint color of the progress bar track.
+进度条轨道染上的颜色。
 
-| Type   | Required |
-| ------ | -------- |
-| string | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| string | 否   |

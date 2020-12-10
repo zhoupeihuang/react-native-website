@@ -1,9 +1,11 @@
 ---
 id: pushnotificationios
-title: '🚧 PushNotificationIOS'
+title: 🚧 PushNotificationIOS
 ---
 
-> **Deprecated.** Use [@react-native-community/push-notification-ios](https://github.com/react-native-community/react-native-push-notification-ios) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(97.17%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(2.83%)
+
+> **已过时。** Use [@react-native-community/push-notification-ios](https://github.com/react-native-community/react-native-push-notification-ios) instead.
 
 <div class="banner-native-code-required">
   <h3>Projects with Native Code Only</h3>
@@ -12,42 +14,32 @@ title: '🚧 PushNotificationIOS'
   </p>
 </div>
 
-Handle push notifications for your app, including permission handling and icon badge number.
+本模块帮助你处理应用的推送通知，包括权限控制以及应用图标上的角标数（未读消息数）。
 
-To get up and running, [configure your notifications with Apple](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html#//apple_ref/doc/uid/TP40012582-CH26-SW6) and your server-side system.
-
-React Native version equal or higher than 0.60.0:
-
-- Autolinking in 0.60.0 handles the linking for you!
-
-React Native versions lower than 0.60.0:
+要使用推送通知功能，首先[在苹果后台配置推送通知服务](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html#//apple_ref/doc/uid/TP40012582-CH26-SW6)并且准备好服务端的系统。
 
 Add the PushNotificationIOS library to your Podfile: ./ios/Podfile
 
-- CocoaPods:
+```ruby
+  target 'myAwesomeApp' do
+    # Pods for myAwesomeApp
+    pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
+  end
+```
 
-  - Add the PushNotificationIOS library to your Podfile: ./ios/Podfile
+译注: 0.60 版本之前的步骤不同，请查看老版本文档。
 
-    ```ruby
-    target 'myAwesomeApp' do
-      # Pods for myAwesomeApp
-      pod 'React-RCTPushNotification', :path => '../node_modules/react-native/Libraries/PushNotificationIOS'
-    end
-    ```
+然后你需要在 AppDelegate 中启用推送通知的支持以及注册相应的事件。
 
-- [Manually link](linking-libraries-ios.md#manual-linking) the PushNotificationIOS library:
-  - Add the following to your Project: `node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj`
-  - Add the following to `Link Binary With Libraries`: `libRCTPushNotification.a`
-
-Finally, to enable support for `notification` and `register` events you need to augment your AppDelegate.
-
-At the top of your `AppDelegate.m`:
-
-`#import <React/RCTPushNotificationManager.h>`
-
-And then in your AppDelegate implementation add the following:
+在`AppDelegate.m`开头：
 
 ```objectivec
+#import <React/RCTPushNotificationManager.h>
+```
+
+然后在 AppDelegate 实现中添加如下的代码：
+
+```
  // Required to register for notifications
  - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
  {
@@ -106,7 +98,7 @@ Then enable Background Modes/Remote notifications to be able to use remote notif
 
 ---
 
-# Reference
+# 文档
 
 ## Methods
 
@@ -118,22 +110,21 @@ PushNotificationIOS.presentLocalNotification(details);
 
 Schedules the localNotification for immediate presentation.
 
-**Parameters:**
+**参数：**
 
-| Name    | Type   | Required | Description |
-| ------- | ------ | -------- | ----------- |
-| details | object | Yes      | See below.  |
+| 名称    | 类型   | 必填 | 说明         |
+| ------- | ------ | ---- | ------------ |
+| details | object | 是   | 看下面的说明 |
 
 details is an object containing:
 
 - `alertBody` : The message displayed in the notification alert.
-- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view". Note that Apple no longer shows this in iOS 10 +
-- `alertTitle` : The text displayed as the title of the notification alert.
+- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
 - `soundName` : The sound played when the notification is fired (optional).
 - `isSilent` : If true, the notification will appear without sound (optional).
 - `category` : The category of this notification, required for actionable notifications (optional).
-- `userInfo` : An object containing additional notification data (optional).
-- `applicationIconBadgeNumber` The number to display as the app's icon badge. The default value of this property is 0, which means that no badge is displayed (optional).
+- `userInfo` : An optional object containing additional notification data.
+- `applicationIconBadgeNumber` (optional) : The number to display as the app's icon badge. The default value of this property is 0, which means that no badge is displayed.
 
 ---
 
@@ -145,24 +136,24 @@ PushNotificationIOS.scheduleLocalNotification(details);
 
 Schedules the localNotification for future presentation.
 
-**Parameters:**
+**参数：**
 
-| Name    | Type   | Required | Description |
-| ------- | ------ | -------- | ----------- |
-| details | object | Yes      | See below.  |
+| 名称    | 类型   | 必填 | 说明         |
+| ------- | ------ | ---- | ------------ |
+| details | object | 是   | 看下面的说明 |
 
 details is an object containing:
 
 - `fireDate` : The date and time when the system should deliver the notification.
 - `alertTitle` : The text displayed as the title of the notification alert.
 - `alertBody` : The message displayed in the notification alert.
-- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view". Note that Apple no longer shows this in iOS 10 +
+- `alertAction` : The "action" displayed beneath an actionable notification. Defaults to "view";
 - `soundName` : The sound played when the notification is fired (optional).
 - `isSilent` : If true, the notification will appear without sound (optional).
 - `category` : The category of this notification, required for actionable notifications (optional).
-- `userInfo` : An object containing additional notification data (optional).
-- `applicationIconBadgeNumber` The number to display as the app's icon badge. Setting the number to 0 removes the icon badge (optional).
-- `repeatInterval` : The interval to repeat as a string. Possible values: `minute`, `hour`, `day`, `week`, `month`, `year` (optional).
+- `userInfo` : An optional object containing additional notification data.
+- `applicationIconBadgeNumber` (optional) : The number to display as the app's icon badge. Setting the number to 0 removes the icon badge.
+- `repeatInterval` : The interval to repeat as a string. Possible values: `minute`, `hour`, `day`, `week`, `month`, `year`.
 
 ---
 
@@ -194,19 +185,19 @@ PushNotificationIOS.getDeliveredNotifications(callback);
 
 Provides you with a list of the app’s notifications that are still displayed in Notification Center
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                                 |
-| -------- | -------- | -------- | ----------------------------------------------------------- |
-| callback | function | Yes      | Function which receive an array of delivered notifications. |
+| 名称     | 类型     | 必填 | 说明                                                        |
+| -------- | -------- | ---- | ----------------------------------------------------------- |
+| callback | function | 是   | Function which receive an array of delivered notifications. |
 
 A delivered notification is an object containing:
 
 - `identifier` : The identifier of this notification.
 - `title` : The title of this notification.
 - `body` : The body of this notification.
-- `category` : The category of this notification (optional).
-- `userInfo` : An object containing additional notification data (optional).
+- `category` : The category of this notification, if has one.
+- `userInfo` : An optional object containing additional notification data.
 - `thread-id` : The thread identifier of this notification, if has one.
 
 ---
@@ -219,11 +210,11 @@ PushNotificationIOS.removeDeliveredNotifications(identifiers);
 
 Removes the specified notifications from Notification Center
 
-**Parameters:**
+**参数：**
 
-| Name        | Type  | Required | Description                        |
-| ----------- | ----- | -------- | ---------------------------------- |
-| identifiers | array | Yes      | Array of notification identifiers. |
+| 名称        | 类型  | 必填 | 说明                               |
+| ----------- | ----- | ---- | ---------------------------------- |
+| identifiers | array | 是   | Array of notification identifiers. |
 
 ---
 
@@ -235,11 +226,11 @@ PushNotificationIOS.setApplicationIconBadgeNumber(number);
 
 Sets the badge number for the app icon on the home screen
 
-**Parameters:**
+**参数：**
 
-| Name   | Type   | Required | Description                    |
-| ------ | ------ | -------- | ------------------------------ |
-| number | number | Yes      | Badge number for the app icon. |
+| 名称   | 类型   | 必填 | 说明                           |
+| ------ | ------ | ---- | ------------------------------ |
+| number | number | 是   | Badge number for the app icon. |
 
 ---
 
@@ -251,11 +242,11 @@ PushNotificationIOS.getApplicationIconBadgeNumber(callback);
 
 Gets the current badge number for the app icon on the home screen
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                              |
-| -------- | -------- | -------- | -------------------------------------------------------- |
-| callback | function | Yes      | A function that will be passed the current badge number. |
+| 名称     | 类型     | 必填 | 说明                                                     |
+| -------- | -------- | ---- | -------------------------------------------------------- |
+| callback | function | 是   | A function that will be passed the current badge number. |
 
 ---
 
@@ -269,11 +260,11 @@ Cancel local notifications.
 
 Optionally restricts the set of canceled notifications to those notifications whose `userInfo` fields match the corresponding fields in the `userInfo` argument.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type   | Required | Description |
-| -------- | ------ | -------- | ----------- |
-| userInfo | object | No       |             |
+| 名称     | 类型   | 必填 | 说明 |
+| -------- | ------ | ---- | ---- |
+| userInfo | object | 否   |      |
 
 ---
 
@@ -285,11 +276,11 @@ PushNotificationIOS.getScheduledLocalNotifications(callback);
 
 Gets the local notifications that are currently scheduled.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                                                        |
-| -------- | -------- | -------- | ---------------------------------------------------------------------------------- |
-| callback | function | Yes      | A function that will be passed an array of objects describing local notifications. |
+| 名称     | 类型     | 必填 | 说明                                                                               |
+| -------- | -------- | ---- | ---------------------------------------------------------------------------------- |
+| callback | function | 是   | A function that will be passed an array of objects describing local notifications. |
 
 ---
 
@@ -301,12 +292,12 @@ PushNotificationIOS.addEventListener(type, handler);
 
 Attaches a listener to remote or local notification events while the app is running in the foreground or the background.
 
-**Parameters:**
+**参数：**
 
-| Name    | Type     | Required | Description |
-| ------- | -------- | -------- | ----------- |
-| type    | string   | Yes      | Event type. |
-| handler | function | Yes      | Listener.   |
+| 名称    | 类型     | 必填 | 说明        |
+| ------- | -------- | ---- | ----------- |
+| 类型    | string   | 是   | Event type. |
+| handler | function | 是   | Listener.   |
 
 Valid events are:
 
@@ -325,12 +316,12 @@ PushNotificationIOS.removeEventListener(type, handler);
 
 Removes the event listener. Do this in `componentWillUnmount` to prevent memory leaks
 
-**Parameters:**
+**参数：**
 
-| Name    | Type     | Required | Description |
-| ------- | -------- | -------- | ----------- |
-| type    | string   | Yes      | Event type. |
-| handler | function | Yes      | Listener.   |
+| 名称    | 类型     | 必填 | 说明        |
+| ------- | -------- | ---- | ----------- |
+| 类型    | string   | 是   | Event type. |
+| handler | function | 是   | Listener.   |
 
 ---
 
@@ -350,11 +341,11 @@ If a map is provided to the method, only the permissions with truthy values will
 
 This method returns a promise that will resolve when the user accepts, rejects, or if the permissions were previously rejected. The promise resolves to the current state of the permission.
 
-**Parameters:**
+**参数：**
 
-| Name        | Type  | Required | Description            |
-| ----------- | ----- | -------- | ---------------------- |
-| permissions | array | No       | alert, badge, or sound |
+| 名称        | 类型  | 必填 | 说明                   |
+| ----------- | ----- | ---- | ---------------------- |
+| permissions | array | 否   | alert, badge, or sound |
 
 ---
 
@@ -378,11 +369,11 @@ PushNotificationIOS.checkPermissions(callback);
 
 See what push permissions are currently enabled.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description |
-| -------- | -------- | -------- | ----------- |
-| callback | function | Yes      | See below.  |
+| 名称     | 类型     | 必填 | 说明         |
+| -------- | -------- | ---- | ------------ |
+| callback | function | 是   | 看下面的说明 |
 
 `callback` will be invoked with a `permissions` object:
 
@@ -492,7 +483,7 @@ Gets the badge count number from the `aps` object
 getData();
 ```
 
-Gets the data object on the notification
+Gets the data object on the notif
 
 ---
 

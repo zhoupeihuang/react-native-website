@@ -3,15 +3,17 @@ id: animatedvalue
 title: Animated.Value
 ---
 
-Standard value for driving animations. One `Animated.Value` can drive multiple properties in a synchronized fashion, but can only be driven by one mechanism at a time. Using a new mechanism (e.g. starting a new animation, or calling `setValue`) will stop any previous ones.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-Typically initialized with `new Animated.Value(0);`
+驱动动画的一维标量值. 一个`Animated.Value`可以同步地驱动多个属性，但每次只能以一种动画机制变化。如果改用了其他动画机制（例如开始一个新的动画或是调用`setValue`），则会停止先前的动画。
+
+一般这样来初始化`new Animated.Value(0);`
 
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `setValue()`
 
@@ -19,13 +21,13 @@ Typically initialized with `new Animated.Value(0);`
 setValue(value);
 ```
 
-Directly set the value. This will stop any animations running on the value and update all the bound properties.
+直接赋值。注意这会导致正在运行的动画中断而直接更新到新值。
 
-**Parameters:**
+**参数：**
 
-| Name  | Type   | Required | Description |
-| ----- | ------ | -------- | ----------- |
-| value | number | Yes      | Value       |
+| 名称  | 类型   | 必填 | 说明       |
+| ----- | ------ | ---- | ---------- |
+| value | number | 是   | 新的动画值 |
 
 ---
 
@@ -37,11 +39,11 @@ setOffset(offset);
 
 Sets an offset that is applied on top of whatever value is set, whether via `setValue`, an animation, or `Animated.event`. Useful for compensating things like the start of a pan gesture.
 
-**Parameters:**
+**参数：**
 
-| Name   | Type   | Required | Description  |
-| ------ | ------ | -------- | ------------ |
-| offset | number | Yes      | Offset value |
+| 名称   | 类型   | 必填 | 说明         |
+| ------ | ------ | ---- | ------------ |
+| offset | number | 是   | Offset value |
 
 ---
 
@@ -75,11 +77,11 @@ Adds an asynchronous listener to the value so you can observe updates from anima
 
 Returns a string that serves as an identifier for the listener.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                                                                 |
-| -------- | -------- | -------- | ------------------------------------------------------------------------------------------- |
-| callback | function | Yes      | The callback function which will receive an object with a `value` key set to the new value. |
+| 名称     | 类型     | 必填 | 说明                                                                                        |
+| -------- | -------- | ---- | ------------------------------------------------------------------------------------------- |
+| callback | function | 是   | The callback function which will receive an object with a `value` key set to the new value. |
 
 ---
 
@@ -89,13 +91,13 @@ Returns a string that serves as an identifier for the listener.
 removeListener(id);
 ```
 
-Unregister a listener. The `id` param shall match the identifier previously returned by `addListener()`.
+移除一个监听函数。 The `id` param shall match the identifier previously returned by `addListener()`.
 
-**Parameters:**
+**参数：**
 
-| Name | Type   | Required | Description                        |
-| ---- | ------ | -------- | ---------------------------------- |
-| id   | string | Yes      | Id for the listener being removed. |
+| 名称 | 类型   | 必填 | 说明                               |
+| ---- | ------ | ---- | ---------------------------------- |
+| id   | string | 是   | Id for the listener being removed. |
 
 ---
 
@@ -105,7 +107,7 @@ Unregister a listener. The `id` param shall match the identifier previously retu
 removeAllListeners();
 ```
 
-Remove all registered listeners.
+移除所有监听函数。
 
 ---
 
@@ -117,11 +119,11 @@ stopAnimation([callback]);
 
 Stops any running animation or tracking. `callback` is invoked with the final value after stopping the animation, which is useful for updating state to match the animation position with layout.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                   |
-| -------- | -------- | -------- | --------------------------------------------- |
-| callback | function | No       | A function that will receive the final value. |
+| 名称     | 类型     | 必填 | 说明                                          |
+| -------- | -------- | ---- | --------------------------------------------- |
+| callback | function | 否   | A function that will receive the final value. |
 
 ---
 
@@ -133,11 +135,11 @@ resetAnimation([callback]);
 
 Stops any animation and resets the value to its original.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type     | Required | Description                                      |
-| -------- | -------- | -------- | ------------------------------------------------ |
-| callback | function | No       | A function that will receive the original value. |
+| 名称     | 类型     | 必填 | 说明                                             |
+| -------- | -------- | ---- | ------------------------------------------------ |
+| callback | function | 否   | A function that will receive the original value. |
 
 ---
 
@@ -151,11 +153,11 @@ Interpolates the value before updating the property, e.g. mapping 0-1 to 0-10.
 
 See `AnimatedInterpolation.js`
 
-**Parameters:**
+**参数：**
 
-| Name   | Type   | Required | Description |
-| ------ | ------ | -------- | ----------- |
-| config | object | Yes      | See below.  |
+| 名称   | 类型   | 必填 | 说明         |
+| ------ | ------ | ---- | ------------ |
+| config | object | 是   | 看下面的说明 |
 
 The `config` object is composed of the following keys:
 
@@ -176,12 +178,12 @@ animate(animation, callback);
 
 Typically only used internally, but could be used by a custom Animation class.
 
-**Parameters:**
+**参数：**
 
-| Name      | Type      | Required | Description         |
-| --------- | --------- | -------- | ------------------- |
-| animation | Animation | Yes      | See `Animation.js`. |
-| callback  | function  | Yes      | Callback function.  |
+| 名称      | 类型      | 必填 | 说明                |
+| --------- | --------- | ---- | ------------------- |
+| animation | Animation | 是   | See `Animation.js`. |
+| callback  | function  | 是   | Callback function.  |
 
 ---
 
@@ -203,8 +205,8 @@ track(tracking);
 
 Typically only used internally.
 
-**Parameters:**
+**参数：**
 
-| Name     | Type         | Required | Description           |
-| -------- | ------------ | -------- | --------------------- |
-| tracking | AnimatedNode | Yes      | See `AnimatedNode.js` |
+| 名称     | 类型         | 必填 | 说明                  |
+| -------- | ------------ | ---- | --------------------- |
+| tracking | AnimatedNode | 是   | See `AnimatedNode.js` |

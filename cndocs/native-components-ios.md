@@ -246,9 +246,7 @@ const RCTSwitch = requireNativeComponent('RCTSwitch', Switch, {
 });
 ```
 
-## Events
-
-事件
+## 事件
 
 现在我们已经有了一个原生地图组件，并且从 JS 可以很容易的控制它了。不过我们怎么才能处理来自用户的事件，譬如缩放操作或者拖动来改变可视区域？
 

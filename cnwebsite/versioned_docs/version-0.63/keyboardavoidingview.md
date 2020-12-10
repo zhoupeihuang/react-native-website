@@ -3,9 +3,11 @@ id: keyboardavoidingview
 title: KeyboardAvoidingView
 ---
 
-It is a component to solve the common problem of views that need to move out of the way of the virtual keyboard. It can automatically adjust either its height, position, or bottom padding based on the keyboard height.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(78.38%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(21.62%)
 
-## Example
+本组件用于解决一个常见的尴尬问题：手机上弹出的键盘常常会挡住当前的视图。本组件可以自动根据键盘的高度，调整自身的 height 或底部的 padding，以避免被遮挡。
+
+## 示例
 
 ```SnackPlayer name=KeyboardAvoidingView&supportedPlatforms=android,ios
 import React from 'react';
@@ -60,48 +62,52 @@ export default KeyboardAvoidingComponent;
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
+### [View Props](view.md#props)
+
 Inherits [View Props](view.md#props).
+
+---
 
 ### `behavior`
 
 Specify how to react to the presence of the keyboard.
 
-> Android and iOS both interact with this prop differently. On both iOS and Android, setting `behavior` is recommended.
+> Android 和 iOS 在此属性上表现并不一致。但我们建议在两个平台上都明确设置此属性。
 
-| Type                                  | Required |
-| ------------------------------------- | -------- |
-| enum('height', 'position', 'padding') | No       |
+| 类型                                        |
+| ------------------------------------------- |
+| enum(`'height'`, `'position'`, `'padding'`) |
 
 ---
 
 ### `contentContainerStyle`
 
-The style of the content container(View) when behavior is 'position'.
+如果设定 behavior 值为'position'，则会生成一个 View 作为内容容器。此属性用于指定此内容容器的样式。
 
-| Type       | Required |
-| ---------- | -------- |
-| View.style | No       |
+| 类型                              |
+| --------------------------------- |
+| [View Style](view-style-props.md) |
 
 ---
 
 ### `enabled`
 
-Enabled or disabled KeyboardAvoidingView. The default is `true`.
+是否启用 KeyboardAvoidingView。
 
-| Type    | Required |
-| ------- | -------- |
-| boolean | No       |
+| 类型    | 默认值 |
+| ------- | ------ |
+| boolean | `true` |
 
 ---
 
 ### `keyboardVerticalOffset`
 
-This is the distance between the top of the user screen and the react native view, may be non-zero in some use cases. Defaults to 0.
+有时候应用离屏幕顶部还有一些距离（比如状态栏等等），利用此属性来补偿修正这段距离。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 默认值 |
+| ------ | ------ |
+| number | `0`    |

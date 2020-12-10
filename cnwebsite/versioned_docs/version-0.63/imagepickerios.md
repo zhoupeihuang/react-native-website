@@ -1,15 +1,15 @@
 ---
 id: imagepickerios
-title: '🚧 ImagePickerIOS'
+title: 🚧 ImagePickerIOS
 ---
 
-> **Deprecated.** Use [@react-native-community/image-picker-ios](https://github.com/react-native-community/react-native-image-picker-ios) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(87.01%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(12.99%)
 
----
+**已过时。** Use [@react-native-community/image-picker-ios](https://github.com/react-native-community/react-native-image-picker-ios) instead.
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `canRecordVideos()`
 
@@ -33,13 +33,13 @@ static canUseCamera(callback)
 static openCameraDialog(config, successCallback, cancelCallback)
 ```
 
-**Parameters:**
+**参数：**
 
-| Name            | Type     | Required | Description |
-| --------------- | -------- | -------- | ----------- |
-| config          | object   | No       | See below.  |
-| successCallback | function | No       | See below.  |
-| cancelCallback  | function | No       | See below.  |
+| 名称            | 类型     | Required | 说明       |
+| --------------- | -------- | -------- | ---------- |
+| config          | object   | No       | See below. |
+| successCallback | function | No       | See below. |
+| cancelCallback  | function | No       | See below. |
 
 `config` is an object containing:
 
@@ -59,13 +59,13 @@ static openCameraDialog(config, successCallback, cancelCallback)
 static openSelectDialog(config, successCallback, cancelCallback)
 ```
 
-**Parameters:**
+**参数：**
 
-| Name            | Type     | Required | Description |
-| --------------- | -------- | -------- | ----------- |
-| config          | object   | No       | See below.  |
-| successCallback | function | No       | See below.  |
-| cancelCallback  | function | No       | See below.  |
+| 名称            | 类型     | Required | 说明       |
+| --------------- | -------- | -------- | ---------- |
+| config          | object   | No       | See below. |
+| successCallback | function | No       | See below. |
+| cancelCallback  | function | No       | See below. |
 
 `config` is an object containing:
 

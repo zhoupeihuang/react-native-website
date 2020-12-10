@@ -1,3 +1,5 @@
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
 ## Key Concepts
 
 The keys to integrating React Native components into your iOS application are to:
@@ -37,9 +39,22 @@ Next, make sure you have [installed the yarn package manager](https://yarnpkg.co
 
 Install the `react` and `react-native` packages. Open a terminal or command prompt, then navigate to the directory with your `package.json` file and run:
 
+<Tabs groupId="package-manager" defaultValue={constants.defaultPackageManager} values={constants.packageManagers}>
+<TabItem value="npm">
+
 ```shell
-$ yarn add react-native
+npm install react-native
 ```
+
+</TabItem>
+<TabItem value="yarn">
+
+```shell
+yarn add react-native
+```
+
+</TabItem>
+</Tabs>
 
 This will print a message similar to the following (scroll up in the yarn output to see it):
 
@@ -47,11 +62,24 @@ This will print a message similar to the following (scroll up in the yarn output
 
 This is OK, it means we also need to install React:
 
+<Tabs groupId="package-manager" defaultValue={constants.defaultPackageManager} values={constants.packageManagers}>
+<TabItem value="npm">
+
 ```shell
-$ yarn add react@version_printed_above
+npm install react@version_printed_above
 ```
 
-Yarn has created a new `/node_modules` folder. This folder stores all the JavaScript dependencies required to build your project.
+</TabItem>
+<TabItem value="yarn">
+
+```shell
+yarn add react@version_printed_above
+```
+
+</TabItem>
+</Tabs>
+
+Installation process has created a new `/node_modules` folder. This folder stores all the JavaScript dependencies required to build your project.
 
 Add `node_modules/` to your `.gitignore` file.
 
@@ -62,7 +90,7 @@ Add `node_modules/` to your `.gitignore` file.
 We recommend installing CocoaPods using [Homebrew](http://brew.sh/).
 
 ```shell
-$ brew install cocoapods
+brew install cocoapods
 ```
 
 > It is technically possible not to use CocoaPods, but that would require manual library and linker additions that would overly complicate this process.
@@ -88,7 +116,7 @@ The list of supported `subspec`s is available in [`/node_modules/react-native/Re
 You can specify which `subspec`s your app will depend on in a `Podfile` file. The easiest way to create a `Podfile` is by running the CocoaPods `init` command in the `/ios` subfolder of your project:
 
 ```shell
-$ pod init
+pod init
 ```
 
 The `Podfile` will contain a boilerplate setup that you will tweak for your integration purposes.
@@ -177,27 +205,20 @@ First, create an empty `index.js` file in the root of your React Native project.
 In your `index.js`, create your component. In our sample here, we will add a `<Text>` component within a styled `<View>`
 
 ```jsx
-import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from "react";
+import { AppRegistry, StyleSheet, Text, View } from "react-native";
 
 class RNHighScores extends React.Component {
   render() {
-    var contents = this.props['scores'].map((score) => (
+    var contents = this.props["scores"].map(score => (
       <Text key={score.name}>
         {score.name}:{score.value}
-        {'\n'}
+        {"\n"}
       </Text>
     ));
     return (
       <View style={styles.container}>
-        <Text style={styles.highScoresTitle}>
-          2048 High Scores!
-        </Text>
+        <Text style={styles.highScoresTitle}>2048 High Scores!</Text>
         <Text style={styles.scores}>{contents}</Text>
       </View>
     );
@@ -207,24 +228,24 @@ class RNHighScores extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF"
   },
   highScoresTitle: {
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     margin: 10
   },
   scores: {
-    textAlign: 'center',
-    color: '#333333',
+    textAlign: "center",
+    color: "#333333",
     marginBottom: 5
   }
 });
 
 // Module name
-AppRegistry.registerComponent('RNHighScores', () => RNHighScores);
+AppRegistry.registerComponent("RNHighScores", () => RNHighScores);
 ```
 
 > `RNHighScores` is the name of your module that will be used when you add a view to React Native from within your iOS application.
@@ -325,9 +346,22 @@ Apple has blocked implicit cleartext HTTP resource loading. So we need to add th
 
 To run your app, you need to first start the development server. To do this, run the following command in the root directory of your React Native project:
 
+<Tabs groupId="package-manager" defaultValue={constants.defaultPackageManager} values={constants.packageManagers}>
+<TabItem value="npm">
+
 ```shell
-$ npm start
+npm start
 ```
+
+</TabItem>
+<TabItem value="yarn">
+
+```shell
+yarn start
+```
+
+</TabItem>
+</Tabs>
 
 ##### 3. Run the app
 

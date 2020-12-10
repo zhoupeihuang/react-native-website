@@ -20,6 +20,35 @@ import {
 } from '@theme/hooks/useDocs';
 // import DocsRating from '../../../core/DocsRating';
 
+function SponsorHeader() {
+  return (
+    <a
+      href="https://datayi.cn/w/Yo1vDOv9"
+      target="_blank"
+      style={{
+        display: 'block',
+        padding: 12,
+        backgroundColor: '#eee',
+        color: '#666',
+        marginBottom: 15,
+      }}>
+      <span style={{fontWeight: 'bold', color: '#05a5d1;'}}>
+        React 实战教程
+      </span>{' '}
+      深入学习一线大厂必备前端技能，VIP 教程限时免费领取。{' '}
+      <span
+        style={{
+          border: 'solid 1px #666',
+          padding: '4px 6px',
+          marginLeft: 8,
+          verticalAlign: 'middle',
+        }}>
+        立即查看 &gt;
+      </span>
+    </a>
+  );
+}
+
 function DocItem(props) {
   const {siteConfig = {}} = useDocusaurusContext();
   const {url: siteUrl, title: siteTitle, titleDelimiter} = siteConfig;
@@ -94,6 +123,7 @@ function DocItem(props) {
                   <h1 className={styles.docTitle}>{title}</h1>
                 </header>
               )}
+              <SponsorHeader />
               <div className="markdown">
                 <DocContent />
               </div>
@@ -122,7 +152,7 @@ function DocItem(props) {
                             <path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z" />
                           </g>
                         </svg>
-                        Edit this page
+                        改进文档
                       </a>
                     )}
                   </div>
@@ -130,10 +160,10 @@ function DocItem(props) {
                     <div className="col text--right">
                       <em>
                         <small className="docMetadata-updated">
-                          Last updated{' '}
+                          最近更新{' '}
                           {lastUpdatedAt && (
                             <>
-                              on{' '}
+                              {' '}
                               <time
                                 dateTime={new Date(
                                   lastUpdatedAt * 1000
@@ -141,7 +171,7 @@ function DocItem(props) {
                                 className={styles.docLastUpdatedAt}>
                                 {new Date(
                                   lastUpdatedAt * 1000
-                                ).toLocaleDateString()}
+                                ).toLocaleDateString('zh-CN')}
                               </time>
                               {lastUpdatedBy && ' '}
                             </>

@@ -3,12 +3,14 @@ id: toastandroid
 title: ToastAndroid
 ---
 
-React Native's ToastAndroid API exposes the Android platform's ToastAndroid module as a JS module. It provides the method `show(message, duration)` which takes the following parameters:
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
-- _message_ A string with the text to toast
-- _duration_ The duration of the toast—either `ToastAndroid.SHORT` or `ToastAndroid.LONG`
+本模块将原生的 ToastAndroid 模块导出为一个 JS 模块，用于在 Android 设备上显示一个悬浮的提示信息。本模块包含一个`show`方法接受以下的参数：
 
-You can alternatively use `showWithGravity(message, duration, gravity)` to specify where the toast appears in the screen's layout. May be `ToastAndroid.TOP`, `ToastAndroid.BOTTOM` or `ToastAndroid.CENTER`.
+- _message_ 一个字符串，表示将要显示的文本内容。
+- _duration_ 提示信息持续显示的时间。可以是`ToastAndroid.SHORT`或者`ToastAndroid.LONG`。
+
+还有一个名为`showWithGravity`的方法可以指定弹出的位置。可选项有：ToastAndroid.TOP, ToastAndroid.BOTTOM, ToastAndroid.CENTER.
 
 The 'showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)' method adds the ability to specify an offset with in pixels.
 
@@ -123,9 +125,9 @@ export default App;
 
 ---
 
-# Reference
+# 文档
 
-## Methods
+## 方法
 
 ### `show()`
 
@@ -149,7 +151,7 @@ static showWithGravity(message, duration, gravity)
 static showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)
 ```
 
-## Properties
+## 属性
 
 ### `SHORT`
 

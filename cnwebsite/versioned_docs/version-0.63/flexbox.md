@@ -1,69 +1,289 @@
 ---
 id: flexbox
-title: Layout with Flexbox
+title: 使用Flexbox布局
 ---
 
-A component can specify the layout of its children using the Flexbox algorithm. Flexbox is designed to provide a consistent layout on different screen sizes.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(92.78%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(7.22%)
 
-You will normally use a combination of `flexDirection`, `alignItems`, and `justifyContent` to achieve the right layout.
+我们在 React Native 中使用 flexbox 规则来指定某个组件的子元素的布局。Flexbox 可以在不同屏幕尺寸上提供一致的布局结构。
 
-> Flexbox works the same way in React Native as it does in CSS on the web, with a few exceptions. The defaults are different, with `flexDirection` defaulting to `column` instead of `row`, and the `flex` parameter only supporting a single number.
+一般来说，使用`flexDirection`、`alignItems`和 `justifyContent`三个样式属性就已经能满足大多数布局需求。
 
-## Flex
+> 译注：这里有一份[简易布局图解](http://weibo.com/1712131295/CoRnElNkZ?ref=collection&type=comment)，可以给你一个大概的印象。
 
-[`flex`](layout-props#flex) will define how your items are going to **“fill”** over the available space along your main axis. Space will be divided according to each element's flex property.
+> React Native 中的 Flexbox 的工作原理和 web 上的 CSS 基本一致，当然也存在少许差异。首先是默认值不同：`flexDirection`的默认值是`column`而不是`row`，而`flex`也只能指定一个数字值。
 
-In the following example, the red, yellow, and green views are all children in the container view that has `flex: 1` set. The red view uses `flex: 1` , the yellow view uses `flex: 2`, and the green view uses `flex: 3` . **1+2+3 = 6**, which means that the red view will get `1/6` of the space, the yellow `2/6` of the space, and the green `3/6` of the space.
+### Flex
 
-![Flex](https://cdn-images-1.medium.com/max/800/1*PhCFmO5tYX_sZSyCd4vO3w.png)
+[`flex`](layout-props#flex) 属性决定元素在主轴上如何**填满**可用区域。整个区域会根据每个元素设置的 flex 属性值被分割成多个部分。
 
-## Flex Direction
+在下面的例子中，在设置了`flex: 1`的容器 view 中，有红色，黄色和绿色三个子 view。红色 view 设置了`flex: 1`，黄色 view 设置了`flex: 2`，绿色 view 设置了`flex: 3`。**1+2+3 = 6**，这意味着红色 view 占据整个区域的`1/6`，黄色 view 占据整个区域的`2/6`，绿色 view 占据整个区域的`3/6`。
 
-[`flexDirection`](layout-props#flexdirection) controls the direction in which the children of a node are laid out. This is also referred to as the _main axis_. The cross axis is the axis perpendicular to the main axis, or the axis which the wrapping lines are laid out in.
+```SnackPlayer name=Flex%20Example
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
 
-- `row` Align children from left to right. If wrapping is enabled, then the next line will start under the first item on the left of the container.
+const Flex = () => {
+  return (
+    <View style={[styles.container, {
+      // Try setting `flexDirection` to `"row"`.
+      flexDirection: "column"
+    }]}>
+      <View style={{ flex: 1, backgroundColor: "red" }} />
+      <View style={{ flex: 2, backgroundColor: "darkorange" }} />
+      <View style={{ flex: 3, backgroundColor: "green" }} />
+    </View>
+  );
+};
 
-- `column` (**default value**) Align children from top to bottom. If wrapping is enabled, then the next line will start to the right of the first item on the top of the container.
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+});
 
-- `row-reverse` Align children from right to left. If wrapping is enabled, then the next line will start under the first item on the right of the container.
+export default Flex;
+```
 
-- `column-reverse` Align children from bottom to top. If wrapping is enabled, then the next line will start to the right of the first item on the bottom of the container.
+### Flex Direction
+
+在组件的`style`中指定`flexDirection`可以决定布局的**主轴**。子元素是应该沿着**水平轴(`row`)**方向排列，还是沿着**竖直轴(`column`)**方向排列呢？默认值是**竖直轴(`column`)**方向。
 
 You can learn more [here](https://yogalayout.com/docs/flex-direction).
 
 ```SnackPlayer name=Flex%20Direction
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const FlexDirectionBasics = () => {
-    return (
-      // Try setting `flexDirection` to `column`.
-      <View style={{flex: 1, flexDirection: 'row'}}>
-        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
-      </View>
-    );
+  const [flexDirection, setflexDirection] = useState("column");
+
+  return (
+    <PreviewLayout
+      label="flexDirection"
+      values={["column", "row", "row-reverse", "column-reverse"]}
+      selectedValue={flexDirection}
+      setSelectedValue={setflexDirection}
+    >
+      <View
+        style={[styles.box, { backgroundColor: "powderblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "skyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "steelblue" }]}
+      />
+    </PreviewLayout>
+  );
 };
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={[styles.container, { [label]: selectedValue }]}>
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
 
 export default FlexDirectionBasics;
 ```
 
-![Flex Direction](https://cdn-images-1.medium.com/max/800/1*rA7IbuUsJWsx6evKAsabVw.png)
-
 ## Layout Direction
 
-Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge `start` and `end` refer to. By default, React Native lays out with LTR layout direction. In this mode `start` refers to left and `end` refers to right.
+Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge `start` and `end` refer to. By default React Native lays out with LTR layout direction. In this mode `start` refers to left and `end` refers to right.
 
-- `LTR` (**default value**) Text and children are laid out from left to right. Margin and padding applied to the start of an element are applied on the left side.
+- `LTR` (**default value**) Text and children and laid out from left to right. Margin and padding applied the start of an element are applied on the left side.
 
-- `RTL` Text and children are laid out from right to left. Margin and padding applied to the start of an element are applied on the right side.
+- `RTL` Text and children and laid out from right to left. Margin and padding applied the start of an element are applied on the right side.
+
+```SnackPlayer name=Flex%20Direction
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const DirectionLayout = () => {
+  const [direction, setDirection] = useState("ltr");
+
+  return (
+    <PreviewLayout
+      label="direction"
+      selectedValue={direction}
+      values={["ltr", "rtl"]}
+      setSelectedValue={setDirection}>
+      <View
+        style={[styles.box, { backgroundColor: "powderblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "skyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "steelblue" }]}
+      />
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={[styles.container, { [label]: selectedValue }]}>
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default DirectionLayout;
+```
 
 ## Justify Content
 
-[`justifyContent`](layout-props#justifycontent) describes how to align children within the main axis of their container. For example, you can use this property to center a child horizontally within a container with `flexDirection` set to `row` or vertically within a container with `flexDirection` set to `column`.
+在组件的 style 中指定`justifyContent`可以决定其子元素沿着**主轴**的**排列方式**。子元素是应该靠近主轴的起始端还是末尾段分布呢？亦或应该均匀分布？可用的选项有：
 
-- `flex-start`(**default value**) Align children of a container to the start of the container's main axis.
+- `flex-start`(**默认值**) Align children of a container to the start of the container's main axis.
 
 - `flex-end` Align children of a container to the end of the container's main axis.
 
@@ -78,35 +298,124 @@ Layout direction specifies the direction in which children and text in a hierarc
 You can learn more [here](https://yogalayout.com/docs/justify-content).
 
 ```SnackPlayer name=Justify%20Content
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 
 const JustifyContentBasics = () => {
-    return (
-      // Try setting `justifyContent` to `center`.
-      // Try setting `flexDirection` to `row`.
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-      }}>
-        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'skyblue'}} />
-        <View style={{width: 50, height: 50, backgroundColor: 'steelblue'}} />
-      </View>
-    );
+  const [justifyContent, setJustifyContent] = useState("flex-start");
+
+  return (
+    <PreviewLayout
+      label="justifyContent"
+      selectedValue={justifyContent}
+      values={[
+        "flex-start",
+        "flex-end",
+        "center",
+        "space-between",
+        "space-around",
+        "space-evenly",
+      ]}
+      setSelectedValue={setJustifyContent}
+    >
+      <View
+        style={[styles.box, { backgroundColor: "powderblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "skyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "steelblue" }]}
+      />
+    </PreviewLayout>
+  );
 };
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[styles.button, selectedValue === value && styles.selected]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={[styles.container, { [label]: selectedValue }]}>
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
 
 export default JustifyContentBasics;
 ```
 
-![Justify Content](https://cdn-images-1.medium.com/max/800/1*i5TVlme-TisAVvD5ax2yPA.png)
+### Align Items
 
-## Align Items
+在组件的 style 中指定`alignItems`可以决定其子元素沿着**次轴**（与主轴垂直的轴，比如若主轴方向为`row`，则次轴方向为`column`）的**排列方式**。子元素是应该靠近次轴的起始端还是末尾段分布呢？亦或应该均匀分布？可用的选项有：
 
-[`alignItems`](layout-props#alignitems) describes how to align children along the cross axis of their container. Align items is very similar to `justifyContent` but instead of applying to the main axis, `alignItems` applies to the cross axis.
-
-- `stretch` (**default value**) Stretch children of a container to match the `height` of the container's cross axis.
+- `stretch` (**默认值**) Stretch children of a container to match the `height` of the container's cross axis.
 
 - `flex-start` Align children of a container to the start of the container's cross axis.
 
@@ -116,42 +425,264 @@ export default JustifyContentBasics;
 
 - `baseline` Align children of a container along a common baseline. Individual children can be set to be the reference baseline for their parents.
 
-> For `stretch` to have an effect, children must not have a fixed dimension along the secondary axis. In the following example, setting `alignItems: stretch` does nothing until the `width: 50` is removed from the children.
+> 注意：要使`stretch`选项生效的话，子元素在次轴方向上不能有固定的尺寸。以下面的代码为例：只有将子元素样式中的`width: 50`去掉之后，`alignItems: 'stretch'`才能生效。
 
 You can learn more [here](https://yogalayout.com/docs/align-items).
 
 ```SnackPlayer name=Align%20Items
-import React from 'react';
-import { View } from 'react-native';
+import React, { useState } from "react";
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 
-const AlignItemsBasics = () => {
-    return (
-      // Try setting `alignItems` to 'flex-start'
-      // Try setting `justifyContent` to `flex-end`.
-      // Try setting `flexDirection` to `row`.
-      <View style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'stretch',
-      }}>
-        <View style={{width: 50, height: 50, backgroundColor: 'powderblue'}} />
-        <View style={{height: 50, backgroundColor: 'skyblue'}} />
-        <View style={{height: 100, backgroundColor: 'steelblue'}} />
-      </View>
-    );
+const AlignItemsLayout = () => {
+  const [alignItems, setAlignItems] = useState("stretch");
+
+  return (
+    <PreviewLayout
+      label="alignItems"
+      selectedValue={alignItems}
+      values={[
+        "stretch",
+        "flex-start",
+        "flex-end",
+        "center",
+        "baseline",
+      ]}
+      setSelectedValue={setAlignItems}
+    >
+      <View
+        style={[styles.box, { backgroundColor: "powderblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "skyblue" }]}
+      />
+      <View
+        style={[
+          styles.box,
+          {
+            backgroundColor: "steelblue",
+            width: "auto",
+            minWidth: 50,
+          },
+        ]}
+      />
+    </PreviewLayout>
+  );
 };
 
-export default AlignItemsBasics;
-```
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value &&
+                styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View
+      style={[
+        styles.container,
+        { [label]: selectedValue },
+      ]}
+    >
+      {children}
+    </View>
+  </View>
+);
 
-![Align Items](https://cdn-images-1.medium.com/max/800/1*evkM7zfxt-9p-HJ1M0Bh2g.png)
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+    minHeight: 200,
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default AlignItemsLayout;
+```
 
 ## Align Self
 
 [`alignSelf`](layout-props#alignself) has the same options and effect as `alignItems` but instead of affecting the children within a container, you can apply this property to a single child to change its alignment within its parent. `alignSelf` overrides any option set by the parent with `alignItems`.
 
-![Align Self](https://cdn-images-1.medium.com/max/800/1*J1JCoKwLCokX9JXVBvP71g.png)
+```SnackPlayer name=Align%20Self
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const AlignSelfLayout = () => {
+  const [alignSelf, setAlignSelf] = useState("stretch");
+
+  return (
+    <PreviewLayout
+      label="alignSelf"
+      selectedValue={alignSelf}
+      values={["stretch", "flex-start", "flex-end", "center", "baseline"]}
+      setSelectedValue={setAlignSelf}>
+        <View
+          style={[styles.box, {
+            alignSelf,
+            width: "auto",
+            minWidth: 50,
+            backgroundColor: "powderblue",
+          }]}
+        />
+      <View
+        style={[styles.box, { backgroundColor: "skyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "steelblue" }]}
+      />
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value &&
+                styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={styles.container}>
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+    minHeight: 200,
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default AlignSelfLayout;
+```
 
 ## Align Content
 
@@ -171,7 +702,141 @@ export default AlignItemsBasics;
 
 You can learn more [here](https://yogalayout.com/docs/align-content).
 
-![Align Content](https://cdn-images-1.medium.com/max/800/1*cC2XFyCF_igp20Ombt4wBw.png)
+```SnackPlayer name=Align%20Content
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const AlignContentLayout = () => {
+  const [alignContent, setAlignContent] = useState("flex-start");
+
+  return (
+    <PreviewLayout
+      label="alignContent"
+      selectedValue={alignContent}
+      values={[
+        "flex-start",
+        "flex-end",
+        "stretch",
+        "center",
+        "space-between",
+        "space-around",
+      ]}
+      setSelectedValue={setAlignContent}>
+      <View
+        style={[styles.box, { backgroundColor: "orangered" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "orange" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumseagreen" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "deepskyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumturquoise" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumslateblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "purple" }]}
+      />
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value &&
+                styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View
+      style={[
+        styles.container,
+        { [label]: selectedValue },
+      ]}
+    >
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexWrap: "wrap",
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+    maxHeight: 400,
+  },
+  box: {
+    width: 50,
+    height: 80,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default AlignContentLayout;
+```
 
 ## Flex Wrap
 
@@ -179,7 +844,132 @@ The [`flexWrap`](layout-props#flexwrap) property is set on containers and it con
 
 When wrapping lines, `alignContent` can be used to specify how the lines are placed in the container. Learn more [here](https://yogalayout.com/docs/flex-wrap).
 
-![Flex Wrap](https://cdn-images-1.medium.com/max/800/1*_7v4uQhSsuCn1cfeOMVfrA.png)
+```SnackPlayer name=Flex%20Wrap
+import React, { useState } from "react";
+import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
+
+const FlexWrapLayout = () => {
+  const [flexWrap, setFlexWrap] = useState("wrap");
+
+  return (
+    <PreviewLayout
+      label="flexWrap"
+      selectedValue={flexWrap}
+      values={["wrap", "no-wrap"]}
+      setSelectedValue={setFlexWrap}>
+      <View
+        style={[styles.box, { backgroundColor: "orangered" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "orange" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumseagreen" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "deepskyblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumturquoise" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "mediumslateblue" }]}
+      />
+      <View
+        style={[styles.box, { backgroundColor: "purple" }]}
+      />
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value &&
+                styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View
+      style={[
+        styles.container,
+        { [label]: selectedValue },
+      ]}
+    >
+      {children}
+    </View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+    maxHeight: 400,
+  },
+  box: {
+    width: 50,
+    height: 80,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default FlexWrapLayout;
+```
 
 ## Flex Basis, Grow, and Shrink
 
@@ -195,7 +985,210 @@ When wrapping lines, `alignContent` can be used to specify how the lines are pla
 
 You can learn more [here](https://yogalayout.com/docs/flex).
 
-## Width and Height
+```SnackPlayer name=Flex%20Basis%2C%20Grow%2C%20and%20Shrink
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+} from "react-native";
+
+const App = () => {
+  const [powderblue, setPowderblue] = useState({
+    flexGrow: 0,
+    flexShrink: 1,
+    flexBasis: "auto",
+  });
+  const [skyblue, setSkyblue] = useState({
+    flexGrow: 1,
+    flexShrink: 0,
+    flexBasis: 100,
+  });
+  const [steelblue, setSteelblue] = useState({
+    flexGrow: 0,
+    flexShrink: 1,
+    flexBasis: 200,
+  });
+  return (
+    <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          {
+            flexDirection: "row",
+            alignContent: "space-between",
+          },
+        ]}
+      >
+        <BoxInfo
+          color="powderblue"
+          {...powderblue}
+          setStyle={setPowderblue}
+        />
+        <BoxInfo
+          color="skyblue"
+          {...skyblue}
+          setStyle={setSkyblue}
+        />
+        <BoxInfo
+          color="steelblue"
+          {...steelblue}
+          setStyle={setSteelblue}
+        />
+      </View>
+      <View style={styles.previewContainer}>
+        <View
+          style={[
+            styles.box,
+            {
+              flexBasis: powderblue.flexBasis,
+              flexGrow: powderblue.flexGrow,
+              flexShrink: powderblue.flexShrink,
+              backgroundColor: "powderblue",
+            },
+          ]}
+        />
+        <View
+          style={[
+            styles.box,
+            {
+              flexBasis: skyblue.flexBasis,
+              flexGrow: skyblue.flexGrow,
+              flexShrink: skyblue.flexShrink,
+              backgroundColor: "skyblue",
+            },
+          ]}
+        />
+        <View
+          style={[
+            styles.box,
+            {
+              flexBasis: steelblue.flexBasis,
+              flexGrow: steelblue.flexGrow,
+              flexShrink: steelblue.flexShrink,
+              backgroundColor: "steelblue",
+            },
+          ]}
+        />
+      </View>
+    </View>
+  );
+};
+
+const BoxInfo = ({
+  color,
+  flexBasis,
+  flexShrink,
+  setStyle,
+  flexGrow,
+}) => (
+  <View style={[styles.row, { flexDirection: "column" }]}>
+    <View
+      style={[
+        styles.boxLabel,
+        {
+          backgroundColor: color,
+        },
+      ]}
+    >
+      <Text
+        style={{
+          color: "#fff",
+          fontWeight: 500,
+          textAlign: "center",
+        }}
+      >
+        Box
+      </Text>
+    </View>
+    <Text style={styles.label}>flexBasis</Text>
+    <TextInput
+      value={flexBasis}
+      style={styles.input}
+      onChangeText={(fB) =>
+        setStyle((value) => ({
+          ...value,
+          flexBasis: isNaN(parseInt(fB))
+            ? "auto"
+            : parseInt(fB),
+        }))
+      }
+    />
+    <Text style={styles.label}>flexShrink</Text>
+    <TextInput
+      value={flexShrink}
+      style={styles.input}
+      onChangeText={(fS) =>
+        setStyle((value) => ({
+          ...value,
+          flexShrink: isNaN(parseInt(fS))
+            ? ""
+            : parseInt(fS),
+        }))
+      }
+    />
+    <Text style={styles.label}>flexGrow</Text>
+    <TextInput
+      value={flexGrow}
+      style={styles.input}
+      onChangeText={(fG) =>
+        setStyle((value) => ({
+          ...value,
+          flexGrow: isNaN(parseInt(fG))
+            ? ""
+            : parseInt(fG),
+        }))
+      }
+    />
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 10,
+  },
+  box: {
+    flex: 1,
+    height: 50,
+    width: 50,
+  },
+  boxLabel: {
+    minWidth: 80,
+    padding: 8,
+    borderRadius: 4,
+    marginTop: 8,
+  },
+  label: {
+    marginTop: 6,
+    fontSize: 16,
+    fontWeight: "100",
+  },
+  previewContainer: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "aliceblue",
+  },
+  row: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  input: {
+    borderBottomWidth: 1,
+    paddingVertical: 3,
+    width: 50,
+    textAlign: "center",
+  },
+});
+
+export default App;
+```
+
+## 宽度与高度
 
 The `width` property specifies the width of an element's content area. Similarly, the `height` property specifies the height of an element's content area.
 
@@ -207,7 +1200,160 @@ Both `width` and `height` can take the following values:
 
 - `percentage` Defines the width or height in percentage of its parent's width or height, respectively.
 
-## Absolute & Relative Layout
+```SnackPlayer name=Width%20and%20Height
+import React, { useState } from "react";
+import {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
+
+const WidthHeightBasics = () => {
+  const [widthType, setWidthType] = useState("auto");
+  const [heightType, setHeightType] = useState("auto");
+
+  return (
+    <PreviewLayout
+      widthType={widthType}
+      heightType={heightType}
+      widthValues={["auto", 300, "80%"]}
+      heightValues={["auto", 200, "60%"]}
+      setWidthType={setWidthType}
+      setHeightType={setHeightType}
+    >
+      <View
+        style={{
+          alignSelf: "flex-start",
+          backgroundColor: "aliceblue",
+          height: heightType,
+          width: widthType,
+          padding: 15,
+        }}
+      >
+        <View
+          style={[
+            styles.box,
+            { backgroundColor: "powderblue" },
+          ]}
+        />
+        <View
+          style={[
+            styles.box,
+            { backgroundColor: "skyblue" },
+          ]}
+        />
+        <View
+          style={[
+            styles.box,
+            { backgroundColor: "steelblue" },
+          ]}
+        />
+      </View>
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  children,
+  widthType,
+  heightType,
+  widthValues,
+  heightValues,
+  setWidthType,
+  setHeightType,
+}) => (
+  <View style={{ flex: 1, padding: 10 }}>
+    <View style={styles.row}>
+      <Text style={styles.label}>width </Text>
+      {widthValues.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setWidthType(value)}
+          style={[
+            styles.button,
+            widthType === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              widthType === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={styles.row}>
+      <Text style={styles.label}>height </Text>
+      {heightValues.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setHeightType(value)}
+          style={[
+            styles.button,
+            heightType === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              heightType === value && styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    {children}
+  </View>
+);
+
+const styles = StyleSheet.create({
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    padding: 8,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  selected: {
+    backgroundColor: "coral",
+    shadowOpacity: 0,
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default WidthHeightBasics;
+```
+
+## 绝对与相对定位
 
 The `position` type of an element defines how it is positioned within its parent.
 
@@ -215,12 +1361,150 @@ The `position` type of an element defines how it is positioned within its parent
 
 - `absolute` When positioned absolutely, an element doesn't take part in the normal layout flow. It is instead laid out independent of its siblings. The position is determined based on the `top`, `right`, `bottom`, and `left` values.
 
-![Absolute & Relative Layoutp](https://cdn-images-1.medium.com/max/800/1*NlPeRQCQK3Vb5nyjL0Mqxw.png)
+```SnackPlayer name=Absolute%20%26%20Relative%20Layout
+import React, { useState } from "react";
+import {
+  View,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from "react-native";
 
-## Going Deeper
+const PositionLayout = () => {
+  const [position, setPosition] = useState("relative");
+
+  return (
+    <PreviewLayout
+      label="position"
+      selectedValue={position}
+      values={["relative", "absolute"]}
+      setSelectedValue={setPosition}
+    >
+      <View
+        style={[
+          styles.box,
+          {
+            top: 25,
+            left: 25,
+            position,
+            backgroundColor: "powderblue",
+          },
+        ]}
+      />
+      <View
+        style={[
+          styles.box,
+          {
+            top: 50,
+            left: 50,
+            position,
+            backgroundColor: "skyblue",
+          },
+        ]}
+      />
+      <View
+        style={[
+          styles.box,
+          {
+            top: 75,
+            left: 75,
+            position,
+            backgroundColor: "steelblue",
+          },
+        ]}
+      />
+    </PreviewLayout>
+  );
+};
+
+const PreviewLayout = ({
+  label,
+  children,
+  values,
+  selectedValue,
+  setSelectedValue,
+}) => (
+  <View style={{ padding: 10, flex: 1 }}>
+    <Text style={styles.label}>{label}</Text>
+    <View style={styles.row}>
+      {values.map((value) => (
+        <TouchableOpacity
+          key={value}
+          onPress={() => setSelectedValue(value)}
+          style={[
+            styles.button,
+            selectedValue === value && styles.selected,
+          ]}
+        >
+          <Text
+            style={[
+              styles.buttonLabel,
+              selectedValue === value &&
+                styles.selectedLabel,
+            ]}
+          >
+            {value}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
+    <View style={styles.container}>{children}</View>
+  </View>
+);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: 8,
+    backgroundColor: "aliceblue",
+    minHeight: 200,
+  },
+  box: {
+    width: 50,
+    height: 50,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  button: {
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: "oldlace",
+    alignSelf: "flex-start",
+    marginHorizontal: "1%",
+    marginBottom: 6,
+    minWidth: "48%",
+    textAlign: "center",
+  },
+  selected: {
+    backgroundColor: "coral",
+    borderWidth: 0,
+  },
+  buttonLabel: {
+    fontSize: 12,
+    fontWeight: "500",
+    color: "coral",
+  },
+  selectedLabel: {
+    color: "white",
+  },
+  label: {
+    textAlign: "center",
+    marginBottom: 10,
+    fontSize: 24,
+  },
+});
+
+export default PositionLayout;
+```
+
+## 深入学习
 
 Check out the interactive [yoga playground](https://yogalayout.com/playground) that you can use to get a better understanding of flexbox.
 
-We've covered the basics, but there are many other styles you may need for layouts. The full list of props that control layout is documented [here](./layout-props.md).
+以上我们已经介绍了一些基础知识，但要运用好布局，我们还需要很多其他的样式。对于布局有影响的完整样式列表记录在[这篇文档中](layout-props.md)。
 
-Additionally, you can see some examples from [Wix Engineers](https://medium.com/wix-engineering/the-full-react-native-layout-cheat-sheet-a4147802405c).
+现在我们已经差不多可以开始真正的开发工作了。哦，忘了还有个常用的知识点：[如何使用 TextInput 组件来处理用户输入](handling-text-input.md)。

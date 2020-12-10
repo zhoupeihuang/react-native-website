@@ -1,7 +1,9 @@
 ---
 id: shadow-props
-title: Shadow Props
+title: 阴影样式属性
 ---
+
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 ```SnackPlayer name=Shadow%20Props&supportedPlatforms=ios
 import React, { useState } from "react";
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-# Reference
+# 文档
 
 These properties are iOS only - for similar functionality on Android, use the [`elevation` property](view-style-props#elevation).
 
@@ -105,38 +107,38 @@ These properties are iOS only - for similar functionality on Android, use the [`
 
 ### `shadowColor`
 
-Sets the drop shadow color
+设置阴影色。
 
-| Type               | Required | Platform |
-| ------------------ | -------- | -------- |
-| [color](colors.md) | No       | iOS      |
+| 类型               | 必填 | 平台 |
+| ------------------ | ---- | ---- |
+| [color](colors.md) | 否   | iOS  |
 
 ---
 
 ### `shadowOffset`
 
-Sets the drop shadow offset
+设置阴影偏移量。
 
-| Type                                   | Required | Platform |
-| -------------------------------------- | -------- | -------- |
-| object: {width: number,height: number} | No       | iOS      |
+| 类型                                   | 必填 | 平台 |
+| -------------------------------------- | ---- | ---- |
+| object: {width: number,height: number} | 否   | iOS  |
 
 ---
 
 ### `shadowOpacity`
 
-Sets the drop shadow opacity (multiplied by the color's alpha component)
+设置阴影不透明度 (乘以颜色的 alpha 分量)。
 
-| Type   | Required | Platform |
-| ------ | -------- | -------- |
-| number | No       | iOS      |
+| 类型   | 必填 | 平台 |
+| ------ | ---- | ---- |
+| number | 否   | iOS  |
 
 ---
 
 ### `shadowRadius`
 
-Sets the drop shadow blur radius
+设置阴影模糊半径。
 
-| Type   | Required | Platform |
-| ------ | -------- | -------- |
-| number | No       | iOS      |
+| 类型   | 必填 | 平台 |
+| ------ | ---- | ---- |
+| number | 否   | iOS  |

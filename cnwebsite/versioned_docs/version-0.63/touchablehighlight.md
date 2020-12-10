@@ -3,37 +3,45 @@ id: touchablehighlight
 title: TouchableHighlight
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 > If you're looking for a more extensive and future-proof way to handle touch-based input, check out the [Pressable](pressable.md) API.
 
-A wrapper for making views respond properly to touches. On press down, the opacity of the wrapped view is decreased, which allows the underlay color to show through, darkening or tinting the view.
+本组件用于封装视图，使其可以正确响应触摸操作。当按下的时候，封装的视图的不透明度会降低，同时会有一个底层的颜色透过而被用户看到，使得视图变暗或变亮。
 
-The underlay comes from wrapping the child in a new View, which can affect layout, and sometimes cause unwanted visual artifacts if not used correctly, for example if the backgroundColor of the wrapped view isn't explicitly set to an opaque color.
+在底层实现上，实际会创建一个新的视图到视图层级中，如果使用的方法不正确，有时候会导致一些不希望出现的视觉效果。譬如没有给视图的 backgroundColor 显式声明一个不透明的颜色。
 
-TouchableHighlight must have one child (not zero or more than one). If you wish to have several child components, wrap them in a View.
+注意`TouchableHighlight`只支持一个子节点（不能没有子节点也不能多于一个）。如果你希望包含多个子组件，可以用一个 View 来包装它们。
 
-```jsx
-function MyComponent(props) {
+例子：
+
+```
+renderButton: function() {
   return (
-    <View {...props} style={{ flex: 1, backgroundColor: '#fff' }}>
-      <Text>My Component</Text>
-    </View>
+    <TouchableHighlight onPress={this._onPressButton}>
+      <Image
+        style={styles.button}
+        source={require('./myButton.png')}
+      />
+    </TouchableHighlight>
   );
-}
-
-<TouchableHighlight
-  activeOpacity={0.6}
-  underlayColor="#DDDDDD"
-  onPress={() => alert('Pressed!')}>
-  <MyComponent />
-</TouchableHighlight>;
+},
 ```
 
-## Example
+## 示例
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
+<div class="toggler">
+  <ul role="tablist" class="toggle-syntax">
+    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
+      函数组件示例
+    </li>
+    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
+      Class组件示例
+    </li>
+  </ul>
+</div>
+
+<block class="functional syntax" />
 
 ```SnackPlayer name=TouchableHighlight%20Function%20Component%20Example
 import React, { useState } from "react";
@@ -82,8 +90,7 @@ const styles = StyleSheet.create({
 export default TouchableHighlightExample;
 ```
 
-</TabItem>
-<TabItem value="classical">
+<block class="classical syntax" />
 
 ```SnackPlayer name=TouchableHighlight%20Class%20Component%20Example
 import React, { Component } from "react";
@@ -142,12 +149,11 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-</TabItem>
-</Tabs>
+<block class="endBlock syntax" />
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
@@ -155,49 +161,49 @@ Inherits [TouchableWithoutFeedback Props](touchablewithoutfeedback.md#props).
 
 ### `activeOpacity`
 
-Determines what the opacity of the wrapped view should be when touch is active. The value should be between 0 and 1. Defaults to 0.85. Requires `underlayColor` to be set.
+指定封装的视图在被触摸操作激活时以多少不透明度显示（0 到 1 之间，默认值为 0.85）。需要设置`underlayColor`。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `onHideUnderlay`
 
-Called immediately after the underlay is hidden.
+底层的颜色被隐藏的时候调用。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `onShowUnderlay`
 
-Called immediately after the underlay is shown.
+当底层的颜色被显示的时候调用。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `style`
 
-| Type       | Required |
-| ---------- | -------- |
-| View.style | No       |
+| 类型       | 必填 |
+| ---------- | ---- |
+| View.style | 否   |
 
 ---
 
 ### `underlayColor`
 
-The color of the underlay that will show through when the touch is active.
+有触摸操作时显示出来的底层的颜色。
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               | 必填 |
+| ------------------ | ---- |
+| [color](colors.md) | 否   |
 
 ---
 
@@ -205,66 +211,18 @@ The color of the underlay that will show through when the touch is active.
 
 _(Apple TV only)_ TV preferred focus (see documentation for the View component).
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | iOS      |
+| 类型 | 必填 | 平台 |
+| ---- | ---- | ---- |
+| bool | 否   | iOS  |
 
 ---
 
-### `nextFocusDown`
+### `tvParallaxProperties`
 
-TV next focus down (see documentation for the View component).
+_(Apple TV only)_ Object with properties to control Apple TV parallax effects.
 
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
+enabled: If true, parallax effects are enabled. Defaults to true. shiftDistanceX: Defaults to 2.0. shiftDistanceY: Defaults to 2.0. tiltAngle: Defaults to 0.05. magnification: Defaults to 1.0. pressMagnification: Defaults to 1.0. pressDuration: Defaults to 0.3. pressDelay: Defaults to 0.0.
 
----
-
-### `nextFocusForward`
-
-TV next focus forward (see documentation for the View component).
-
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
----
-
-### `nextFocusLeft`
-
-TV next focus left (see documentation for the View component).
-
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
----
-
-### `nextFocusRight`
-
-TV next focus right (see documentation for the View component).
-
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
----
-
-### `nextFocusUp`
-
-TV next focus up (see documentation for the View component).
-
-| Type | Required | Platform |
-| ---- | -------- | -------- |
-| bool | No       | Android  |
-
----
-
-### `testOnly_pressed`
-
-Handy for snapshot tests.
-
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| 类型   | 必填 | 平台 |
+| ------ | ---- | ---- |
+| object | 否   | iOS  |

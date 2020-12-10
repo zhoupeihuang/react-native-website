@@ -1,17 +1,19 @@
 ---
 id: viewpagerandroid
-title: '🚧 ViewPagerAndroid'
+title: 🚧 ViewPagerAndroid
 ---
 
-> **Deprecated.** Use [@react-native-community/viewpager](https://github.com/react-native-community/react-native-viewpager) instead.
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(93.33%), [yahoo.007](https://github.com/search?q=yahoo.007&type=Users)(5.56%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(1.11%)
 
-Container that allows to flip left and right between child views. Each child view of the `ViewPagerAndroid` will be treated as a separate page and will be stretched to fill the `ViewPagerAndroid`.
+> **已过时。** Use [@react-native-community/viewpager](https://github.com/react-native-community/react-native-viewpager) instead.
 
-It is important all children are `<View>`s and not composite components. You can set style properties like `padding` or `backgroundColor` for each child. It is also important that each child have a `key` prop.
+一个允许在子视图之间左右翻页的容器。每一个 ViewPagerAndroid 的子容器会被视作一个单独的页，并且会被拉伸填满 ViewPagerAndroid。
 
-Example:
+注意所有的子视图都必须是纯 View，而不能是自定义的复合容器。你可以给每个子视图设置样式属性譬如 padding 或 backgroundColor。
 
-```jsx
+例如:
+
+```
 render() {
   return (
     <ViewPagerAndroid
@@ -43,103 +45,103 @@ const styles = {
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
-Inherits [View Props](view.md#props).
-
 ### `initialPage`
 
-Index of initial page that should be selected. Use `setPage` method to update the page, and `onPageSelected` to monitor page changes
+初始选中的页的下标。你可以用 setPage 函数来翻页，并且用 onPageSelected 来监听页的变化。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `keyboardDismissMode`
 
-Determines whether the keyboard gets dismissed in response to a drag.
+决定在滑动的时候是否要让软键盘消失。
 
-- 'none' (the default), drags do not dismiss the keyboard.
-- 'on-drag', the keyboard is dismissed when a drag begins.
+- none （默认值），拖拽不会让键盘消失。
+- on-drag， 当拖拽开始的时候会让键盘消失。
 
-| Type                    | Required |
-| ----------------------- | -------- |
-| enum('none', 'on-drag') | No       |
+| 类型                    | 必填 |
+| ----------------------- | ---- |
+| enum('none', 'on-drag') | 否   |
 
 ---
 
 ### `onPageScroll`
 
-Executed when transitioning between pages (either because of animation for the requested page change or when user is swiping/dragging between pages) The `event.nativeEvent` object for this callback will carry following data:
+当在页间切换时（不论是由于动画还是由于用户在页间滑动/拖拽）执行。
 
-- position - index of first page from the left that is currently visible
-- offset - value from range [0, 1] describing stage between page transitions. Value x means that (1 - x) fraction of the page at "position" index is visible, and x fraction of the next page is visible.
+回调参数中的 event.nativeEvent 对象会包含如下数据：
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+- position 从左数起第一个当前可见的页面的下标。
+- offset 一个在[0,1]之内的范围(可以等于 0 或 1)，代表当前页面切换的状态。值 x 表示现在"position"所表示的页有(1 - x)的部分可见，而下一页有 x 的部分可见。
+
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `onPageScrollStateChanged`
 
-Function called when the page scrolling state has changed. The page scrolling state can be in 3 states:
+页面滑动状态变化时调用此回调函数。页面滑动状态可能为以下三种之一：
 
-- idle, meaning there is no interaction with the page scroller happening at the time
-- dragging, meaning there is currently an interaction with the page scroller
-- settling, meaning that there was an interaction with the page scroller, and the page scroller is now finishing its closing or opening animation
+- idle 空闲，意味着当前没有交互。
+- dragging 拖动中，意味着当前页面正在被拖动。
+- settling 处理中，意味着当前页面发生过交互，且正在结束开头或收尾的动画。
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `onPageSelected`
 
-This callback will be called once ViewPager finish navigating to selected page (when user swipes between pages). The `event.nativeEvent` object passed to this callback will have following fields:
+这个回调会在页面切换完成后（当用户在页面间滑动）调用。
 
-- position - index of page that has been selected
+回调参数中的 event.nativeEvent 对象会包含如下的字段：
 
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
+- position 当前被选中的页面下标
+
+| 类型     | 必填 |
+| -------- | ---- |
+| function | 否   |
 
 ---
 
 ### `pageMargin`
 
-Blank space to show between pages. This is only visible while scrolling, pages are still edge-to-edge.
+页面滑动时两个页面之间的间距。仅仅在滑动时可见，页面之间仍然时边对边的。
 
-| Type   | Required |
-| ------ | -------- |
-| number | No       |
+| 类型   | 必填 |
+| ------ | ---- |
+| number | 否   |
 
 ---
 
 ### `peekEnabled`
 
-Whether enable showing peekFraction or not. If this is true, the preview of last and next page will show in current screen. Defaults to false.
+是否在当前页滑动时展示前一页或者后一页，默认为 false
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 否   |
 
 ---
 
 ### `scrollEnabled`
 
-When false, the content does not scroll. The default value is true.
+设为 false 时可禁止滚动。默认值为 true
 
-| Type | Required |
-| ---- | -------- |
-| bool | No       |
-
----
+| 类型 | 必填 |
+| ---- | ---- |
+| bool | 否   |
 
 ### `setPage`
 
@@ -147,7 +149,7 @@ A helper function to scroll to a specific page in the ViewPager. The transition 
 
 - position - index of page that will be selected
 
-| Type   | Required |
+| 类型   | Required |
 | ------ | -------- |
 | Number | Yes      |
 
@@ -159,22 +161,22 @@ A helper function to scroll to a specific page in the ViewPager. The transition 
 
 - position - index of page that will be selected
 
-| Type   | Required |
+| 类型   | Required |
 | ------ | -------- |
 | Number | Yes      |
 
-## Type Definitions
+## 类型定义
 
 ### ViewPagerScrollState
 
-| Type   |
+| 类型   |
 | ------ |
 | \$Enum |
 
-**Constants:**
+**常量:**
 
-| Value    | Description |
-| -------- | ----------- |
-| idle     |             |
-| dragging |             |
-| settling |             |
+| Value    | 说明 |
+| -------- | ---- |
+| idle     |      |
+| dragging |      |
+| settling |      |

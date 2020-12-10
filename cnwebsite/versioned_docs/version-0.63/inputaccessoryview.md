@@ -3,9 +3,11 @@ id: inputaccessoryview
 title: InputAccessoryView
 ---
 
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(79.75%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(20.25%)
+
 A component which enables customization of the keyboard input accessory view on iOS. The input accessory view is displayed above the keyboard whenever a `TextInput` has focus. This component can be used to create custom toolbars.
 
-To use this component wrap your custom toolbar with the InputAccessoryView component, and set a `nativeID`. Then, pass that `nativeID` as the `inputAccessoryViewID` of whatever `TextInput` you desire. A basic example:
+To use this component wrap your custom toolbar with the InputAccessoryView component, and set a `nativeID`. Then, pass that `nativeID` as the `inputAccessoryViewID` of whatever `TextInput` you desire. A simple example:
 
 ```SnackPlayer name=InputAccessoryView&supportedPlatforms=ios
 import React, { useState } from 'react';
@@ -13,7 +15,7 @@ import { Button, InputAccessoryView, ScrollView, TextInput } from 'react-native'
 
 export default App = () => {
   const inputAccessoryViewID = 'uniqueID';
-  const initialText = 'Placeholder Text';
+  const initialText = '';
   const [text, setText] = useState(initialText);
 
   return (
@@ -22,17 +24,18 @@ export default App = () => {
         <TextInput
           style={{
             padding: 16,
-            marginTop: 50
+            marginTop: 50,
           }}
           inputAccessoryViewID={inputAccessoryViewID}
-          onChangeText={text => setText(text)}
+          onChangeText={setText}
           value={text}
+          placeholder={'Please type here…'}
         />
       </ScrollView>
       <InputAccessoryView nativeID={inputAccessoryViewID}>
         <Button
           onPress={() => setText(initialText)}
-          title="Reset Text"
+          title="Clear text"
         />
       </InputAccessoryView>
     </>
@@ -44,15 +47,15 @@ This component can also be used to create sticky text inputs (text inputs which 
 
 ---
 
-# Reference
+# 文档
 
 ## Props
 
 ### `backgroundColor`
 
-| Type               | Required |
-| ------------------ | -------- |
-| [color](colors.md) | No       |
+| 类型               |
+| ------------------ |
+| [color](colors.md) |
 
 ---
 
@@ -60,19 +63,19 @@ This component can also be used to create sticky text inputs (text inputs which 
 
 An ID which is used to associate this `InputAccessoryView` to specified TextInput(s).
 
-| Type   | Required |
-| ------ | -------- |
-| string | No       |
+| 类型   |
+| ------ |
+| string |
 
 ---
 
 ### `style`
 
-| Type                         | Required |
-| ---------------------------- | -------- |
-| [style](view-style-props.md) | No       |
+| 类型                         |
+| ---------------------------- |
+| [style](view-style-props.md) |
 
-# Known issues
+# 已知问题
 
-- [react-native#18997](https://github.com/facebook/react-native/issues/18997): Doesn't support multiline `TextInput`
-- [react-native#20157](https://github.com/facebook/react-native/issues/20157): Can't use with a bottom tab bar
+- [react-native#18997](https://github.com/facebook/react-native/issues/18997): 不支持多行的`TextInput`
+- [react-native#20157](https://github.com/facebook/react-native/issues/20157): 不能和底部 tab 栏一起使用

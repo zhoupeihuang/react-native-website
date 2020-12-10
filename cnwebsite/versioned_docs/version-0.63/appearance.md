@@ -3,34 +3,30 @@ id: appearance
 title: Appearance
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(80.95%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(19.05%)
 
 ```jsx
-import { Appearance } from 'react-native';
+import { Appearance } from "react-native";
 ```
-
-#### Developer notes
 
 The `Appearance` module exposes information about the user's appearance preferences, such as their preferred color scheme (light or dark).
 
-<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["android", "ios", "web"])}>
+<div class="toggler">
+  <span>Developer Notes</span>
+  <span role="tablist" class="toggle-devNotes">
+    <button role="tab" class="button-webNote" onclick="displayTabs('devNotes', 'webNote')">Web</button>
+    <button role="tab" class="button-androidNote" onclick="displayTabs('devNotes', 'androidNote')">Android</button>
+    <button role="tab" class="button-iosNote" onclick="displayTabs('devNotes', 'iosNote')">iOS</button>
+  </span>
+</div>
 
-<TabItem value="web">
+<block class="webNote devNotes" />
 
-> The `Appearance` API is inspired by the [Media Queries draft](https://drafts.csswg.org/mediaqueries-5/) from the W3C. The color scheme preference is modeled after the [`prefers-color-scheme` CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
+> The `Appearance` API is inspired by the [Media Queries draft](https://drafts.csswg.org/mediaqueries-5/) from the W3C. The color scheme preference is modeled after the [`prefers-color-scheme` CSS media feature](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme). <block class="androidNote devNotes" />
 
-</TabItem>
-<TabItem value="android">
+> The color scheme preference will map to the user's Light or [Dark theme](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme) preference on Android 10 (API level 29) devices and higher. <block class="iosNote devNotes" />
 
-> The color scheme preference will map to the user's Light or [Dark theme](https://developer.android.com/guide/topics/ui/look-and-feel/darktheme) preference on Android 10 (API level 29) devices and higher.
-
-</TabItem>
-<TabItem value="ios">
-
-> The color scheme preference will map to the user's Light or [Dark Mode](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode/) preference on iOS 13 devices and higher.
-
-</TabItem>
-</Tabs>
+> The color scheme preference will map to the user's Light or [Dark Mode](https://developer.apple.com/design/human-interface-guidelines/ios/visual-design/dark-mode/) preference on iOS 13 devices and higher. <block class="endBlock devNotes" />
 
 ## Example
 
@@ -38,7 +34,7 @@ You can use the `Appearance` module to determine if the user prefers a dark colo
 
 ```jsx
 const colorScheme = Appearance.getColorScheme();
-if (colorScheme === 'dark') {
+if (colorScheme === "dark") {
   // Use dark color scheme
 }
 ```
@@ -59,13 +55,17 @@ Indicates the current user preferred color scheme. The value may be updated late
 
 Supported color schemes:
 
-- `light`: The user prefers a light color theme.
-- `dark`: The user prefers a dark color theme.
-- null: The user has not indicated a preferred color theme.
+| Value     | 说明                                                |
+| --------- | --------------------------------------------------- |
+| `"light"` | The user prefers a light color theme.               |
+| `"dark"`  | The user prefers a dark color theme.                |
+| `null`    | The user has not indicated a preferred color theme. |
 
-See also: `useColorScheme` hook.
+> **注意：** 在使用 chrome 调试时，`getColorScheme()`将始终返回`light`。
 
-> Note: `getColorScheme()` will always return `light` when debugging with Chrome.
+更多说明请参考[`useColorScheme`](usecolorscheme)。
+
+---
 
 ### `addChangeListener()`
 
@@ -74,6 +74,8 @@ static addChangeListener(listener)
 ```
 
 Add an event handler that is fired when appearance preferences change.
+
+---
 
 ### `removeChangeListener()`
 
