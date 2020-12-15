@@ -1,6 +1,6 @@
 ---
 id: intro-react
-title: React基础
+title: React 基础
 description: 要深入理解 React Native，需要扎实的React 基础知识。这篇小教程可以帮助你入门或者温习相关知识。
 ---
 
@@ -488,9 +488,8 @@ And you set individual values inside the state object by passing an object with 
 <Button
   onPress={() => {
     this.setState({ isHungry: false });
-  }}>
-  // ..
-</Button>
+  }}
+/>
 ```
 
 > 不要直接给组件 state 赋值（比如`this.state.hunger = false`）来修改状态。Calling `this.setState()` allows React to track changes made to state that trigger rerendering. Setting state directly can break your app's reactivity!

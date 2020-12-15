@@ -166,7 +166,7 @@ If you're integrating React Native into an existing project, you'll want to skip
 </TabItem>
 <TabItem value="linux">
 
-#### Target OS
+#### 目标平台
 
 <Tabs groupId="platform" defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
 <TabItem value="android">
@@ -297,38 +297,6 @@ npm install -g yarn
 ```
 
 安装完 yarn 之后就可以用 yarn 代替 npm 了，例如用`yarn`代替`npm install`命令，用`yarn add 某第三方库名`代替`npm install 某第三方库名`。
-
-<block class="native mac ios" />
-
-### Xcode
-
-React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 10 或更高版本。你可以通过 App Store 或是到[Apple 开发者官网](https://developer.apple.com/xcode/downloads/)上下载。这一步骤会同时安装 Xcode IDE、Xcode 的命令行工具和 iOS 模拟器。
-
-<h4>Xcode 的命令行工具</h4>
-
-启动 Xcode，并在`Xcode | Preferences | Locations`菜单中检查一下是否装有某个版本的`Command Line Tools`。Xcode 的命令行工具中包含一些必须的工具，比如`git`等。
-
-![Xcode Command Line Tools](assets/GettingStartedXcodeCommandLineTools.png)
-
-<h4>CocoaPods</h4>
-
-[CocoaPods](https://cocoapods.org/)是用 Ruby 编写的包管理器。从 0.60 版本开始 react native 的 iOS 版本需要使用 CocoaPods 来管理依赖。你可以使用下面的命令来安装 cocoapods。
-
-> 当然安装可能也不顺利，请尝试使用代理软件或寻找一些国内可用的镜像源。
-
-```sh
-sudo gem install cocoapods
-```
-
-或者可以使用 brew 来安装
-
-```sh
-brew install cocoapods
-```
-
-> 另外目前最新版本似乎不能在 ruby2.6 版本以下安装，意味着如果你使用的 macOS 版本低于 10.15 (Catalina) 则无法直接安装。可以尝试安装较旧一些的版本。如`sudo gem install cocoapods -v 1.8.4`，参考 issue 链接 <https://github.com/CocoaPods/CocoaPods/issues/9568>
-
-要了解更多信息，可以访问[CocoaPods 的官网](https://guides.cocoapods.org/using/getting-started.html)。
 
 <block class="native mac linux android" />
 

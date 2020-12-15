@@ -32,9 +32,7 @@ function SponsorHeader() {
         color: '#666',
         marginBottom: 15,
       }}>
-      <span style={{fontWeight: 'bold', color: '#05a5d1;'}}>
-        React 实战教程
-      </span>{' '}
+      <span style={{fontWeight: 'bold', color: '#05a5d1'}}>React 实战教程</span>{' '}
       深入学习一线大厂必备前端技能，VIP 教程限时免费领取。{' '}
       <span
         style={{

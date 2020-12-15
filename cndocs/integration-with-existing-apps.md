@@ -1,6 +1,7 @@
 ---
 id: integration-with-existing-apps
 title: 集成到现有原生应用
+hide_table_of_contents: true
 ---
 
 如果你正准备从头开始制作一个新的应用，那么 React Native 会是个非常好的选择。但如果你只想给现有的原生应用中添加一两个视图或是业务流程，React Native 也同样不在话下。只需简单几步，你就可以给原有应用加上新的基于 React Native 的特性、画面和视图等。

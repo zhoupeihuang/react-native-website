@@ -1,6 +1,6 @@
 ---
 id: react-node
-title: React Node Object Type
+title: React 节点对象
 ---
 
 A React Node is one of the following types:

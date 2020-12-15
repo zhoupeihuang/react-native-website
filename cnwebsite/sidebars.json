@@ -112,8 +112,8 @@
       }
     ]
   },
-  "components": {
-    "Core Components": [
+  "组件": {
+    "核心组件": [
       "components-and-apis",
       "activityindicator",
       "button",
@@ -155,7 +155,7 @@
       "text-style-props",
       "view-style-props"
     ],
-    "Object Types": [
+    "内部对象类型": [
       "layoutevent",
       "pressevent",
       "react-node",

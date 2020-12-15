@@ -1,6 +1,7 @@
 ---
 id: building-for-tv
 title: 为电视和机顶盒制作应用
+hide_table_of_contents: true
 ---
 
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
