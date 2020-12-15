@@ -9,7 +9,7 @@ const isWindows = ExecutionEnvironment.canUseDOM
 
 const syntax = [
   {label: '函数式组件', value: 'functional'},
-  {label: 'Class组件', value: 'classical'},
+  {label: 'Class 组件', value: 'classical'},
 ];
 const defaultSyntax = 'functional';
 

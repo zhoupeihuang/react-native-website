@@ -1,6 +1,6 @@
 ---
 id: getting-started
-title: Introduction
+title: 简介
 description: This helpful guide lays out the prerequisites for learning React Native, using these docs, and setting up your environment.
 ---
 

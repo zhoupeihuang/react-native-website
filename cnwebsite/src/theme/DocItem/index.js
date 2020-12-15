@@ -9,7 +9,7 @@ import Head from '@docusaurus/Head';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import DocPaginator from '@theme/DocPaginator';
-import DocVersionSuggestions from '@theme/DocVersionSuggestions';
+import DocVersionSuggestions from '../DocVersionSuggestions';
 import TOC from '@theme/TOC';
 import clsx from 'clsx';
 import styles from './styles.module.css';
@@ -114,7 +114,7 @@ function DocItem(props) {
               {showVersionBadge && (
                 <div>
                   <span className="badge badge--secondary">
-                    Version: {version.label}
+                    版本: {version.label}
                   </span>
                 </div>
               )}
