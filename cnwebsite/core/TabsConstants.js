@@ -20,8 +20,8 @@ const packageManagers = [
 const defaultPackageManager = 'npm';
 
 const guides = [
-  {label: '简易沙盒环境', value: 'quickstart'},
   {label: '完整原生环境', value: 'native'},
+  {label: '简易沙盒环境', value: 'quickstart'},
 ];
 const defaultGuide = 'native';
 
