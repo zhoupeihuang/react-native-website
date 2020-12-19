@@ -66,7 +66,7 @@ export default () => {
 
 `Animated`提供了多种动画类型，其中最常用的要属[`Animated.timing()`](animated#timing). It supports animating a value over time using one of various predefined easing functions, or you can use your own. Easing functions are typically used in animation to convey gradual acceleration and deceleration of objects.
 
-By default, `timing` will use a easeInOut curve that conveys gradual acceleration to full speed and concludes by gradually decelerating to a stop. You can specify a different easing function by passing a `easing` parameter. Custom `duration` or even a `delay` before the animation starts is also supported.
+默认情况下`timing`使用 easeInOut 曲线 that conveys gradual acceleration to full speed and concludes by gradually decelerating to a stop. You can specify a different easing function by passing a `easing` parameter. Custom `duration` or even a `delay` before the animation starts is also supported.
 
 下面这个例子创建了一个 2 秒长的动画，在移动目标到最终位置前会稍微往后退一点：
 
@@ -128,7 +128,7 @@ Animated.spring(a, {
 
 ### 插值
 
-Each property can be run through an interpolation first. An interpolation maps input ranges to output ranges, typically using a linear interpolation but also supports easing functions. By default, it will extrapolate the curve beyond the ranges given, but you can also have it clamp the output value.
+所有动画值都可以执行插值（interpolation）操作。 An interpolation maps input ranges to output ranges, typically using a linear interpolation but also supports easing functions. By default, it will extrapolate the curve beyond the ranges given, but you can also have it clamp the output value.
 
 A simple mapping to convert a 0-1 range to a 0-100 range would be:
 
