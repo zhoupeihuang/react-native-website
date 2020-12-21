@@ -6,7 +6,7 @@
 
 ### Node & Watchman
 
-我们推荐使用[Homebrew](http://brew.sh/)来安装 Node 和 Watchman。在命令行中执行下列命令安装（如安装较慢可以尝试阿里云的镜像源 https://developer.aliyun.com/mirror/homebrew）：
+我们推荐使用[Homebrew](http://brew.sh/)来安装 Node 和 Watchman。在命令行中执行下列命令安装（如安装较慢可以尝试阿里云的[镜像源](https://developer.aliyun.com/mirror/homebrew)）：
 
 ```
 brew install node
@@ -27,6 +27,16 @@ npx nrm use npm
 
 [Watchman](https://facebook.github.io/watchman)则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。
 
+### Yarn
+
+[Yarn](http://yarnpkg.com)是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。
+
+```
+npm install -g yarn
+```
+
+安装完 yarn 之后就可以用 yarn 代替 npm 了，例如用`yarn`代替`npm install`命令，用`yarn add 某第三方库名`代替`npm install 某第三方库名`。
+
 ### Xcode
 
 React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 10 或更高版本。你可以通过 App Store 或是到[Apple 开发者官网](https://developer.apple.com/xcode/downloads/)上下载。这一步骤会同时安装 Xcode IDE、Xcode 的命令行工具和 iOS 模拟器。
@@ -39,7 +49,7 @@ React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 1
 
 #### 在 Xcode 中安装 iOS 模拟器
 
-To install a simulator, open <strong>Xcode > Preferences...</strong> and select the <strong>Components</strong> tab. Select a simulator with the corresponding version of iOS you wish to use.
+安装模拟器只需打开 <strong>Xcode > Preferences...</strong> 菜单，然后选择 <strong>Components</strong> 选项，即可看到各种可供安装的不同的 iOS 版本的模拟器。
 
 #### CocoaPods
 
@@ -61,10 +71,6 @@ brew install cocoapods
 
 要了解更多信息，可以访问[CocoaPods 的官网](https://guides.cocoapods.org/using/getting-started.html)。
 
-### React Native Command Line Interface
-
-React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using `npx`, which ships with Node.js. With `npx react-native <command>`, the current stable version of the CLI will be downloaded and executed at the time the command is run.
-
 ## 创建新项目
 
 > 如果你之前全局安装过旧的`react-native-cli`命令行工具，请使用`npm uninstall -g react-native-cli`卸载掉它以避免一些冲突。
@@ -77,9 +83,9 @@ React Native has a built-in command line interface. Rather than install and mana
 npx react-native init AwesomeProject
 ```
 
-This is not necessary if you are integrating React Native into an existing application, if you "ejected" from Expo, or if you're adding iOS support to an existing React Native project (see [Platform Specific Code](platform-specific-code.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
+如果你是想把 React Native 集成到现有的原生项目中，则步骤完全不同，请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
-### [Optional] Using a specific version or template
+### [可选参数] 指定版本或项目模板
 
 你可以使用`--version`参数（注意是`两`个杠）创建指定版本的项目。注意版本号必须精确到两个小数点。
 
@@ -87,67 +93,56 @@ This is not necessary if you are integrating React Native into an existing appli
 npx react-native init AwesomeProject --version X.XX.X
 ```
 
-You can also start a project with a custom React Native template, like TypeScript, with `--template` argument:
+还可以使用`--template`来使用一些社区提供的模板，例如带有`TypeScript`配置的：
 
 ```shell
 npx react-native init AwesomeTSProject --template react-native-template-typescript
 ```
 
-> **Note** If the above command is failing, you may have old version of `react-native` or `react-native-cli` installed globally on your pc. Try uninstalling the cli and run the cli using `npx`.
+## 编译并运行 React Native 应用
 
-## Running your React Native application
+在你的项目目录中运行`yarn ios`或者`yarn react-native run-ios`：
 
-### Step 1: Start Metro
-
-First, you will need to start Metro, the JavaScript bundler that ships with React Native. Metro "takes in an entry file and various options, and returns a single JavaScript file that includes all your code and its dependencies."—[Metro Docs](https://facebook.github.io/metro/docs/concepts)
-
-To start Metro, run `npx react-native start` inside your React Native project folder:
-
-```shell
-npx react-native start
+```
+cd AwesomeProject
+yarn ios
+# 或者
+yarn react-native run-ios
 ```
 
-`react-native start` starts Metro Bundler.
+此命令会对项目的原生部分进行编译，同时在另外一个命令行中启动`Metro`服务对 js 代码进行实时打包处理（类似 webpack）。`Metro`服务也可以使用`yarn start`命令单独启动。
 
-> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+> 提示：如果此命令无法正常运行，请使用 Xcode 运行来查看具体错误（run-ios 的报错没有任何具体信息）。注意 0.60 版本之后的主项目文件是`.xcworkspace`，不是`.xcodeproj`！
 
-> If you're familiar with web development, Metro is a lot like webpack—for React Native apps. Unlike Kotlin or Java, JavaScript isn't compiled—and neither is React Native. Bundling isn't the same as compiling, but it can help improve startup performance and translate some platform-specific JavaScript into more JavaScript.
+很快就应该能看到 iOS 模拟器自动启动并运行你的项目。
 
-### Step 2: Start your application
-
-Let Metro Bundler run in its own terminal. Open a new terminal inside your React Native project folder. Run the following:
-
-```shell
-npx react-native run-ios
-```
-
-You should see your new app running in the iOS Simulator shortly.
+在正常编译完成后，开发期间请保持`Metro`命令行窗口运行而不要关闭。以后需要再次运行项目时，如果没有修改过 ios 目录中的任何文件，则只需单独启动`yarn start`命令。如果对 ios 目录中任何文件有修改，则需要再次运行`yarn ios`命令完成原生部分的编译。
 
 ![AwesomeProject on iOS](/docs/assets/GettingStartediOSSuccess.png)
 
-`npx react-native run-ios` is one way to run your app. You can also run it directly from within Xcode.
+`yarn ios`只是运行应用的方式之一。你也可以在 Xcode 中直接运行应用。注意 0.60 版本之后的主项目文件是`.xcworkspace`，不是`.xcodeproj`。
 
-> If you can't get this to work, see the [Troubleshooting](troubleshooting.md#content) page.
+> 如果你无法正常运行，先回头`仔细对照文档检查`，然后可以看看[讨论区](https://github.com/reactnativecn/react-native-website/issues)。
 
-### Running on a device
+### 在真机上运行
 
-The above command will automatically run your app on the iOS Simulator by default. If you want to run the app on an actual physical iOS device, please follow the instructions [here](running-on-device.md).
+上面的命令会自动在 iOS 模拟器上运行应用，如果你想在真机上运行，则请阅读[在设备上运行](running-on-device.md)这篇文档。
 
-### Modifying your app
+### 修改项目
 
-Now that you have successfully run the app, let's modify it.
+现在你已经成功运行了项目，我们可以开始尝试动手改一改了：
 
-- Open `App.js` in your text editor of choice and edit some lines.
-- Hit `⌘R` in your iOS Simulator to reload the app and see your changes!
+- 使用你喜欢的编辑器打开`App.js`并随便改上几行。
+- 在 iOS 模拟器中按下`⌘-R`就可以刷新 APP 并看到你的最新修改！（如果没有反应，请检查模拟器的 Hardware 菜单中，connect hardware keyboard 选项是否选中开启）
 
-### That's it!
+### 完成了！
 
-Congratulations! You've successfully run and modified your first React Native app.
+恭喜！你已经成功运行并修改了你的第一个 React Native 应用。
 
 <center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
-## Now what?
+## 接下来？
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](integration-with-existing-apps.md).
+如果你想把 React Native 集成到现有的原生项目中，则请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
-If you're curious to learn more about React Native, check out the [Introduction to React Native](getting-started).
+如果你想从头开始学习 React Native 开发，可以从[简介](getting-started.md)文档开始。

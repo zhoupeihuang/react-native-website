@@ -4,9 +4,9 @@
 
 虽然你可以使用`任何编辑器`来开发应用（编写 js 代码），但你仍然必须安装 Android Studio 来获得编译 Android 应用所需的工具和环境。
 
-<h3>Node &amp; Watchman</h3>
+### Node & Watchman
 
-我们推荐使用[Homebrew](http://brew.sh/)来安装 Node 和 Watchman。在命令行中执行下列命令安装（如安装较慢可以尝试阿里云的镜像源 https://developer.aliyun.com/mirror/homebrew）：
+我们推荐使用[Homebrew](http://brew.sh/)来安装 Node 和 Watchman。在命令行中执行下列命令安装（如安装较慢可以尝试阿里云的[镜像源](https://developer.aliyun.com/mirror/homebrew)）：
 
 ```shell
 brew install node
@@ -27,7 +27,17 @@ npx nrm use npm
 
 [Watchman](https://facebook.github.io/watchman)则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。
 
-<h3>Java Development Kit</h3>
+### Yarn
+
+[Yarn](http://yarnpkg.com)是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。
+
+```
+npm install -g yarn
+```
+
+安装完 yarn 之后就可以用 yarn 代替 npm 了，例如用`yarn`代替`npm install`命令，用`yarn add 某第三方库名`代替`npm install 某第三方库名`。
+
+### Java Development Kit
 
 我们推荐使用[Homebrew](http://brew.sh/)来安装 JDK：
 
@@ -39,7 +49,7 @@ React Native 需要 Java Development Kit [JDK] 1.8（暂不支持 1.9 及更高�
 
 > `javac -version`（请注意是 java`c`，不是 java）来查看你当前安装的 JDK 版本。
 
-<h3>Android 开发环境</h3>
+### Android 开发环境
 
 如果你之前没有接触过 Android 的开发环境，那么请做好心理准备，这一过程相当繁琐。请`万分仔细`地阅读下面的说明，严格对照文档进行配置操作。
 
@@ -80,7 +90,7 @@ Android Studio 默认会安装最新版本的 Android SDK。目前编译 React N
 
 最后点击"Apply"来下载和安装这些组件。
 
-<h4>3. 配置 ANDROID_HOME 环境变量</h4>
+#### 3. 配置 ANDROID_HOME 环境变量
 
 React Native 需要通过环境变量来了解你的 Android SDK 装在什么路径，从而正常进行编译。
 
@@ -100,10 +110,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 使用`source $HOME/.zshrc`命令来使环境变量设置立即生效（否则重启后才生效）。可以使用`echo $ANDROID_HOME`检查此变量是否已正确设置。
 
 > 请确保你正确指定了 Android SDK 路径。你可以在 Android Studio 的"Preferences"菜单中查看 SDK 的真实路径，具体是**Appearance & Behavior** → **System Settings** → **Android SDK**。
-
-<h3>React Native Command Line Interface</h3>
-
-React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using `npx`, which ships with Node.js. With `npx react-native <command>`, the current stable version of the CLI will be downloaded and executed at the time the command is run.
 
 <h2>创建新项目</h2>
 
@@ -133,15 +139,15 @@ npx react-native init AwesomeProject --version X.XX.X
 npx react-native init AwesomeTSProject --template react-native-template-typescript
 ```
 
-<h2>准备 Android 设备</h2>
+## 准备 Android 设备
 
-你需要准备一台 Android 设备来运行 React Native Android 应用。这里所指的设备既可以是真机，也可以是模拟器。后面我们所有的文档除非特别说明，并不区分真机或者模拟器。Android 官方提供了名为 Android Virtual Device（简称 AVD）的模拟器。此外还有很多第三方提供的模拟器如[Genymotion](https://www.genymotion.com/download)、BlueStack 等。一般来说官方模拟器免费、功能完整，但性能较差。第三方模拟器性能较好，但可能需要付费，或带有广告
+你需要准备一台 Android 设备来运行 React Native Android 应用。这里所指的设备既可以是真机，也可以是模拟器。后面我们所有的文档除非特别说明，并不区分真机或者模拟器。Android 官方提供了名为 Android Virtual Device（简称 AVD）的模拟器。此外还有很多第三方提供的模拟器如[Genymotion](https://www.genymotion.com/download)、BlueStack 等。一般来说官方模拟器免费、功能完整，但性能较差。第三方模拟器性能较好，但可能需要付费，或带有广告。
 
-<h3>使用 Android 真机</h3>
+### 使用 Android 真机
 
 你也可以使用 Android 真机来代替模拟器进行开发，只需用 usb 数据线连接到电脑，然后遵照[在设备上运行](running-on-device.md)这篇文档的说明操作即可。
 
-<h3>使用 Android 模拟器</h3>
+### 使用 Android 模拟器
 
 你可以使用 Android Studio 打开项目下的"android"目录，然后可以使用"AVD Manager"来查看可用的虚拟设备，它的图标看起来像下面这样：
 
@@ -151,7 +157,7 @@ npx react-native init AwesomeTSProject --template react-native-template-typescri
 
 > 译注：请不要轻易点击 Android Studio 中可能弹出的建议更新项目中某依赖项的建议，否则可能导致无法运行。
 
-<h2>编译并运行 React Native 应用</h2>
+## 编译并运行 React Native 应用
 
 确保你先运行了模拟器或者连接了真机，然后在你的项目目录中运行`yarn android`或者`yarn react-native run-android`：
 
@@ -174,21 +180,21 @@ yarn react-native run-android
 
 > 如果你无法正常运行，遇到奇奇怪怪的红屏错误，先回头`仔细对照文档检查`，然后可以看看[问题讨论区](https://github.com/reactnativecn/react-native-website/issues)。不同时期不同版本可能会碰到不同的问题，我们会在论坛中及时解答更新。但请注意**_千万不要_**执行 bundle 命令，那样会导致代码完全无法刷新。
 
-<h3>修改项目</h3>
+### 修改项目
 
 现在你已经成功运行了项目，我们可以开始尝试动手改一改了：
 
 - 使用你喜欢的文本编辑器打开`App.js`并随便改上几行
 - 按两下 R 键，或是在开发者菜单中选择 _Reload_，就可以看到你的最新修改。
 
-<h3>完成了！</h3>
+### 完成了！
 
 恭喜！你已经成功运行并修改了你的第一个 React Native 应用
 
 <center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
-<h2>接下来？</h2>
+## 接下来？
 
 如果你想把 React Native 集成到现有的原生项目中，则请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
-如果你想从头开始学习 React Native 开发，可以从尝试[编写 Hello World](tutorial.md)开始。
+如果你想从头开始学习 React Native 开发，可以从[简介](getting-started.md)文档开始。
