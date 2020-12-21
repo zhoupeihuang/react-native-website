@@ -4,25 +4,34 @@ title: 集成到现有原生应用
 hide_table_of_contents: true
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem';
+
+import IntegrationJava from './\_integration-with-exisiting-apps-java.md'; import IntegrationObjC from './\_integration-with-exisiting-apps-objc.md'; import IntegrationSwift from './\_integration-with-exisiting-apps-swift.md';
+
 如果你正准备从头开始制作一个新的应用，那么 React Native 会是个非常好的选择。但如果你只想给现有的原生应用中添加一两个视图或是业务流程，React Native 也同样不在话下。只需简单几步，你就可以给原有应用加上新的基于 React Native 的特性、画面和视图等。
 
 具体的步骤根据你所开发的目标平台不同而不同。
 
-> 译注：本文档可能更新不够及时，不能保证适用于最新版本，欢迎了解的朋友使用右上方的链接帮忙改进此文档。一个实用的建议是可以使用`npx react-native init NewProject`创建一个最新版本的纯 RN 项目，去参考其 Podfile 或是 gradle 等的配置，以它们为准。
+> 译注：本文档可能更新不够及时，不能保证适用于最新版本，欢迎了解的朋友使用页面底部的编辑链接帮忙改进此文档。一个实用的建议是可以使用`npx react-native init NewProject`创建一个最新版本的纯 RN 项目，去参考其 Podfile 或是 gradle 等的配置，以它们为准。
 
-<div class="toggler">
-  <ul role="tablist" id="toggle-language">
-    <li id="objc" class="button-objc" aria-selected="false" role="tab" tabindex="0" aria-controls="objctab" onclick="displayTab('language', 'objc')">
-      iOS (Objective-C)
-    </li>
-    <li id="swift" class="button-swift" aria-selected="false" role="tab" tabindex="0" aria-controls="swifttab" onclick="displayTab('language', 'swift')">
-      iOS (Swift)
-    </li>
-    <li id="android" class="button-android" aria-selected="false" role="tab" tabindex="0" aria-controls="androidtab" onclick="displayTab('language', 'android')">
-      Android (Java)
-    </li>
-  </ul>
-</div>
+<Tabs groupId="language" defaultValue="java" values={[ {label: 'Android (Java)', value: 'java'}, {label: 'iOS (Objective-C)', value: 'objc'}, {label: 'iOS (Swift)', value: 'swift'}, ]}>
+
+<TabItem value="java">
+
+<IntegrationJava />
+
+</TabItem>
+<TabItem value="objc">
+
+<IntegrationObjC />
+
+</TabItem>
+<TabItem value="swift">
+
+<IntegrationSwift />
+
+</TabItem>
+</Tabs>
 
 <block class="objc swift android" />
 
@@ -40,16 +49,6 @@ hide_table_of_contents: true
 6.  启动 React Native 的 Packager 服务，运行应用。
 7.  验证这部分组件是否正常工作。
 
-<block class="android" />
-
-把 React Native 组件集成到 Android 应用中有如下几个主要步骤：
-
-1.  配置好 React Native 依赖和项目结构。
-2.  创建 js 文件，编写 React Native 组件的 js 代码。
-3.  在应用中添加一个`RCTRootView`。这个`RCTRootView`正是用来承载你的 React Native 组件的容器。
-4.  启动 React Native 的 Packager 服务，运行应用。
-5.  验证这部分组件是否正常工作。
-
 <block class="objc swift android" />
 
 ## 开发环境准备
@@ -62,15 +61,6 @@ hide_table_of_contents: true
 
 首先创建一个空目录用于存放 React Native 项目，然后在其中创建一个`/ios`子目录，把你现有的 iOS 项目拷贝到`/ios`子目录中。
 
-<block class="android" />
-
-首先按照[开发环境搭建教程](getting-started.md)来安装 React Native 在 Android 平台上所需的一切依赖软件。
-
-### 1. 配置项目目录结构
-
-首先创建一个空目录用于存放 React Native 项目，然后在其中创建一个`/android`子目录，把你现有的 Android 项目拷贝到`/android`子目录中。
-
-<block class="objc swift android" />
 
 ### 2. 安装 JavaScript 依赖包
 
@@ -87,11 +77,11 @@ hide_table_of_contents: true
 }
 ```
 
-> 示例中的`version`字段没有太大意义（除非你要把你的项目发布到 npm 仓库）。`scripts`中是用于启动 packager 服务的命令。
+> 示例中的`version`字段没有太大意义（除非你要把你的项目发布到 npm 仓库）。`scripts`中是用于启动 Metro 服务的命令。
 
 接下来我们使用 yarn 或 npm（两者都是 node 的包管理器）来安装 React 和 React Native 模块。请打开一个终端/命令提示行，进入到项目目录中（即包含有 package.json 文件的目录），然后运行下列命令来安装：
 
-```
+```shell
 $ yarn add react-native
 ```
 
@@ -247,7 +237,7 @@ end
 $ pod install
 ```
 
-然后你应该可以看到类似下面的输出(译注：同样由于众所周知的网络原因，pod install 的过程在国内非常不顺利，请自行配备稳定的代理软件。
+然后你应该可以看到类似下面的输出(译注：同样由于众所周知的网络原因，pod install 的过程在国内非常不顺利，请自行配备稳定的代理软件。)
 
 ```
 Analyzing dependencies

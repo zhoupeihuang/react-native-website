@@ -1,22 +1,22 @@
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-## Key Concepts
+## 核心概念
 
-The keys to integrating React Native components into your iOS application are to:
+把 React Native 组件集成到 iOS 应用中有如下几个主要步骤：
 
-1. Set up React Native dependencies and directory structure.
-2. Understand what React Native components you will use in your app.
-3. Add these components as dependencies using CocoaPods.
-4. Develop your React Native components in JavaScript.
-5. Add a `RCTRootView` to your iOS app. This view will serve as the container for your React Native component.
-6. Start the React Native server and run your native application.
-7. Verify that the React Native aspect of your application works as expected.
+1.  配置好 React Native 依赖和项目结构。
+2.  了解你要集成的 React Native 组件。
+3.  使用 CocoaPods 把这些组件以依赖的形式加入到项目中。
+4.  创建 js 文件，编写 React Native 组件的 js 代码。
+5.  在应用中添加一个`RCTRootView`。这个`RCTRootView`正是用来承载你的 React Native 组件的容器。
+6.  启动 React Native 的 Packager 服务，运行应用。
+7.  验证这部分组件是否正常工作。
 
-## Prerequisites
+## 开发环境准备
 
-Follow the React Native CLI Quickstart in the [environment setup guide](environment-setup) to configure your development environment for building React Native apps for iOS.
+首先按照[开发环境搭建教程](environment-setup)来安装 React Native 在 iOS 平台上所需的一切依赖软件。
 
-### 1. Set up directory structure
+### 1. 配置项目目录结构
 
 To ensure a smooth experience, create a new folder for your integrated React Native project, then copy your existing iOS project to a `/ios` subfolder.
 
