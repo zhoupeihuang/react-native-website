@@ -1,4 +1,4 @@
-## Key Concepts
+## 核心概念
 
 The keys to integrating React Native components into your iOS application are to:
 

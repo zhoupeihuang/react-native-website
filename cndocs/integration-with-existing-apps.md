@@ -132,14 +132,9 @@ $ brew install cocoapods
 <block class="objc swift" />
 
 ![Before RN Integration](assets/react-native-existing-app-integration-ios-before.png)
-
-### Xcode 命令行工具
-
-安装 Xcode 命令行工具。 Choose "Preferences..." in the Xcode menu. Go to the Locations panel and install the tools by selecting the most recent version in the Command Line Tools dropdown.
-
-![Xcode Command Line Tools](assets/GettingStartedXcodeCommandLineTools.png)
-
 ### 配置 CocoaPods 的依赖
+
+> 提示，此部分说明可能落后于最新版本。建议使用`npx react-native init NewProject`创建一个最新版本的纯 RN 项目，去参考其 Podfile 的配置。
 
 React Native 框架整体是作为 node 模块安装到项目中的。下一步我们需要在 CocoaPods 的`Podfile`中指定我们所需要使用的"subspecs"。
 
@@ -151,7 +146,7 @@ React Native 框架整体是作为 node 模块安装到项目中的。下一步�
 $ pod init
 ```
 
-`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这样（也可以用`react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
+`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这样（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
 
 <block class="objc" />
 
@@ -495,7 +490,7 @@ Here is the _React Native_ high score screen:
 
 > If you are getting module resolution issues when running your application please see [this GitHub issue](https://github.com/facebook/react-native/issues/4968) for information and possible resolution. [This comment](https://github.com/facebook/react-native/issues/4968#issuecomment-220941717) seemed to be the latest possible resolution.
 
-### 看一下完整的代码变更
+### 完整代码
 
 <block class="objc" />
 
