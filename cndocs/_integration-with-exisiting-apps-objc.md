@@ -71,7 +71,7 @@ $ brew install cocoapods
 
 ## 把 React Native 添加到你的应用中
 
-在本教程中我们用于[示范的 app](https://github.com/JoelMarcey/iOS-2048)是一个[2048](https://en.wikipedia.org/wiki/2048_(video_game)类型的游戏。下面是这个游戏还没有集成React Native 时的主界面：
+在本教程中我们用于[示范的 app](https://github.com/JoelMarcey/iOS-2048)是一个[2048](https://en.wikipedia.org/wiki/2048_%28video_game%29)类型的游戏。下面是这个游戏还没有集成React Native 时的主界面：
 ![Before RN Integration](/docs/assets/react-native-existing-app-integration-ios-before.png)
 
 ### 配置 CocoaPods 的依赖

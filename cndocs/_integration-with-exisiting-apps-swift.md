@@ -1,26 +1,26 @@
 ## 核心概念
 
-The keys to integrating React Native components into your iOS application are to:
+把 React Native 组件集成到 iOS 应用中有如下几个主要步骤：
 
-1. Set up React Native dependencies and directory structure.
-2. Understand what React Native components you will use in your app.
-3. Add these components as dependencies using CocoaPods.
-4. Develop your React Native components in JavaScript.
-5. Add a `RCTRootView` to your iOS app. This view will serve as the container for your React Native component.
-6. Start the React Native server and run your native application.
-7. Verify that the React Native aspect of your application works as expected.
+1.  配置好 React Native 依赖和项目结构。
+2.  了解你要集成的 React Native 组件。
+3.  使用 CocoaPods 把这些组件以依赖的形式加入到项目中。
+4.  创建 js 文件，编写 React Native 组件的 js 代码。
+5.  在应用中添加一个`RCTRootView`。这个`RCTRootView`正是用来承载你的 React Native 组件的容器。
+6.  启动 React Native 的 Packager 服务，运行应用。
+7.  验证这部分组件是否正常工作。
 
-## Prerequisites
+## 开发环境准备
 
-Follow the React Native CLI Quickstart in the [environment setup guide](environment-setup) to configure your development environment for building React Native apps for iOS.
+首先按照[开发环境搭建教程](environment-setup)来安装 React Native 在 iOS 平台上所需的一切依赖软件。
 
-### 1. Set up directory structure
+### 1. 配置项目目录结构
 
-To ensure a smooth experience, create a new folder for your integrated React Native project, then copy your existing iOS project to a `/ios` subfolder.
+首先创建一个空目录用于存放 React Native 项目，然后在其中创建一个`/ios`子目录，把你现有的 iOS 项目拷贝到`/ios`子目录中。
 
-### 2. Install JavaScript dependencies
+### 2. 安装 JavaScript 依赖包
 
-Go to the root directory for your project and create a new `package.json` file with the following contents:
+在项目根目录下创建一个名为`package.json`的空文本文件，然后填入以下内容：
 
 ```
 {
@@ -33,82 +33,76 @@ Go to the root directory for your project and create a new `package.json` file w
 }
 ```
 
-Next, make sure you have [installed the yarn package manager](https://yarnpkg.com/lang/en/docs/install/).
+> 示例中的`version`字段没有太大意义（除非你要把你的项目发布到 npm 仓库）。`scripts`中是用于启动 Metro 服务的命令。
 
-Install the `react` and `react-native` packages. Open a terminal or command prompt, then navigate to the directory with your `package.json` file and run:
+接下来我们使用 yarn 或 npm（两者都是 node 的包管理器）来安装 React 和 React Native 模块。请打开一个终端/命令提示行，进入到项目目录中（即包含有 package.json 文件的目录），然后运行下列命令来安装：
 
 ```shell
 $ yarn add react-native
 ```
 
-This will print a message similar to the following (scroll up in the yarn output to see it):
+这样默认会安装最新版本的 React Native，同时会打印出类似下面的警告信息（你可能需要滚动屏幕才能注意到）：
 
 > warning "react-native@0.52.2" has unmet peer dependency "react@16.2.0".
 
-This is OK, it means we also need to install React:
+这是正常现象，意味着我们还需要安装指定版本的 React：
 
 ```shell
-$ yarn add react@version_printed_above
+$ yarn add react@16.2.0
 ```
 
-Yarn has created a new `/node_modules` folder. This folder stores all the JavaScript dependencies required to build your project.
+注意必须严格匹配警告信息中所列出的版本，高了或者低了都不可以。
 
-Add `node_modules/` to your `.gitignore` file.
+> 如果你使用多个第三方依赖，可能这些第三方各自要求的 react 版本有所冲突，此时应优先满足`react-native`所需要的`react`版本。其他第三方能用则用，不能用则只能考虑选择其他库。
 
-### 3. Install CocoaPods
+所有 JavaScript 依赖模块都会被安装到项目根目录下的`node_modules/`目录中（这个目录我们原则上不复制、不移动、不修改、不上传，随用随装）。
 
-[CocoaPods](http://cocoapods.org) is a package management tool for iOS and macOS development. We use it to add the actual React Native framework code locally into your current project.
+把`node_modules/`目录记录到`.gitignore`文件中（即不上传到版本控制系统，只保留在本地）。
 
-We recommend installing CocoaPods using [Homebrew](http://brew.sh/).
+### 3. 安装 CocoaPods
+
+[CocoaPods](http://cocoapods.org)是针对 iOS 和 Mac 开发的包管理工具。我们用它来把 React Native 框架的代码下载下来并添加到你当前的项目中。
+
+我们建议使用[Homebrew](http://brew.sh/)来安装 CocoaPods。
 
 ```shell
 $ brew install cocoapods
 ```
 
-> It is technically possible not to use CocoaPods, but that would require manual library and linker additions that would overly complicate this process.
+## 把 React Native 添加到你的应用中
 
-## Adding React Native to your app
-
-Assume the [app for integration](https://github.com/JoelMarcey/swift-2048) is a [2048](https://en.wikipedia.org/wiki/2048_%28video_game%29) game. Here is what the main menu of the native application looks like without React Native.
+在本教程中我们用于[示范的 app](https://github.com/JoelMarcey/swift-2048)是一个[2048](https://en.wikipedia.org/wiki/2048_%28video_game%29)类型的游戏。下面是这个游戏还没有集成 React Native 时的主界面：
 
 ![Before RN Integration](/docs/assets/react-native-existing-app-integration-ios-before.png)
 
-### Command Line Tools for Xcode
+### 配置 CocoaPods 的依赖
 
-Install the Command Line Tools. Choose "Preferences..." in the Xcode menu. Go to the Locations panel and install the tools by selecting the most recent version in the Command Line Tools dropdown.
+> 提示，此部分说明可能落后于最新版本。建议使用`npx react-native init NewProject`创建一个最新版本的纯 RN 项目，去参考其 Podfile 的配置。
 
-![Xcode Command Line Tools](/docs/assets/GettingStartedXcodeCommandLineTools.png)
+React Native 框架整体是作为 node 模块安装到项目中的。下一步我们需要在 CocoaPods 的`Podfile`中指定我们所需要使用的"subspecs"。
 
-### Configuring CocoaPods dependencies
+可用的`subspec`都列在[`node_modules/react-native/React.podspec`](https://github.com/facebook/react-native/blob/master/React.podspec)中，基本都是按其功能命名的。一般来说你首先需要添加`Core`，这一`subspec`包含了必须的`AppRegistry`、`StyleSheet`、`View`以及其他的一些 React Native 核心库。如果你想使用 React Native 的`Text`库（即`<Text>`组件），那就需要添加`RCTText`的`subspec`。同理，`Image`需要加入`RCTImage`，等等。
 
-Before you integrate React Native into your application, you will want to decide what parts of the React Native framework you would like to integrate. We will use CocoaPods to specify which of these "subspecs" your app will depend on.
-
-The list of supported `subspec`s is available in [`/node_modules/react-native/React.podspec`](https://github.com/facebook/react-native/blob/master/React.podspec). They are generally named by functionality. For example, you will generally always want the `Core` `subspec`. That will get you the `AppRegistry`, `StyleSheet`, `View` and other core React Native libraries. If you want to add the React Native `Text` library (e.g., for `<Text>` elements), then you will need the `RCTText` `subspec`. If you want the `Image` library (e.g., for `<Image>` elements), then you will need the `RCTImage` `subspec`.
-
-You can specify which `subspec`s your app will depend on in a `Podfile` file. The easiest way to create a `Podfile` is by running the CocoaPods `init` command in the `/ios` subfolder of your project:
+我们需要在`Podfile`文件中指定所需的`subspec`。创建`Podfile`的最简单的方式就是在`/ios`子目录中使用 CocoaPods 的`init`命令：
 
 ```shell
 $ pod init
 ```
 
-The `Podfile` will contain a boilerplate setup that you will tweak for your integration purposes.
-
-> The `Podfile` version changes depending on your version of `react-native`. Refer to https://react-native-community.github.io/upgrade-helper/ for the specific version of `Podfile` you should be using.
-
-Ultimately, your `Podfile` should look something similar to this:
+`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这样（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
 
 ```
 source 'https://github.com/CocoaPods/Specs.git'
 
-# Required for Swift apps
+# 对于Swift应用来说下面两句是必须的
 platform :ios, '8.0'
 use_frameworks!
 
-# The target name is most likely the name of your project.
+# target的名字一般与你的项目名字相同
 target 'swift-2048' do
 
-  # Your 'node_modules' directory is probably in the root of your project,
-  # but if not, adjust the `:path` accordingly
+  # 'node_modules'目录一般位于根目录中
+  # 但是如果你的结构不同，那你就要根据实际路径修改下面的`:path
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
     'Core',
     'CxxBridge', # Include this for RN >= 0.47
@@ -129,13 +123,13 @@ target 'swift-2048' do
 end
 ```
 
-After you have created your `Podfile`, you are ready to install the React Native pod.
+创建好了`Podfile`后，就可以开始安装 React Native 的 pod 包了。
 
 ```shell
 $ pod install
 ```
 
-You should see output such as:
+然后你应该可以看到类似下面的输出(译注：同样由于众所周知的网络原因，pod install 的过程在国内非常不顺利，请自行配备稳定的代理软件。)
 
 ```
 Analyzing dependencies
@@ -150,25 +144,25 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 
 > If this fails with errors mentioning `xcrun`, make sure that in Xcode in **Preferences > Locations** the Command Line Tools are assigned.
 
-> If you get a warning such as "_The `swift-2048 [Debug]` target overrides the `FRAMEWORK_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-swift-2048/Pods-swift-2048.debug.xcconfig`. This can lead to problems with the CocoaPods installation_", then make sure the `Framework Search Paths` in `Build Settings` for both `Debug` and `Release` only contain `$(inherited)`.
+> 如果你看到类似"_The `swift-2048 [Debug]` target overrides the `FRAMEWORK_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-swift-2048/Pods-swift-2048.debug.xcconfig`. This can lead to problems with the CocoaPods installation_"的警告，请查看 Xcode 的`Build Settings`中的`Framework Search Paths`选项，确保其中的`Debug`和`Release`都只包含`$(inherited)`。
 
-### Code integration
+### 代码集成
 
-Now we will actually modify the native iOS application to integrate React Native. For our 2048 sample app, we will add a "High Score" screen in React Native.
+现在我们已经准备好了所有依赖，可以开始着手修改原生代码来把 React Native 真正集成到应用中了。在我们的 2048 示例中，首先尝试添加一个显示有"High Score"（得分排行榜）的 React Native 页面。
 
-#### The React Native component
+#### React Native 组件
 
-The first bit of code we will write is the actual React Native code for the new "High Score" screen that will be integrated into our application.
+我们首先要写的是"High Score"（得分排行榜）的 JavaScript 端的代码。
 
-##### 1. Create a `index.js` file
+##### 1. 创建一个`index.js`文件
 
-First, create an empty `index.js` file in the root of your React Native project.
+首先在项目根目录下创建一个空的`index.js`文件。（注意在 0.49 版本之前是 index.ios.js 文件）
 
-`index.js` is the starting point for React Native applications, and it is always required. It can be a small file that `require`s other file that are part of your React Native component or application, or it can contain all the code that is needed for it. In our case, we will put everything in `index.js`.
+`index.js`是 React Native 应用在 iOS 上的入口文件。而且它是不可或缺的！它可以是个很简单的文件，简单到可以只包含一行`require/import`导入语句。本教程中为了简单示范，把全部的代码都写到了`index.js`里（当然实际开发中我们并不推荐这样做）。
 
-##### 2. Add your React Native code
+##### 2. 添加你自己的 React Native 代码
 
-In your `index.js`, create your component. In our sample here, we will add a `<Text>` component within a styled `<View>`
+在`index.js`中添加你自己的组件。这里我们只是简单的添加一个`<Text>`组件，然后用一个带有样式的`<View>`组件把它包起来。
 
 ```jsx
 import React from 'react';
@@ -217,15 +211,15 @@ const styles = StyleSheet.create({
   }
 });
 
-// Module name
+// 整体js模块的名称
 AppRegistry.registerComponent('RNHighScores', () => RNHighScores);
 ```
 
-> `RNHighScores` is the name of your module that will be used when you add a view to React Native from within your iOS application.
+> `RNHighScores`是整体 js 模块（即你所有的 js 代码）的名称。你在 iOS 原生代码中添加 React Native 视图时会用到这个名称。
 
-#### The Magic: `RCTRootView`
+#### 核心组件：`RCTRootView`
 
-Now that your React Native component is created via `index.js`, you need to add that component to a new or existing `ViewController`. The easiest path to take is to optionally create an event path to your component and then add that component to an existing `ViewController`.
+现在我们已经在`index.js`中创建了 React Native 组件，下一步就是把这个组件添加给一个新的或已有的`ViewController`。 The easiest path to take is to optionally create an event path to your component and then add that component to an existing `ViewController`.
 
 We will tie our React Native component with a new native view in the `ViewController` that will actually contain it called `RCTRootView` .
 
@@ -235,21 +229,21 @@ You can add a new link on the main game menu to go to the "High Score" React Nat
 
 ![Event Path](/docs/assets/react-native-add-react-native-integration-link.png)
 
-##### 2. Event Handler
+##### 2. 事件处理
 
-We will now add an event handler from the menu link. A method will be added to the main `ViewController` of your application. This is where `RCTRootView` comes into play.
+现在我们将从菜单链接中添加一个事件处理程序。一个方法将被添加到你的应用程序的主`ViewController`中。这就是`RCTRootView`发挥作用的地方。
 
-When you build a React Native application, you use the [Metro bundler][metro] to create an `index.bundle` that will be served by the React Native server. Inside `index.bundle` will be our `RNHighScore` module. So, we need to point our `RCTRootView` to the location of the `index.bundle` resource (via `NSURL`) and tie it to the module.
+当你构建一个 React Native 应用时，需要使用 Metro（以前叫做 react packager）来创建一个`index.bundle`。`index.bundle`里面包含了我们的`RNHighScore`模块。因此，我们需要将`RCTRootView`指向`index.bundle`资源的位置（通过`NSURL`），并将其与模块绑定。
 
-We will, for debugging purposes, log that the event handler was invoked. Then, we will create a string with the location of our React Native code that exists inside the `index.bundle`. Finally, we will create the main `RCTRootView`. Notice how we provide `RNHighScores` as the `moduleName` that we created [above](#the-react-native-component) when writing the code for our React Native component.
+为了便于调试，我们将在事件处理程序被调用时输出日志。然后创建一个 URL 字符串，指向`index.bundle`的位置。最后，我们将创建主`RCTRootView`。请注意我们需要把[上面](#the-react-native-component)创建的`moduleName`填进去，也就是`RNHighScores`。
 
-First `import` the `React` library.
+首先`import`导入`React`库。
 
-```jsx
+```swift
 import React
 ```
 
-> The `initialProperties` are here for illustration purposes so we have some data for our high score screen. In our React Native component, we will use `this.props` to get access to that data.
+> 这里的`initialProperties`注入了一些演示用的数据。在 React Native 的根组件中，我们可以使用`this.props`来获取到这些数据。
 
 ```swift
 @IBAction func highScoreButtonTapped(sender : UIButton) {
@@ -286,13 +280,13 @@ Wire up the new link in the main menu to the newly added event handler method.
 
 > One of the easier ways to do this is to open the view in the storyboard and right click on the new link. Select something such as the `Touch Up Inside` event, drag that to the storyboard and then select the created method from the list provided.
 
-### Test your integration
+### 测试集成结果
 
 You have now done all the basic steps to integrate React Native with your current application. Now we will start the [Metro bundler][metro] to build the `index.bundle` package and the server running on `localhost` to serve it.
 
-##### 1. Add App Transport Security exception
+##### 1. 添加 App Transport Security 例外
 
-Apple has blocked implicit cleartext HTTP resource loading. So we need to add the following our project's `Info.plist` (or equivalent) file.
+Apple 现在默认会阻止读取不安全的 HTTP 链接。所以我们需要把本地运行的 Packager 服务添加到`Info.plist`的例外中，以便能正常访问 Packager 服务：
 
 ```xml
 <key>NSAppTransportSecurity</key>
@@ -308,22 +302,22 @@ Apple has blocked implicit cleartext HTTP resource loading. So we need to add th
 </dict>
 ```
 
-> App Transport Security is good for your users. Make sure to re-enable it prior to releasing your app for production.
+> App Transport Security 对于用户来说是有利的。所以最好记得在发布之前重新启用这些安全限制。
 
-##### 2. Run the packager
+##### 2. 运行 Metro
 
-To run your app, you need to first start the development server. To do this, run the following command in the root directory of your React Native project:
+要运行应用，首先需要启动开发服务器（即 Metro，它负责实时监测 js 文件的变动并实时打包，输出给客户端运行）。具体只需简单进入到项目根目录中，然后运行：
 
 ```shell
 $ npm start
 ```
 
-##### 3. Run the app
+##### 3. 运行应用
 
-If you are using Xcode or your favorite editor, build and run your native iOS application as normal. Alternatively, you can run the app from the command line using:
+如果你使用的是 Xcode，那么照常编译和运行应用即可。如果你没有使用 Xcode（但是你仍然必须安装 Xcode），则可以在命令行中使用以下命令来运行应用：
 
-```
-# From the root of your project
+```sh
+# 在项目的根目录中执行：
 $ npx react-native run-ios
 ```
 
@@ -339,12 +333,12 @@ Here is the _React Native_ high score screen:
 
 > If you are getting module resolution issues when running your application please see [this GitHub issue](https://github.com/facebook/react-native/issues/4968) for information and possible resolution. [This comment](https://github.com/facebook/react-native/issues/4968#issuecomment-220941717) seemed to be the latest possible resolution.
 
-### See the Code
+### 完整代码
 
-You can examine the code that added the React Native screen to our sample app on [GitHub](https://github.com/JoelMarcey/swift-2048/commit/13272a31ee6dd46dc68b1dcf4eaf16c1a10f5229).
+你可以在这个[GitHub 提交记录](https://github.com/JoelMarcey/swift-2048/commit/13272a31ee6dd46dc68b1dcf4eaf16c1a10f5229)里查看一次完整的集成过程具体有哪些代码/文件变更。
 
-### Now what?
+### 然后呢？
 
-At this point you can continue developing your app as usual. Refer to our [debugging](debugging) and [deployment](running-on-device) docs to learn more about working with React Native.
+然后就可以开发啦~可是我完全不会 React Native 怎么办？
 
-[metro]: https://facebook.github.io/metro/
+我们建议你先通读本站的所有文档，看看博客，看看论坛。如果觉得知识太零散，不够系统，那么你也可以考虑下购买我们的[付费咨询服务](/about#技术支持与商务合作)。
