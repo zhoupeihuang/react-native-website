@@ -43,10 +43,10 @@ These notifications can be hidden using `LogBox.ignoreAllLogs()`. This is useful
 > Ignore logs as a last resort and create a task to fix any logs that are ignored.
 
 ```jsx
-import { LogBox } from "react-native";
+import { LogBox } from 'react-native';
 
 // Ignore log notification by message:
-LogBox.ignoreLogs(["Warning: ..."]);
+LogBox.ignoreLogs(['Warning: ...']);
 
 // Ignore all log notifications:
 LogBox.ignoreAllLogs();
@@ -144,7 +144,7 @@ Then select a React component in React DevTools. There is a search box at the to
 
 你可以在开发者菜单中选择"Pref Monitor"选项以开启一个悬浮层，其中会显示应用的当前帧数。
 
-<hr style="margin-top:25px; margin-bottom:25px;"/>
+<hr style={{marginTop: 25, marginBottom: 25}} />
 
 ## Debugging Application State
 

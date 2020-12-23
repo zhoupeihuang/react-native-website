@@ -24,7 +24,7 @@ module.exports = {
   //   users,
   //   facebookAppId: '1677033832619985',
   // },
-  onBrokenLinks: 'throw',
+  // onBrokenLinks: 'warn',
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -51,7 +51,7 @@ module.exports = {
           customCss: [
             require.resolve('./src/css/customTheme.scss'),
             require.resolve('./src/css/index.scss'),
-            require.resolve('./src/css/showcase.scss'),
+            // require.resolve('./src/css/showcase.scss'),
             require.resolve('./src/css/versions.scss'),
           ],
         },

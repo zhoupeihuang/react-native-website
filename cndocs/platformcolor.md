@@ -30,17 +30,6 @@ For a full list of the types of system colors supported, see:
   - [UIColor Standard Colors](https://developer.apple.com/documentation/uikit/uicolor/standard_colors)
   - [UIColor UI Element Colors](https://developer.apple.com/documentation/uikit/uicolor/ui_element_colors)
 
-#### Developer notes
-
-<Tabs groupId="guide" defaultValue="web" values={constants.getDevNotesTabs(["web"])}>
-
-<TabItem value="web">
-
-> If you’re familiar with design systems, another way of thinking about this is that `PlatformColor` lets you tap into the local design system's color tokens so your app can blend right in!
-
-</TabItem>
-</Tabs>
-
 ## Example
 
 ```SnackPlayer name=PlatformColor%20Example&supportedPlatforms=android,ios
