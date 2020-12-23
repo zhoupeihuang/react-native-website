@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://reactnative.cn/blog</id>
+    <title>React Native 中文网 Blog</title>
+    <updated>2015-10-25T23:29:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://reactnative.cn/blog"/>
+    <subtitle>React Native 中文网 Blog</subtitle>
+    <icon>https://reactnative.cn/https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/img/favicon.ico</icon>
+</feed>
