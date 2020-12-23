@@ -13,19 +13,15 @@ import {setupHeaderAnimations} from './animations/_headerAnimation';
 
 const textContent = {
   intro: `
-React Native combines the best parts of native development with React,
-a best-in-class JavaScript library for building user interfaces.
+  React Native 将原生开发的最佳部分与 React 相结合，
+  致力于成为构建用户界面的顶尖 JavaScript 框架。
 <br/><br/>
-<strong>Use a little—or a lot</strong>. You can use React Native today in your existing
-Android and iOS projects or you can create a whole new app from scratch.
+<strong>酌量添加，多少随意。</strong>随时都可以把 React Native 无缝集成到你已有的 Android 或 iOS 项目，当然也可以完全从头焕然一新地重写。
   `,
   nativeCode: `
-React primitives render to native platform UI, meaning your app uses the
-same native platform APIs other apps do.
+将 React 基础抽象组件渲染为原生平台UI组件，意味着每个视图和原生应用都别无二致。
 <br/><br/>
-<strong>Many platforms</strong>, one React. Create platform-specific versions of components
-so a single codebase can share code across platforms. With React Native,
-one team can maintain two platforms and share a common technology—React.
+<strong>流水的多平台</strong>，铁打的 React。绝大多数情况下，使用 React Native 的团队可以在多个平台间共享一份基础代码，以及通用的技术 —— React。
   `,
   codeExample: `
 import React from 'react';
@@ -58,19 +54,15 @@ const WelcomeScreen = () =>
    </View>
   `,
   forEveryone: `
-React Native lets you create truly native apps and doesn't compromise your users' experiences.
-It provides a core set of platform agnostic native components like <code>View</code>, <code>Text</code>, and <code>Image</code>
-that map directly to the platform’s native UI building blocks.
+React Native 使你可以创建真正原生的应用，用户体验绝不拉胯。它提供了一些平台无关的抽象核心组件，像是<code>View</code>, <code>Text</code> 以及 <code>Image</code>等，可直接映射渲染为
+对应平台的原生UI组件。
   `,
   crossPlatform: `
-React components wrap existing native code and interact with native APIs via
-React’s declarative UI paradigm and JavaScript. This enables native app development
-for whole new teams of developers, and can let existing native teams work much faster.
+  通过 React 的声明式组件机制和 JavaScript 代码，现有的原生代码和api可以完美地封装嵌合到 React 组件中。这样既为更多新的开发团队赋予原生应用的开发能力，也能极大地提升现有原生团队的开发效率。
   `,
   fastRefresh: `
-<strong>See your changes as soon as you save.</strong> With the power of JavaScript,
-React Native lets you iterate at lightning speed. No more waiting for native builds to finish.
-Save, see, repeat.
+<strong>保存即刷新。</strong> 借助 JavaScript 的动态特性，
+React Native 能够让你光速迭代。不要再傻等编译了，改、存、刷新！
   `,
 };
 
@@ -103,13 +95,13 @@ function HomeCallToAction() {
         type="primary"
         href={useBaseUrl('docs/getting-started')}
         target="_self">
-        Get started
+        开始使用
       </ActionButton>
       <ActionButton
         type="secondary"
-        href={useBaseUrl('docs/tutorial')}
+        href={useBaseUrl('docs/environment-setup')}
         target="_self">
-        Learn basics
+        搭建环境
       </ActionButton>
     </>
   );
@@ -235,7 +227,7 @@ function HeaderHero() {
         columnTwo={
           <>
             <h1 className="title">React Native</h1>
-            <p className="tagline">Learn once, write&nbsp;anywhere.</p>
+            <p className="tagline">一次学习，随处编写</p>
             <div className="buttons">
               <HomeCallToAction />
             </div>
@@ -253,7 +245,7 @@ function NativeApps() {
         reverse
         columnOne={
           <TextColumn
-            title="Create native apps for Android and iOS using React"
+            title="使用 React 来创建 Android 和 iOS 的原生应用"
             text={textContent.intro}
           />
         }
@@ -269,7 +261,7 @@ function NativeCode() {
       <TwoColumns
         columnOne={
           <TextColumn
-            title="Written in JavaScript—rendered with native code"
+            title="JavaScript 在手，原生我有 "
             text={textContent.nativeCode}
           />
         }
@@ -288,7 +280,7 @@ function NativeDevelopment() {
         reverse
         columnOne={
           <TextColumn
-            title="Native Development For Everyone"
+            title="简单易开发，人人有功练"
             text={textContent.forEveryone}
           />
         }
@@ -313,10 +305,7 @@ function CrossPlatform() {
     <Section className="CrossPlatform" background="tint">
       <TwoColumns
         columnOne={
-          <TextColumn
-            title="Seamless Cross-Platform"
-            text={textContent.crossPlatform}
-          />
+          <TextColumn title="无缝跨平台" text={textContent.crossPlatform} />
         }
         columnTwo={<CrossPlatformSVG />}
       />
@@ -330,7 +319,7 @@ function FastRefresh() {
       <TwoColumns
         reverse
         columnOne={
-          <TextColumn title="Fast Refresh" text={textContent.fastRefresh} />
+          <TextColumn title="秒速刷新" text={textContent.fastRefresh} />
         }
         columnTwo={
           <video
@@ -346,30 +335,28 @@ function FastRefresh() {
   );
 }
 
-
 function Community() {
   return (
     <Section className="Community" background="light">
       <div className="content">
-        <Heading text="Facebook Supported, Community Driven" />
+        <Heading text="Facebook 掌舵，社区划桨" />
         <TwoColumns
           columnOne={
             <>
               <p className="firstP">
                 <img src={useBaseUrl(`img/homepage/fb-logo.svg`)} alt="" />
                 <span>
-                  Facebook released React Native in 2015 and has been
-                  maintaining it ever since.
+                  Facebook 早在 2015 年就开源了 React
+                  Native，至今一直在积极维护和使用。
                 </span>
               </p>
               <p>
-                In 2018, React Native had the{' '}
+                在 2018 年, React Native 的贡献者数量在所有github的项目中{' '}
                 <a href="https://octoverse.github.com/2018/projects#repositories">
-                  2nd highest
-                </a>{' '}
-                number of contributors for any repository in GitHub. Today,
-                React Native is supported by contributions from individuals and
-                companies around the world including{' '}
+                  排名第二
+                </a>
+                。如今，遍布世界各地的公司和个人持续地为 React Native
+                贡献着代码（包括但不限于）：
                 <span>
                   <a href="https://callstack.com/">Callstack</a>
                 </span>
@@ -378,15 +365,15 @@ function Community() {
                   <a href="https://expo.io/">Expo</a>
                 </span>
                 , <a href="https://infinite.red/">Infinite Red</a>,{' '}
-                <a href="https://www.microsoft.com/">Microsoft</a> and{' '}
-                <a href="https://swmansion.com/">Software Mansion</a>.
+                <a href="https://www.microsoft.com/">Microsoft</a> 以及{' '}
+                <a href="https://swmansion.com/">Software Mansion</a>等。
               </p>
             </>
           }
           columnTwo={
             <p>
-              Our community is always shipping exciting new projects and
-              exploring platforms beyond Android and iOS with repos like{' '}
+              优秀的社区开发者们一直源源不断地贡献着新的项目，将 React Native
+              拓展到一个又一个新的平台，例如：
               <span>
                 <a href="https://github.com/microsoft/react-native-windows#readme">
                   React Native Windows
@@ -396,11 +383,11 @@ function Community() {
               <a href="https://github.com/microsoft/react-native-macos#readme">
                 React Native macOS
               </a>{' '}
-              and{' '}
+              以及{' '}
               <a href="https://github.com/necolas/react-native-web#readme">
                 React Native Web
               </a>
-              .
+              等。
             </p>
           }
         />
@@ -413,16 +400,16 @@ function GetStarted() {
   return (
     <Section className="GetStarted" background="dark">
       <div className="content">
-        <Heading text="Give it a try" />
+        <Heading text="现在就试试吧！" />
         <ol className="steps">
           <li>
-            <p>Run this</p>
+            <p>在命令行中运行</p>
             <div className="terminal">
               <code>npx react-native init MyTestApp</code>
             </div>
           </li>
           <li>
-            <p>Read these</p>
+            <p>阅读文档</p>
             <HomeCallToAction />
           </li>
         </ol>
@@ -441,9 +428,7 @@ const Index = () => {
   return (
     <Layout wrapperClassName="homepage">
       <Head>
-        <title>
-          React Native · A framework for building native apps using React
-        </title>
+        <title>React Native 中文网 · 使用React来编写原生应用的框架</title>
       </Head>
       <HeaderHero />
       <NativeApps />
