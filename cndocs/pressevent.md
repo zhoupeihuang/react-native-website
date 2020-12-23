@@ -5,7 +5,7 @@ title: 点击事件对象
 
 `PressEvent` object is returned in the callback as a result of user press interaction, for example `onPress` in [Button](button) component.
 
-## Example
+## 示例
 
 ```js
 {
