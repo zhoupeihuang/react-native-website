@@ -7,7 +7,7 @@ title: 布局事件对象
 
 `LayoutEvent` object is returned in the callback as a result of component layout change, for example `onLayout` in [View](view) component.
 
-## Example
+## 示例
 
 ```js
 {
@@ -21,7 +21,7 @@ title: 布局事件对象
 }
 ```
 
-## Keys and values
+## 属性与值
 
 ### `height`
 
@@ -63,7 +63,7 @@ The node id of the element receiving the PressEvent.
 | --------------------------- | -------- |
 | number, `null`, `undefined` | No       |
 
-## Used by
+## 被下列组件引用
 
 - [`Image`](image)
 - [`Pressable`](pressable)

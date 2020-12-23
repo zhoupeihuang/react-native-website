@@ -1,13 +1,13 @@
 ---
 id: pressevent
-title: PressEvent Object Type
+title: 点击事件对象
 ---
 
 ##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
 
 `PressEvent` object is returned in the callback as a result of user press interaction, for example `onPress` in [Button](button) component.
 
-## Example
+## 示例
 
 ```js
 {
@@ -105,7 +105,7 @@ Array of all current PressEvents on the screen.
 | -------------------- | -------- |
 | array of PressEvents | No       |
 
-## Used by
+## 被下列组件引用
 
 - [`Button`](button)
 - [`PanResponder`](panresponder)

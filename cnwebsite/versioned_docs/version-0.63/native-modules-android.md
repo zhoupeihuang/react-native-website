@@ -1,9 +1,9 @@
 ---
 id: native-modules-android
-title: 原生模块
+title: Android 原生模块
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.57%), [doublingli](https://github.com/search?q=doublingli&type=Users)(0.43%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(96.40%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(3.18%), [doublingli](https://github.com/search?q=doublingli&type=Users)(0.42%)
 
 有时候 App 需要访问平台 API，但 React Native 可能还没有相应的模块包装；或者你需要复用一些 Java 代码，而不是用 Javascript 重新实现一遍；又或者你需要实现某些高性能的、多线程的代码，譬如图片处理、数据库、或者各种高级扩展等等。
 

@@ -3,7 +3,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "The Basics",
+      "label": "入门基础",
       "items": [
         {
           "type": "doc",
@@ -31,10 +31,6 @@
         },
         {
           "type": "doc",
-          "id": "version-0.63/troubleshooting"
-        },
-        {
-          "type": "doc",
           "id": "version-0.63/platform-specific-code"
         },
         {
@@ -46,7 +42,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Environment setup",
+      "label": "环境搭建",
       "items": [
         {
           "type": "doc",
@@ -73,7 +69,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Workflow",
+      "label": "开发流程",
       "items": [
         {
           "type": "doc",
@@ -112,7 +108,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Design",
+      "label": "设计",
       "items": [
         {
           "type": "doc",
@@ -139,7 +135,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Interaction",
+      "label": "交互",
       "items": [
         {
           "type": "doc",
@@ -162,7 +158,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Inclusion",
+      "label": "包容性",
       "items": [
         {
           "type": "doc",
@@ -173,7 +169,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Performance",
+      "label": "性能调优",
       "items": [
         {
           "type": "doc",
@@ -200,7 +196,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "JavaScript Runtime",
+      "label": "JavaScript 运行环境",
       "items": [
         {
           "type": "doc",
@@ -219,7 +215,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Connectivity",
+      "label": "网络连接",
       "items": [
         {
           "type": "doc",
@@ -234,11 +230,38 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Native Components and Modules",
+      "label": "原生模块",
       "items": [
         {
           "type": "doc",
+          "id": "version-0.63/native-modules-intro"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/native-modules-android"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/native-modules-ios"
+        },
+        {
+          "type": "doc",
           "id": "version-0.63/native-modules-setup"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "原生UI组件",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-0.63/native-components-android"
+        },
+        {
+          "type": "doc",
+          "id": "version-0.63/native-components-ios"
         },
         {
           "type": "doc",
@@ -249,16 +272,8 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Guides (Android)",
+      "label": "Android 指南",
       "items": [
-        {
-          "type": "doc",
-          "id": "version-0.63/native-modules-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/native-components-android"
-        },
         {
           "type": "doc",
           "id": "version-0.63/headless-js-android"
@@ -272,16 +287,8 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Guides (iOS)",
+      "label": "iOS 指南",
       "items": [
-        {
-          "type": "doc",
-          "id": "version-0.63/native-modules-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.63/native-components-ios"
-        },
         {
           "type": "doc",
           "id": "version-0.63/linking-libraries-ios"
@@ -459,11 +466,11 @@
       ]
     }
   ],
-  "version-0.63/components": [
+  "version-0.63/组件": [
     {
       "collapsed": true,
       "type": "category",
-      "label": "Core Components",
+      "label": "核心组件",
       "items": [
         {
           "type": "doc",
@@ -552,7 +559,7 @@
         {
           "collapsed": false,
           "type": "category",
-          "label": "Android Components",
+          "label": "Android 组件",
           "items": [
             {
               "type": "doc",
@@ -567,7 +574,7 @@
         {
           "collapsed": false,
           "type": "category",
-          "label": "iOS Components",
+          "label": "iOS 组件",
           "items": [
             {
               "type": "doc",
@@ -611,7 +618,7 @@
     {
       "collapsed": true,
       "type": "category",
-      "label": "Object Types",
+      "label": "内部对象类型",
       "items": [
         {
           "type": "doc",

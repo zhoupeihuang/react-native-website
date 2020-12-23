@@ -1,9 +1,10 @@
 ---
 id: building-for-tv
 title: 为电视和机顶盒制作应用
+hide_table_of_contents: true
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(51.40%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(48.60%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(51.11%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(48.89%)
 
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 

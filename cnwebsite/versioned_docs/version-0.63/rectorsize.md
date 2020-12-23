@@ -3,11 +3,11 @@ id: rectorsize
 title: RectOrSize Object Type
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(88.37%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(11.63%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(86.05%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(13.95%)
 
 `RectOrSize` accepts numeric pixel values to describe how far to extend a rectangular area. These values are added to the original area's size to expand it.
 
-## Example
+## 示例
 
 ```js
 {

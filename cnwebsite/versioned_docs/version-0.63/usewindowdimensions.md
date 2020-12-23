@@ -3,7 +3,7 @@ id: usewindowdimensions
 title: useWindowDimensions
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(97.47%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(2.53%)
 
 ```jsx
 import { useWindowDimensions } from "react-native";
@@ -16,7 +16,7 @@ const windowWidth = useWindowDimensions().width;
 const windowHeight = useWindowDimensions().height;
 ```
 
-## Example
+## 示例
 
 ```SnackPlayer name=useWindowDimensions&supportedPlatforms=ios,android
 import React from "react";

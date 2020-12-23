@@ -4,7 +4,7 @@
 
 虽然你可以使用`任何编辑器`来开发应用（编写 js 代码），但你仍然必须安装 Android Studio 来获得编译 Android 应用所需的工具和环境。
 
-<h3>Node</h3>
+### Node
 
 参照 Node 官方的[Linux 安装指南](https://nodejs.org/en/download/package-manager/)来安装 Node 12 以上的版本。
 
@@ -20,19 +20,35 @@ npx nrm use taobao
 npx nrm use npm
 ```
 
-<h3>Java Development Kit</h3>
+### Yarn
+
+[Yarn](http://yarnpkg.com)是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。
+
+```
+npm install -g yarn
+```
+
+安装完 yarn 之后就可以用 yarn 代替 npm 了，例如用`yarn`代替`npm install`命令，用`yarn add 某第三方库名`代替`npm install 某第三方库名`。
+
+### Watchman
+
+参照[Watchman 的安装说明](https://facebook.github.io/watchman/docs/install.html#buildinstall)来从源码来编译和安装 Watchman。
+
+> [Watchman](https://facebook.github.io/watchman/docs/install.html)是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（metro 可以快速捕捉文件的变化从而实现实时刷新）。
+
+### Java Development Kit
 
 React Native 需要 Java Development Kit [JDK] 1.8（暂不支持 1.9 及更高版本，注意 1.8 版本官方也直接称 8 版本）。你可以在命令行中输入
 
 > `javac -version`（请注意是 java`c`，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以去[AdoptOpenJDK](https://adoptopenjdk.net/)或[Oracle JDK](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)上下载(后者下载需注册登录)。
 
-<h3>Android 开发环境</h3>
+### Android 开发环境
 
 如果你之前没有接触过 Android 的开发环境，那么请做好心理准备，这一过程相当繁琐。请`万分仔细`地阅读下面的说明，严格对照文档进行配置操作。
 
 > 译注：请注意！！！国内用户`必须必须必须`有稳定的代理软件，否则在下载、安装、配置过程中会不断遭遇链接超时或断开，无法进行开发工作。某些代理软件可能只提供浏览器的代理功能，或只针对特定网站代理等等，请自行研究配置或更换其他软件。总之如果报错中出现有网址，那么 99% 就是无法正常连接网络
 
-<h4>1. 安装 Android Studio</h4>
+#### 1. 安装 Android Studio
 
 [首先下载和安装 Android Studio](https://developer.android.google.cn/studio/)，国内用户可能无法打开官方链接，可自行使用搜索引擎搜索可用的下载链接。安装界面中选择"Custom"选项，确保选中了以下几项：
 
@@ -46,7 +62,7 @@ React Native 需要 Java Development Kit [JDK] 1.8（暂不支持 1.9 及更高�
 
 安装完成后，看到欢迎界面时，就可以进行下面的操作了。
 
-<h4>2. 安装 Android SDK</h4>
+#### 2. 安装 Android SDK
 
 Android Studio 默认会安装最新版本的 Android SDK。目前编译 React Native 应用需要的是`Android 10 (Q)`版本的 SDK（注意 SDK 版本不等于终端系统版本，RN 目前支持 android 4.1 以上设备）。你可以在 Android Studio 的 SDK Manager 中选择安装各版本的 SDK。
 
@@ -65,7 +81,7 @@ Android Studio 默认会安装最新版本的 Android SDK。目前编译 React N
 
 最后点击"Apply"来下载和安装这些组件。
 
-<h4>3. 配置 ANDROID_HOME 环境变量</h4>
+#### 3. 配置 ANDROID_HOME 环境变量
 
 React Native 需要通过环境变量来了解你的 Android SDK 装在什么路径，从而正常进行编译。
 
@@ -84,111 +100,92 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 
 > 请确保你正确指定了 Android SDK 路径。你可以在 Android Studio 的"Preferences"菜单中查看 SDK 的真实路径，具体是**Appearance & Behavior** → **System Settings** → **Android SDK**
 
-<h3>Watchman</h3>
-
-参照[Watchman 的安装说明](https://facebook.github.io/watchman/docs/install.html#buildinstall)来从源码来编译和安装 Watchman。
-
-> [Watchman](https://facebook.github.io/watchman/docs/install.html)是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（metro 可以快速捕捉文件的变化从而实现实时刷新）。
-
-<h3>React Native Command Line Interface</h3>
-
-React Native has a built-in command line interface. Rather than install and manage a specific version of the CLI globally, we recommend you access the current version at runtime using `npx`, which ships with Node.js. With `npx react-native <command>`, the current stable version of the CLI will be downloaded and executed at the time the command is run.
-
-<h2>创建新项目</h2>
+## 创建新项目
 
 > 如果你之前全局安装过旧的`react-native-cli`命令行工具，请使用`npm uninstall -g react-native-cli`卸载掉它以避免一些冲突。
 
-React Native has a built-in command line interface, which you can use to generate a new project. You can access it without installing anything globally using `npx`, which ships with Node.js. Let's create a new React Native project called "AwesomeProject":
+使用 React Native 内建的命令行工具来创建一个名为"AwesomeProject"的新项目。这个命令行工具不需要安装，可以直接用 node 自带的`npx`命令来使用：
 
 ```shell
 npx react-native init AwesomeProject
 ```
 
-This is not necessary if you are integrating React Native into an existing application, if you "ejected" from Expo, or if you're adding Android support to an existing React Native project (see [Platform Specific Code](platform-specific-code.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
+如果你是想把 React Native 集成到现有的原生项目中，则步骤完全不同，请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
-<h3>[Optional] Using a specific version or template</h3>
+### [可选参数] 指定版本或项目模板
 
-If you want to start a new project with a specific React Native version, you can use the `--version` argument:
+你可以使用`--version`参数（注意是`两`个杠）创建指定版本的项目。例如：
 
 ```shell
 npx react-native init AwesomeProject --version X.XX.X
 ```
 
-You can also start a project with a custom React Native template, like TypeScript, with `--template` argument:
+还可以使用`--template`来使用一些社区提供的模板，例如带有`TypeScript`配置的：
 
 ```shell
 npx react-native init AwesomeTSProject --template react-native-template-typescript
 ```
 
-<h2>Preparing the Android device</h2>
+## 准备 Android 设备
 
-You will need an Android device to run your React Native Android app. This can be either a physical Android device, or more commonly, you can use an Android Virtual Device which allows you to emulate an Android device on your computer.
+你需要准备一台 Android 设备来运行 React Native Android 应用。这里所指的设备既可以是真机，也可以是模拟器。后面我们所有的文档除非特别说明，并不区分真机或者模拟器。Android 官方提供了名为 Android Virtual Device（简称 AVD）的模拟器。此外还有很多第三方提供的模拟器如[Genymotion](https://www.genymotion.com/download)、BlueStack 等。一般来说官方模拟器免费、功能完整，但性能较差。第三方模拟器性能较好，但可能需要付费，或带有广告。
 
-Either way, you will need to prepare the device to run Android apps for development.
+### 使用 Android 真机
 
-<h3>Using a physical device</h3>
+你也可以使用 Android 真机来代替模拟器进行开发，只需用 usb 数据线连接到电脑，然后遵照[在设备上运行](running-on-device.md)这篇文档的说明操作即可。
 
-If you have a physical Android device, you can use it for development in place of an AVD by plugging it in to your computer using a USB cable and following the instructions [here](running-on-device.md).
+### 使用 Android 模拟器
 
-<h3>Using a virtual device</h3>
+你可以使用 Android Studio 打开项目下的"android"目录，然后可以使用"AVD Manager"来查看可用的虚拟设备，它的图标看起来像下面这样：
 
-If you use Android Studio to open `./AwesomeProject/android`, you can see the list of available Android Virtual Devices (AVDs) by opening the "AVD Manager" from within Android Studio. Look for an icon that looks like this:
+![Android Studio AVD Manager](assets/GettingStartedAndroidStudioAVD.png)
 
-![Android Studio AVD Manager](/docs/assets/GettingStartedAndroidStudioAVD.png)
+如果你刚刚才安装 Android Studio，那么可能需要先[创建一个虚拟设备](https://developer.android.com/studio/run/managing-avds.html)。点击"Create Virtual Device..."，然后选择所需的设备类型并点击"Next"，然后选择**Q** API Level 29 image.
 
-If you have recently installed Android Studio, you will likely need to [create a new AVD](https://developer.android.com/studio/run/managing-avds.html). Select "Create Virtual Device...", then pick any Phone from the list and click "Next", then select the **Q** API Level 29 image.
+> 译注：请不要轻易点击 Android Studio 中可能弹出的建议更新项目中某依赖项的建议，否则可能导致无法运行。
 
-> We recommend configuring [VM acceleration](https://developer.android.com/studio/run/emulator-acceleration.html#vm-linux) on your system to improve performance. Once you've followed those instructions, go back to the AVD Manager.
+> 建议先开启[虚拟加速技术](https://developer.android.com/studio/run/emulator-acceleration.html#vm-linux)以提高模拟器性能。
 
-Click "Next" then "Finish" to create your AVD. At this point you should be able to click on the green triangle button next to your AVD to launch it, then proceed to the next step.
+然后点击"Next"和"Finish"来完成虚拟设备的创建。现在你应该可以点击虚拟设备旁的绿色三角按钮来启动它了。然后我们可以尝试运行应用了。
 
-<h2>Running your React Native application</h2>
+## 编译并运行 React Native 应用
 
-<h3>Step 1: Start Metro</h3>
+确保你先运行了模拟器或者连接了真机，然后在你的项目目录中运行`yarn android`或者`yarn react-native run-android`：
 
-First, you will need to start Metro, the JavaScript bundler that ships with React Native. Metro "takes in an entry file and various options, and returns a single JavaScript file that includes all your code and its dependencies."—[Metro Docs](https://facebook.github.io/metro/docs/concepts)
-
-To start Metro, run `npx react-native start` inside your React Native project folder:
-
-```shell
-npx react-native start
+```
+cd AwesomeProject
+yarn android
+# 或者
+yarn react-native run-android
 ```
 
-`react-native start` starts Metro Bundler.
+此命令会对项目的原生部分进行编译，同时在另外一个命令行中启动`Metro`服务对 js 代码进行实时打包处理（类似 webpack）。`Metro`服务也可以使用`yarn start`命令单独启动。
 
-> If you use the Yarn package manager, you can use `yarn` instead of `npx` when running React Native commands inside an existing project.
+如果配置没有问题，你应该可以看到应用自动安装到设备上并开始运行。注意第一次运行时需要下载大量编译依赖，耗时可能数十分钟。此过程`严重依赖稳定的代理软件`，否则将频繁遭遇链接超时和断开，导致无法运行。
 
-> If you're familiar with web development, Metro is a lot like webpack—for React Native apps. Unlike Kotlin or Java, JavaScript isn't compiled—and neither is React Native. Bundling isn't the same as compiling, but it can help improve startup performance and translate some platform-specific JavaScript into more JavaScript.
+也可以尝试阿里云提供的[maven 镜像](https://help.aliyun.com/document_detail/102512.html?spm=a2c40.aliyun_maven_repo.0.0.361865e90r2x4b)，将`android/build.gradle`中的`jcenter()`和`google()`分别替换为`maven { url 'https://maven.aliyun.com/repository/jcenter' }`和`maven { url 'https://maven.aliyun.com/repository/google' }`（注意有多处需要替换）。
 
-<h3>Step 2: Start your application</h3>
+`npx react-native run-android`只是运行应用的方式之一。你也可以在 Android Studio 中直接运行应用。
 
-Let Metro Bundler run in its own terminal. Open a new terminal inside your React Native project folder. Run the following:
+> 译注：建议在`run-android`成功后再尝试使用 Android Studio 启动。请不要轻易点击 Android Studio 中可能弹出的建议更新项目中某依赖项的建议，否则可能导致无法运行。
 
-```shell
-npx react-native run-android
-```
+> 如果你无法正常运行，遇到奇奇怪怪的红屏错误，先回头`仔细对照文档检查`，然后可以看看[问题讨论区](https://github.com/reactnativecn/react-native-website/issues)。不同时期不同版本可能会碰到不同的问题，我们会在论坛中及时解答更新。但请注意**_千万不要_**执行 bundle 命令，那样会导致代码完全无法刷新。
 
-If everything is set up correctly, you should see your new app running in your Android emulator shortly.
+### 修改项目
 
-`npx react-native run-android` is one way to run your app - you can also run it directly from within Android Studio.
+现在你已经成功运行了项目，我们可以开始尝试动手改一改了：
 
-> If you can't get this to work, see the [Troubleshooting](troubleshooting.md#content) page.
+- 使用你喜欢的文本编辑器打开`App.js`并随便改上几行
+- 按两下 R 键，或是在开发者菜单中选择 _Reload_，就可以看到你的最新修改。
 
-<h3>Modifying your app</h3>
+### 完成了！
 
-Now that you have successfully run the app, let's modify it.
-
-- Open `App.js` in your text editor of choice and edit some lines.
-- Press the `R` key twice or select `Reload` from the Developer Menu (`Ctrl + M`) to see your changes!
-
-<h3>That's it!</h3>
-
-Congratulations! You've successfully run and modified your first React Native app.
+恭喜！你已经成功运行并修改了你的第一个 React Native 应用
 
 <center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
-<h2>Now what?</h2>
+## 接下来？
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](integration-with-existing-apps.md).
+如果你想把 React Native 集成到现有的原生项目中，则请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
-If you're curious to learn more about React Native, check out the [Introduction to React Native](getting-started).
+如果你想从头开始学习 React Native 开发，可以从[简介](getting-started.md)文档开始。

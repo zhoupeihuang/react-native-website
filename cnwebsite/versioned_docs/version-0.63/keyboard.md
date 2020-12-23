@@ -3,7 +3,9 @@ id: keyboard
 title: Keyboard
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(95.98%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(4.02%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(91.75%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(8.25%)
+
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 `Keyboard`模块用来控制键盘相关的事件。
 
@@ -11,18 +13,8 @@ title: Keyboard
 
 `Keyboard`模块可以监听原生键盘事件以做出相应回应，比如收回键盘。
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      函数组件示例
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      Class组件示例
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<TabItem value="functional">
 
 ```SnackPlayer name=Keyboard%20Function%20Component%20Example
 
@@ -66,7 +58,8 @@ const s = StyleSheet.create({
 export default Example;
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="classical">
 
 ```SnackPlayer name=Keyboard%20Class%20Component%20Example
 import React, {Component} from 'react';
@@ -115,7 +108,8 @@ const s = StyleSheet.create({
 export default Example;
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
 ---
 

@@ -1,9 +1,9 @@
 ---
 id: flexbox
-title: 使用Flexbox布局
+title: 使用 Flexbox 布局
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(92.78%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(7.22%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(92.84%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(7.16%)
 
 我们在 React Native 中使用 flexbox 规则来指定某个组件的子元素的布局。Flexbox 可以在不同屏幕尺寸上提供一致的布局结构。
 

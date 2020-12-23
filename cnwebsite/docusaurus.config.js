@@ -123,7 +123,7 @@ module.exports = {
           dropdownItemsAfter: [
             {
               to: '/versions',
-              label: 'All versions',
+              label: '所有版本',
             },
           ],
         },

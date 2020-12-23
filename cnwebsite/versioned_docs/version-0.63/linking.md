@@ -3,10 +3,12 @@ id: linking
 title: Linking
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(96.31%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(3.20%), [kt.tian](https://github.com/search?q=kt.tian&type=Users)(0.49%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(92.25%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(7.25%), [kt.tian](https://github.com/search?q=kt.tian&type=Users)(0.50%)
 
-<div class="banner-crna-ejected">
-  <h3>仅适用于原生代码项目</h3>
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
+<div className="banner-native-code-required">
+  <h3>仅适用于非沙盒项目</h3>
   <p>
     The following section only applies to projects with native code exposed. If you are using the managed <code>expo-cli</code> workflow, see the guide on <a href="http://docs.expo.io/versions/latest/workflow/linking/">Linking</a> in the Expo documentation for the appropriate alternative.
   </p>
@@ -35,22 +37,12 @@ As mentioned in the introduction, there are some URL schemes for core functional
 
 ### 基本用法
 
-### Enabling Deep Links
+### 启用 Deep Links
 
 If you want to enable deep links in your app, please the below guide:
 
-<div class="toggler">
-  <ul role="tablist" class="toggle-syntax">
-    <li id="functional" class="button-functional" aria-selected="false" role="tab" tabindex="0" aria-controls="functionaltab" onclick="displayTabs('syntax', 'functional')">
-      Android
-    </li>
-    <li id="classical" class="button-classical" aria-selected="false" role="tab" tabindex="0" aria-controls="classicaltab" onclick="displayTabs('syntax', 'classical')">
-      iOS
-    </li>
-  </ul>
-</div>
-
-<block class="functional syntax" />
+<Tabs groupId="syntax" defaultValue={constants.defaultPlatform} values={constants.platforms}>
+<TabItem value="android">
 
 > 要了解更多如何在 Android 上支持深度链接的说明，请参阅[Enabling Deep Links for App Content - Add Intent Filters for Your Deep Links](http://developer.android.com/training/app-indexing/deep-linking.html#adding-filters).
 
@@ -62,9 +54,10 @@ If you want to enable deep links in your app, please the below guide:
   android:launchMode="singleTask">
 ```
 
-<block class="classical syntax" />
+</TabItem>
+<TabItem value="ios">
 
-注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios.html#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
+> **注意：** 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios.html#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
 
 ```objectivec
 // iOS 9.x 或更高版本
@@ -102,9 +95,10 @@ If you want to enable deep links in your app, please the below guide:
 }
 ```
 
-<block class="endBlock syntax" />
+</TabItem>
+</Tabs>
 
-### Handling Deep Links
+### 处理 Deep Links
 
 There are two ways to handle URLs that open your app.
 
@@ -118,7 +112,7 @@ You can handle these events with `Linking.getInitialURL()` -- it returns a Promi
 
 ---
 
-## Example
+## 示例
 
 ### Open Links and Deep Links (Universal Links)
 
@@ -193,7 +187,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-### Get the Deep Link
+### 获取 Deep Link
 
 ```SnackPlayer name=Linking%20Function%20Component%20Example&supportedPlatforms=ios,android
 import React, { useState, useEffect } from "react";
@@ -244,7 +238,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-### Send Intents (Android)
+### 发送 Intents (Android)
 
 ```SnackPlayer name=Linking%20Function%20Component%20Example&supportedPlatforms=android
 import React, { useCallback } from "react";

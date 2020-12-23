@@ -3,7 +3,7 @@ id: segmentedcontrolios
 title: 🚧 SegmentedControlIOS
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(100.00%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.06%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(0.94%)
 
 > **已过时。** Use [@react-native-community/segmented-control](https://github.com/react-native-community/segmented-control) instead.
 
@@ -13,7 +13,7 @@ title: 🚧 SegmentedControlIOS
 
 The selected index can be changed on the fly by assigning the selectedIndex prop to a state variable, then changing that variable. Note that the state variable would need to be updated as the user selects a value and changes the index, as shown in the example below.
 
-## Example
+## 示例
 
 ```
 <SegmentedControlIOS

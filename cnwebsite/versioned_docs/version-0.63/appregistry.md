@@ -3,10 +3,10 @@ id: appregistry
 title: AppRegistry
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(51.02%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(48.98%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(51.28%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(48.72%)
 
 <div class="banner-native-code-required">
-  <h3>Project with Native Code Required</h3>
+  <h3>仅适用于非沙盒项目</h3>
   <p>
     If you are using the managed <code>expo-cli</code> workflow there is only ever one entry component registered with <code>AppRegistry</code> and it is handled automatically, you do not need to use this API.
   </p>
@@ -306,7 +306,7 @@ Stops an application when a view should be destroyed.
 | -------------------------------------------------------- | ------ |
 | rootTag <div class="label basic required">Required</div> | number |
 
-## Type Definitions
+## 类型定义
 
 ### AppConfig
 

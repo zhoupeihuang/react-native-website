@@ -1,9 +1,9 @@
 ---
 id: native-components-ios
-title: 原生UI组件
+title: iOS 原生UI组件
 ---
 
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(99.02%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(0.59%), [2725285+biaji](https://github.com/search?q=2725285%2Bbiaji&type=Users)(0.39%)
+##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(95.29%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(4.31%), [2725285+biaji](https://github.com/search?q=2725285%2Bbiaji&type=Users)(0.39%)
 
 在如今的 App 中，已经有成千上万的原生 UI 部件了——其中的一些是平台的一部分，另一些可能来自于一些第三方库，而且可能你自己还收藏了很多。React Native 已经封装了大部分最常见的组件，譬如`ScrollView`和`TextInput`，但不可能封装全部组件。而且，说不定你曾经为自己以前的 App 还封装过一些组件，React Native 肯定没法包含它们。幸运的是，在 React Naitve 应用程序中封装和植入已有的组件非常简单。
 
@@ -248,9 +248,7 @@ const RCTSwitch = requireNativeComponent("RCTSwitch", Switch, {
 });
 ```
 
-## Events
-
-事件
+## 事件
 
 现在我们已经有了一个原生地图组件，并且从 JS 可以很容易的控制它了。不过我们怎么才能处理来自用户的事件，譬如缩放操作或者拖动来改变可视区域？
 
