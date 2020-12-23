@@ -17,6 +17,7 @@ npx react-native init MyApp --template react-native-template-typescript
 
 您可以使用具有两个 TypeScript 模板的[Expo][expo]:
 
+
 ```sh
 npm install -g expo-cli
 expo init MyTSProject
