@@ -1,15 +1,15 @@
 ---
 id: signed-apk-android
-title: 打包APK
+title: 打包发布
 ---
 
-Android 要求所有应用都有一个数字签名才会被允许安装在用户手机上，所以在把应用发布到类似[Google Play store](https://play.google.com/store)这样的应用市场之前，你需要先生成一个签名的 APK 包。Android 开发者官网上的[如何给你的应用签名](https://developer.android.com/tools/publishing/app-signing.html)文档描述了签名的细节。本指南旨在提供一个简化的签名和打包 js 的操作步骤，不会涉及太多理论。
+Android 要求所有应用都有一个数字签名才会被允许安装在用户手机上，所以在把应用发布到应用市场之前，你需要先生成一个签名的 AAB 或 APK 包（Google Play 现在要求 AAB 格式，而国内的应用市场目前仅支持 APK 格式。但无论哪种格式，下面的签名步骤是一样的）。Android 开发者官网上的[如何给你的应用签名](https://developer.android.com/tools/publishing/app-signing.html)文档描述了签名的细节。本指南旨在提供一个简化的签名和打包的操作步骤，不会涉及太多理论。
 
 ### 生成一个签名密钥
 
 你可以用`keytool`命令生成一个私有密钥。在 Windows 上`keytool`命令放在 JDK 的 bin 目录中（比如`C:\Program Files\Java\jdkx.x.x_x\bin`），你可能需要在命令行中先进入那个目录才能执行此命令。
 
-    $ keytool -genkeypair -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000
+    $ keytool -genkeypair -v -storetype PKCS12 -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 1000
 
 这条命令会要求你输入密钥库（keystore）和对应密钥的密码，然后设置一些发行相关的信息。最后它会生成一个叫做`my-release-key.keystore`的密钥库文件。
 
@@ -33,11 +33,7 @@ MYAPP_RELEASE_KEY_PASSWORD=*****
 
 上面的这些会作为 gradle 的变量，在后面的步骤中可以用来给应用签名。
 
-> **关于密钥库的注意事项:**
-
-> 一旦你在 Play Store 发布了你的应用，如果想修改签名，就必须用一个不同的包名来重新发布你的应用（这样也会丢失所有的下载数和评分）。所以请务必备份好你的密钥库和密码。
-
-提示：如果你不想以明文方式保存密码，同时你使用的是 macOS 系统，那么你也可以把密码[保存到钥匙串（Keychain）中](https://pilloxa.gitlab.io/posts/safer-passwords-in-gradle/)。这样一来你就可以省略掉上面配置中的后两行（即 MYAPP_RELEASE_STORE_PASSWORD 和 MYAPP_RELEASE_KEY_PASSWORD）。
+> **关于密钥库的注意事项:**：如果你不想以明文方式保存密码，同时你使用的是 macOS 系统，那么你也可以把密码[保存到钥匙串（Keychain）中](https://pilloxa.gitlab.io/posts/safer-passwords-in-gradle/)。这样一来你就可以省略掉上面配置中的后两行（即 MYAPP_RELEASE_STORE_PASSWORD 和 MYAPP_RELEASE_KEY_PASSWORD）。
 
 ### 把签名配置加入到项目的 gradle 配置中
 
@@ -81,7 +77,7 @@ $ ./gradlew assembleRelease
 
 Gradle 的`assembleRelease`参数会把所有用到的 JavaScript 代码都打包到一起，然后内置到 APK 包中。如果你想调整下这个行为（比如 js 代码以及静态资源打包的默认文件名或是目录结构等），可以看看`android/app/build.gradle`文件，然后琢磨下应该怎么修改以满足你的需求。
 
-> 注意：请确保 gradle.properties 中`没有`包含`_org.gradle.configureondemand=true_`，否则会跳过 js 打包的步骤，导致最终生成的 apk 是一个无法运行的空壳。
+> 注意：请确保 gradle.properties 中`没有`包含`_org.gradle.configureondemand=true_`，否则会跳过 js 打包的步骤，导致最终生成的是一个无法运行的空壳。
 
 生成的 APK 文件位于`android/app/build/outputs/apk/release/app-release.apk`，它已经可以用来发布了。
 
@@ -99,7 +95,7 @@ $ npx react-native run-android --variant=release
 
 ### 针对不同的 CPU 架构生成 APK 以减小 APK 文件的大小
 
-默认情况下，生成的 APK 会同时包含针对于 x86 和 ARMv7a 两种 CPU 架构的原生代码。这样可以让我们更方便的向其他人分享这个 APK，因为它几乎可以运行在所有的 Android 设备上。但是，这会导致所有设备上都有一些根本不会运行的代码，白白占据了空间。目前安卓设备绝大多数是 ARM 架构，因此对于大部分应用来说可以考虑去掉 x86 架构的支持（但是请注意模拟器大部分是 x86 架构，因此去掉 x86 架构后将无法在模拟器上运行）。
+默认情况下，生成的 APK 会同时包含针对于多种 CPU 架构的原生代码。这样可以让我们更方便的向其他人分享这个 APK，因为它几乎可以运行在所有的 Android 设备上。但是，这会导致所有设备上都有一些根本不会运行的代码，白白占据了空间。目前安卓设备绝大多数是 ARM 架构，因此对于大部分应用来说可以考虑去掉 x86 架构的支持（但是请注意模拟器大部分是 x86 架构，因此去掉 x86 架构后将无法在模拟器上运行）。
 
 你可以在`android/app/build.gradle`中修改如下代码（false 改为 true）来生成多个针对不同 CPU 架构的 APK。
 
@@ -118,7 +114,7 @@ $ npx react-native run-android --variant=release
 + universalApk true  // 额外生成一个适用不同CPU架构的通用APK
 ```
 
-### 启用Proguard来减少apk的大小（可选）
+### 启用 Proguard 来减少 apk 的大小（可选）
 
 Proguard 是一个 Java 字节码混淆压缩工具，它可以移除掉 React Native Java（和它的依赖库中）中没有被使用到的部分，最终有效的减少 APK 的大小。
 
@@ -132,3 +128,20 @@ Proguard 是一个 Java 字节码混淆压缩工具，它可以移除掉 React N
  */
 def enableProguardInReleaseBuilds = true
 ```
+
+## 生成发行 AAB 包
+
+在命令行中运行下列命令：
+
+```shell
+cd android
+./gradlew bundleRelease
+```
+
+Gradle 的`bundleRelease`参数会把所有用到的 JavaScript 代码都打包到一起，然后内置到 AAB 包([Android App Bundle](https://developer.android.com/guide/app-bundle))中。如果你想调整下这个行为（比如 js 代码以及静态资源打包的默认文件名或是目录结构等），可以看看`android/app/build.gradle`文件，然后琢磨下应该怎么修改以满足你的需求。
+
+> 注意：请确保 gradle.properties 中`没有`包含`_org.gradle.configureondemand=true_`，否则会跳过 js 打包的步骤，导致最终生成的是一个无法运行的空壳。
+
+生成的 AAB 文件位于`android/app/build/outputs/bundle/release/app-release.aab`，它已经可以用来上传到 Google Play 市场了。
+
+In order for Google Play to accept AAB format the App Signing by Google Play needs to be configured for your application on the Google Play Console. If you are updating an existing app that doesn't use App Signing by Google Play, please check our [migration section](#migrating-old-android-react-native-apps-to-use-app-signing-by-google-play) to learn how to perform that configuration change.
