@@ -1,4 +1,5 @@
 const users = require('./showcase.json');
+const versions = require('./versions.json');
 
 module.exports = {
   title: 'React Native',
@@ -14,7 +15,12 @@ module.exports = {
         'https://cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js',
       defer: true,
     },
-    {src: 'https://snack.expo.io/embed.js', defer: true},
+    {
+      src:
+        'https://widget.surveymonkey.com/collect/website/js/tRaiETqnLgj758hTBazgd8ryO5qrZo8Exadq9qmt1wtm4_2FdZGEAKHDFEt_2BBlwwM4.js',
+      defer: true,
+    },
+    {src: 'https://snack.expo.dev/embed.js', defer: true},
   ],
   favicon: 'img/favicon.ico',
   titleDelimiter: '·',
@@ -39,6 +45,11 @@ module.exports = {
           path: '../docs',
           sidebarPath: require.resolve('./sidebars.json'),
           remarkPlugins: [require('@react-native-website/remark-snackplayer')],
+          editCurrentVersion: true,
+          onlyIncludeVersions:
+            process.env.PREVIEW_DEPLOY === 'true'
+              ? ['current', ...versions.slice(0, 2)]
+              : undefined,
         },
         blog: {
           path: 'blog',
@@ -296,11 +307,12 @@ module.exports = {
         property: 'og:image',
         content: 'https://reactnative.dev/img/logo-og.png',
       },
-      {name: 'twitter:card', content: 'summary'},
+      {name: 'twitter:card', content: 'summary_large_image'},
       {
         name: 'twitter:image',
         content: 'https://reactnative.dev/img/logo-og.png',
       },
+      {name: 'twitter:site', content: '@reactnative'},
     ],
   },
 };

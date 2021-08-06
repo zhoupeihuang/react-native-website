@@ -78,7 +78,9 @@ const Showcase = () => {
   const apps = pinnedApps.concat(featuredApps);
 
   return (
-    <Layout title="Who's using React Native?">
+    <Layout
+      title="Who's using React Native?"
+      description="Thousands of apps are using React Native, check out these apps!">
       <div className="showcaseSection">
         <div className="prose">
           <h1>Who's using React Native?</h1>
@@ -97,11 +99,14 @@ const Showcase = () => {
         </a>
         <p>
           A curated list of{' '}
-          <a href="https://github.com/ReactNativeNews/React-Native-Apps">
-            open source React Native apps
-          </a>{' '}
-          is also being kept by <a href="https://infinite.red/">Infinite Red</a>
-          .
+          <span>
+            <a
+              key="demo-apps"
+              href="https://github.com/ReactNativeNews/React-Native-Apps">
+              open source React Native apps
+            </a>
+          </span>{' '}
+          is also being kept by <a href="https://infinite.red">Infinite Red</a>.
         </p>
       </div>
     </Layout>
