@@ -156,7 +156,7 @@ const NewModuleButton = () => {
 export default NewModuleButton;
 ```
 
-In order to access your native module from JavaScript you need to first import `NativeNodules` from React Native:
+In order to access your native module from JavaScript you need to first import `NativeModules` from React Native:
 
 ```jsx
 import { NativeModules } from 'react-native';
@@ -418,7 +418,7 @@ RCT_EXPORT_METHOD(createCalendarEvent:(NSString *)title
 {
  NSInteger eventId = createCalendarEvent();
  if (eventId) {
-    resolve(@[@(eventId)]);
+    resolve(@(eventId));
   } else {
     reject(@"event_failure", @"no event id returned", nil);
   }

@@ -417,7 +417,7 @@ Used to locate this view from native code.
 
 ### `numberOfLines`
 
-Used to truncate the text with an ellipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number. Setting this property to `0` will result in unsetiing this value, which means that no lines restriction will be applied.
+Used to truncate the text with an ellipsis after computing the text layout, including line wrapping, such that the total number of lines does not exceed this number. Setting this property to `0` will result in unsetting this value, which means that no lines restriction will be applied.
 
 This prop is commonly used with `ellipsizeMode`.
 
@@ -660,7 +660,3 @@ Set text break strategy on Android API Level 23+, possible values are `simple`, 
 | ------ | --------------------------------------- | -------- | ----------------------------------------------------- |
 | lines  | array of [TextLayout](text#textlayout)s | No       | Provides the TextLayout data for every rendered line. |
 | target | number                                  | No       | The node id of the element.                           |
-
-## Known issues
-
-- [react-native#22811](https://github.com/facebook/react-native/issues/22811): Nested Text elements do not support `numberOfLines` attribute
