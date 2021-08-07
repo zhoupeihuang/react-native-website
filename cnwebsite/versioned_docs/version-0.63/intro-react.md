@@ -311,7 +311,7 @@ export default CatApp;
 
 如果把 props 理解为定制组件渲染的参数， 那么**state**就像是组件的私人数据记录。状态用于记录那些随时间或者用户交互而变化的数据。状态使组件拥有了记忆！
 
-> 按惯例来说，props 用来配置组件的第一次渲染（初始状态）。Use state to keep track of any component data that you expect to change over time. The following example takes place in a cat cafe where two hungry cats are waiting to be fed. Their hunger, which we expect to change over time (unlike their names), is stored as state. To feed the cats, press their buttons—which will update their state.
+> 按惯例来说，props 用来配置组件的第一次渲染（初始状态）。state 则用来记录组件中任意可能随时间变化的数据。下面示例的情景发生在一个猫咪咖啡馆中，两只猫咪正嗷嗷待哺。它们的饥饿程度会随着时间变化（相对地，它们的名字就不会变化），因此会记录在状态中。示例中还有一个喂食按钮，一键干饭，扫除饥饿状态！
 
 <Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
@@ -359,7 +359,7 @@ export default Cafe;
 import React, { useState } from 'react';
 ```
 
-然后可以通过在函数内调用`useState`来为组件声明状态。In this example, `useState` creates an `isHungry` state variable:
+然后可以通过在函数内调用`useState`来为组件声明状态。在本示例中 `useState` 创建了一个 `isHungry` 状态变量：
 
 ```jsx
 const Cat = (props) => {
@@ -396,7 +396,7 @@ const Cat = (props) => {
 />
 ```
 
-> 你可能注意到虽然`isHungry`使用了常量关键字[const](https://developer.mozilla.org/Web/JavaScript/Reference/Statements/const)，但它看起来还是可以修改！简单来说，当你调用`setIsHungry`这样的设置状态的函数时，其所在的组件会重新渲染。在这里，这整个`Cat`函数都会从头重新执行一遍。重新执行的时候，`useState`会返回给我们新设置的值。
+> 你可能注意到虽然`isHungry`使用了常量关键字[const](https://developer.mozilla.org/Web/JavaScript/Reference/Statements/const)，但它看起来还是可以修改！简单来说，当你调用`setIsHungry`这样的设置状态的函数时，其所在的组件会重新渲染。此处这一整个`Cat`函数都会从头重新执行一遍。重新执行的时候，`useState`会返回给我们新设置的值。
 
 最后再把猫咪放进`Cafe`组件：
 
@@ -482,7 +482,7 @@ export class Cat extends Component {
 </Text>
 ```
 
-And you set individual values inside the state object by passing an object with the key value pair for state and its new value to `this.setState()`:
+要修改状态中的值，只需给`this.setState()`传入一个对象，包含要修改的键值对即可：
 
 ```jsx
 <Button
@@ -492,9 +492,9 @@ And you set individual values inside the state object by passing an object with 
 />
 ```
 
-> 不要直接给组件 state 赋值（比如`this.state.hunger = false`）来修改状态。Calling `this.setState()` allows React to track changes made to state that trigger rerendering. Setting state directly can break your app's reactivity!
+> 不要直接给组件 state 赋值（比如`this.state.hunger = false`）来修改状态。使用 `this.setState()` 方法才能让 React 知悉状态的变化，从而触发重渲染。直接修改状态变量可能会使界面无法响应！
 
-When `this.state.isHungry` is false, the `Button`’s `disabled` prop is set to `false` and its `title` also changes:
+当`this.state.isHungry`为 false 时，`Button`的`disabled`属性随之被设置为`false`，它的`title`也相应变化：
 
 ```jsx
 <Button
@@ -533,7 +533,3 @@ export default Cafe;
 ---
 
 现在你应该已经差不多了解 React 和 React Native 的核心组件与思想了。下面可以试着深入学习一些核心组件的用法，比如如何[处理文本输入`<TextInput>`](handling-text-input)。
-
----
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(76.07%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(23.74%), [git](https://github.com/search?q=git&type=Users)(0.19%)
