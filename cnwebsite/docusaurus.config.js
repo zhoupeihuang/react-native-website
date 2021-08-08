@@ -17,8 +17,8 @@ module.exports = {
         '//cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js',
       defer: true,
     },
-    {src: '//snack.expo.io/embed.js', defer: true},
-    {src: '//wwads.cn/js/ads.js', defer: true},
+    {src: '//snack.expo.dev/embed.js', defer: true},
+    {src: '//cdn.wwads.cn/js/makemoney.js', defer: true},
   ],
   favicon: cdnUrl + 'img/favicon.ico',
   titleDelimiter: '·',
@@ -39,6 +39,11 @@ module.exports = {
           path: '../cndocs',
           sidebarPath: require.resolve('./sidebars.json'),
           remarkPlugins: [require('@react-native-website/remark-snackplayer')],
+          editCurrentVersion: true,
+          onlyIncludeVersions:
+            process.env.PREVIEW_DEPLOY === 'true'
+              ? ['current', ...versions.slice(0, 2)]
+              : undefined,
         },
         // blog: {
         //   path: 'blog',

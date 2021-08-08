@@ -57,7 +57,7 @@ const Versions = () => {
   );
 
   return (
-    <Layout wrapperClassName="versions-page">
+    <Layout title="版本" wrapperClassName="versions-page">
       <h1>React Native 版本规则</h1>
       <p>
         开源版本的React Native原则上每月发布一个新版本。关于版本迭代的讨论请移步{' '}
