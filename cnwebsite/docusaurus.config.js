@@ -33,7 +33,7 @@ module.exports = {
       {
         docs: {
           showLastUpdateAuthor: false,
-          showLastUpdateTime: true,
+          // showLastUpdateTime: true,
           editUrl:
             'https://github.com/reactnativecn/react-native-website/blob/production/cnwebsite',
           path: '../cndocs',

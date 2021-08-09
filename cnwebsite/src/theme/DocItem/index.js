@@ -65,7 +65,7 @@ function DocItem(props) {
     lastUpdatedAt,
     formattedLastUpdatedAt,
     lastUpdatedBy,
-    unversionedId,
+    // unversionedId,
   } = metadata;
   const {pluginId} = useActivePlugin({
     failfast: true,
@@ -102,11 +102,6 @@ function DocItem(props) {
                   </span>
                 </div>
               )}
-              {!hideTitle && (
-                <header>
-                  <h1 className={styles.docTitle}>{title}</h1>
-                </header>
-              )}
               <SponsorHeader />
               <div className="markdown">
                 {/*
@@ -117,57 +112,25 @@ function DocItem(props) {
                 {shouldAddTitle && <MainHeading>{title}</MainHeading>}
                 <DocContent />
               </div>
-            </article>
-            {/* <DocsRating label={unversionedId} /> */}
-            {(editUrl || lastUpdatedAt || lastUpdatedBy) && (
-              <div className="docMetadata margin-vert--xl">
-                <div className="row">
+              {/* <DocsRating label={unversionedId} /> */}
+              {(editUrl || lastUpdatedAt || lastUpdatedBy) && (
+                <footer className="docMetadata row docusaurus-mt-lg">
                   <div className="col">
-                    {editUrl && (
-                      <a
-                        href={editUrl}
-                        target="_blank"
-                        rel="noreferrer noopener">
-                        <IconEdit />
-                        改进文档
-                      </a>
+                    {editUrl && <EditThisPage editUrl={editUrl} />}
+                  </div>
+                  <div className={clsx('col', styles.lastUpdated)}>
+                    {(lastUpdatedAt || lastUpdatedBy) && (
+                      <LastUpdated
+                        lastUpdatedAt={lastUpdatedAt}
+                        formattedLastUpdatedAt={formattedLastUpdatedAt}
+                        lastUpdatedBy={lastUpdatedBy}
+                      />
                     )}
                   </div>
-                  {(lastUpdatedAt || lastUpdatedBy) && (
-                    <div className="col text--right">
-                      <em>
-                        <small className="docMetadata-updated">
-                          最近更新{' '}
-                          {lastUpdatedAt && (
-                            <>
-                              {' '}
-                              <time
-                                dateTime={new Date(
-                                  lastUpdatedAt * 1000
-                                ).toISOString()}
-                                className={styles.docLastUpdatedAt}>
-                                {new Date(
-                                  lastUpdatedAt * 1000
-                                ).toLocaleDateString('zh-CN')}
-                              </time>
-                              {lastUpdatedBy && ' '}
-                            </>
-                          )}
-                          {lastUpdatedBy && (
-                            <>
-                              by <strong>{lastUpdatedBy}</strong>
-                            </>
-                          )}
-                        </small>
-                      </em>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            <div className="margin-vert--lg">
-              <DocPaginator metadata={metadata} />
-            </div>
+                </footer>
+              )}
+            </article>
+            <DocPaginator metadata={metadata} />
           </div>
         </div>
         {!hideTableOfContents && DocContent.toc && (
