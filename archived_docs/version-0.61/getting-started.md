@@ -226,24 +226,23 @@ React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 1
 
 <h4>CocoaPods</h4>
 
-[CocoaPods](https://cocoapods.org/)是用Ruby编写的包管理器。从0.60版本开始react native的iOS版本需要使用CocoaPods来管理依赖。你可以使用下面的命令来安装cocoapods。
+[CocoaPods](https://cocoapods.org/)是用 Ruby 编写的包管理器。从 0.60 版本开始 react native 的 iOS 版本需要使用 CocoaPods 来管理依赖。你可以使用下面的命令来安装 cocoapods。
 
 > 当然安装可能也不顺利，请尝试翻墙或寻找一些国内可用的镜像源。
-
 
 ```sh
 sudo gem install cocoapods
 ```
 
-或者可以使用brew来安装
+或者可以使用 brew 来安装
 
 ```sh
 brew install cocoapods
 ```
 
-> 另外目前最新版本似乎不能在ruby2.6版本以下安装，意味着如果你使用的macOS版本低于10.15 (Catalina) 则无法直接安装。可以尝试安装较旧一些的版本。如`sudo gem install cocoapods -v 1.8.4`，参考issue链接 <https://github.com/CocoaPods/CocoaPods/issues/9568>
+> 另外目前最新版本似乎不能在 ruby2.6 版本以下安装，意味着如果你使用的 macOS 版本低于 10.15 (Catalina) 则无法直接安装。可以尝试安装较旧一些的版本。如`sudo gem install cocoapods -v 1.8.4`，参考 issue 链接 <https://github.com/CocoaPods/CocoaPods/issues/9568>
 
-要了解更多信息，可以访问[CocoaPods的官网](https://guides.cocoapods.org/using/getting-started.html)。
+要了解更多信息，可以访问[CocoaPods 的官网](https://guides.cocoapods.org/using/getting-started.html)。
 
 <block class="native mac linux android" />
 
@@ -251,7 +250,7 @@ brew install cocoapods
 
 React Native 需要 Java Development Kit [JDK] 1.8（暂不支持 1.9 及更高版本）。你可以在命令行中输入
 
-> `javac -version`（请注意是 java`c`，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以到 [官网](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)上下载。
+> `javac -version`（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以到 [官网](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)上下载。
 
 <block class="native mac linux windows android" />
 

@@ -47,7 +47,7 @@ brew install adoptopenjdk/openjdk/adoptopenjdk8
 
 React Native 需要 Java Development Kit [JDK] 1.8（暂不支持 1.9 及更高版本，注意 1.8 版本官方也直接称 8 版本）。你可以在命令行中输入
 
-> `javac -version`（请注意是 java`c`，不是 java）来查看你当前安装的 JDK 版本。
+> `javac -version`（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。
 
 ### Android 开发环境
 
