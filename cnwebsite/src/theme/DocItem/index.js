@@ -102,7 +102,7 @@ function DocItem(props) {
                   </span>
                 </div>
               )}
-              <SponsorHeader />
+              {/* <SponsorHeader /> */}
               <div className="markdown">
                 {/*
                 Title can be declared inside md content or declared through frontmatter and added manually
