@@ -5,7 +5,7 @@
 
  ## Sync with official repo	
 
- [facebook:master -> production](https://github.com/reactnativecn/react-native-website/compare/production...facebook:master)
+ [facebook:main -> production](https://github.com/reactnativecn/react-native-website/compare/production...facebook:main)
 
 # [facebook.github.io/react-native/](https://facebook.github.io/react-native/) &middot; [![Circle CI Status](https://circleci.com/gh/facebook/react-native-website.svg?style=shield)](https://circleci.com/gh/facebook/react-native-website) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
