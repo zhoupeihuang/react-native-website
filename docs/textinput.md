@@ -130,29 +130,53 @@ Tells `TextInput` to automatically capitalize certain characters. This property 
 
 ---
 
-### `autoCompleteType` <div class="label android">Android</div>
+### `autoComplete` <div class="label android">Android</div>
 
-Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content. To disable autocomplete, set `autoCompleteType` to `off`.
+Specifies autocomplete hints for the system, so it can provide autofill. On Android, the system will always attempt to offer autofill by using heuristics to identify the type of content. To disable autocomplete, set `autoComplete` to `off`.
 
-Possible values for `autoCompleteType` are:
+Possible values for `autoComplete` are:
 
-- `off`
-- `username`
-- `password`
-- `email`
-- `name`
-- `tel`
-- `street-address`
-- `postal-code`
-- `cc-number`
+- `birthdate-day`
+- `birthdate-full`
+- `birthdate-month`
+- `birthdate-year`
 - `cc-csc`
 - `cc-exp`
+- `cc-exp-day`
 - `cc-exp-month`
 - `cc-exp-year`
+- `cc-number`
+- `email`
+- `gender`
+- `name`
+- `name-family`
+- `name-given`
+- `name-middle`
+- `name-middle-initial`
+- `name-prefix`
+- `name-suffix`
+- `password`
+- `password-new`
+- `postal-address`
+- `postal-address-country`
+- `postal-address-extended`
+- `postal-address-extended-postal-code`
+- `postal-address-locality`
+- `postal-address-region`
+- `postal-code`
+- `street-address`
+- `sms-otp`
+- `tel`
+- `tel-country-code`
+- `tel-national`
+- `tel-device`
+- `username`
+- `username-new`
+- `off`
 
-| Type                                                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| enum('off', 'username', 'password', 'email', 'name', 'tel', 'street-address', 'postal-code', 'cc-number', 'cc-csc', 'cc-exp', 'cc-exp-month', 'cc-exp-year') |
+| Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| enum('birthdate-day', 'birthdate-full', 'birthdate-month', 'birthdate-year', 'cc-csc', 'cc-exp', 'cc-exp-day', 'cc-exp-month', 'cc-exp-year', 'cc-number', 'email', 'gender', 'name', 'name-family', 'name-given', 'name-middle', 'name-middle-initial', 'name-prefix', 'name-suffix', 'password', 'password-new', 'postal-address', 'postal-address-country', 'postal-address-extended', 'postal-address-extended-postal-code', 'postal-address-locality', 'postal-address-region', 'postal-code', 'street-address', 'sms-otp', 'tel', 'tel-country-code', 'tel-national', 'tel-device', 'username', 'username-new', 'off') |
 
 ---
 
@@ -445,11 +469,11 @@ Callback that is called when the text input is blurred.
 
 ### `onChange`
 
-Callback that is called when the text input's text changes. This will be called with `{ nativeEvent: { eventCount, target, text} }`
+Callback that is called when the text input's text changes.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                     |
+| -------------------------------------------------------- |
+| (`{ nativeEvent: { eventCount, target, text} }`) => void |
 
 ---
 
@@ -465,13 +489,13 @@ Callback that is called when the text input's text changes. Changed text is pass
 
 ### `onContentSizeChange`
 
-Callback that is called when the text input's content size changes. This will be called with `{ nativeEvent: { contentSize: { width, height } } }`.
+Callback that is called when the text input's content size changes.
 
 Only called for multiline text inputs.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                            |
+| --------------------------------------------------------------- |
+| (`{ nativeEvent: { contentSize: { width, height } } }`) => void |
 
 ---
 
@@ -489,9 +513,9 @@ Callback that is called when text input ends.
 
 Callback that is called when a touch is engaged.
 
-| Type                     |
-| ------------------------ |
-| [PressEvent](pressevent) |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -499,29 +523,29 @@ Callback that is called when a touch is engaged.
 
 Callback that is called when a touch is released.
 
-| Type                     |
-| ------------------------ |
-| [PressEvent](pressevent) |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
 ### `onFocus`
 
-Callback that is called when the text input is focused. This is called with `{ nativeEvent: { target } }`.
+Callback that is called when the text input is focused.
 
-| Type                                 |
-| ------------------------------------ |
-| ([LayoutEvent](layoutevent)) => void |
+| Type                                                  |
+| ----------------------------------------------------- |
+| ({ nativeEvent: [LayoutEvent](layoutevent) }) => void |
 
 ---
 
 ### `onKeyPress`
 
-Callback that is called when a key is pressed. This will be called with `{ nativeEvent: { key: keyValue } }` where `keyValue` is `'Enter'` or `'Backspace'` for respective keys and the typed-in character otherwise including `' '` for space. Fires before `onChange` callbacks. Note: on Android only the inputs from soft keyboard are handled, not the hardware keyboard inputs.
+Callback that is called when a key is pressed. This will be called with object where `keyValue` is `'Enter'` or `'Backspace'` for respective keys and the typed-in character otherwise including `' '` for space. Fires before `onChange` callbacks. Note: on Android only the inputs from soft keyboard are handled, not the hardware keyboard inputs.
 
-| Type     |
-| -------- |
-| function |
+| Type                                           |
+| ---------------------------------------------- |
+| (`{ nativeEvent: { key: keyValue } }`) => void |
 
 ---
 
@@ -529,39 +553,39 @@ Callback that is called when a key is pressed. This will be called with `{ nativ
 
 Invoked on mount and on layout changes.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                  |
+| ----------------------------------------------------- |
+| ({ nativeEvent: [LayoutEvent](layoutevent) }) => void |
 
 ---
 
 ### `onScroll`
 
-Invoked on content scroll with `{ nativeEvent: { contentOffset: { x, y } } }`. May also contain other properties from ScrollEvent but on Android contentSize is not provided for performance reasons.
+Invoked on content scroll. May also contain other properties from `ScrollEvent` but on Android `contentSize` is not provided for performance reasons.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                     |
+| -------------------------------------------------------- |
+| (`{ nativeEvent: { contentOffset: { x, y } } }`) => void |
 
 ---
 
 ### `onSelectionChange`
 
-Callback that is called when the text input selection is changed. This will be called with `{ nativeEvent: { selection: { start, end } } }`. This prop requires `multiline={true}` to be set.
+Callback that is called when the text input selection is changed. This prop requires `multiline={true}` to be set.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                       |
+| ---------------------------------------------------------- |
+| (`{ nativeEvent: { selection: { start, end } } }`) => void |
 
 ---
 
 ### `onSubmitEditing`
 
-Callback that is called when the text input's submit button is pressed with the argument `{nativeEvent: {text, eventCount, target}}`.
+Callback that is called when the text input's submit button is pressed.
 
-| Type     |
-| -------- |
-| function |
+| Type                                                     |
+| -------------------------------------------------------- |
+| (`{ nativeEvent: { text, eventCount, target }}`) => void |
 
 Note that on iOS this method isn't called when using `keyboardType="phone-pad"`.
 

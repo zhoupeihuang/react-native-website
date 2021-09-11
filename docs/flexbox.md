@@ -168,7 +168,7 @@ export default FlexDirectionBasics;
 
 ## Layout Direction
 
-Layout direction specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge `start` and `end` refer to. By default, React Native lays out with LTR layout direction. In this mode `start` refers to left and `end` refers to right.
+Layout [`direction`](layout-props#direction) specifies the direction in which children and text in a hierarchy should be laid out. Layout direction also affects what edge `start` and `end` refer to. By default, React Native lays out with LTR layout direction. In this mode `start` refers to left and `end` refers to right.
 
 - `LTR` (**default value**) Text and children are laid out from left to right. Margin and padding applied to the start of an element are applied on the left side.
 
@@ -417,7 +417,7 @@ export default JustifyContentBasics;
 
 ## Align Items
 
-[`alignItems`](layout-props#alignitems) describes how to align children along the cross axis of their container. Align items is very similar to `justifyContent` but instead of applying to the main axis, `alignItems` applies to the cross axis.
+[`alignItems`](layout-props#alignitems) describes how to align children along the cross axis of their container. It is very similar to `justifyContent` but instead of applying to the main axis, `alignItems` applies to the cross axis.
 
 - `stretch` (**default value**) Stretch children of a container to match the `height` of the container's cross axis.
 
@@ -1099,7 +1099,7 @@ const BoxInfo = ({
       <Text
         style={{
           color: "#fff",
-          fontWeight: 500,
+          fontWeight: "500",
           textAlign: "center",
         }}
       >
@@ -1268,7 +1268,7 @@ const PreviewLayout = ({
   setWidthType,
   setHeightType,
 }) => (
-  <View style={{ flex: 1, padding: 10 }}>
+  <SafeAreaView style={{ flex: 1, padding: 10 }}>
     <View style={styles.row}>
       <Text style={styles.label}>width </Text>
       {widthValues.map((value) => (
@@ -1314,7 +1314,7 @@ const PreviewLayout = ({
       ))}
     </View>
     {children}
-  </View>
+  </SafeAreaView>
 );
 
 const styles = StyleSheet.create({

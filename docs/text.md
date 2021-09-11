@@ -20,7 +20,7 @@ import { Text, StyleSheet } from "react-native";
 
 const TextInANest = () => {
   const [titleText, setTitleText] = useState("Bird's Nest");
-  const bodyText = useState("This is not really a bird nest.");
+  const bodyText = "This is not really a bird nest.";
 
   const onPressTitle = () => {
     setTitleText("Bird's Nest [pressed]");
@@ -298,6 +298,30 @@ You can provide one state, no state, or multiple states. The states must be pass
 
 ---
 
+### `accessibilityActions`
+
+Accessibility actions allow an assistive technology to programmatically invoke the actions of a component. The `accessibilityActions` property should contain a list of action objects. Each action object should contain the field name and label.
+
+See the [Accessibility guide](accessibility.md#accessibility-actions) for more information.
+
+| Type  | Required |
+| ----- | -------- |
+| array | No       |
+
+---
+
+### `onAccessibilityAction`
+
+Invoked when the user performs the accessibility actions. The only argument to this function is an event containing the name of the action to perform.
+
+See the [Accessibility guide](accessibility.md#accessibility-actions) for more information.
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+---
+
 ### `accessible`
 
 When set to `true`, indicates that the view is an accessibility element.
@@ -431,9 +455,9 @@ This prop is commonly used with `ellipsizeMode`.
 
 Invoked on mount and on layout changes.
 
-| Type                                 |
-| ------------------------------------ |
-| ([LayoutEvent](layoutevent)) => void |
+| Type                                                  |
+| ----------------------------------------------------- |
+| ({ nativeEvent: [LayoutEvent](layoutevent) }) => void |
 
 ---
 
@@ -441,9 +465,9 @@ Invoked on mount and on layout changes.
 
 This function is called on long press.
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -451,9 +475,9 @@ This function is called on long press.
 
 Does this view want to "claim" touch responsiveness? This is called for every touch move on the `View` when it is not the responder.
 
-| Type                                  |
-| ------------------------------------- |
-| ([PressEvent](pressevent)) => boolean |
+| Type                                                   |
+| ------------------------------------------------------ |
+| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
 
 ---
 
@@ -461,9 +485,9 @@ Does this view want to "claim" touch responsiveness? This is called for every to
 
 This function is called on press.
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -471,9 +495,9 @@ This function is called on press.
 
 The View is now responding to touch events. This is the time to highlight and show the user what is happening.
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -481,9 +505,9 @@ The View is now responding to touch events. This is the time to highlight and sh
 
 The user is moving their finger.
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -491,9 +515,9 @@ The user is moving their finger.
 
 Fired at the end of the touch.
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -501,9 +525,9 @@ Fired at the end of the touch.
 
 The responder has been taken from the `View`. Might be taken by other views after a call to `onResponderTerminationRequest`, or might be taken by the OS without asking (e.g., happens with control center/ notification center on iOS)
 
-| Type                               |
-| ---------------------------------- |
-| ([PressEvent](pressevent)) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({ nativeEvent: [PressEvent](pressevent) }) => void |
 
 ---
 
@@ -511,9 +535,9 @@ The responder has been taken from the `View`. Might be taken by other views afte
 
 Some other `View` wants to become a responder and is asking this `View` to release its responder. Returning `true` allows its release.
 
-| Type                                  |
-| ------------------------------------- |
-| ([PressEvent](pressevent)) => boolean |
+| Type                                                   |
+| ------------------------------------------------------ |
+| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
 
 ---
 
@@ -521,9 +545,9 @@ Some other `View` wants to become a responder and is asking this `View` to relea
 
 If a parent `View` wants to prevent a child `View` from becoming a responder on a touch start, it should have this handler which returns `true`.
 
-| Type                                  |
-| ------------------------------------- |
-| ([PressEvent](pressevent)) => boolean |
+| Type                                                   |
+| ------------------------------------------------------ |
+| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
 
 ---
 

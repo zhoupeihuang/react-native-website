@@ -24,8 +24,9 @@
     "prettier": "yarn format:source && yarn format:markdown && yarn format:style",
     "lint": "eslint ../docs/** blog/** core/** src/**/*.{js,md}",
     "lint:versioned": "eslint versioned_docs/**",
-    "language:lint": "cd ../ && alex .",
-    "language:lint:versioned": "cd ../ && alex",
+    "language:lint": "cd ../ && alex",
+    "language:lint:versioned": "cd ../ && alex .",
+    "ci:lint": "yarn lint && yarn lint:versioned && yarn language:lint:versioned",
     "pwa:generate": "npx pwa-asset-generator ./static/img/header_logo.svg ./static/img/pwa --background #20232a --icon-only -opaque true --maskable true --type png"
   },
   "browserslist": {
@@ -41,9 +42,9 @@
     ]
   },
   "dependencies": {
-    "@docusaurus/core": "^2.0.0-beta.3",
-    "@docusaurus/plugin-pwa": "^2.0.0-beta.3",
-    "@docusaurus/preset-classic": "^2.0.0-beta.3",
+    "@docusaurus/core": "^2.0.0-beta.6",
+    "@docusaurus/plugin-pwa": "^2.0.0-beta.6",
+    "@docusaurus/preset-classic": "^2.0.0-beta.6",
     "docusaurus-plugin-sass": "^0.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -51,6 +52,7 @@
     "sass": "^1.35.1"
   },
   "devDependencies": {
+    "@docusaurus/types": "^2.0.0-beta.6",
     "alex": "^9.1.0",
     "fs-extra": "^9.1.0",
     "glob": "^7.1.6",
