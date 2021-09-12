@@ -342,10 +342,6 @@ Here is the _React Native_ high score screen:
 
 > If you are getting module resolution issues when running your application please see [this GitHub issue](https://github.com/facebook/react-native/issues/4968) for information and possible resolution. [This comment](https://github.com/facebook/react-native/issues/4968#issuecomment-220941717) seemed to be the latest possible resolution.
 
-### 完整代码
-
-你可以在这个[GitHub 提交记录](https://github.com/JoelMarcey/iOS-2048/commit/9ae70c7cdd53eb59f5f7c7daab382b0300ed3585)里查看一次完整的集成过程具体有哪些代码/文件变更。
-
 ### 然后呢？
 
 然后就可以开发啦~可是我完全不会 React Native 怎么办？
