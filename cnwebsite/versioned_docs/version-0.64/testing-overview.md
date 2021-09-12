@@ -172,7 +172,7 @@ When testing user interactions, test the component from the user perspective—w
 
 As a rule of thumb, prefer using things users can see or hear:
 
-- make assertions using rendered text or [accessibility helpers](https://reactnative.dev/docs/accessibility#accessibility-properties)
+- make assertions using rendered text or [accessibility helpers](accessibility#accessibility-properties)
 
 Conversely, you should avoid:
 

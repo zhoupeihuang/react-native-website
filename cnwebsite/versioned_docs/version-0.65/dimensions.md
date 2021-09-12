@@ -7,7 +7,7 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
 
 本模块用于获取设备屏幕的宽高。
 
-> [`useWindowDimensions`](usewindowdimensions) is the preferred API for React components. Unlike `Dimensions`, it updates as the window's dimensions update. This works nicely with the React paradigm.
+> 对于 React 函数组件，我们更推荐使用[`useWindowDimensions`](usewindowdimensions)这个 Hook API。和 `Dimensions` 不同，它会在屏幕尺寸变化时自动更新。
 
 ```jsx
 import { Dimensions } from 'react-native';
@@ -20,9 +20,9 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 ```
 
-> 注意：尽管尺寸信息立即就可用，但它可能会在将来被修改（譬如设备的方向改变），所以基于这些常量的渲染逻辑和样式应当每次 render 之后都调用此函数，而不是将对应的值保存下来。（举例来说，你可能需要使用内联的样式而不是在<code>StyleSheet</code>中保存相应的尺寸）。
+> 注意：尽管尺寸信息立即就可用，但它可能会在将来被修改（譬如设备的方向改变），所以基于这些常量的渲染逻辑和样式应当每次 render 之后都调用此函数，而不是将对应的值保存下来。（举例来说，你可能需要使用内联的样式而不是在`StyleSheet`中保存相应的尺寸）。
 
-If you are targeting foldable devices or devices which can change the screen size or app window size, you can use the event listener available in the Dimensions module as shown in the below example.
+如果你要考虑可折叠的设备，或者其他屏幕尺寸可变的设备，可以参考下面例子中所使用的事件监听函数或是[`useWindowDimensions`](usewindowdimensions)：
 
 ## 示例
 
@@ -131,6 +131,20 @@ export default App;
 
 ## 方法
 
+### `addEventListener()`
+
+```jsx
+static addEventListener(type, handler)
+```
+
+添加一个事件监听函数。目前支持的事件有：
+
+- `change`: Fires when a property within the `Dimensions` object changes. The argument to the event handler is an object with `window` and `screen` properties whose values are the same as the return values of `Dimensions.get('window')` and `Dimensions.get('screen')`, respectively.
+  - `window` - Size of the visible Application window
+  - `screen` - Size of the device's screen
+
+---
+
 ### `get()`
 
 ```jsx
@@ -141,27 +155,13 @@ static get(dim)
 
 示例： `const {height, width} = Dimensions.get('window');`
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | Required | 说明                                                               |
-| ---- | ------ | -------- | ------------------------------------------------------------------ |
-| dim  | string | Yes      | 想要获取的尺寸信息的字段名。 @returns {Object?} 返回的尺寸信息值。 |
+| Name                                                               | Type   | Description                                                                       |
+| ------------------------------------------------------------------ | ------ | --------------------------------------------------------------------------------- |
+| dim <div className="label basic required two-lines">Required</div> | string | Name of dimension as defined when calling `set`. Returns value for the dimension. |
 
 > For Android the `window` dimension will exclude the size used by the `status bar` (if not translucent) and `bottom navigation bar`
-
----
-
-### `addEventListener()`
-
-```jsx
-static addEventListener(type, handler)
-```
-
-Add an event handler. Supported events:
-
-- `change`: Fires when a property within the `Dimensions` object changes. The argument to the event handler is an object with `window` and `screen` properties whose values are the same as the return values of `Dimensions.get('window')` and `Dimensions.get('screen')`, respectively.
-  - `window` - Size of the visible Application window
-  - `screen` - Size of the device's screen
 
 ---
 
@@ -171,7 +171,7 @@ Add an event handler. Supported events:
 static removeEventListener(type, handler)
 ```
 
-Remove an event handler.
+> **Deprecated.** Use the `remove()` method on the event subscription returned by [`addEventListener()`](#addeventlistener).
 
 ---
 
@@ -181,10 +181,38 @@ Remove an event handler.
 static set(dims)
 ```
 
-这个函数只应该被原生代码调用。 by sending the didUpdateDimensions event.
+This should only be called from native code by sending the `didUpdateDimensions` event.
 
-**参数：**
+**Parameters:**
 
-| 名称 | 类型   | Required | 说明                                     |
-| ---- | ------ | -------- | ---------------------------------------- |
-| dims | object | Yes      | string-keyed object of dimensions to set |
+| Name                                                      | Type   | Description                               |
+| --------------------------------------------------------- | ------ | ----------------------------------------- |
+| dims <div className="label basic required">Required</div> | object | String-keyed object of dimensions to set. |
+
+---
+
+## Type Definitions
+
+### DimensionsValue
+
+**Properties:**
+
+| Name   | Type                                        | Description                             |
+| ------ | ------------------------------------------- | --------------------------------------- |
+| window | [DisplayMetrics](dimensions#displaymetrics) | Size of the visible Application window. |
+| screen | [DisplayMetrics](dimensions#displaymetrics) | Size of the device's screen.            |
+
+### DisplayMetrics
+
+| Type   |
+| ------ |
+| object |
+
+**Properties:**
+
+| Name      | Type   |
+| --------- | ------ |
+| width     | number |
+| height    | number |
+| scale     | number |
+| fontScale | number |

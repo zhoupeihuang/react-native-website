@@ -54,8 +54,8 @@ After writing testable code, it’s time to write some actual tests! The default
 Your tests should be short and ideally test only one thing. Let's start with an example unit test written with Jest:
 
 ```js
-it("given a date in the past, colorForDueDate() returns red", () => {
-  expect(colorForDueDate("2000-10-20")).toBe("red");
+it('given a date in the past, colorForDueDate() returns red', () => {
+  expect(colorForDueDate('2000-10-20')).toBe('red');
 });
 ```
 
@@ -141,12 +141,12 @@ Aside from rendering some UI, your components handle events like `onChangeText` 
 
 ```jsx
 function GroceryShoppingList() {
-  const [groceryItem, setGroceryItem] = useState("");
+  const [groceryItem, setGroceryItem] = useState('');
   const [items, setItems] = useState([]);
 
   const addNewItemToShoppingList = useCallback(() => {
     setItems([groceryItem, ...items]);
-    setGroceryItem("");
+    setGroceryItem('');
   }, [groceryItem, items]);
 
   return (
@@ -156,7 +156,10 @@ function GroceryShoppingList() {
         placeholder="Enter grocery item"
         onChangeText={(text) => setGroceryItem(text)}
       />
-      <Button title="Add the item to list" onPress={addNewItemToShoppingList} />
+      <Button
+        title="Add the item to list"
+        onPress={addNewItemToShoppingList}
+      />
       {items.map((item) => (
         <Text key={item}>{item}</Text>
       ))}
@@ -169,7 +172,7 @@ When testing user interactions, test the component from the user perspective—w
 
 As a rule of thumb, prefer using things users can see or hear:
 
-- make assertions using rendered text or [accessibility helpers](https://reactnative.dev/docs/accessibility#accessibility-properties)
+- make assertions using rendered text or [accessibility helpers](accessibility#accessibility-properties)
 
 Conversely, you should avoid:
 
@@ -183,15 +186,18 @@ Avoid testing implementation details like props or state—while such tests work
 Component testing libraries such as [`react-native-testing-library`](https://github.com/callstack/react-native-testing-library) facilitate writing user-centric tests by careful choice of provided APIs. The following example uses `fireEvent` methods `changeText` and `press` that simulate a user interacting with the component and a query function `getAllByText` that finds matching `Text` nodes in the rendered output.
 
 ```jsx
-test("given empty GroceryShoppingList, user can add an item to it", () => {
+test('given empty GroceryShoppingList, user can add an item to it', () => {
   const { getByPlaceholder, getByText, getAllByText } = render(
     <GroceryShoppingList />
   );
 
-  fireEvent.changeText(getByPlaceholder("Enter grocery item"), "banana");
-  fireEvent.press(getByText("Add the item to list"));
+  fireEvent.changeText(
+    getByPlaceholder('Enter grocery item'),
+    'banana'
+  );
+  fireEvent.press(getByText('Add the item to list'));
 
-  const bananaElements = getAllByText("banana");
+  const bananaElements = getAllByText('banana');
   expect(bananaElements).toHaveLength(1); // expect 'banana' to be on the list
 });
 ```

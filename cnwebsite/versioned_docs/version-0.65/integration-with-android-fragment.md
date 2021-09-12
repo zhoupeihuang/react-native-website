@@ -3,11 +3,11 @@ id: integration-with-android-fragment
 title: 集成到 Android Fragment
 ---
 
-The guide for [Integration with Existing Apps](https://reactnative.dev/docs/integration-with-existing-apps) details how to integrate a full-screen React Native app into an existing Android app as an Activity. To use React Native components within Fragments in an existing app requires some additional setup. The benefit of this is that it allows for a native app to integrate React Native components alongside native fragments in an Activity.
+The guide for [Integration with Existing Apps](integration-with-existing-apps) details how to integrate a full-screen React Native app into an existing Android app as an Activity. To use React Native components within Fragments in an existing app requires some additional setup. The benefit of this is that it allows for a native app to integrate React Native components alongside native fragments in an Activity.
 
 ### 1. Add React Native to your app
 
-Follow the guide for [Integration with Existing Apps](https://reactnative.dev/docs/integration-with-existing-apps) until the Code integration section. Continue to follow Step 1. Create an `index.android.js` file and Step 2. Add your React Native code from this section.
+Follow the guide for [Integration with Existing Apps](integration-with-existing-apps) until the Code integration section. Continue to follow Step 1. Create an `index.android.js` file and Step 2. Add your React Native code from this section.
 
 ### 2. Integrating your App with a React Native Fragment
 
@@ -165,4 +165,4 @@ Make sure you run `yarn` to install your react-native dependencies and run `yarn
 
 ### Step 6. Additional setup - Native modules
 
-You may need to call out to existing Java code from your react component. Native modules allow you to call out to native code and run methods in your native app. Follow the setup here [native-modules-android](https://reactnative.dev/docs/native-modules-android)
+You may need to call out to existing Java code from your react component. Native modules allow you to call out to native code and run methods in your native app. Follow the setup here [native-modules-android](native-modules-android)
