@@ -115,7 +115,7 @@ export default App;
 
 ## Props
 
-### <div class="label required basic">Required</div>**`onPress`**
+### <div class="label required basic">必需</div>**`onPress`**
 
 用户点击此按钮时所调用的处理函数
 
@@ -125,7 +125,7 @@ export default App;
 
 ---
 
-### <div class="label required basic">Required</div>**`title`**
+### <div class="label required basic">必需</div>**`title`**
 
 按钮内显示的文本
 

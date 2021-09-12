@@ -92,7 +92,7 @@ Syntax errors will automatically open a full screen LogBox error with the source
 
 ## React Developer Tools
 
-你可以使用[独立版 React 开发者工具(不是 chrome 的插件)](https://github.com/facebook/react/tree/master/packages/react-devtools)来调试 React 组件层次结构。要使用它，请全局安装`react-devtools`包:
+你可以使用[独立版 React 开发者工具(不是 chrome 的插件)](https://github.com/facebook/react/tree/main/packages/react-devtools)来调试 React 组件层次结构。要使用它，请全局安装`react-devtools`包:
 
 > 注意：react-devtools v4 需要 react-native 0.62 或更高版本才能正常工作。
 

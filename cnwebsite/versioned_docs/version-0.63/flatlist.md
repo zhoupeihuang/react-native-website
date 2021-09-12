@@ -179,7 +179,7 @@ export default App;
 
 ---
 
-### <div class="label required basic">Required</div> **`renderItem`**
+### <div class="label required basic">必需</div> **`renderItem`**
 
 ```jsx
 renderItem({ item, index, separators });
@@ -233,7 +233,7 @@ Provides additional metadata like `index` if you need it, as well as a more gene
 
 ---
 
-### <div class="label required basic">Required</div> **`data`**
+### <div class="label required basic">必需</div> **`data`**
 
 为了简化起见，data 属性目前只支持普通数组。如果需要使用其他特殊数据结构，例如 immutable 数组，请直接使用更底层的[`VirtualizedList`](virtualizedlist.md)组件。
 
