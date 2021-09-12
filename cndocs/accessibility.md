@@ -124,6 +124,7 @@ Inverting screen colors is an Accessibility feature that makes the iPhone and iP
 - **tablist** Used to represent a list of tabs.
 - **text** 具有不可修改的文本的特性。
 - **timer** Used to represent a timer.
+- **togglebutton** Used to represent a toggle button. Should be used with accessibilityState checked to indicate if the button is toggled on or off.
 - **toolbar** Used to represent a tool bar (a container of action buttons or components).
 
 ### 无障碍状态 `accessibilityState`
