@@ -121,6 +121,28 @@ When true, the default JS pan responder on the ScrollView is disabled, and full 
 
 ---
 
+### `endFillColor` <div class="label android">Android</div>
+
+有时候滚动视图会占据比实际内容更多的空间。这种情况下可以使用此属性，指定以某种颜色来填充多余的空间，以避免设置背景和创建不必要的绘制开销。一般情况下并不需要这种高级优化技巧。
+
+| 类型            |
+| --------------- |
+| [color](colors) |
+
+---
+
+### `fadingEdgeLength` <div class="label android">Android</div>
+
+Fades out the edges of the the scroll content.
+
+If the value is greater than `0`, the fading edges will be set accordingly to the current scroll direction and position, indicating if there is more content to show.
+
+| Type   | Default |
+| ------ | ------- |
+| number | `0`     |
+
+---
+
 ### `keyboardDismissMode`
 
 用户拖拽滚动视图的时候，是否要隐藏软键盘。
@@ -153,6 +175,52 @@ _仅 iOS 可用的值_
 | 类型                                            | 必需 |
 | ----------------------------------------------- | ---- |
 | enum('always', 'never', 'handled', false, true) | 否   |
+
+---
+
+### `maintainVisibleContentPosition` <div class="label ios">iOS</div>
+
+When set, the scroll view will adjust the scroll position so that the first child that is currently visible and at or beyond `minIndexForVisible` will not change position. This is useful for lists that are loading content in both directions, e.g. a chat thread, where new messages coming in might otherwise cause the scroll position to jump. A value of 0 is common, but other values such as 1 can be used to skip loading spinners or other content that should not maintain position.
+
+The optional `autoscrollToTopThreshold` can be used to make the content automatically scroll to the top after making the adjustment if the user was within the threshold of the top before the adjustment was made. This is also useful for chat-like applications where you want to see new messages scroll into place, but not if the user has scrolled up a ways and it would be disruptive to scroll a bunch.
+
+Caveat 1: Reordering elements in the scrollview with this enabled will probably cause jumpiness and jank. It can be fixed, but there are currently no plans to do so. For now, don't re-order the content of any ScrollViews or Lists that use this feature.
+
+Caveat 2: This uses `contentOffset` and `frame.origin` in native code to compute visibility. Occlusion, transforms, and other complexity won't be taken into account as to whether content is "visible" or not.
+
+| Type                                                                     |
+| ------------------------------------------------------------------------ |
+| object: { minIndexForVisible: number, autoscrollToTopThreshold: number } |
+
+---
+
+### `maximumZoomScale` <div class="label ios">iOS</div>
+
+允许的最大缩放比例。默认值为 1.0。
+
+| Type   | Default |
+| ------ | ------- |
+| number | `1.0`   |
+
+---
+
+### `minimumZoomScale` <div class="label ios">iOS</div>
+
+允许的最小缩放比例。默认值为 1.0。
+
+| Type   | Default |
+| ------ | ------- |
+| number | `1.0`   |
+
+---
+
+### `nestedScrollEnabled` <div class="label android">Android</div>
+
+在 Android API level 21（5.0）以上启用嵌套滚动。iOS 上默认支持嵌套滚动。
+
+| Type | Default |
+| ---- | ------- |
+| bool | `true`  |
 
 ---
 
@@ -232,6 +300,32 @@ _仅 iOS 可用的值_
 
 ---
 
+### `onScrollToTop` <div class="label ios">iOS</div>
+
+Fires when the scroll view scrolls to top after the status bar has been tapped.
+
+| Type     |
+| -------- |
+| function |
+
+---
+
+### `overScrollMode`
+
+覆盖默认的 overScroll 模式
+
+可选的值有：
+
+- `'auto'` - 默认值，允许用户在内容超出视图高度之后可以滚动视图。
+- `'always'` - 无论内容尺寸，用户始终可以滚动视图。
+- `'never'` - 始终不允许用户滚动视图。
+
+| 类型                            | 必需 | 平台    |
+| ------------------------------- | ---- | ------- |
+| enum('auto', 'always', 'never') | 否   | Android |
+
+---
+
 ### `pagingEnabled`
 
 当值为 true 时，滚动条会停在滚动视图的尺寸的整数倍位置。这个可以用在水平分页上。默认值为 false。
@@ -296,6 +390,16 @@ _仅 iOS 可用的值_
 
 ---
 
+### `stickyHeaderHiddenOnScroll`
+
+When set to `true`, sticky header will be hidden when scrolling down the list, and it will dock at the top of the list when scrolling up.
+
+| 类型 | 默认值  |
+| ---- | ------- |
+| bool | `false` |
+
+---
+
 ### `stickyHeaderIndices`
 
 一个子视图下标的数组，用于决定哪些成员会在滚动之后固定在屏幕顶端。举个例子，传递`stickyHeaderIndices={[0]}`会让第一个成员固定在滚动视图顶端。这个属性不能和`horizontal={true}`一起使用。
@@ -306,32 +410,6 @@ _仅 iOS 可用的值_
 
 ---
 
-### `endFillColor`
-
-有时候滚动视图会占据比实际内容更多的空间。这种情况下可以使用此属性，指定以某种颜色来填充多余的空间，以避免设置背景和创建不必要的绘制开销。一般情况下并不需要这种高级优化技巧。
-
-| 类型               | 必需 | 平台    |
-| ------------------ | ---- | ------- |
-| [color](colors.md) | 否   | Android |
-
----
-
-### `overScrollMode`
-
-覆盖默认的 overScroll 模式
-
-可选的值有：
-
-- `'auto'` - 默认值，允许用户在内容超出视图高度之后可以滚动视图。
-- `'always'` - 无论内容尺寸，用户始终可以滚动视图。
-- `'never'` - 始终不允许用户滚动视图。
-
-| 类型                            | 必需 | 平台    |
-| ------------------------------- | ---- | ------- |
-| enum('auto', 'always', 'never') | 否   | Android |
-
----
-
 ### `scrollPerfTag`
 
 Tag used to log scroll performance on this scroll view. Will force momentum events to be turned on (see sendMomentumEvents). This doesn't do anything out of the box and you need to implement a custom native FpsListener for it to be useful.
@@ -339,28 +417,6 @@ Tag used to log scroll performance on this scroll view. Will force momentum even
 | 类型   | 必需 | 平台    |
 | ------ | ---- | ------- |
 | string | 否   | Android |
-
----
-
-### `DEPRECATED_sendUpdatedChildFrames`
-
-When true, ScrollView will emit updateChildFrames data in scroll events, otherwise will not compute or emit child frame data. This only exists to support legacy issues, `onLayout` should be used instead to retrieve frame data. The default value is false.
-
-| 类型 | 必需 | 平台 |
-| ---- | ---- | ---- |
-| bool | 否   | iOS  |
-
----
-
-### `fadingEdgeLength`
-
-Fades out the edges of the the scroll content.
-
-If the value is greater than 0, the fading edges will be set accordingly to the current scroll direction and position, indicating if there is more content to show.
-
-| 类型   | Required | Default | 平台    |
-| ------ | -------- | ------- | ------- |
-| number | No       | 0       | Android |
 
 ---
 
@@ -477,7 +533,7 @@ This property specifies how the safe area insets are used to modify the content 
 
 ---
 
-### `indicatorStyle`
+### `indicatorStyle` <div class="label ios">iOS</div>
 
 设置滚动条的样式。
 
@@ -485,29 +541,9 @@ This property specifies how the safe area insets are used to modify the content 
 - `'black'`，黑色滚动条。
 - `'white'`，白色滚动条。
 
-| 类型                              | 必需 | 平台 |
-| --------------------------------- | ---- | ---- |
-| enum('default', 'black', 'white') | 否   | iOS  |
-
----
-
-### `maximumZoomScale`
-
-允许的最大缩放比例。默认值为 1.0。
-
-| 类型   | 必需 | 平台 |
-| ------ | ---- | ---- |
-| number | 否   | iOS  |
-
----
-
-### `minimumZoomScale`
-
-允许的最小缩放比例。默认值为 1.0。
-
-| 类型   | 必需 | 平台 |
-| ------ | ---- | ---- |
-| number | 否   | iOS  |
+| 类型                                    | 默认值      |
+| --------------------------------------- | ----------- |
+| enum(`'default'`, `'black'`, `'white'`) | `'default'` |
 
 ---
 
@@ -614,14 +650,6 @@ Use in conjuction with `snapToOffsets`. By default, the end of the list counts a
 | number | 否   | iOS  |
 
 ---
-
-### `nestedScrollEnabled`
-
-在 Android API level 21（5.0）以上启用嵌套滚动。iOS 上默认支持嵌套滚动。
-
-| 类型 | 必需 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
 
 ## 方法
 

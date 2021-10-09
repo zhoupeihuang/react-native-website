@@ -349,7 +349,7 @@ canOpenURL(url);
 
 本方法会返回一个`Promise`对象。当确定传入的 URL 可以被处理时，promise 就会返回，值的第一个参数是表示是否可以打开 URL。
 
-The `Promise` will reject on Android if it was impossible to check if the URL can be opened, and on iOS if you didn't add the specific scheme in the `LSApplicationQueriesSchemes` key inside `Info.plist` (see bellow).
+The `Promise` will reject on Android if it was impossible to check if the URL can be opened or when targetting Android 11 (SDK 30) if you didn't specify the relevant intent queries in `AndroidManifest.xml`. Similarly on iOS, the promise will reject if you didn't add the specific scheme in the `LSApplicationQueriesSchemes` key inside `Info.plist` (see bellow).
 
 **参数：**
 
@@ -359,11 +359,26 @@ The `Promise` will reject on Android if it was impossible to check if the URL ca
 
 > 对于 web 链接来说，协议头("http://", "https://")不能省略！
 
+> This method has limitations on iOS 9+. From [the official Apple documentation](https://developer.apple.com/documentation/uikit/uiapplication/1622952-canopenurl):
+>
+> - If your app is linked against an earlier version of iOS but is running in iOS 9.0 or later, you can call this method up to 50 times. After reaching that limit, subsequent calls always return false. If the user reinstalls or upgrades the app, iOS resets the limit.
+>
 > 对于 iOS 9 来说，你需要在`Info.plist`中添加`LSApplicationQueriesSchemes`字段，否则`canOpenURL`可能一直返回 false。
 
-> This method has limitations on iOS 9+. From [the official Apple documentation](https://developer.apple.com/documentation/uikit/uiapplication/1622952-canopenurl):
-
-> If your app is linked against an earlier version of iOS but is running in iOS 9.0 or later, you can call this method up to 50 times. After reaching that limit, subsequent calls always return false. If the user reinstalls or upgrades the app, iOS resets the limit.
+> When targeting Android 11 (SDK 30) you must specify the intents for the schemes you want to handle in `AndroidManifext.xml`. A list of common intents can be found [here](https://developer.android.com/guide/components/intents-common).
+>
+> For example to handle `https` schemes the following needs to be added to your manifest:
+>
+> ```
+> <manifest ...>
+>     <queries>
+>         <intent>
+>             <action android:name="android.intent.action.VIEW" />
+>             <data android:scheme="https"/>
+>         </intent>
+>     </queries>
+> </manifest>
+> ```
 
 ---
 
