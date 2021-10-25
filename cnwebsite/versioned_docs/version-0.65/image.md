@@ -190,14 +190,14 @@ dependencies {
   implementation 'com.facebook.fresco:animated-base-support:1.3.0'
 
   // 如果你需要支持GIF动图
-  implementation 'com.facebook.fresco:animated-gif:2.0.0'
+  implementation 'com.facebook.fresco:animated-gif:2.5.0'
 
   // 如果你需要支持WebP格式，包括WebP动图
-  implementation 'com.facebook.fresco:animated-webp:2.1.0'
-  implementation 'com.facebook.fresco:webpsupport:2.0.0'
+  implementation 'com.facebook.fresco:animated-webp:2.5.0'
+  implementation 'com.facebook.fresco:webpsupport:2.5.0'
 
   // 如果只需要支持WebP格式而不需要动图
-  implementation 'com.facebook.fresco:webpsupport:2.0.0'
+  implementation 'com.facebook.fresco:webpsupport:2.5.0'
 }
 ```
 
