@@ -55,7 +55,7 @@ React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 1
 
 [CocoaPods](https://cocoapods.org/)是用 Ruby 编写的包管理器（可以理解为针对 iOS 的 npm）。从 0.60 版本开始 react native 的 iOS 版本需要使用 CocoaPods 来管理依赖。你可以使用下面的命令来安装 CocoaPods。CocoaPods的版本需要 1.10 以上。
 
-> 当然安装可能也不顺利，请尝试使用代理软件或寻找一些国内可用的镜像源。
+> 当然安装可能也不顺利，请使用代理软件。
 
 ```sh
 sudo gem install cocoapods
@@ -81,7 +81,7 @@ npx react-native init AwesomeProject
 
 > **注意一**：请`不要`在目录、文件名中使用中文、空格等特殊符号。请`不要`单独使用常见的关键字作为项目名（如 class, native, new, package 等等）。请`不要`使用与核心模块同名的项目名（如 react, react-native 等）。
 
-> **注意二**：0.60 及以上版本的原生依赖是通过 CocoaPods 集成安装的。CocoaPods 的仓库在国内也很难访问。如果在 CocoaPods 的依赖安装步骤卡很久（命令行停在 Installing CocoaPods dependencies），请务必使用稳定的代理软件并确定其配置对命令行有效。
+> **注意二**：0.60 及以上版本的原生依赖是通过 CocoaPods 集成安装的。CocoaPods 的源必须使用代理访问（镜像源也无效）。如果在 CocoaPods 的依赖安装步骤卡住（命令行停在 Installing CocoaPods dependencies 很久，或各种网络超时重置报错，或在ios目录中无法生成.xcworkspace文件），请务必检查确定你的代理配置是否对命令行有效。
 
 如果你是想把 React Native 集成到现有的原生项目中，则步骤完全不同，请参考[集成到现有原生应用](integration-with-existing-apps.md)。
 
