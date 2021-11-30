@@ -65,22 +65,19 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location)
 现在从 Javascript 里可以这样调用这个方法：
 
 ```jsx
-import { NativeModules } from "react-native";
+import { NativeModules } from 'react-native';
 const CalendarManager = NativeModules.CalendarManager;
-CalendarManager.addEvent("Birthday Party", "4 Privet Drive, Surrey");
+CalendarManager.addEvent(
+  'Birthday Party',
+  '4 Privet Drive, Surrey'
+);
 ```
-
-> **NOTE**: JavaScript method names
->
-> The name of the method exported to JavaScript is the native method's name up to the first colon. React Native also defines a macro called `RCT_REMAP_METHOD()` to specify the JavaScript method's name. This is useful when multiple native methods are the same up to the first colon and would have conflicting JavaScript names.
-
-The CalendarManager module is instantiated on the Objective-C side using a [CalendarManager new] call. The return type of bridge methods is always `void`. React Native bridge is asynchronous, so the only way to pass a result to JavaScript is by using callbacks or emitting events (see below).
 
 > **注意**: JavaScript 方法名
 >
 > 导出到 JavaScript 的方法名是 Objective-C 的方法名的第一个部分。React Native 还定义了一个`RCT_REMAP_METHOD()`宏，它可以指定 JavaScript 方法名。因为 JavaScript 端不能有同名不同参的方法存在，所以当原生端存在重载方法时，可以使用这个宏来避免在 JavaScript 端的名字冲突。
 
-桥接到 JavaScript 的方法返回值类型必须是`void`。React Native 的桥接操作是异步的，所以要返回结果给 JavaScript，你必须通过回调或者触发事件来进行。（参见本文档后面的部分）
+The CalendarManager module is instantiated on the Objective-C side using a [CalendarManager new] call. 桥接到 JavaScript 的方法返回值类型必须是`void`。React Native 的桥接操作是异步的，所以要返回结果给 JavaScript，你必须通过回调或者触发事件来进行。（参见本文档后面的部分）
 
 ## 参数类型
 
@@ -126,8 +123,8 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name location:(NSString *)location date:(
 
 ```jsx
 CalendarManager.addEvent(
-  "Birthday Party",
-  "4 Privet Drive, Surrey",
+  'Birthday Party',
+  '4 Privet Drive, Surrey',
   date.getTime()
 ); // 把日期以unix时间戳形式传递
 ```
@@ -136,8 +133,8 @@ CalendarManager.addEvent(
 
 ```jsx
 CalendarManager.addEvent(
-  "Birthday Party",
-  "4 Privet Drive, Surrey",
+  'Birthday Party',
+  '4 Privet Drive, Surrey',
   date.toISOString()
 ); // 把日期以ISO-8601的字符串形式传递
 ```
@@ -160,10 +157,10 @@ RCT_EXPORT_METHOD(addEvent:(NSString *)name details:(NSDictionary *)details)
 然后在 JS 里这样调用：
 
 ```jsx
-CalendarManager.addEvent("Birthday Party", {
-  location: "4 Privet Drive, Surrey",
+CalendarManager.addEvent('Birthday Party', {
+  location: '4 Privet Drive, Surrey',
   time: date.getTime(),
-  description: "...",
+  description: '...'
 });
 ```
 
@@ -522,7 +519,3 @@ RCT_EXTERN_METHOD(addEvent:(NSString *)name location:(NSString *)location date:(
 ### invalidate()
 
 Native modules can conform to the [RCTInvalidating](https://github.com/facebook/react-native/blob/aa0ef15335fe27c0c193e3e968789886d82e82ed/React/Base/RCTInvalidating.h) protocol on iOS by implementing the `invalidate` method. This method [can be invoked](https://github.com/facebook/react-native/blob/18e3303cd46a72668caae46e28c7c6ae69fbf8f8/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm#L456) when the native bridge is invalidated (ie: on devmode reload). You should avoid implementing this method in general, as this mechanism exists for backwards compatibility and may be removed in the future.
-
----
-
-##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(97.15%), [sunnylqm](https://github.com/search?q=sunnylqm&type=Users)(2.66%), [xiaoqiangli.mail](https://github.com/search?q=xiaoqiangli.mail&type=Users)(0.19%)

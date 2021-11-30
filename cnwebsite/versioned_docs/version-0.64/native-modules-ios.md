@@ -73,17 +73,11 @@ CalendarManager.addEvent(
 );
 ```
 
-> **NOTE**: JavaScript method names
->
-> The name of the method exported to JavaScript is the native method's name up to the first colon. React Native also defines a macro called `RCT_REMAP_METHOD()` to specify the JavaScript method's name. This is useful when multiple native methods are the same up to the first colon and would have conflicting JavaScript names.
-
-The CalendarManager module is instantiated on the Objective-C side using a [CalendarManager new] call. The return type of bridge methods is always `void`. React Native bridge is asynchronous, so the only way to pass a result to JavaScript is by using callbacks or emitting events (see below).
-
 > **注意**: JavaScript 方法名
 >
 > 导出到 JavaScript 的方法名是 Objective-C 的方法名的第一个部分。React Native 还定义了一个`RCT_REMAP_METHOD()`宏，它可以指定 JavaScript 方法名。因为 JavaScript 端不能有同名不同参的方法存在，所以当原生端存在重载方法时，可以使用这个宏来避免在 JavaScript 端的名字冲突。
 
-桥接到 JavaScript 的方法返回值类型必须是`void`。React Native 的桥接操作是异步的，所以要返回结果给 JavaScript，你必须通过回调或者触发事件来进行。（参见本文档后面的部分）
+The CalendarManager module is instantiated on the Objective-C side using a [CalendarManager new] call. 桥接到 JavaScript 的方法返回值类型必须是`void`。React Native 的桥接操作是异步的，所以要返回结果给 JavaScript，你必须通过回调或者触发事件来进行。（参见本文档后面的部分）
 
 ## 参数类型
 
