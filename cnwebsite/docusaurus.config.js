@@ -1,6 +1,5 @@
 // const users = require('./showcase.json');
-const cdnUrl =
-  '//cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/';
+const cdnUrl = '';
 
 module.exports = {
   title: 'React Native 中文网',
@@ -12,11 +11,6 @@ module.exports = {
   ssrTemplate: require('./ssr.html.template'),
   clientModules: [require.resolve('./snackPlayerInitializer.js')],
   scripts: [
-    {
-      src:
-        '//cdn.jsdelivr.net/npm/focus-visible@5.2.0/dist/focus-visible.min.js',
-      defer: true,
-    },
     {src: '//snack.expo.dev/embed.js', defer: true},
     {src: '//cdn.wwads.cn/js/makemoney.js', defer: true},
   ],

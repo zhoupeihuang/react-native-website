@@ -10,8 +10,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 import CrossPlatformSVG from '../../static/img/homepage/cross-platform.svg';
 import {setupDissectionAnimation} from './animations/_dissectionAnimation';
 import {setupHeaderAnimations} from './animations/_headerAnimation';
-const cdnUrl =
-  '//cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/';
+const cdnUrl = '';
 
 const textContent = {
   intro: `

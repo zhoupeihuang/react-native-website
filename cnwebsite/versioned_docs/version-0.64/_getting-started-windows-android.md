@@ -110,7 +110,7 @@ C:\Users\你的用户名\AppData\Local\Android\Sdk
 
 > **必须要看的注意事项二**：请不要在某些权限敏感的目录例如 System32 目录中 init 项目！会有各种权限限制导致不能运行！
 
-> **必须要看的注意事项三**：请`不要`使用一些移植的终端环境，例如`git bash`或`mingw`等等，这些在windows下可能导致找不到环境变量。请使用系统自带的命令行（CMD或powershell）运行。
+> **必须要看的注意事项三**：请`不要`使用一些移植的终端环境，例如`git bash`或`mingw`等等，这些在 windows 下可能导致找不到环境变量。请使用系统自带的命令行（CMD 或 powershell）运行。
 
 ```shell
 npx react-native init AwesomeProject
@@ -184,7 +184,7 @@ yarn react-native run-android
 
 恭喜！你已经成功运行并修改了你的第一个 React Native 应用
 
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 ## 接下来？
 

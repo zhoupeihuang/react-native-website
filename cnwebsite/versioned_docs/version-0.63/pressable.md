@@ -23,7 +23,7 @@ title: Pressable
 1. 用户移开手指，紧随 [`onPress`](#onpress) 之后触发 [`onPressOut`](#onpressout) 事件。
 2. 按压持续 500 毫秒以上，触发[`onLongPress`](#onlongpress) 事件。([`onPressOut`](#onpressout) 在移开手后依旧会触发。)
 
-<img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/d_pressable_pressing.svg" width="1000" alt="Diagram of the onPress events in sequence." />
+<img src="assets/d_pressable_pressing.svg" width="1000" alt="Diagram of the onPress events in sequence." />
 
 手指的精准度终究不是很精确，人们经常会不小心按错了或者错过了触发区域。为了帮助解决这个问题， `Pressable` 提供了一个可选项 `HitRect` ，可以用来定义相对于包裹元素的有效触发距离。在 `HitRect` 内的任何地方都可以触发按压动作。
 
@@ -32,7 +32,7 @@ title: Pressable
 > 触控区域不会超出绑定的父级 view，在按压到重叠的兄弟视图时，z-index 更高的那个视图会更优先。
 
 <figure>
-  <img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/d_pressable_anatomy.svg" width="1000" alt="Diagram of HitRect and PressRect and how they work." />
+  <img src="assets/d_pressable_anatomy.svg" width="1000" alt="Diagram of HitRect and PressRect and how they work." />
   <figcaption>
     用 <code>hitSlop</code> 设置 <code>HitRect</code>； 用 <code>pressRetentionOffset</code> 设置 <code>PressRect</code>； 
   </figcaption>

@@ -53,7 +53,7 @@ React Native 目前需要[Xcode](https://developer.apple.com/xcode/downloads/) 1
 
 #### CocoaPods
 
-[CocoaPods](https://cocoapods.org/)是用 Ruby 编写的包管理器（可以理解为针对 iOS 的 npm）。从 0.60 版本开始 react native 的 iOS 版本需要使用 CocoaPods 来管理依赖。你可以使用下面的命令来安装 CocoaPods。CocoaPods的版本需要 1.10 以上。
+[CocoaPods](https://cocoapods.org/)是用 Ruby 编写的包管理器（可以理解为针对 iOS 的 npm）。从 0.60 版本开始 react native 的 iOS 版本需要使用 CocoaPods 来管理依赖。你可以使用下面的命令来安装 CocoaPods。CocoaPods 的版本需要 1.10 以上。
 
 > 当然安装可能也不顺利，请尝试使用代理软件或寻找一些国内可用的镜像源。
 
@@ -139,7 +139,7 @@ yarn react-native run-ios
 
 恭喜！你已经成功运行并修改了你的第一个 React Native 应用。
 
-<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 ## 接下来？
 

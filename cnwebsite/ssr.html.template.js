@@ -1,5 +1,4 @@
-const cdnUrl =
-  '//cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/';
+const cdnUrl = '';
 
 module.exports = `
 <!DOCTYPE html>
