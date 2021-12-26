@@ -53,7 +53,7 @@ const lastVersion = versions[0];
           editCurrentVersion: true,
           onlyIncludeVersions:
             process.env.PREVIEW_DEPLOY === 'true'
-              ? ['current', ...versions.slice(0, 3)]
+              ? ['current', ...versions.slice(0, 2)]
               : undefined,
           versions: {
             [lastVersion]: {
@@ -142,14 +142,6 @@ const lastVersion = versions[0];
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      announcementBar: {
-        id: 'survey-2021-announcement',
-        content:
-          'We want to hear from you! <a href="https://surveys.savanta.com/survey/selfserve/21e3/210643?list=2" target="_blank" rel="noopener noreferrer">Take the 2021 React Community Survey!</a>',
-        backgroundColor: '#20232a', // var(--deepdark)
-        textColor: '#fff',
-        isCloseable: true,
-      },
       prism: {
         defaultLanguage: 'jsx',
         theme: require('./core/PrismTheme'),
@@ -171,7 +163,7 @@ const lastVersion = versions[0];
         style: 'dark',
         items: [
           {
-            label: 'Docs',
+            label: 'Guides',
             type: 'doc',
             docId: 'getting-started',
             position: 'right',
@@ -186,6 +178,12 @@ const lastVersion = versions[0];
             label: 'API',
             type: 'doc',
             docId: 'accessibilityinfo',
+            position: 'right',
+          },
+          {
+            label: 'Architecture',
+            type: 'doc',
+            docId: 'architecture-overview',
             position: 'right',
           },
           {
