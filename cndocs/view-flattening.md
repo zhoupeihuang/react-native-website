@@ -1,19 +1,19 @@
 ---
 id: view-flattening
-title: 视图层合并优化
+title: 视图拍平
 ---
 
 > This document refers to the architecture of the new renderer, [Fabric](fabric-renderer), that is in active roll-out.
 
-#### View Flattening is an optimization by the React Native renderer to avoid deep layout trees.
+#### 视图拍平（View Flattening）是 React Native 渲染器避免布局嵌套太深的优化手段。
 
-The React API is designed to be declarative and reusable through composition. This provides a great model for intuitive development. However, in implementation, these qualities of the API lead to the creation of deep [React Element Trees](glossary#react-element-tree-and-react-element), where a large majority of React Element Nodes only affect the layout of a View and don’t render anything on the screen. We call these types of nodes **“Layout-Only”** Nodes.
+React API 在设计上希望通过组合的方式，实现组件声明和重用，这为更简单的开发提供了一个很好的模型。但是在实现中，API 的这些特性会导致一些 React 元素会嵌套地很深，而其中大部分 React 元素节点只会影响视图布局，并不会在屏幕中渲染任何内容。这就是所谓的**“只参与布局”**类型节点。
 
-Conceptually, each of the Nodes of the React Element Tree have a 1:1 relationship with a view on the screen, therefore rendering a deep React Element Tree that is composed by a large amount of “Layout-Only” Node leads to poor performance during rendering.
+从概念上讲，React 元素树的节点数量和屏幕上的视图数量应该是 1:1 的关系。但是，渲染一个很深的“只参与布局”的 React 元素会导致性能变慢。
 
-Here is a common use case that is affected by the cost of "Layout Only" views.
+举个很常见的例子，例子中“只参与布局”视图导致了性能损耗。
 
-Imagine you want to render an image and a title that is handled by the `TitleComponent`, and you include this component as a child of the `ContainerComponent` that has some margin styles. After decomposing the components, the React code would look like this:
+想象一下，你要渲染一个标题。你有一个应用，应用中拥有外边距 `ContainerComponent`的容器组件，容器组件的子组件是 `TitleComponent` 标题组件，标题组件包括一个图片和一行文字。React 代码示例如下：
 
 ```jsx
 function MyComponent() {
@@ -30,18 +30,18 @@ function MyComponent() {
 }
 ```
 
-As part of the render process, React Native will produce the following trees:
+React Native 在渲染时，会生成以下三棵树：
 
-![Diagram one](/docs/assets/Architecture/view-flattening/diagram-one.png)
+![Diagram one](https://reactnative.dev/assets/images/diagram-one-3f2f9d7a2fa9d97b6b86fa3bd9b886d1.png)
 
-Note that the Views (2) and (3) are “Layout Only” views, because they are rendered on the screen but they only render a `margin` of `10 px` on top of their children.
+注意视图 2 和视图 3 是“只参与布局”的视图，因为它们在屏幕上渲染只是为了提供 10 像素的外边距。
 
-To improve the performance of these types of React Element Trees, the renderer implements a View Flattening mechanism that merges or flattens these types of Nodes, reducing the depth of the [host view](glossary#host-view-tree-and-host-view) hierarchy that is rendered on the screen. This algorithm takes into consideration props like: `margin`, `padding`, `backgroundColor`, `opacity`, etc.
+为了提升 React 元素树中“只参与布局”类型的性能，渲染器实现了一种视图拍平的机制来合并或拍平这类节点，减少屏幕中宿主视图的层级深度。该算法考虑到了如下属性，比如  `margin`, `padding`, `backgroundColor`, `opacity`等等。
 
-The View Flattening algorithm is integrated by design as part of the diffing stage of the renderer, which means that we don’t use extra CPU cycles to optimize the React Element Tree flattening these types of views. As the rest of the core, the View flattening algorithm is implemented in C++ and its benefits are shared by default on all supported platforms.
+视图拍平算法是渲染器的对比（diffing）阶段的一部分，这样设计的好处是我们不需要额外的 CUP 耗时，来拍平 React 元素树中“只参与布局”的视图。此外，作为 C++ 核心的一部分，视图拍平算法默认是全平台共用的。
 
-In the case of the previous example, the Views (2) and (3) would be flattened as part of the “diffing algorithm” and as a result their styles will be merged into the View (1):
+在前面的例子中，视图 2 和视图 3 会作为“对比算法”（diffing algorithm）的一部分被拍平，而它们的样式结果会被合并到视图 1 中。
 
-![Diagram two](/docs/assets/Architecture/view-flattening/diagram-two.png)
+![Diagram two](https://reactnative.dev/assets/images/diagram-two-b87959980d29e4a303465a3d0ac82c73.png)
 
-It is important to note that this optimization allows the renderer to avoid the creation and render of two host views. From the user’s perspective there are no visible changes on the screen.
+虽然，这种优化让渲染器少创建和渲染两个宿主视图，但从用户的角度看屏幕内容没有任何区别。
