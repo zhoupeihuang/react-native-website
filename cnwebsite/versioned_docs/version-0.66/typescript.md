@@ -5,7 +5,7 @@ title: 使用 TypeScript
 
 [TypeScript][ts] is a language which extends JavaScript by adding type definitions, much like [Flow][flow]. While React Native is built in Flow, it supports both TypeScript _and_ Flow by default.
 
-## Getting Started with TypeScript
+## 使用 TypeScript 开始新项目
 
 如果您要开始一个新项目，则有几种不同的上手方法。 您可以使用[TypeScript 模板][ts-template]:
 
@@ -39,7 +39,7 @@ yarn add --dev typescript @types/jest @types/react @types/react-native @types/re
 npm install --save-dev typescript @types/jest @types/react @types/react-native @types/react-test-renderer
 ```
 
-添加一个 TypeScript 配置文件。 在项目的根目录中创建一个`tsconfig.json`：
+添加一个 TypeScript 配置文件。在项目的根目录中创建一个`tsconfig.json`：
 
 ```json
 {
@@ -83,7 +83,7 @@ module.exports = {
 
 无需额外配置，和非 TypeScript 的 React Native 项目一样都是直接通过 [Babel 体系][babel] 将您的文件转换为 JavaScript。我们建议您只使用 TypeScript 编译器的类型检查功能（而不是编译）。如果您有已经存在的 TypeScript 代码需要迁移到 React Native，这里有一些关于使用 Babel 而不是 TypeScript 编译器的[注意事项][babel-7-caveats]。
 
-## What does React Native + TypeScript look like
+## 用 TypeScript 写 React Native 的示例
 
 You can provide an interface for a React Component's [Props][props] and [State][state] via `React.Component<Props, State>` which will provide type-checking and editor auto-completing when working with that component in JSX.
 
@@ -167,13 +167,13 @@ export default Hello;
 
 You can explore the syntax more in the [TypeScript playground][tsplay].
 
-## Where to Find Useful Advice
+## 参考资料（英文）
 
 - [TypeScript Handbook][ts-handbook]
 - [React's documentation on TypeScript][react-ts]
-- [React + TypeScript Cheatsheets][cheat] has a good overview on how to use React with TypeScript
+- [React + TypeScript Cheatsheets][cheat]
 
-## Using Custom Path Aliases with TypeScript
+## 在 TypeScript 中使用自定义路径别名
 
 To use custom path aliases with TypeScript, you need to set the path aliases to work from both Babel and TypeScript. Here's how:
 

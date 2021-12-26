@@ -32,9 +32,13 @@
   --ifm-alert-border-radius: 0;
   --ifm-alert-color: var(--ifm-font-color-base);
   --ifm-pagination-nav-color-hover: var(--ifm-color-emphasis-300);
-  --ifm-navbar-sidebar-width: 66%;
   --doc-sidebar-width: 100%;
   --ifm-table-border-width: 0.005rem;
+
+  --ifm-navbar-sidebar-width: 100%;
+  @media (min-width: 340px) {
+    --ifm-navbar-sidebar-width: 340px;
+  }
 }
 
 html[data-theme="light"] {
@@ -93,7 +97,7 @@ main[class^="docMainContainer"] > .container {
 
 @media (min-width: 1440px) {
   .container {
-    max-width: auto !important;
+    max-width: inherit !important;
   }
 }
 
@@ -101,6 +105,10 @@ main[class^="docMainContainer"] > .container {
   main[class^="docMainContainer"] {
     width: calc(100% - var(--doc-sidebar-width));
     display: contents;
+  }
+
+  div[class*="docItemCol"] {
+    max-width: inherit !important;
   }
 }
 
@@ -202,7 +210,8 @@ hr {
     }
 
     div[class^="codeBlockContainer"] {
-      &, & pre {
+      &,
+      & pre {
         margin-bottom: 0;
       }
 
@@ -337,6 +346,7 @@ html[data-theme="dark"] article .badge {
 .homepage {
   div[class^="codeBlockContainer"] {
     margin-bottom: 0;
+    overflow: visible;
 
     .prism-code {
       font-size: 90%;
@@ -398,9 +408,15 @@ html[data-theme="dark"] .community-page {
 
 /* Version warning */
 
-div[class*="docs-wrapper"] .row .col {
-  > .alert--warning {
-    background-color: rgba(100, 215, 255, 0.3);
+.theme-doc-version-banner.alert--warning {
+  background-color: rgba(100, 215, 255, 0.3);
+  border-style: none;
+  color: var(--ifm-font-color-base);
+  box-shadow: none;
+  a {
+    color: var(--ifm-font-color-base) !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 1px !important;
   }
 }
 
@@ -456,9 +472,16 @@ html[data-theme="dark"] .avatar__name a {
       user-select: none;
     }
 
-    &.dropdown a {
-      font-weight: 400;
-      font-size: 14px;
+    &.dropdown {
+      a {
+        font-weight: 400;
+        font-size: 14px;
+      }
+      ul {
+        /* Control navbar dropdown alignment */
+        top: calc(100% + 0px);
+        left: 0;
+      }
     }
   }
 
@@ -558,7 +581,7 @@ html[data-theme="dark"] .avatar__name a {
     display: flex;
     width: calc(100% + 40px);
     height: 4px;
-    margin-top: -4px;
+    margin-top: -3px;
     margin-left: -20px;
     margin-right: -20px;
     position: relative;
@@ -567,18 +590,31 @@ html[data-theme="dark"] .avatar__name a {
   }
 }
 
-.navbar-sidebar {
-  background: var(--divider);
-  max-width: 400px;
+/*
+Config has themeConfig.navbar.style === "dark"
+But the navbar sidebar should still support light theme
+So we need to "revert" some CSS vars to not enforce dark mode
+ */
+.navbar--dark {
+  --ifm-menu-link-sublist-icon-filter: inherit; /* reset to non-dark value */
+  --ifm-menu-color: inherit;
+  --ifm-navbar-background-color: var(--divider);
+}
 
+.navbar-sidebar {
   .navbar-sidebar__brand {
     background-color: var(--deepdark);
   }
 
   .navbar-sidebar__items {
-    padding: 12px;
+    > .navbar-sidebar__item.menu {
+      > ul.menu__list {
+        margin: 4px;
+      }
+    }
 
     .menu__list-item a {
+      color: var(--ifm-color-emphasis-700);
       padding: 6px 12px 8px;
     }
   }
@@ -618,19 +654,40 @@ html[data-theme="dark"] .navbar-sidebar {
   }
 }
 
-@media (max-width: 480px) {
-  .navbar-sidebar {
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
 /* Sidebar */
 
 aside[class^="docSidebarContainer"] {
   margin-right: 16px;
-
   --doc-sidebar-width: 266px;
+
+  .thin-scrollbar {
+    @extend %scrollbar-style;
+  }
+
+  .menu__list .menu__link--sublist,
+  a[class*="menuLinkText"] {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    padding: 5px 12px !important;
+    color: var(--subtle) !important;
+
+    &:after {
+      background-size: 1.66rem 1.66rem;
+      margin-right: -6px;
+      margin-top: -1px;
+    }
+  }
+
+  .menu__list .menu__list .menu__link--sublist,
+  a[class*="menuLinkText"] {
+    font-weight: 600 !important;
+    font-size: 15px !important;
+  }
+
+  .menu__list-item .menu__list-item .menu__list-item {
+    padding-left: 8px;
+  }
+
   @media only screen and (max-width: 1120px) {
     --doc-sidebar-width: 240px;
   }
@@ -654,6 +711,7 @@ aside[class^="docSidebarContainer"] {
 
 .menu__list {
   margin-bottom: 10px;
+  transition: none !important;
 
   .menu__list-item {
     margin-bottom: 2px;
@@ -676,20 +734,7 @@ aside[class^="docSidebarContainer"] {
     }
   }
 
-  .menu__link--sublist {
-    font-size: 15px !important;
-    font-weight: 700 !important;
-    padding: 5px 12px !important;
-    color: var(--subtle) !important;
-
-    &:after {
-      background-size: 1.66rem 1.66rem;
-      margin-right: -6px;
-      margin-top: -1px;
-    }
-  }
-
-  .menu__link--active.active {
+  .theme-doc-sidebar-item-link .menu__link--active {
     border-left-width: 4px;
     border-left-style: solid;
     border-left-color: var(--ifm-menu-color-active) !important;
@@ -763,9 +808,9 @@ html[data-theme="dark"] div[class^="tableOfContents"] {
   @extend %scrollbar-style-dark;
 }
 
-/* Docs Metadata */
+/* Doc Item footer metadata */
 
-.docMetadata {
+.theme-doc-footer {
   margin-top: 40px !important;
   margin-bottom: 16px !important;
   font-size: 15px;
@@ -789,20 +834,20 @@ html[data-theme="dark"] div[class^="tableOfContents"] {
     font-weight: 600;
   }
 
-  .docMetadata-updated {
+  .theme-last-updated {
     line-height: 18px;
   }
 }
 
 @media only screen and (min-width: 540px) and (max-width: 996px) {
-  .docMetadata .col {
+  .theme-doc-footer .col {
     flex-basis: 50% !important;
     max-width: 50% !important;
   }
 }
 
 @media only screen and (max-width: 539px) {
-  .docMetadata .col {
+  .theme-doc-footer .col {
     text-align: center;
 
     &:first-child {
@@ -935,16 +980,21 @@ article header h2 a {
   --docusaurus-announcement-bar-height: auto !important;
 }
 
-.announcement {
-  color: #fff;
+div[class^="announcementBar"][role="banner"] {
+  border-bottom-color: var(--deepdark);
+
+  button.close {
+    svg {
+      fill: white;
+    }
+  }
+}
+
+div[class^="announcementBarContent"] {
   line-height: 40px;
+  font-size: 20px;
   font-weight: bold;
-  font-size: 24px;
   padding: 8px 30px;
-  text-align: center;
-  height: 60px;
-  width: 100%;
-  background-color: var(--deepdark);
 
   a {
     text-decoration: underline;
@@ -952,13 +1002,9 @@ article header h2 a {
     color: var(--brand) !important;
 
     &:hover {
-      color: #fff !important;
+      color: var(--ifm-color-primary) !important;
     }
   }
-}
-
-div[class^="announcementBarContent"] {
-  background-color: var(--deepdark);
 }
 
 @media only screen and (max-width: 768px) {
@@ -1498,6 +1544,9 @@ html[data-theme="dark"] .docsRating {
     }
 
     div[class^="sidebar"] {
+      margin-left: 0;
+      margin-right: -16px;
+
       h3 {
         font-size: 16px;
         margin-bottom: 0;
@@ -1524,7 +1573,7 @@ html[data-theme="dark"] .docsRating {
 
   .container .row .col.col--7 {
     --ifm-col-width: calc(15 / 24 * 100%);
-    padding: 24px 16px 24px 20px;
+    padding: 24px 16px 24px 32px;
 
     &:last-child {
       --ifm-col-width: calc(18 / 24 * 100%);

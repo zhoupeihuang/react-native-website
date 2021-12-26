@@ -7,19 +7,23 @@ title: 使用新的 Hermes 引擎
 <img width={300} height={300} style={{float: 'right', margin: '-30px 4px 0'}} src="/docs/assets/HermesLogo.svg" />
 </a>
 
-[Hermes](https://hermesengine.dev) is an open-source JavaScript engine optimized for running React Native apps on Android. For many apps, enabling Hermes will result in improved start-up time, decreased memory usage, and smaller app size. At this time Hermes is an **opt-in** React Native feature, and this guide explains how to enable it.
+[Hermes](https://hermesengine.dev) is an open-source JavaScript engine optimized for React Native. For many apps, enabling Hermes will result in improved start-up time, decreased memory usage, and smaller app size. At this time Hermes is an **opt-in** React Native feature, and this guide explains how to enable it.
 
 First, ensure you're using at least version 0.60.4 of React Native.
 
-If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. Make especially sure that all changes to `android/app/build.gradle` have been applied, as detailed by the [React Native upgrade helper](https://react-native-community.github.io/upgrade-helper/?from=0.59.0). After upgrading the app, make sure everything works before trying to switch to Hermes.
+If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-> ## Note for RN compatibility.
+> ## 关于兼容性的注意事项
 >
 > Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
 
-> ## Note for Windows users.
+> ## 对于 Windows 用户的注意事项
 >
 > Hermes requires [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+
+## 启用 Hermes 引擎
+
+### Android
 
 Edit your `android/app/build.gradle` file and make the change illustrated below:
 
@@ -44,17 +48,42 @@ Next, if you've already built your app at least once, clean the build:
 $ cd android && ./gradlew clean
 ```
 
-That's it! You should now be able to develop and deploy your app as normal:
+That's it! You should now be able to develop and deploy your app as usual:
 
 ```shell
 $ npx react-native run-android
 ```
 
-> ## Note about Android App Bundles
+> ## 关于 Android App Bundles 格式的支持
 >
-> Android app bundles are supported from react-native 0.62.0 and up.
+> Android app bundles 格式从 react-native 0.62.0 版本开始支持。
 
-## Confirming Hermes is in use
+### iOS
+
+Since React Native 0.64, Hermes also runs on iOS. To enable Hermes for iOS, edit your `ios/Podfile` file and make the change illustrated below:
+
+```diff
+   use_react_native!(
+     :path => config[:reactNativePath],
+     # to enable hermes on iOS, change `false` to `true` and then install pods
+-    :hermes_enabled => false
++    :hermes_enabled => true
+   )
+```
+
+Next, install the Hermes pods:
+
+```shell
+$ cd ios && pod install
+```
+
+That's it! You should now be able to develop and deploy your app as usual:
+
+```shell
+$ npx react-native run-ios
+```
+
+## 检查 Hermes 引擎是否启用
 
 If you've recently created a new app from scratch, you should see if Hermes is enabled in the welcome view:
 
@@ -66,15 +95,23 @@ A `HermesInternal` global variable will be available in JavaScript that can be u
 const isHermes = () => !!global.HermesInternal;
 ```
 
+> If you are using a non-standard way of loading the JS bundle, it is possible that the `HermesInternal` variable is available but you aren't using the highly optimised pre-compiled bytecode. Confirm that you are using the `.hbc` file and also benchmark the before/after as detailed below.
+
 To see the benefits of Hermes, try making a release build/deployment of your app to compare. For example:
 
 ```shell
 $ npx react-native run-android --variant release
 ```
 
+or for iOS:
+
+```shell
+$ npx react-native run-ios --configuration Release
+```
+
 This will compile JavaScript to bytecode during build time which will improve your app's startup speed on device.
 
-## Debugging JS on Hermes using Google Chrome's DevTools
+## 使用 Chrome 浏览器的开发工具来调试 Hermes 中运行的 JS
 
 Hermes supports the Chrome debugger by implementing the Chrome inspector protocol. This means Chrome's tools can be used to directly debug JavaScript running on Hermes, on an emulator or on a real, physical, device.
 

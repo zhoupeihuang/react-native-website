@@ -157,6 +157,12 @@ module.exports = {
           position: 'right',
         },
         {
+          label: '架构',
+          type: 'doc',
+          docId: 'architecture-overview',
+          position: 'right',
+        },
+        {
           label: '讨论',
           href: '//github.com/reactnativecn/react-native-website/issues',
           position: 'right',
@@ -221,7 +227,7 @@ module.exports = {
     gtag: {
       trackingID: 'UA-63485149-4',
     },
-    metadatas: [
+    metadata: [
       {
         name: 'description',
         content: '使用React来编写原生应用的框架',

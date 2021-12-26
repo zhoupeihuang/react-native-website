@@ -13,7 +13,7 @@ title: 列表配置优化
 
 - **空白区 Blank areas:** 当`VirtualizedList`渲染的速度跟不上你滑动的速度时，你可能会在列表中看到一些尚未完成渲染的空白占位元素。
 
-- **视口 Viewport:** The visible area of content that is rendered to pixels.
+- **视口 Viewport:** 已渲染内容的可视区域。
 
 - **滑动窗口 Window:** The area in which items should be mounted, which is generally much larger than the viewport.
 

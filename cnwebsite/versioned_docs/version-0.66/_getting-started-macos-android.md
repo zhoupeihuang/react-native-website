@@ -191,7 +191,7 @@ yarn react-native run-android
 
 恭喜！你已经成功运行并修改了你的第一个 React Native 应用
 
-<center><img src="assets/GettingStartedCongratulations.png" width="150"></img></center>
+<center><img src="https://cdn.jsdelivr.net/gh/reactnativecn/react-native-website@gh-pages/docs/assets/GettingStartedCongratulations.png" width="150"></img></center>
 
 ## 接下来？
 

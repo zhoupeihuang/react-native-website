@@ -12,7 +12,7 @@ import LastUpdated from '@theme/LastUpdated';
 import TOC from '@theme/TOC';
 import EditThisPage from '@theme/EditThisPage';
 import {MainHeading} from '@theme/Heading';
-import IconEdit from '@theme/IconEdit';
+// import IconEdit from '@theme/IconEdit';
 import clsx from 'clsx';
 import styles from './styles.module.css';
 import {

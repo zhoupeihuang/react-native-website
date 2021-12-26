@@ -1,675 +1,223 @@
 {
-  "version-0.66/docs": [
+  "docs": {
+    "入门基础": [
+      "getting-started",
+      "intro-react-native-components",
+      "intro-react",
+      "handling-text-input",
+      "using-a-scrollview",
+      "using-a-listview",
+      "platform-specific-code",
+      "more-resources"
+    ],
+    "环境搭建": [
+      "environment-setup",
+      "integration-with-existing-apps",
+      "integration-with-android-fragment",
+      "building-for-tv",
+      "out-of-tree-platforms"
+    ],
+    "开发流程": [
+      "running-on-device",
+      "fast-refresh",
+      "debugging",
+      "symbolication",
+      "testing-overview",
+      "libraries",
+      "typescript",
+      "upgrading"
+    ],
+    "设计": [
+      "style",
+      "height-and-width",
+      "flexbox",
+      "images",
+      "colors"
+    ],
+    "交互": [
+      "handling-touches",
+      "navigation",
+      "animations",
+      "gesture-responder-system"
+    ],
+    "包容性": [
+      "accessibility"
+    ],
+    "性能调优": [
+      "performance",
+      "optimizing-flatlist-configuration",
+      "ram-bundles-inline-requires",
+      "profiling",
+      "profile-hermes"
+    ],
+    "JavaScript 运行环境": [
+      "javascript-environment",
+      "timers",
+      "hermes"
+    ],
+    "网络连接": [
+      "network",
+      "security"
+    ],
+    "原生模块": [
+      "native-modules-intro",
+      "native-modules-android",
+      "native-modules-ios",
+      "native-modules-setup"
+    ],
+    "原生UI组件": [
+      "native-components-android",
+      "native-components-ios",
+      "direct-manipulation"
+    ],
+    "Android 指南": [
+      "headless-js-android",
+      "signed-apk-android"
+    ],
+    "iOS 指南": [
+      "linking-libraries-ios",
+      "running-on-simulator-ios",
+      "communication-ios",
+      "app-extensions",
+      "publishing-to-app-store"
+    ]
+  },
+  "api": {
+    "APIs": [
+      "accessibilityinfo",
+      "alert",
+      "animated",
+      "animatedvalue",
+      "animatedvaluexy",
+      "appearance",
+      "appregistry",
+      "appstate",
+      "devsettings",
+      "dimensions",
+      "easing",
+      "interactionmanager",
+      "keyboard",
+      "layoutanimation",
+      "linking",
+      "panresponder",
+      "pixelratio",
+      "platform",
+      "platformcolor",
+      "roottag",
+      "share",
+      "stylesheet",
+      "systrace",
+      "transforms",
+      "vibration",
+      {
+        "type": "category",
+        "label": "Hooks",
+        "collapsed": false,
+        "items": [
+          "usecolorscheme",
+          "usewindowdimensions"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "Android APIs",
+        "collapsed": false,
+        "items": [
+          "backhandler",
+          "permissionsandroid",
+          "toastandroid"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "iOS APIs",
+        "collapsed": false,
+        "items": [
+          "actionsheetios",
+          "dynamiccolorios",
+          "settings"
+        ]
+      }
+    ]
+  },
+  "组件": {
+    "核心组件": [
+      "components-and-apis",
+      "activityindicator",
+      "button",
+      "flatlist",
+      "image",
+      "imagebackground",
+      "keyboardavoidingview",
+      "modal",
+      "pressable",
+      "refreshcontrol",
+      "scrollview",
+      "sectionlist",
+      "statusbar",
+      "switch",
+      "text",
+      "textinput",
+      "touchablehighlight",
+      "touchableopacity",
+      "touchablewithoutfeedback",
+      "view",
+      "virtualizedlist",
+      {
+        "type": "category",
+        "label": "Android 组件",
+        "collapsed": false,
+        "items": [
+          "drawerlayoutandroid",
+          "touchablenativefeedback"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "iOS 组件",
+        "collapsed": false,
+        "items": [
+          "inputaccessoryview",
+          "safeareaview"
+        ]
+      }
+    ],
+    "Props": [
+      "image-style-props",
+      "layout-props",
+      "shadow-props",
+      "text-style-props",
+      "view-style-props"
+    ],
+    "内部对象类型": [
+      "layoutevent",
+      "pressevent",
+      "react-node",
+      "rect",
+      "viewtoken"
+    ]
+  },
+  "架构": [
     {
       "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "入门基础",
+      "label": "架构",
+      "collapsed": false,
+      "collapsible": false,
       "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/getting-started"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/intro-react-native-components"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/intro-react"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/handling-text-input"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/using-a-scrollview"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/using-a-listview"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/platform-specific-code"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/more-resources"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "环境搭建",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/environment-setup"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/integration-with-existing-apps"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/integration-with-android-fragment"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/building-for-tv"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/out-of-tree-platforms"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "开发流程",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/running-on-device"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/fast-refresh"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/debugging"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/symbolication"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/testing-overview"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/libraries"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/typescript"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/upgrading"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "设计",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/style"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/height-and-width"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/flexbox"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/images"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/colors"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "交互",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/handling-touches"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/navigation"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/animations"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/gesture-responder-system"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "包容性",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/accessibility"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "性能调优",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/performance"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/optimizing-flatlist-configuration"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/ram-bundles-inline-requires"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/profiling"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/profile-hermes"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "JavaScript 运行环境",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/javascript-environment"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/timers"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/hermes"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "网络连接",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/network"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/security"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "原生模块",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/native-modules-intro"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/native-modules-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/native-modules-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/native-modules-setup"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "原生UI组件",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/native-components-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/native-components-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/direct-manipulation"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "Android 指南",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/headless-js-android"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/signed-apk-android"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "iOS 指南",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/linking-libraries-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/running-on-simulator-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/communication-ios"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/app-extensions"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/publishing-to-app-store"
-        }
-      ]
-    }
-  ],
-  "version-0.66/api": [
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "APIs",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/accessibilityinfo"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/alert"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/animated"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/animatedvalue"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/animatedvaluexy"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/appearance"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/appregistry"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/appstate"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/devsettings"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/dimensions"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/easing"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/interactionmanager"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/keyboard"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/layoutanimation"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/linking"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/panresponder"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/pixelratio"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/platform"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/platformcolor"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/roottag"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/share"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/stylesheet"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/systrace"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/transforms"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/vibration"
-        },
+        "architecture-overview",
         {
           "type": "category",
-          "label": "Hooks",
+          "label": "渲染",
           "collapsed": false,
           "items": [
-            {
-              "type": "doc",
-              "id": "version-0.66/usecolorscheme"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/usewindowdimensions"
-            }
-          ],
-          "collapsible": true
+            "fabric-renderer",
+            "render-pipeline",
+            "xplat-implementation",
+            "view-flattening",
+            "threading-model"
+          ]
         },
-        {
-          "type": "category",
-          "label": "Android APIs",
-          "collapsed": false,
-          "items": [
-            {
-              "type": "doc",
-              "id": "version-0.66/backhandler"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/permissionsandroid"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/toastandroid"
-            }
-          ],
-          "collapsible": true
-        },
-        {
-          "type": "category",
-          "label": "iOS APIs",
-          "collapsed": false,
-          "items": [
-            {
-              "type": "doc",
-              "id": "version-0.66/actionsheetios"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/dynamiccolorios"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/settings"
-            }
-          ],
-          "collapsible": true
-        }
-      ]
-    }
-  ],
-  "version-0.66/组件": [
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "核心组件",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/components-and-apis"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/activityindicator"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/button"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/flatlist"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/image"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/imagebackground"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/keyboardavoidingview"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/modal"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/pressable"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/refreshcontrol"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/scrollview"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/sectionlist"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/statusbar"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/switch"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/text"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/textinput"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/touchablehighlight"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/touchableopacity"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/touchablewithoutfeedback"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/view"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/virtualizedlist"
-        },
-        {
-          "type": "category",
-          "label": "Android 组件",
-          "collapsed": false,
-          "items": [
-            {
-              "type": "doc",
-              "id": "version-0.66/drawerlayoutandroid"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/touchablenativefeedback"
-            }
-          ],
-          "collapsible": true
-        },
-        {
-          "type": "category",
-          "label": "iOS 组件",
-          "collapsed": false,
-          "items": [
-            {
-              "type": "doc",
-              "id": "version-0.66/inputaccessoryview"
-            },
-            {
-              "type": "doc",
-              "id": "version-0.66/safeareaview"
-            }
-          ],
-          "collapsible": true
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "Props",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/image-style-props"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/layout-props"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/shadow-props"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/text-style-props"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/view-style-props"
-        }
-      ]
-    },
-    {
-      "type": "category",
-      "collapsed": true,
-      "collapsible": true,
-      "label": "内部对象类型",
-      "items": [
-        {
-          "type": "doc",
-          "id": "version-0.66/layoutevent"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/pressevent"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/react-node"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/rect"
-        },
-        {
-          "type": "doc",
-          "id": "version-0.66/viewtoken"
-        }
+        "glossary"
       ]
     }
   ]

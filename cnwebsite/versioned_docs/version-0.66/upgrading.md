@@ -62,13 +62,13 @@ You can think of "ours" as "your team" and "theirs" as "the React Native develop
 
 The [Upgrade Helper](https://react-native-community.github.io/upgrade-helper/) is a web tool to help you out when upgrading your apps by providing the full set of changes happening between any two versions. It also shows comments on specific files to help understanding why that change is needed.
 
-#### 1. Select the versions
+#### 1. 选择版本
 
 You first need to select from and to which version you wish to upgrade, by default the latest major versions are selected. After selecting you can click the button "Show me how to upgrade".
 
 💡 Major updates will show an "useful content" section on the top with links to help you out when upgrading.
 
-#### 2. Upgrade dependencies
+#### 2. 更新依赖
 
 The first file that is shown is the `package.json`, it's good to update the dependencies that are showing in there. For example, if `react-native` and `react` appears as changes then you can install it in your project by running `yarn add`:
 
@@ -78,7 +78,7 @@ yarn add react-native@{{VERSION}}
 yarn add react@{{REACT_VERSION}}
 ```
 
-#### 3. Upgrade your project files
+#### 3. 更新项目文件
 
 The new release may contain updates to other files that are generated when you run `npx react-native init`, those files are listed after the `package.json` in the Upgrade Helper page. If there aren't other changes then you can just rebuild the project and continue developing.
 
@@ -96,7 +96,7 @@ This will check your files against the latest template and perform the following
 
 > Some upgrades won't be done automatically with the React Native CLI and require manual work, e.g. `0.28` to `0.29`, or `0.56` to `0.57`. Make sure to check the [release notes](https://github.com/facebook/react-native/releases) when upgrading so that you can identify any manual changes your particular project may require.
 
-### Troubleshooting
+### 疑难解答
 
 #### I want to upgrade with React Native CLI but I don't use Git
 

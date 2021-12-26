@@ -55,10 +55,7 @@
       "native-components-ios",
       "direct-manipulation"
     ],
-    "Android 指南": [
-      "headless-js-android",
-      "signed-apk-android"
-    ],
+    "Android 指南": ["headless-js-android", "signed-apk-android"],
     "iOS 指南": [
       "linking-libraries-ios",
       "running-on-simulator-ios",
@@ -164,5 +161,29 @@
       "rect",
       "viewtoken"
     ]
-  }
+  },
+  "架构": [
+    {
+      "type": "category",
+      "label": "架构",
+      "collapsed": false,
+      "collapsible": false,
+      "items": [
+        "architecture-overview",
+        {
+          "type": "category",
+          "label": "渲染",
+          "collapsed": false,
+          "items": [
+            "fabric-renderer",
+            "render-pipeline",
+            "xplat-implementation",
+            "view-flattening",
+            "threading-model"
+          ]
+        },
+        "glossary"
+      ]
+    }
+  ]
 }
