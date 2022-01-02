@@ -3,7 +3,7 @@ id: fabric-renderer
 title: Fabric 渲染器
 ---
 
-Fabric 是 React Native 新架构的渲染系统，是从老架构的渲染系统演变而来的。核心原理是在 C++ 层统一更多的渲染逻辑，提升与宿主平台（host platforms）互操作性，并为 React Native 解锁更多能力。研发始于 2018 年和 2021年，Facebook 应用中的 React Native 用的就是新的渲染器。
+Fabric 是 React Native 新架构的渲染系统，是从老架构的渲染系统演变而来的。核心原理是在 C++ 层统一更多的渲染逻辑，提升与宿主平台（host platforms）互操作性，并为 React Native 解锁更多能力。其研发始于 2018 年。从 2021 年开始， Facebook App 中的 React Native 启用了新的渲染器。
 
 该文档简介了新渲染器（new renderer）及其核心概念，它不包括平台细节和任何代码细节，它介绍了核心概念、初衷、收益和不同场景的渲染流程。
 
