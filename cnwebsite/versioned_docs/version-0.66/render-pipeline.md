@@ -91,7 +91,7 @@ function MyComponent() {
 
 ![Step two](https://reactnative.dev/assets/images/render-pipeline-2-75ee0201996c04a64f009f1a67bf470a.png)
 
-- **树提升，从新树到下一棵树（Tree Promotion，New Tree → Next Tree）**：这一步会将新的 React 影子树提升为要挂载的下一棵树。这次提升代表着新树拥有了所有要挂载的信息，并且能够代表 React 元素树的最新状态。下一棵树会在 UI 线程下一个“tick”进行挂载。（译注：tick 是 CUP 的最小时间单元）
+- **树提升，从新树到下一棵树（Tree Promotion，New Tree → Next Tree）**：这一步会将新的 React 影子树提升为要挂载的下一棵树。这次提升代表着新树拥有了所有要挂载的信息，并且能够代表 React 元素树的最新状态。下一棵树会在 UI 线程下一个“tick”进行挂载。（译注：tick 是 CPU 的最小时间单元）
 
 **更多细节**
 
