@@ -25,16 +25,41 @@
       "testing-overview",
       "libraries",
       "typescript",
-      "upgrading"
+      "upgrading",
+      {
+        "type": "category",
+        "label": "网络连接",
+        "collapsible": false,
+        "collapsed": false,
+        "items": ["network", "security"]
+      }
     ],
-    "设计": ["style", "height-and-width", "flexbox", "images", "colors"],
-    "交互": [
-      "handling-touches",
-      "navigation",
-      "animations",
-      "gesture-responder-system"
+    "设计": [
+      "style",
+      "height-and-width",
+      "flexbox",
+      "images",
+      "colors",
+      {
+        "type": "category",
+        "label": "交互",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "handling-touches",
+          "navigation",
+          "animations",
+          "gesture-responder-system"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "包容性",
+        "collapsible": false,
+        "collapsed": false,
+        "items": ["accessibility"]
+      }
     ],
-    "包容性": ["accessibility"],
     "性能调优": [
       "performance",
       "optimizing-flatlist-configuration",
@@ -43,25 +68,38 @@
       "profile-hermes"
     ],
     "JavaScript 运行环境": ["javascript-environment", "timers", "hermes"],
-    "网络连接": ["network", "security"],
     "原生模块": [
       "native-modules-intro",
       "native-modules-android",
       "native-modules-ios",
       "native-modules-setup"
     ],
-    "原生UI组件": [
+    "原生 UI 组件": [
       "native-components-android",
       "native-components-ios",
       "direct-manipulation"
     ],
-    "Android 指南": ["headless-js-android", "signed-apk-android"],
-    "iOS 指南": [
-      "linking-libraries-ios",
-      "running-on-simulator-ios",
-      "communication-ios",
-      "app-extensions",
-      "publishing-to-app-store"
+    "Android 与 iOS 指南": [
+      {
+        "type": "category",
+        "label": "Android",
+        "collapsible": false,
+        "collapsed": false,
+        "items": ["headless-js-android", "signed-apk-android"]
+      },
+      {
+        "type": "category",
+        "label": "iOS",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "linking-libraries-ios",
+          "running-on-simulator-ios",
+          "communication-ios",
+          "app-extensions",
+          "publishing-to-app-store"
+        ]
+      }
     ]
   },
   "api": {
@@ -99,13 +137,13 @@
       },
       {
         "type": "category",
-        "label": "Android APIs",
+        "label": "Android API",
         "collapsed": false,
         "items": ["backhandler", "permissionsandroid", "toastandroid"]
       },
       {
         "type": "category",
-        "label": "iOS APIs",
+        "label": "iOS API",
         "collapsed": false,
         "items": ["actionsheetios", "dynamiccolorios", "settings"]
       }
@@ -167,12 +205,12 @@
       "type": "category",
       "label": "架构",
       "collapsed": false,
-      "collapsible": false,
       "items": [
         "architecture-overview",
         {
           "type": "category",
           "label": "渲染",
+          "collapsible": false,
           "collapsed": false,
           "items": [
             "fabric-renderer",
@@ -182,7 +220,7 @@
             "threading-model"
           ]
         },
-        "glossary"
+        "architecture-glossary"
       ]
     }
   ]

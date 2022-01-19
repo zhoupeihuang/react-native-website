@@ -1,5 +1,5 @@
 ---
-id: glossary
+id: architecture-glossary
 title: 术语表
 ---
 
