@@ -37,6 +37,16 @@ const lastVersion = versions[0];
     locales: ['en'],
   },
   onBrokenLinks: 'throw',
+  webpack: {
+    jsLoader: isServer => ({
+      loader: require.resolve('esbuild-loader'),
+      options: {
+        loader: 'tsx',
+        format: isServer ? 'cjs' : undefined,
+        target: isServer ? 'node12' : 'es2017',
+      },
+    }),
+  },
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -152,6 +162,7 @@ const lastVersion = versions[0];
           'swift',
           'groovy',
           'ruby',
+          'flow',
         ],
       },
       navbar: {
@@ -319,7 +330,7 @@ const lastVersion = versions[0];
       gtag: {
         trackingID: 'UA-41298772-2',
       },
-      metadatas: [
+      metadata: [
         {
           property: 'og:image',
           content: 'https://reactnative.dev/img/logo-og.png',
