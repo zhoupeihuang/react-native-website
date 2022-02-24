@@ -86,7 +86,7 @@ Animated.timing(this.state.xPosition, {
 
 多个动画可以通过`parallel`（同时执行）、`sequence`（顺序执行）、`stagger`和`delay`来组合使用。它们中的每一个都接受一个要执行的动画数组，并且自动在适当的时候调用`start/stop`。
 
-For example, the following animation coasts to a stop, then it springs back while twirling in parallel:
+例如，以下的动画滑行停止，然后在平行旋转的同时弹回:
 
 ```jsx
 Animated.sequence([
@@ -117,7 +117,7 @@ Animated.sequence([
 
 你可以使用加减乘除以及取余等运算来[把两个动画值合成为一个新的动画值](animated#combining-animated-values)。
 
-There are some cases where an animated value needs to invert another animated value for calculation. An example is inverting a scale (2x --> 0.5x):
+有些时候，一些动画值需要依赖另一些值来做计算。比如下面的例子，以一个动画值为分母，增大其值以实现合成值的缩小（1x --> 0.5x）
 
 ```jsx
 const a = new Animated.Value(1);
@@ -130,9 +130,9 @@ Animated.spring(a, {
 
 ### 插值
 
-所有动画值都可以执行插值（interpolation）操作。插值是指将一定范围的输入值映射到另一组不同的输出值，一般我们使用线性的映射，但是也可以使用 easing 函数。 By default, it will extrapolate the curve beyond the ranges given, but you can also have it clamp the output value.
+所有动画值都可以执行插值（interpolation）操作。插值是指将一定范围的输入值映射到另一组不同的输出值，一般我们使用线性的映射，但是也可以使用 easing 函数。默认情况下，它会将曲线外推到给定范围之外，但您也可以让它限制为输出值。
 
-A simple mapping to convert a 0-1 range to a 0-100 range would be:
+一个简单的将范围 0-1 转换为范围 0-100 的映射操作是：
 
 ```jsx
 value.interpolate({
@@ -141,7 +141,7 @@ value.interpolate({
 });
 ```
 
-For example, you may want to think about your `Animated.Value` as going from 0 to 1, but animate the position from 150px to 0px and the opacity from 0 to 1. This can easily be done by modifying `style` from the example above like so:
+例如，你可能想通过使用 `Animated.Value` 的值从 0 变化到 1 来让 `position` 从 150px 变化到 0px，同时 `opacity` 从 0 变为 1。这一点可以通过将 `style` 从 example 修改为下面的样子来实现：
 
 ```jsx
   style={{
@@ -155,7 +155,7 @@ For example, you may want to think about your `Animated.Value` as going from 0 t
   }}
 ```
 
-[`interpolate()`](animated#interpolate)还支持定义多个区间段落，常用来定义静止区间等。举个例子，要让输入在接近-300 时取相反值，然后在输入接近-100 时到达 0，然后在输入接近 0 时又回到 1，接着一直到输入到 100 的过程中逐步回到 0，最后形成一个始终为 0 的静止区间，对于任何大于 100 的输入都返回 0。具体写法如下：
+[`interpolate()`](animated#interpolate)还支持定义多个区间段落，常用来定义静止区间等。举个例子，要让输入在接近 -300 时取相反值，然后在输入接近 -100 时到达 0，然后在输入接近 0 时又回到 1，接着一直到输入到 100 的过程中逐步回到 0，最后形成一个始终为 0 的静止区间，对于任何大于 100 的输入都返回 0。具体写法如下：
 
 ```jsx
 value.interpolate({
@@ -206,13 +206,13 @@ Animated.timing(opacity, {
 }).start();
 ```
 
-The `leader` and `follower` animated values would be implemented using `Animated.ValueXY()`. 是一个方便的处理 2D 交互的办法，譬如旋转或拖拽。它是一个简单的包含了两个`Animated.Value`实例的包装，然后提供了一系列辅助函数，使得`ValueXY`在许多时候可以替代`Value`来使用。比如在上面的代码片段中，`leader`和`follower`可以同时为`valueXY`类型，这样 x 和 y 的值都会被跟踪。
+变量 `leader` 和 `follower` 通过 `Animated.ValueXY()` 来定义。这是一个方便的处理 2D 交互的办法，譬如旋转或拖拽。它是一个简单的包含了两个`Animated.Value`实例的包装，然后提供了一系列辅助函数，使得`ValueXY`在许多时候可以替代`Value`来使用。比如在上面的代码片段中，`leader`和`follower`可以同时为`valueXY`类型，这样 x 和 y 的值都会被跟踪。
 
 ### 跟踪手势
 
 [`Animated.event`](animated#event)是 Animated 中与输入有关的部分，允许手势或其它事件直接绑定到动态值上。它通过一个结构化的映射语法来完成，使得复杂事件对象中的值可以被正确的解开。第一层是一个数组，允许同时映射多个值，然后数组的每一个元素是一个嵌套的对象。在下面的例子里，你可以发现`scrollX`被映射到了`event.nativeEvent.contentOffset.x`(`event`通常是回调函数的第一个参数)，并且`pan.x`和`pan.y`分别映射到`gestureState.dx`和`gestureState.dy`（`gestureState`是传递给`PanResponder`回调函数的第二个参数）。
 
-For example, when working with horizontal scrolling gestures, you would do the following in order to map `event.nativeEvent.contentOffset.x` to `scrollX` (an `Animated.Value`):
+例如，在使用水平的滚动手势时，可以像下面这样将 `event.nativeEvent.contentOffset.x` 映射到 `scrollX` (一个 `Animated.Value`)：
 
 ```jsx
  onScroll={Animated.event(
@@ -226,7 +226,7 @@ For example, when working with horizontal scrolling gestures, you would do the f
  )}
 ```
 
-The following example implements a horizontal scrolling carousel where the scroll position indicators are animated using the `Animated.event` used in the `ScrollView`
+下面的例子实现一个水平滚动轮播，其中滚动位置指示器使用 `ScrollView` 中用到的 `Animated.event` 进行动画处理
 
 #### 在`ScrollView`中使用动画事件的示例
 
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
 </TabItem>
 </Tabs>
 
-When using `PanResponder`, you could use the following code to extract the x and y positions from `gestureState.dx` and `gestureState.dy`. We use a `null` in the first position of the array, as we are only interested in the second argument passed to the `PanResponder` handler, which is the `gestureState`.
+在使用 `PanResponder` 时， 可以用下面的代码来从 `gestureState.dx` 和 `gestureState.dy`中获取 x 和 y 。我们在数组的第一个元素使用一个 `null` ，因为我们只对传递给 `PanResponder` 处理程序的第二个参数感兴趣，也就是 `gestureState`。
 
 ```jsx
 onPanResponderMove={Animated.event(
@@ -655,7 +655,9 @@ const styles = StyleSheet.create({
 - `spring.stopAnimation(callback)`会停止动画并且把最终的值作为参数传递给回调函数`callback`——这在处理手势动画的时候非常有用。
 - `spring.addListener(callback)`会在动画的执行过程中持续异步调用`callback`回调函数，提供一个最近的值作为参数。这在用于触发状态切换的时候非常有用，譬如当用户拖拽一个东西靠近的时候弹出一个新的气泡选项。不过这个状态切换可能并不会十分灵敏，因为它不像许多连续手势操作（如旋转）那样在 60fps 下运行。
 
-`Animated` is designed to be fully serializable so that animations can be run in a high performance way, independent of the normal JavaScript event loop. This does influence the API, so keep that in mind when it seems a little trickier to do something compared to a fully synchronous system. Check out `Animated.Value.addListener` as a way to work around some of these limitations, but use it sparingly since it might have performance implications in the future.
+`Animated` 被设计为完全可序列化的，因此动画可以以高性能的方式运行，独立于正常的 JavaScript 事件循环。这确实会影响 API 的一些设计，因此与完全同步的系统相比，做某些需求可能看起来会有些棘手。`Animated.Value.addListener` 可能可以用来解决一些场景问题，但要谨慎使用它，因为它可能带来一些性能上的影响。
+
+> 注：社区有另一个设计思路不太一样的高性能动画库 [`react-native-reanimated`](https://github.com/software-mansion/react-native-reanimated)，对性能有更高要求的开发者可以参考一下。
 
 ### 启用原生动画驱动
 
@@ -692,17 +694,17 @@ Animated.timing(this.state.animatedValue, {
 </Animated.ScrollView>
 ```
 
-You can see the native driver in action by running the [RNTester app](https://github.com/facebook/react-native/blob/master/packages/rn-tester/), then loading the Native Animated Example. You can also take a look at the [source code](https://github.com/facebook/react-native/blob/master/packages/rn-tester/js/examples/NativeAnimation/NativeAnimationsExample.js) to learn how these examples were produced.
+您也可以通过运行 [RNTester app](https://github.com/facebook/react-native/blob/master/packages/rn-tester/) 查看本机驱动程序的运行情况，然后再载入原生动画示例。您也可以查看 [source code](https://github.com/facebook/react-native/blob/master/packages/rn-tester/js/examples/NativeAnimation/NativeAnimationsExample.js) 来了解这些例子是如何产生的。
 
 #### 注意事项
 
-Not everything you can do with `Animated` is currently supported by the native driver. The main limitation is that you can only animate non-layout properties: things like `transform` and `opacity` will work, but flexbox and position properties will not. When using `Animated.event`, it will only work with direct events and not bubbling events. This means it does not work with `PanResponder` but does work with things like `ScrollView#onScroll`.
+本机驱动程序目前并不足以支持您使用 `Animated` 执行所有操作。主要限制是您只能为非布局属性设置动画：像 `transform` 和 `opacity` 这样的东西可以工作，但 flexbox 和 position 属性不能。使用 `Animated.event` 时，它只适用于直接事件，而不适用于冒泡事件。这意味着它不能与 `PanResponder` 一起使用，但可以与 `ScrollView#onScroll` 之类的东西一起使用。
 
-When an animation is running, it can prevent `VirtualizedList` components from rendering more rows. If you need to run a long or looping animation while the user is scrolling through a list, you can use `isInteraction: false` in your animation's config to prevent this issue.
+动画运行时，可以防止 `VirtualizedList` 组件渲染更多行。如果您需要在用户滚动列表时运行长动画或循环动画，您可以在动画配置中使用 `isInteraction: false` 来防止此问题。
 
-### Bear in mind
+### 牢记
 
-While using transform styles such as `rotateY`, `rotateX`, and others ensure the transform style `perspective` is in place. At this time some animations may not render on Android without it. Example below.
+在使用 `rotateY`、`rotateX` 等变换样式时，请确保使用了变换样式 `perspective`。此时，如果没有它，某些动画可能无法在 Android 上呈现。下面是一个例子。
 
 ```jsx
 <Animated.View
@@ -716,9 +718,9 @@ While using transform styles such as `rotateY`, `rotateX`, and others ensure the
 />
 ```
 
-### Additional examples
+### 其他例子
 
-The RNTester app has various examples of `Animated` in use:
+RNTester 应用程序有各种使用中的“动画”示例：
 
 - [AnimatedGratuitousApp](https://github.com/facebook/react-native/tree/master/packages/rn-tester/js/examples/Animated/AnimatedGratuitousApp)
 - [NativeAnimationsExample](https://github.com/facebook/react-native/blob/master/packages/rn-tester/js/examples/NativeAnimation/NativeAnimationsExample.js)
@@ -803,7 +805,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-This example uses a preset value, you can customize the animations as you need, see [LayoutAnimation.js](https://github.com/facebook/react-native/blob/master/Libraries/LayoutAnimation/LayoutAnimation.js) for more information.
+本示例使用预设值，您可以根据需要自定义动画，更多信息参见 [LayoutAnimation.js](https://github.com/facebook/react-native/blob/master/Libraries/LayoutAnimation/LayoutAnimation.js)。
 
 ## 其他要注意的地方
 
