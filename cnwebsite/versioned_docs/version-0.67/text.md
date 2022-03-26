@@ -532,15 +532,6 @@ Android: Only supported since Android 5.0 - older versions will ignore this attr
 
 ---
 
-### `disabled`
-
-Specifies the disabled state of the text view for testing purposes
-
-| 类型 | 必需 | 平台    |
-| ---- | ---- | ------- |
-| bool | 否   | Android |
-
----
 
 ### `selectionColor`
 
@@ -582,33 +573,37 @@ Set text break strategy on Android API Level 23+, possible values are `simple`, 
 
 ---
 
-### `dataDetectorType`
+### `android_hyphenationFrequency` <div class="label android">Android</div>
 
-Determines the types of data converted to clickable URLs in the text element. By default no data types are detected.
+Sets the frequency of automatic hyphenation to use when determining word breaks on Android API Level 23+.
 
-You can provide only one type.
-
-Possible values for `dataDetectorType` are:
-
-- `'phoneNumber'`
-- `'link'`
-- `'email'`
-- `'none'`
-- `'all'`
-
-| 类型                                                | Required | 平台    |
-| --------------------------------------------------- | -------- | ------- |
-| enum('phoneNumber', 'link', 'email', 'none', 'all') | No       | Android |
+| Type                                | Default  |
+| ----------------------------------- | -------- |
+| enum(`'none'`, `'normal'`,`'full'`) | `'none'` |
 
 ---
 
-### `android_hyphenationFrequency`
+### `dataDetectorType` <div class="label android">Android</div>
 
-Sets the frequency of automatic hyphenation to use when determining word breaks on Android API Level 23+, possible values are `none`, `full`, `balanced`, `high`, `normal`. The default value is `none`.
+Determines the types of data converted to clickable URLs in the text element. By default, no data types are detected.
 
-| 类型                                     | Required | 平台    |
-| ---------------------------------------- | -------- | ------- |
-| enum('none', 'full', 'balanced', 'high') | No       | Android |
+You can provide only one type.
+
+| Type                                                          | Default  |
+| ------------------------------------------------------------- | -------- |
+| enum(`'phoneNumber'`, `'link'`, `'email'`, `'none'`, `'all'`) | `'none'` |
+
+---
+
+### `disabled` <div class="label android">Android</div>
+
+Specifies the disabled state of the text view for testing purposes.
+
+| Type | Default |
+| ---- | ------- |
+| bool | `false` |
+
+---
 
 ## 类型定义
 

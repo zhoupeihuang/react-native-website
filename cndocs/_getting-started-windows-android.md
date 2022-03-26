@@ -13,7 +13,8 @@
 > 注意：不要使用 cnpm！cnpm 安装的模块路径比较奇怪，packager 不能正常识别！
 
 React Native 需要 Java Development Kit [JDK] 11。你可以在命令行中输入
-`javac -version`（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以去[AdoptOpenJDK](https://adoptopenjdk.net/)或[Oracle JDK](https://www.oracle.com/java/technologies/downloads/#java11)上下载(后者下载需注册登录)。
+`javac -version`（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以去[Temurin](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot)或[Oracle JDK](https://www.oracle.com/java/technologies/downloads/#java11)上下载(后者下载需注册登录)。
+
 
 > 低于 0.67 版本的 React Native 需要 JDK 1.8 版本（官方也称 8 版本）。
 
@@ -57,7 +58,7 @@ npm install -g yarn
 
 #### 2. 安装 Android SDK
 
-Android Studio 默认会安装最新版本的 Android SDK。目前编译 React Native 应用需要的是`Android 10 (Q)`版本的 SDK（注意 SDK 版本不等于终端系统版本，RN 目前支持 android 5 以上设备）。你可以在 Android Studio 的 SDK Manager 中选择安装各版本的 SDK。
+Android Studio 默认会安装最新版本的 Android SDK。目前编译 React Native 应用需要的是`Android 11 (R)`版本的 SDK（注意 SDK 版本不等于终端系统版本，RN 目前支持 android 5 以上设备）。你可以在 Android Studio 的 SDK Manager 中选择安装各版本的 SDK。
 
 你可以在 Android Studio 的欢迎界面中找到 SDK Manager。点击"Configure"，然后就能看到"SDK Manager"。
 
@@ -65,24 +66,24 @@ Android Studio 默认会安装最新版本的 Android SDK。目前编译 React N
 
 > SDK Manager 还可以在 Android Studio 的"Preferences"菜单中找到。具体路径是**Appearance & Behavior** → **System Settings** → **Android SDK**。
 
-在 SDK Manager 中选择"SDK Platforms"选项卡，然后在右下角勾选"Show Package Details"。展开`Android 10 (Q)`选项，确保勾选了下面这些组件（重申你必须使用稳定的代理软件，否则可能都看不到这个界面）：
+在 SDK Manager 中选择"SDK Platforms"选项卡，然后在右下角勾选"Show Package Details"。展开`Android 11 (R)`选项，确保勾选了下面这些组件（重申你必须使用稳定的代理软件，否则可能都看不到这个界面）：
 
-- `Android SDK Platform 29`
+- `Android SDK Platform 30`
 - `Intel x86 Atom_64 System Image`（官方模拟器镜像文件，使用非官方模拟器不需要安装此组件)
 
-然后点击"SDK Tools"选项卡，同样勾中右下角的"Show Package Details"。展开"Android SDK Build-Tools"选项，确保选中了 React Native 所必须的`29.0.2`版本。你可以同时安装多个其他版本。
+然后点击"SDK Tools"选项卡，同样勾中右下角的"Show Package Details"。展开"Android SDK Build-Tools"选项，确保选中了 React Native 所必须的`30.0.2`版本。你可以同时安装多个其他版本。
 
 然后还是在"SDK Tools"选项卡，点击"NDK (Side by side)"，同样勾中右下角的"Show Package Details"，选择`20.1.5948944`版本进行安装。
 
 最后点击"Apply"来下载和安装这些组件。
 
-#### 3. 配置 ANDROID_HOME 环境变量
+#### 3. 配置 ANDROID_SDK_ROOT 环境变量
 
 React Native 需要通过环境变量来了解你的 Android SDK 装在什么路径，从而正常进行编译。
 
-打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量` -> `新建`，创建一个名为`ANDROID_HOME`的环境变量（系统或用户变量均可），指向你的 Android SDK 所在的目录（具体的路径可能和下图不一致，请自行确认）：
+打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量` -> `新建`，创建一个名为`ANDROID_SDK_ROOT`的环境变量（系统或用户变量均可），指向你的 Android SDK 所在的目录（具体的路径可能和下图不一致，请自行确认）：
 
-![ANDROID_HOME Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
+![ANDROID_SDK_ROOT Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_SDK_ROOT.png)
 
 SDK 默认是安装在下面的目录：
 
@@ -99,10 +100,10 @@ C:\Users\你的用户名\AppData\Local\Android\Sdk
 打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量`，选中**Path**变量，然后点击**编辑**。点击**新建**然后把这些工具目录路径添加进去：platform-tools、emulator、tools、tools/bin
 
 ```powershell
-%ANDROID_HOME%\platform-tools
-%ANDROID_HOME%\emulator
-%ANDROID_HOME%\tools
-%ANDROID_HOME%\tools\bin
+%ANDROID_SDK_ROOT%\platform-tools
+%ANDROID_SDK_ROOT%\emulator
+%ANDROID_SDK_ROOT%\tools
+%ANDROID_SDK_ROOT%\tools\bin
 ```
 
 ## 创建新项目
@@ -151,7 +152,7 @@ npx react-native init AwesomeTSProject --template react-native-template-typescri
 
 ![Android Studio AVD Manager](/docs/assets/GettingStartedAndroidStudioAVD.png)
 
-如果你刚刚才安装 Android Studio，那么可能需要先[创建一个虚拟设备](https://developer.android.com/studio/run/managing-avds.html)。点击"Create Virtual Device..."，然后选择所需的设备类型并点击"Next"，然后选择**Q** API Level 29 image.
+如果你刚刚才安装 Android Studio，那么可能需要先[创建一个虚拟设备](https://developer.android.com/studio/run/managing-avds.html)。点击"Create Virtual Device..."，然后选择所需的设备类型并点击"Next"，然后选择**Q** API Level 30 image.
 
 > 译注：请不要轻易点击 Android Studio 中可能弹出的建议更新项目中某依赖项的建议，否则可能导致无法运行。
 

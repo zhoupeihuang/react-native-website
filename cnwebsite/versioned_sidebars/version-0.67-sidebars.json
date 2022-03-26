@@ -31,7 +31,10 @@
         "label": "网络连接",
         "collapsible": false,
         "collapsed": false,
-        "items": ["network", "security"]
+        "items": [
+          "network",
+          "security"
+        ]
       }
     ],
     "设计": [
@@ -57,7 +60,9 @@
         "label": "包容性",
         "collapsible": false,
         "collapsed": false,
-        "items": ["accessibility"]
+        "items": [
+          "accessibility"
+        ]
       }
     ],
     "性能调优": [
@@ -67,7 +72,11 @@
       "profiling",
       "profile-hermes"
     ],
-    "JavaScript 运行环境": ["javascript-environment", "timers", "hermes"],
+    "JavaScript 运行环境": [
+      "javascript-environment",
+      "timers",
+      "hermes"
+    ],
     "原生模块": [
       "native-modules-intro",
       "native-modules-android",
@@ -85,7 +94,10 @@
         "label": "Android",
         "collapsible": false,
         "collapsed": false,
-        "items": ["headless-js-android", "signed-apk-android"]
+        "items": [
+          "headless-js-android",
+          "signed-apk-android"
+        ]
       },
       {
         "type": "category",
@@ -133,19 +145,30 @@
         "type": "category",
         "label": "Hooks",
         "collapsed": false,
-        "items": ["usecolorscheme", "usewindowdimensions"]
+        "items": [
+          "usecolorscheme",
+          "usewindowdimensions"
+        ]
       },
       {
         "type": "category",
         "label": "Android API",
         "collapsed": false,
-        "items": ["backhandler", "permissionsandroid", "toastandroid"]
+        "items": [
+          "backhandler",
+          "permissionsandroid",
+          "toastandroid"
+        ]
       },
       {
         "type": "category",
         "label": "iOS API",
         "collapsed": false,
-        "items": ["actionsheetios", "dynamiccolorios", "settings"]
+        "items": [
+          "actionsheetios",
+          "dynamiccolorios",
+          "settings"
+        ]
       }
     ]
   },
@@ -176,13 +199,19 @@
         "type": "category",
         "label": "Android 组件",
         "collapsed": false,
-        "items": ["drawerlayoutandroid", "touchablenativefeedback"]
+        "items": [
+          "drawerlayoutandroid",
+          "touchablenativefeedback"
+        ]
       },
       {
         "type": "category",
         "label": "iOS 组件",
         "collapsed": false,
-        "items": ["inputaccessoryview", "safeareaview"]
+        "items": [
+          "inputaccessoryview",
+          "safeareaview"
+        ]
       }
     ],
     "Props": [

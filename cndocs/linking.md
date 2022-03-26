@@ -365,7 +365,7 @@ The `Promise` will reject on Android if it was impossible to check if the URL ca
 >
 > 对于 iOS 9 来说，你需要在`Info.plist`中添加`LSApplicationQueriesSchemes`字段，否则`canOpenURL`可能一直返回 false。
 
-> When targeting Android 11 (SDK 30) you must specify the intents for the schemes you want to handle in `AndroidManifext.xml`. A list of common intents can be found [here](https://developer.android.com/guide/components/intents-common).
+> When targeting Android 11 (SDK 30) you must specify the intents for the schemes you want to handle in `AndroidManifest.xml`. A list of common intents can be found [here](https://developer.android.com/guide/components/intents-common).
 >
 > For example to handle `https` schemes the following needs to be added to your manifest:
 >

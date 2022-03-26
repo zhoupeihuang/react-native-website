@@ -6,6 +6,8 @@ authorURL: 'https://twitter.com/notbrent'
 description: This guide introduces React Native developers to finding, installing, and using third-party libraries in their apps.
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants'; import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
+
 React Native 提供了一系列内置的[核心组件和 API](components-and-apis)，但并不局限于此。React Native 有一个庞大的社区，如果核心组件和 API 不能满足你的需求，你完全可以去社区的广阔天地中寻求合适的第三方库。
 
 ## 选择一个包管理器
@@ -35,6 +37,8 @@ Run `pod install` in our `ios` directory in order to link it to our native iOS p
 ```bash
 npx pod-install
 ```
+
+<M1Cocoapods />
 
 Once this is complete, re-build the app binary to start using your new library:
 

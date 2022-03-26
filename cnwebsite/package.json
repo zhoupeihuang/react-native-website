@@ -10,24 +10,24 @@
     "url": "https://github.com/reactnativecn/react-native-website/issues"
   },
   "scripts": {
-    "version:cut": "docusaurus docs:version",
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve",
     "clean": "docusaurus clean",
-    "publish-gh-pages": "yarn deploy",
-    "ci-check": "yarn prettier:diff && node image-check.js",
-    "format:source": "prettier --write \"{core/**/*.js,src/**/*.js,static/js/**/*.js}\"",
-    "format:markdown": "prettier --write \"{../cndocs/*.md,versioned_docs/**/*.md,blog/**/*.md}\"",
-    "nit:source": "prettier --list-different \"{core/**/*.js,src/**/*.js,static/js/**/*.js}\"",
-    "nit:markdown": "prettier --list-different \"{../cndocs/*.md,versioned_docs/**/*.md,blog/**/*.md}\"",
-    "prettier": "yarn format:source && yarn format:markdown",
-    "prettier:diff": "yarn nit:source",
     "test": "yarn build",
-    "lint": "cd ../ && alex .",
-    "lintv": "cd ../ && alex"
+    "version:cut": "docusaurus docs:version",
+    "format:source": "prettier --write {{core,src}/**/*.js,*.js}",
+    "format:markdown": "prettier --write ../docs/*.md && prettier --write {{versioned_docs,src}/**/*.md,blog/*.md}",
+    "format:style": "prettier --write src/**/*.{scss,css}",
+    "prettier": "yarn format:source && yarn format:markdown && yarn format:style",
+    "lint": "eslint ../docs/** blog/** core/** src/**/*.{js,md} ./*.js",
+    "lint:versioned": "eslint versioned_docs/**",
+    "language:lint": "cd ../ && alex",
+    "language:lint:versioned": "cd ../ && alex .",
+    "ci:lint": "yarn lint && yarn lint:versioned && yarn language:lint:versioned",
+    "pwa:generate": "npx pwa-asset-generator ./static/img/header_logo.svg ./static/img/pwa --background #20232a --icon-only -opaque true --maskable true --type png"
   },
   "browserslist": {
     "production": [

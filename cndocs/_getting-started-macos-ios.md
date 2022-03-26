@@ -1,3 +1,5 @@
+import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
+
 ## 安装依赖
 
 必须安装的依赖有：Node、Watchman、Xcode 和 CocoaPods。
@@ -68,6 +70,8 @@ brew install cocoapods
 ```
 
 要了解更多信息，可以访问[CocoaPods 的官网](https://guides.cocoapods.org/using/getting-started.html)。
+
+<M1Cocoapods />
 
 ## 创建新项目
 

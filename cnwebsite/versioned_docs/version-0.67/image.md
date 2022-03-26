@@ -306,9 +306,11 @@ Similarly to `source`, this property represents the resource used to render the 
 
 加载成功完成时调用此回调函数。
 
-| Type                                                     |
-| -------------------------------------------------------- |
-| function([ImageLoadEvent](image#imageloadevent)) => void |
+**Example:** `onLoad={({nativeEvent: {source: {width, height}}}) => setImageRealSize({width, height})}`
+
+| Type                                                              |
+| ----------------------------------------------------------------- |
+| ({ nativeEvent: [ImageLoadEvent](image#imageloadevent) }) => void |
 
 ---
 
@@ -562,9 +564,11 @@ Enum which can be used to set the cache handling or stategy for the potentially 
 
 Object returned in the `onLoad` callback.
 
-| Type   |
-| ------ |
-| object |
+| Name   | Type   | Description                         |
+| ------ | ------ | ----------------------------------- |
+| source | object | The [source object](#source-object) |
+
+#### Source Object
 
 **Properties:**
 

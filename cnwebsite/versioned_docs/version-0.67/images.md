@@ -53,7 +53,9 @@ _注意_：如果你添加图片的时候 packager 正在运行，可能需要�
 <Image source={require('./my-icon.png')} />;
 
 // 错误
-const icon = this.props.active ? 'my-icon-active' : 'my-icon-inactive';
+const icon = this.props.active
+  ? 'my-icon-active'
+  : 'my-icon-inactive';
 <Image source={require('./' + icon + '.png')} />;
 
 // 正确
@@ -69,7 +71,7 @@ const icon = this.props.active
 
 上面描述的`require`语法也可以用来静态地加载你项目中的声音、视频或者文档文件。大多数常见文件类型都支持，包括`.mp3`, `.wav`, `.mp4`, `.mov`, `.htm` 和 `.pdf`等（完整列表请看 [packager defaults](https://github.com/facebook/metro/blob/master/packages/metro-config/src/defaults/defaults.js#L14-L44))。
 
-你也可以在[metro(即packager)配置文件](https://facebook.github.io/metro/docs/en/configuration)中添加[`assetExts`配置项](https://facebook.github.io/metro/docs/en/configuration#resolver-options)来支持其他类型的文件。
+你也可以在[metro(即 packager)配置文件](https://facebook.github.io/metro/docs/en/configuration)中添加[`assetExts`配置项](https://facebook.github.io/metro/docs/en/configuration#resolver-options)来支持其他类型的文件。
 
 需要注意的是视频必须指定尺寸而不能使用`flex`样式，因为我们目前还不能从非图片资源中获取到尺寸信息。对于直接链接到 Xcode 或者 Android 资源文件夹的视频，则不会有这个限制。
 
@@ -78,13 +80,19 @@ const icon = this.props.active
 如果你在编写一个混合 App（一部分 UI 使用 React Native，而另一部分使用平台原生代码），也可以使用已经打包到 App 中的图片资源（以拖拽的方式放置在 Xcode 的 asset 类目中，或是放置在 Android 的 drawable 目录里）。注意此时只使用文件名，不带路径也不带后缀：
 
 ```jsx
-<Image source={{uri: 'app_icon'}} style={{width: 40, height: 40}} />
+<Image
+  source={{ uri: 'app_icon' }}
+  style={{ width: 40, height: 40 }}
+/>
 ```
 
 对于放置在 Android 的 assets 目录中的图片，还可以使用`asset:/` 前缀来引用：
 
 ```jsx
-<Image source={{uri: 'asset:/app_icon.png'}} style={{width: 40, height: 40}} />
+<Image
+  source={{ uri: 'asset:/app_icon.png' }}
+  style={{ width: 40, height: 40 }}
+/>
 ```
 
 注意：这些做法并没有任何安全检查。你需要自己确保图片在应用中确实存在，而且还需要指定尺寸。
@@ -112,11 +120,11 @@ const icon = this.props.active
     uri: 'https://facebook.github.io/react/logo-og.png',
     method: 'POST',
     headers: {
-      Pragma: 'no-cache',
+      Pragma: 'no-cache'
     },
-    body: 'Your Body goes here',
+    body: 'Your Body goes here'
   }}
-  style={{width: 400, height: 400}}
+  style={{ width: 400, height: 400 }}
 />
 ```
 
@@ -132,11 +140,11 @@ const icon = this.props.active
   style={{
     width: 51,
     height: 51,
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   }}
   source={{
     uri:
-      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
   }}
 />
 ```
@@ -154,9 +162,9 @@ const icon = this.props.active
 <Image
   source={{
     uri: 'https://facebook.github.io/react/logo-og.png',
-    cache: 'only-if-cached',
+    cache: 'only-if-cached'
   }}
-  style={{width: 400, height: 400}}
+  style={{ width: 400, height: 400 }}
 />
 ```
 
@@ -185,7 +193,7 @@ iOS 会为同一张图片在相册中保存多个不同尺寸的副本。为了�
 在 React Native 中，另一个值得一提的变动是我们把`src`属性改为了`source`属性，而且并不接受字符串，正确的值是一个带有`uri`属性的对象。
 
 ```jsx
-<Image source={{uri: 'something.jpg'}} />
+<Image source={{ uri: 'something.jpg' }} />
 ```
 
 深层次的考虑是，这样可以使我们在对象中添加一些元数据(metadata)。假设你在使用`require('./my-icon.png')`，那么我们就会在其中添加真实文件路径以及尺寸等信息（这只是举个例子，未来的版本中 require 的具体行为可能会变化）。此外这也是考虑了未来的扩展性，比如我们可能会加入精灵图（sprites）的支持：在输出`{uri: ...}`的基础上，我们可以进一步输出裁切信息`{uri: ..., crop: {left: 10, top: 50, width: 20, height: 40}}`，这样理论上就可以在现有的代码中无缝支持精灵图的切分。
