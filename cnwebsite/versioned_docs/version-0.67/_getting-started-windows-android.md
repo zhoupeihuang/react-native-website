@@ -15,7 +15,6 @@
 React Native 需要 Java Development Kit [JDK] 11。你可以在命令行中输入
 `javac -version`（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。如果版本不合要求，则可以去[Temurin](https://adoptium.net/?variant=openjdk11&jvmVariant=hotspot)或[Oracle JDK](https://www.oracle.com/java/technologies/downloads/#java11)上下载(后者下载需注册登录)。
 
-
 > 低于 0.67 版本的 React Native 需要 JDK 1.8 版本（官方也称 8 版本）。
 
 ```
@@ -83,7 +82,7 @@ React Native 需要通过环境变量来了解你的 Android SDK 装在什么路
 
 打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量` -> `新建`，创建一个名为`ANDROID_SDK_ROOT`的环境变量（系统或用户变量均可），指向你的 Android SDK 所在的目录（具体的路径可能和下图不一致，请自行确认）：
 
-![ANDROID_SDK_ROOT Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_SDK_ROOT.png)
+![ANDROID_SDK_ROOT Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
 
 SDK 默认是安装在下面的目录：
 
@@ -116,7 +115,7 @@ C:\Users\你的用户名\AppData\Local\Android\Sdk
 
 > **必须要看的注意事项二**：请`不要`在某些权限敏感的目录例如 System32 目录中 init 项目！会有各种权限限制导致不能运行！
 
-> **必须要看的注意事项三**：请`不要`使用一些移植的终端环境，例如`git bash`或`mingw`等等，这些在windows下可能导致找不到环境变量。请使用系统自带的命令行（CMD或powershell）运行。
+> **必须要看的注意事项三**：请`不要`使用一些移植的终端环境，例如`git bash`或`mingw`等等，这些在 windows 下可能导致找不到环境变量。请使用系统自带的命令行（CMD 或 powershell）运行。
 
 ```shell
 npx react-native init AwesomeProject
