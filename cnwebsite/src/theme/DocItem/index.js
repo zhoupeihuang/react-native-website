@@ -25,7 +25,7 @@ import {
 function SponsorHeader() {
   return (
     <a
-      href="https://t.1yb.co/y4lL"
+      href="https://time.geekbang.org/column/intro/100110101?code=FAqHFVRUur%2FgAP-yJQWitk9ieF80imRky3PVsIs%2FX6A%3D"
       target="_blank"
       style={{
         display: 'block',
@@ -34,8 +34,8 @@ function SponsorHeader() {
         color: '#666',
         marginBottom: 15,
       }}>
-      <span style={{fontWeight: 'bold', color: '#05a5d1'}}>前端工程化实战</span>{' '}
-      深入学习一线大厂必备前端技能，VIP 课程免费领取{' '}
+      <span style={{fontWeight: 'bold', color: '#05a5d1'}}>新架构实战课</span>{' '}
+      实操/基建/原理全维度包揽，抢先掌握新架构精髓{' '}
       <span
         style={{
           border: 'solid 1px #666',
@@ -102,7 +102,7 @@ function DocItem(props) {
                   </span>
                 </div>
               )}
-              {/* <SponsorHeader /> */}
+              <SponsorHeader />
               <div className="markdown">
                 {/*
                 Title can be declared inside md content or declared through frontmatter and added manually
