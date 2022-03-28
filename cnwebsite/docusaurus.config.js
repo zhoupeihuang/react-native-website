@@ -116,6 +116,12 @@ module.exports = {
           position: 'right',
         },
         {
+          label: '实战课',
+          href: '//time.geekbang.org/column/intro/100110101?code=FAqHFVRUur%2FgAP-yJQWitk9ieF80imRky3PVsIs%2FX6A%3D',
+          position: 'right',
+          className: 'hot-link',
+        },
+        {
           label: '讨论',
           href: '//github.com/reactnativecn/react-native-website/issues',
           position: 'right',
@@ -124,7 +130,7 @@ module.exports = {
           label: '热更新',
           href: '//pushy.reactnative.cn',
           position: 'right',
-          className: 'pushy',
+          className: 'hot-link',
         },
         {
           to: '/about',

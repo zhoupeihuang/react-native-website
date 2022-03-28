@@ -35,7 +35,7 @@ function SponsorHeader() {
         marginBottom: 15,
       }}>
       <span style={{fontWeight: 'bold', color: '#05a5d1'}}>新架构实战课</span>{' '}
-      实操/基建/原理全维度包揽，抢先掌握新架构精髓{' '}
+      实操 + 基建 + 原理全维度包揽，抢先掌握 React Native 新架构精髓{' '}
       <span
         style={{
           border: 'solid 1px #666',
