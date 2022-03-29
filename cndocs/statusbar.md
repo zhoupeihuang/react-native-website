@@ -110,7 +110,7 @@ export default App;
 
 设置状态栏文本的颜色。
 
-On Android, this will only have an impact on API versions 23 and above.
+在 Android 上此属性仅对 6.0 （API 23）及以上版本生效。
 
 | 类型                                             | 必需 |
 | ------------------------------------------------ | ---- |
@@ -168,11 +168,11 @@ static popStackEntry(entry: any)
 
 Get and remove the last StatusBar entry from the stack.
 
-**参数：**
+**参数:**
 
-| 名称  | 类型 | Required | 说明                                  |
-| ----- | ---- | -------- | ------------------------------------- |
-| entry | any  | Yes      | Entry returned from `pushStackEntry`. |
+| 名称                                                   | 类型 | 描述                           |
+| ------------------------------------------------------ | ---- | ------------------------------------- |
+| entry <div class="label basic required">必需</div> | any  | Entry returned from `pushStackEntry`. |
 
 ---
 
@@ -182,13 +182,13 @@ Get and remove the last StatusBar entry from the stack.
 static pushStackEntry(props: any)
 ```
 
-Push a StatusBar entry onto the stack. The return value should be passed to `popStackEntry` when complete.
+将当前导航栏的属性压入栈中保存。The return value should be passed to `popStackEntry` when complete.
 
-**参数：**
+**参数:**
 
-| 名称  | 类型 | Required | 说明                                                             |
-| ----- | ---- | -------- | ---------------------------------------------------------------- |
-| props | any  | Yes      | Object containing the StatusBar props to use in the stack entry. |
+| 名称                                                   | 类型 | 描述                                                      |
+| ------------------------------------------------------ | ---- | ---------------------------------------------------------------- |
+| props <div class="label basic required">必需</div> | any  | Object containing the StatusBar props to use in the stack entry. |
 
 ---
 
@@ -200,14 +200,14 @@ static replaceStackEntry(entry: any, props: any)
 
 Replace an existing StatusBar stack entry with new props.
 
-**参数：**
+**参数:**
 
-| 名称  | 类型 | Required | 说明                                                                         |
-| ----- | ---- | -------- | ---------------------------------------------------------------------------- |
-| entry | any  | Yes      | Entry returned from `pushStackEntry` to replace.                             |
-| props | any  | Yes      | Object containing the StatusBar props to use in the replacement stack entry. |
+| 名称                                                   | 类型 | 描述                                                                  |
+| ------------------------------------------------------ | ---- | ---------------------------------------------------------------------------- |
+| entry <div class="label basic required">必需</div> | any  | Entry returned from `pushStackEntry` to replace.                             |
+| props <div class="label basic required">必需</div> | any  | Object containing the StatusBar props to use in the replacement stack entry. |
 
----
+----
 
 ### `setBackgroundColor()`
 

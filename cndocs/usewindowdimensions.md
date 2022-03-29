@@ -7,7 +7,7 @@ title: useWindowDimensions
 import { useWindowDimensions } from 'react-native';
 ```
 
-`useWindowDimensions` automatically updates `width` and `height` values when screen size changes. You can get your application window's width and height like so:
+`useWindowDimensions`会在屏幕尺寸变化时自动更新获取到的设备`width`和`height`值。使用方法如下：
 
 ```jsx
 const windowWidth = useWindowDimensions().width;
@@ -42,7 +42,7 @@ export default App;
 - The [useDimensions](https://github.com/react-native-community/react-native-hooks#usedimensions) hook from the community [React native hooks](https://github.com/react-native-community/react-native-hooks) library aims to make handling screen/window size changes easier to work with.
 - [React Native Responsive Dimensions](https://github.com/DaniAkash/react-native-responsive-dimensions) also comes with responsive hooks.
 
-## Properties
+## 属性
 
 ### `fontScale`
 

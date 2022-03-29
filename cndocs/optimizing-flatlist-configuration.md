@@ -87,15 +87,15 @@ The number passed here is a measurement unit where 1 is equivalent to your viewp
 
 Below are some tips about list item components. They are the core of your list, so they need to be fast.
 
-### Use simple components
+### 使用简单组件
 
-The more complex your components are, the slower they will render. Try to avoid a lot of logic and nesting in your list items. If you are reusing this list item component a lot in your app, create a component just for your big lists and make them with as little logic and nesting as possible.
+组件越复杂一般渲染就越慢。Try to avoid a lot of logic and nesting in your list items. If you are reusing this list item component a lot in your app, create a component just for your big lists and make them with as little logic and nesting as possible.
 
-### Use light components
+### 使用轻量组件
 
-The heavier your components are, the slower they render. Avoid heavy images (use a cropped version or thumbnail for list items, as small as possible). Talk to your design team, use as little effects and interactions and information as possible in your list. Show them in your item's detail.
+组件太重自然也会拖慢渲染。尽量避免使用大图片（优先使用裁剪过的版本或是缩略图，总之越小越好）。和负责设计的同事协商，在列表中尽可能简化特效和交互，精简要展示的信息，把长内容移到详情页中。
 
-### Use shouldComponentUpdate
+### 使用 shouldComponentUpdate
 
 Implement update verification to your components. React's `PureComponent` implement a [`shouldComponentUpdate`](https://zh-hans.reactjs.org/docs/react-component.html#shouldcomponentupdate) with shallow comparison. This is expensive here because it need to check all your props. If you want a good bit-level performance, create the strictest rules for your list item components, checking only props that could potentially change. If your list is simple enough, you could even use
 
@@ -105,17 +105,17 @@ shouldComponentUpdate() {
 }
 ```
 
-### Use cached optimized images
+### 使用优化缓存的图片库
 
 You can use the community packages (such as [react-native-fast-image](https://github.com/DylanVann/react-native-fast-image) from [@DylanVann](https://github.com/DylanVann)) for more performant images. Every image in your list is a `new Image()` instance. The faster it reaches the `loaded` hook, the faster your Javascript thread will be free again.
 
-### Use getItemLayout
+### 使用 getItemLayout
 
 If all your list item components have the same height (or width, for a horizontal list), providing the [getItemLayout](flatlist#getitemlayout) prop removes the need for your `FlatList` to manage async layout calculations. This is a very desirable optimization technique.
 
 If your components have dynamic size and you really need performance, consider asking your design team if they may think of a redesign in order to perform better.
 
-### Use keyExtractor or key
+### 使用 keyExtractor 或 key
 
 You can set the [`keyExtractor`](flatlist#keyextractor) to your `FlatList` component. This prop is used for caching and as the React `key` to track item re-ordering.
 
