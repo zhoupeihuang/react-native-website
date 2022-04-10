@@ -20,7 +20,7 @@ title: Pressable
 
 在按下 [`onPressIn`](#onpressin) 后，将会出现如下两种情况的一种：
 
-1. 用户移开手指，紧随 [`onPress`](#onpress) 之后触发 [`onPressOut`](#onpressout) 事件。
+1. 用户移开手指，依次触发[`onPressOut`](#onpressout) 和[`onPress`](#onpress)事件。
 2. 按压持续 500 毫秒以上，触发[`onLongPress`](#onlongpress) 事件。([`onPressOut`](#onpressout) 在移开手后依旧会触发。)
 
 <img src="assets/d_pressable_pressing.svg" width="1000" alt="Diagram of the onPress events in sequence." />

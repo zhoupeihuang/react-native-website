@@ -13,7 +13,6 @@ website/scripts/sync-api-docs/extracted.json
 cnwebsite/translated_docs
 cnwebsite/build/
 cnwebsite/community-repos.json
-cnwebsite/yarn.lock
 cnwebsite/node_modules
 
 cnwebsite/i18n/*
