@@ -7,15 +7,16 @@
 
 import React from 'react';
 import clsx from 'clsx';
+import type {Props} from '@theme/TOC';
 import TOCItems from '@theme/TOCItems';
 import styles from './styles.module.css';
 
 // Using a custom className
-// This prevents TOC highlighting to highlight TOCInline/TOCCollapsible by mistake
+// This prevents TOCInline/TOCCollapsible getting highlighted by mistake
 const LINK_CLASS_NAME = 'table-of-contents__link toc-highlight';
 const LINK_ACTIVE_CLASS_NAME = 'table-of-contents__link--active';
 
-function TOC({className, ...props}) {
+export default function TOC({className, ...props}: Props): JSX.Element {
   return (
     <div className={clsx(styles.tableOfContents, 'thin-scrollbar', className)}>
       <TOCItems
@@ -26,9 +27,7 @@ function TOC({className, ...props}) {
       <div
         className="wwads-cn wwads-vertical"
         data-id="58"
-        style={{maxWidth: 200, marginTop: 20}}></div>
+        style={{maxWidth: 200, marginTop: 20}}></div>{' '}
     </div>
   );
 }
-
-export default TOC;
