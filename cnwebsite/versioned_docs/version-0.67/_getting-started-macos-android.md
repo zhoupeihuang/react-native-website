@@ -39,11 +39,11 @@ npm install -g yarn
 
 ### Java Development Kit
 
-我们推荐使用[Homebrew](http://brew.sh/)来安装 Eclipse 基金会旗下的 OpenJDK 发行版（Eclipse Temurin）
+我们推荐使用[Homebrew](http://brew.sh/)来安装由 Azul 提供的 名为 **Zulu** 的 OpenJDK 发行版。此发行版**同时为 Intel 和 M1 芯片提供支持**。在 M1 芯片架构的 Mac 上相比其他 JDK 在编译时有明显的性能优势。
 
 ```shell
 brew tap homebrew/cask-versions
-brew install --cask temurin11
+brew install --cask zulu11
 ```
 
 React Native 需要 Java Development Kit [JDK] 11。你可以在命令行中输入
