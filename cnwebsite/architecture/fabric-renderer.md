@@ -13,7 +13,6 @@ Fabric 是 React Native 新架构的渲染系统，是从老架构的渲染系�
 >
 > Fabric 渲染器（Fabric Renderer）：React Native 执行的 React 框架代码，和 React 在 Web 中执行代码是同一份。但是，React Native 渲染的是通用平台视图（宿主视图）而不是 DOM 节点（可以认为 DOM 是 Web 的宿主视图）。 Fabric 渲染器使得渲染宿主视图变得可行。Fabric 让 React 与各个平台直接通信并管理其宿主视图实例。 Fabric 渲染器存在于 JavaScript 中，并且它调用的是由 C++ 代码暴露的接口。在这篇文章中有更多关于 React 渲染器的信息。
 
-
 ## 新渲染器的初衷和收益
 
 开发新的渲染架构的初衷是为了更好的用户体验，而这种新体验是在老架构上是不可能实现的。比如：
@@ -33,8 +32,3 @@ Fabric 是 React Native 新架构的渲染系统，是从老架构的渲染系�
 - **一致性**：新的渲染系统的实现是跨平台的，不同平台之间更容易保持一致。
 - **更快的启动速度**：默认情况下，宿主组件的初始化是懒执行的。
 - **JS 和宿主平台之间的数据序列化更少**：React 使用序列化 JSON 在 JavaScript 和宿主平台之间传递数据。新的渲染器用 JSI（JavaScript Interface）直接获取 JavaScript 数据。
-
-
-> 名词解释
->
-> JavaScript Interfaces (JSI)：一个轻量级的 API，给在 C++ 应用中嵌入的 JavaScript 引擎用的。Fabric 使用它在 Fabric 的 C++ 核心和 React 之间进行通信。

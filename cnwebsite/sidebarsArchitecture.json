@@ -2,13 +2,13 @@
   "architecture": [
     {
       "type": "category",
-      "label": "Architecture",
+      "label": "架构",
       "collapsed": false,
       "items": [
         "architecture-overview",
         {
           "type": "category",
-          "label": "Rendering",
+          "label": "渲染",
           "collapsible": false,
           "collapsed": false,
           "items": [
