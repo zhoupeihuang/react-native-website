@@ -22,8 +22,8 @@ jobs:
 
       - name: Build
         run: |
+          yarn
           cd cnwebsite
-          yarn install
           yarn build
 
       - name: Deploy
