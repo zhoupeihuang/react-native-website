@@ -19,7 +19,7 @@ title: 快速刷新
 
 如果出现了**组件内部发生的运行时错误**，在你修复错误之后，快速刷新会话*也*将继续进行。在这种情况下，React 将会使用更新后的代码重新挂载你的应用。
 
-If you have [error boundaries](https://zh-hans.reactjs.org/docs/error-boundaries.html) in your app (which is a good idea for graceful failures in production), they will retry rendering on the next edit after a redbox. In that sense, having an error boundary can prevent you from always getting kicked out to the root app screen. However, keep in mind that error boundaries shouldn't be _too_ granular. They are used by React in production, and should always be designed intentionally.
+如果你在代码中使用了[error boundaries](https://zh-hans.reactjs.org/docs/error-boundaries.html)(which is a good idea for graceful failures in production), they will retry rendering on the next edit after a redbox. In that sense, having an error boundary can prevent you from always getting kicked out to the root app screen. However, keep in mind that error boundaries shouldn't be _too_ granular. They are used by React in production, and should always be designed intentionally.
 
 ## 限制
 
@@ -40,7 +40,7 @@ If you have [error boundaries](https://zh-hans.reactjs.org/docs/error-boundaries
 
 Fast Refresh 会尽可能的在编辑刷新时保留组件的状态。In particular, `useState` and `useRef` preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
 
-Hooks with dependencies—such as `useEffect`, `useMemo`, and `useCallback`—will _always_ update during Fast Refresh. Their list of dependencies will be ignored while Fast Refresh is happening.
+ 像 `useEffect`, `useMemo`, 以及 `useCallback` 这些带有依赖的 Hooks will _always_ update during Fast Refresh. Their list of dependencies will be ignored while Fast Refresh is happening.
 
 For example, when you edit `useMemo(() => x * 2, [x])` to `useMemo(() => x * 10, [x])`, it will re-run even though `x` (the dependency) has not changed. If React didn't do that, your edit wouldn't reflect on the screen!
 

@@ -5,7 +5,7 @@ title: Easing
 
 `Easing`模块实现了常见的动画缓动函数。 This module is used by [Animated.timing()](animated.md#timing) to convey physically believable motion in animations.
 
-You can find a visualization of some common easing functions at http://easings.net/
+你可以在 http://easings.net/ 查看一些常见的缓动函数的视觉展示。
 
 ### 查看预置动画
 
