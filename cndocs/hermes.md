@@ -21,7 +21,7 @@ If you have an existing app based on an earlier version of React Native, you wil
 
 > ## 对于 Windows 用户的注意事项
 >
-> Hermes requires [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
+> Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 
 ## 启用 Hermes 引擎
 
