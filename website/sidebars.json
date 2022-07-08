@@ -107,6 +107,7 @@
           "new-architecture-app-renderer-ios"
         ]
       },
+      "react-18-and-react-native",
       "new-architecture-troubleshooting",
       "new-architecture-appendix"
     ],
@@ -116,7 +117,7 @@
         "label": "Android",
         "collapsible": false,
         "collapsed": false,
-        "items": ["headless-js-android", "signed-apk-android"]
+        "items": ["headless-js-android", "signed-apk-android", "communication-android"]
       },
       {
         "type": "category",

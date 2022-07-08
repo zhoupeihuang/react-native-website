@@ -103,6 +103,14 @@ If you run into issues where running `npx react-native init` hangs in your syste
 npx react-native init --verbose
 ```
 
+When you're debugging a process or need to know a little more about the error being thrown, you may want to use the verbose option to output more logs and information to nail down your issue.
+
+Run the following command in your root directory.
+
+```shell
+npx react-native run-android --verbose
+```
+
 ## Unable to start react-native package manager (on Linux)
 
 ### Case 1: Error "code":"ENOSPC","errno":"ENOSPC"
@@ -112,5 +120,9 @@ Issue caused by the number of directories [inotify](https://github.com/guard/lis
 ```shell
 echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
 ```
+
+### Error: spawnSync ./gradlew EACCES
+
+If you run into issue where executing `npm run android` on macOS throws the above error, try to run `sudo chmod +x android/gradlew` command to make `gradlew` files into executable.
 
 [metro]: https://facebook.github.io/metro/
