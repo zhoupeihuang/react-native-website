@@ -62,6 +62,7 @@
     ],
     "性能调优": [
       "performance",
+      "build-speed",
       "optimizing-flatlist-configuration",
       "ram-bundles-inline-requires",
       "profiling",
@@ -79,13 +80,43 @@
       "native-components-ios",
       "direct-manipulation"
     ],
+    "新架构": [
+      "new-architecture-intro",
+      {
+        "type": "category",
+        "label": "在第三方库中启用",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "new-architecture-library-intro",
+          "new-architecture-library-android",
+          "new-architecture-library-ios"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "在应用中启用",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "new-architecture-app-intro",
+          "new-architecture-app-modules-android",
+          "new-architecture-app-modules-ios",
+          "new-architecture-app-renderer-android",
+          "new-architecture-app-renderer-ios"
+        ]
+      },
+      "react-18-and-react-native",
+      "new-architecture-troubleshooting",
+      "new-architecture-appendix"
+    ],
     "Android 与 iOS 指南": [
       {
         "type": "category",
         "label": "Android",
         "collapsible": false,
         "collapsed": false,
-        "items": ["headless-js-android", "signed-apk-android"]
+        "items": ["headless-js-android", "signed-apk-android", "communication-android"]
       },
       {
         "type": "category",
@@ -199,29 +230,5 @@
       "rect",
       "viewtoken"
     ]
-  },
-  "架构": [
-    {
-      "type": "category",
-      "label": "架构",
-      "collapsed": false,
-      "items": [
-        "architecture-overview",
-        {
-          "type": "category",
-          "label": "渲染",
-          "collapsible": false,
-          "collapsed": false,
-          "items": [
-            "fabric-renderer",
-            "render-pipeline",
-            "xplat-implementation",
-            "view-flattening",
-            "threading-model"
-          ]
-        },
-        "architecture-glossary"
-      ]
-    }
-  ]
+  }
 }

@@ -19,6 +19,13 @@
             "threading-model"
           ]
         },
+        {
+          "type": "category",
+          "label": "构建工具",
+          "collapsible": false,
+          "collapsed": false,
+          "items": ["bundled-hermes"]
+        },
         "architecture-glossary"
       ]
     }
