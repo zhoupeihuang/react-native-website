@@ -19,6 +19,7 @@ module.exports = {
   url: 'https://reactnative.cn',
   baseUrl: '/',
   clientModules: [require.resolve('./snackPlayerInitializer.js')],
+  trailingSlash: false,
   scripts: [
     {src: '//snack.expo.dev/embed.js', defer: true},
     {src: '//cdn.wwads.cn/js/makemoney.js', defer: true},

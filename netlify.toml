@@ -20,6 +20,13 @@
     ]
 
 [[headers]]
+  for = "/*"
+    [headers.values]
+    cache-control = '''
+    public, 
+    max-age=604800, 
+    s-maxage=43200'''
   for = "/movies.json"
     [headers.values]
     Access-Control-Allow-Origin = "*"
+
