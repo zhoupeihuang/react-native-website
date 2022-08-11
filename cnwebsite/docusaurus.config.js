@@ -281,7 +281,7 @@ module.exports = {
         appId: 'GJGDC5L5HP',
         apiKey: 'a4ac5b2b47a99cdef76344ab09708d6a',
         indexName: 'reactnative_cn',
-        contextualSearch: true,
+        contextualSearch: false,
       },
       metadata: [
         {
