@@ -20,4 +20,6 @@ Architecture Overview is intended to share conceptual overview of how React Nati
   - [跨平台的实现](xplat-implementation)
   - [视图拍平](view-flattening)
   - [线程模型](threading-model)
+- Build Tools
+  - [Bundled Hermes](bundled-hermes)
 - [术语表](glossary)

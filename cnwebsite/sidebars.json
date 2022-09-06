@@ -80,7 +80,35 @@
       "native-components-ios",
       "direct-manipulation"
     ],
-    "新架构": [
+    "新架构介绍": [
+      "the-new-architecture/landing-page",
+      "the-new-architecture/why",
+      "the-new-architecture/use-app-template",
+      {
+        "type": "category",
+        "label": "核心设计",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "the-new-architecture/pillars",
+          "the-new-architecture/pillars-turbomodules",
+          "the-new-architecture/pillars-fabric-components",
+          "the-new-architecture/pillars-codegen"
+        ]
+      },
+      {
+        "type": "category",
+        "label": "向后兼容性",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "the-new-architecture/backward-compatibility",
+          "the-new-architecture/backward-compatibility-turbomodules",
+          "the-new-architecture/backward-compatibility-fabric-components"
+        ]
+      }
+    ],
+    "新架构迁移指南": [
       "new-architecture-intro",
       {
         "type": "category",
@@ -116,7 +144,11 @@
         "label": "Android",
         "collapsible": false,
         "collapsed": false,
-        "items": ["headless-js-android", "signed-apk-android", "communication-android"]
+        "items": [
+          "headless-js-android",
+          "signed-apk-android",
+          "communication-android"
+        ]
       },
       {
         "type": "category",
