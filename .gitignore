@@ -15,9 +15,6 @@ cnwebsite/build/
 cnwebsite/community-repos.json
 cnwebsite/node_modules
 
-cnwebsite/i18n/*
-!cnwebsite/i18n/en.json
-
 cnwebsite/scripts/sync-api-docs/generatedComponentApiDocs.js
 cnwebsite/scripts/sync-api-docs/extracted.json
 sync-api-docs/generatedComponentApiDocs.js

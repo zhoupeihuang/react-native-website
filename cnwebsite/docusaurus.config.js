@@ -4,6 +4,7 @@ const lastVersion = versions[0];
 const cdnUrl = '';
 
 const commonDocsOptions = {
+  breadcrumbs: true,
   showLastUpdateAuthor: false,
   // showLastUpdateTime: true,
   editUrl:
@@ -11,6 +12,7 @@ const commonDocsOptions = {
   remarkPlugins: [require('@react-native-website/remark-snackplayer')],
 };
 
+/** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: 'React Native 中文网',
   tagline: '使用React来编写原生应用的框架',
@@ -26,11 +28,7 @@ module.exports = {
   ],
   favicon: cdnUrl + 'img/favicon.ico',
   titleDelimiter: '·',
-  // customFields: {
-  //   users,
-  //   facebookAppId: '1677033832619985',
-  // },
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   webpack: {
     jsLoader: isServer => ({
       loader: require.resolve('esbuild-loader'),
@@ -49,7 +47,6 @@ module.exports = {
         docs: {
           path: '../cndocs',
           sidebarPath: require.resolve('./sidebars.json'),
-          remarkPlugins: [require('@react-native-website/remark-snackplayer')],
           editCurrentVersion: true,
           onlyIncludeVersions:
             process.env.PREVIEW_DEPLOY === 'true'

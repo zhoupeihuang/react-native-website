@@ -20,7 +20,7 @@ React 18 引入了 [多个全新特性](https://reactjs.org/blog/2022/03/29/reac
 - 新的严格模式 (Strict Mode)
 - 新的 hooks (`useId`, `useSyncExternalStore`)
 
-It also includes new concurrent features:
+同时也包含了一些新的并发特性：
 
 - `startTransition`
 - `useTransition`
