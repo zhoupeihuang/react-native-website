@@ -41,7 +41,7 @@ componentDidMount() {
   android:launchMode="singleTask">
 ```
 
-注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios.html#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
+注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
 
 ```
 // iOS 9.x 或更高版本
@@ -115,12 +115,12 @@ Linking.canOpenURL(url).then(supported => {
 
 ### 查看方法
 
-* [`constructor`](linking.md#constructor)
-* [`addEventListener`](linking.md#addeventlistener)
-* [`removeEventListener`](linking.md#removeeventlistener)
-* [`openURL`](linking.md#openurl)
-* [`canOpenURL`](linking.md#canopenurl)
-* [`getInitialURL`](linking.md#getinitialurl)
+- [`constructor`](linking.md#constructor)
+- [`addEventListener`](linking.md#addeventlistener)
+- [`removeEventListener`](linking.md#removeeventlistener)
+- [`openURL`](linking.md#openurl)
+- [`canOpenURL`](linking.md#canopenurl)
+- [`getInitialURL`](linking.md#getinitialurl)
 
 ---
 

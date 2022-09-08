@@ -22,7 +22,7 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
 <Tabs groupId="os" defaultValue={constants.defaultOs} values={constants.oses} className="pill-tabs">
 <TabItem value="macos">
 
-[//]: # "macOS, Android"
+[//]: # 'macOS, Android'
 
 ### 1. 开启 USB 调试
 
@@ -57,7 +57,7 @@ $ npx react-native run-android
 
 > If you get a "bridge configuration isn't available" error, see [Using adb reverse](running-on-device.md#method-1-using-adb-reverse-recommended).
 
-> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android.html)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
+> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
 
 <h2>从设备上访问开发服务器</h2>
 
@@ -99,7 +99,7 @@ You have built a great app using React Native, and you are now itching to releas
 </TabItem>
 <TabItem value="windows">
 
-[//]: # "Windows, Android"
+[//]: # 'Windows, Android'
 
 ### 1. 开启 USB 调试
 
@@ -134,7 +134,7 @@ $ npx react-native run-android
 
 > If you get a "bridge configuration isn't available" error, see [Using adb reverse](running-on-device.md#method-1-using-adb-reverse-recommended).
 
-> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android.html)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
+> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
 
 <h2>从设备上访问开发服务器</h2>
 
@@ -176,7 +176,7 @@ You have built a great app using React Native, and you are now itching to releas
 </TabItem>
 <TabItem value="linux">
 
-[//]: # "Linux, Android"
+[//]: # 'Linux, Android'
 
 ### 1. 开启 USB 调试
 
@@ -211,7 +211,7 @@ $ npx react-native run-android
 
 > If you get a "bridge configuration isn't available" error, see [Using adb reverse](running-on-device.md#method-1-using-adb-reverse-recommended).
 
-> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android.html)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
+> 提示：你还可以运行`npx react-native run-android --variant=release`来安装 release 版的应用。当然你需要[先配置好签名](signed-apk-android)，且此时无法再开启开发者菜单。注意在 debug 和 release 版本间来回切换安装时可能会报错签名不匹配，此时需要先卸载前一个版本再尝试安装。
 
 <h2>从设备上访问开发服务器</h2>
 
@@ -263,7 +263,7 @@ You have built a great app using React Native, and you are now itching to releas
 <Tabs groupId="os" defaultValue={constants.defaultOs} values={constants.oses} className="pill-tabs">
 <TabItem value="macos">
 
-[//]: # "macOS, iOS"
+[//]: # 'macOS, iOS'
 
 ### 1. 通过 USB 数据线连接设备
 
@@ -322,14 +322,14 @@ You have built a great app using React Native, and you are now itching to releas
 </TabItem>
 <TabItem value="windows">
 
-[//]: # "Windows, iOS"
+[//]: # 'Windows, iOS'
 
 > A Mac is required in order to build your app for iOS devices. Alternatively, you can refer to our [environment setup guide](environment-setup) to learn how to build your app using Expo CLI, which will allow you to run your app using the Expo client app.
 
 </TabItem>
 <TabItem value="linux">
 
-[//]: # "Linux, iOS"
+[//]: # 'Linux, iOS'
 
 > A Mac is required in order to build your app for iOS devices. Alternatively, you can refer to our [environment setup guide](environment-setup) to learn how to build your app using Expo CLI, which will allow you to run your app using the Expo client app.
 

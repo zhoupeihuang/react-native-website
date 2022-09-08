@@ -32,7 +32,7 @@ componentDidMount() {
  android:launchMode="singleTask">
 ```
 
-对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[使用链接库](linking-libraries-ios.html)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
+对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[使用链接库](linking-libraries-ios)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
 
 ```objectivec
 #import <React/RCTLinkingManager.h>

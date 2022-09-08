@@ -142,7 +142,7 @@ export default App;
 
 ## iOS
 
-在 iOS 上你可以指定任意数量的按钮。每个按钮还都可以指定自己的样式，此外还可以指定提示的类别。参阅[AlertButtonStyle](#alertbuttonstyle.md)来了解更多细节。
+在 iOS 上你可以指定任意数量的按钮。每个按钮还都可以指定自己的样式，此外还可以指定提示的类别。参阅[AlertButtonStyle](#alertbuttonstyle-ios)来了解更多细节。
 
 ## Android
 
@@ -284,7 +284,7 @@ Array of objects containg Alert buttons configuration.
 | -------------------------------------- | ------------------------------------------ | ------------------------------------------------------- |
 | text                                   | string                                     | Button label.                                           |
 | onPress                                | function                                   | Callback function when button is pressed.               |
-| style <div class="label ios">iOS</div> | [AlertButtonStyle](alert#alertbuttonstyle) | Button style, on Android this property will be ignored. |
+| style <div class="label ios">iOS</div> | [AlertButtonStyle](#alertbuttonstyle-ios) | Button style, on Android this property will be ignored. |
 
 ---
 

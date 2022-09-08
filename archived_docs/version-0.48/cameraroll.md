@@ -4,14 +4,16 @@ title: CameraRoll
 original_id: cameraroll
 ---
 
-`CameraRoll`模块提供了访问本地相册的功能。在iOS上使用这个模块之前，你需要先链接`RCTCameraRoll`库，具体做法请参考[链接原生库](linking-libraries-ios.html)文档。
+`CameraRoll`模块提供了访问本地相册的功能。在 iOS 上使用这个模块之前，你需要先链接`RCTCameraRoll`库，具体做法请参考[链接原生库](linking-libraries-ios)文档。
 
 **译注**：本模块只提供了基本的访问图片的功能，并没有提供相册界面。对于多数开发者来说，可能第三方的[react-native-image-crop-picker](https://github.com/ivpusic/react-native-image-crop-picker)的功能更为完整易用（可多选、压缩、裁剪等）。
 
-### iOS 10的权限要求
-从iOS10开始，访问相册需要用户授权。你需要在`Info.plist`中添加一条名为`NSPhotoLibraryUsageDescription`的键，然后在其值中填写向用户请求权限的具体描述。编辑完成后这个键在Xcode中实际会显示为`Privacy - Photo Library Usage Description`。
+### iOS 10 的权限要求
+
+从 iOS10 开始，访问相册需要用户授权。你需要在`Info.plist`中添加一条名为`NSPhotoLibraryUsageDescription`的键，然后在其值中填写向用户请求权限的具体描述。编辑完成后这个键在 Xcode 中实际会显示为`Privacy - Photo Library Usage Description`。
 
 ### 截图
+
 ![cameraroll](/img/api/cameraroll.png)
 
 ### 方法
@@ -77,7 +79,7 @@ class CameraRollExample extends React.Component {
   state = {
     groupTypes: 'SavedPhotos',
     sliderValue: 1,
-    bigImages: true,
+    bigImages: true
   };
   _cameraRollView: ?CameraRollView;
   render() {
@@ -87,14 +89,18 @@ class CameraRollExample extends React.Component {
           onValueChange={this._onSwitchChange}
           value={this.state.bigImages}
         />
-        <Text>{(this.state.bigImages ? 'Big' : 'Small') + ' Images'}</Text>
+        <Text>
+          {(this.state.bigImages ? 'Big' : 'Small') + ' Images'}
+        </Text>
         <Slider
           value={this.state.sliderValue}
           onValueChange={this._onSliderChange}
         />
         <Text>{'Group Type: ' + this.state.groupTypes}</Text>
         <CameraRollView
-          ref={(ref) => { this._cameraRollView = ref; }}
+          ref={(ref) => {
+            this._cameraRollView = ref;
+          }}
           batchSize={20}
           groupTypes={this.state.groupTypes}
           renderImage={this._renderImage}
@@ -109,28 +115,34 @@ class CameraRollExample extends React.Component {
         title: 'Camera Roll Image',
         component: AssetScaledImageExampleView,
         backButtonTitle: 'Back',
-        passProps: { asset: asset },
+        passProps: { asset: asset }
       });
     }
   };
 
   _renderImage = (asset) => {
     const imageSize = this.state.bigImages ? 150 : 75;
-    const imageStyle = [styles.image, {width: imageSize, height: imageSize}];
-    const {location} = asset.node;
-    const locationStr = location ? JSON.stringify(location) : 'Unknown location';
+    const imageStyle = [
+      styles.image,
+      { width: imageSize, height: imageSize }
+    ];
+    const { location } = asset.node;
+    const locationStr = location
+      ? JSON.stringify(location)
+      : 'Unknown location';
     return (
-      <TouchableOpacity key={asset} onPress={ this.loadAsset.bind( this, asset ) }>
+      <TouchableOpacity
+        key={asset}
+        onPress={this.loadAsset.bind(this, asset)}>
         <View style={styles.row}>
-          <Image
-            source={asset.node.image}
-            style={imageStyle}
-          />
+          <Image source={asset.node.image} style={imageStyle} />
           <View style={styles.info}>
             <Text style={styles.url}>{asset.node.image.uri}</Text>
             <Text>{locationStr}</Text>
             <Text>{asset.node.group_name}</Text>
-            <Text>{new Date(asset.node.timestamp).toString()}</Text>
+            <Text>
+              {new Date(asset.node.timestamp).toString()}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -142,7 +154,7 @@ class CameraRollExample extends React.Component {
     const index = Math.floor(value * options.length * 0.99);
     const groupTypes = options[index];
     if (groupTypes !== this.state.groupTypes) {
-      this.setState({groupTypes: groupTypes});
+      this.setState({ groupTypes: groupTypes });
     }
   };
 
@@ -156,26 +168,29 @@ class CameraRollExample extends React.Component {
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    flex: 1,
+    flex: 1
   },
   url: {
     fontSize: 9,
-    marginBottom: 14,
+    marginBottom: 14
   },
   image: {
-    margin: 4,
+    margin: 4
   },
   info: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
 exports.title = 'Camera Roll';
-exports.description = 'Example component that uses CameraRoll to list user\'s photos';
+exports.description =
+  "Example component that uses CameraRoll to list user's photos";
 exports.examples = [
   {
     title: 'Photos',
-    render(): React.Element<any> { return <CameraRollExample />; }
+    render(): React.Element<any> {
+      return <CameraRollExample />;
+    }
   }
 ];
 ```

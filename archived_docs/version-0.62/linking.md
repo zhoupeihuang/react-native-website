@@ -65,7 +65,7 @@ If you want to enable deep links in your app, please the below guide:
 
 <block class="classical syntax" />
 
-注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios.html#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
+注： 对于 iOS 来说，如果要在 App 启动后也监听传入的 App 链接，那么首先需要在项目中链接`RCTLinking`，具体步骤请参考[手动链接](linking-libraries-ios#手动链接)这篇文档，然后需要在`AppDelegate.m`中增加以下代码：
 
 ```objectivec
 // iOS 9.x 或更高版本

@@ -28,7 +28,7 @@ module.exports = {
   ],
   favicon: cdnUrl + 'img/favicon.ico',
   titleDelimiter: '·',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   webpack: {
     jsLoader: isServer => ({
       loader: require.resolve('esbuild-loader'),

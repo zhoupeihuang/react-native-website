@@ -35,7 +35,7 @@ React Native 社区 Facebook[群组](https://www.facebook.com/groups/react.nativ
 
 [Reactiflux](https://discord.gg/0ZcbPKXt5bZjGY5n)是一个 Discord 聊天，有着很多与 React 相关的讨论，包括 React Native。Discord 就和 Slack 一样，只是它更适用于拥有无数贡献者的开源项目。请查看#react-native 频道。
 
-React[推特账户](https://twitter.com/reactjs)涵盖 React 和 React Native。关注 React Native[推特账户](https://twitter.com/reactnative)和[博客](/react-native/blog/)，聚焦 React Native 的当下。
+React[推特账户](https://twitter.com/reactjs)涵盖 React 和 React Native。关注 React Native[推特账户](https://twitter.com/reactnative)和[博客](https://reactnative.dev/blog)，聚焦 React Native 的当下。
 
 世界各地有很多React Native[聚会](http://www.meetup.com/topics/react-native/)。在 React 聚会中通常也有 React Native 内容。
 

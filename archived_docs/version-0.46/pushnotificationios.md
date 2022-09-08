@@ -8,7 +8,7 @@ original_id: pushnotificationios
 
 要使用推送通知功能，首先[在苹果后台配置推送通知服务](https://developer.apple.com/library/ios/documentation/IDEs/Conceptual/AppDistributionGuide/AddingCapabilities/AddingCapabilities.html#//apple_ref/doc/uid/TP40012582-CH26-SW6)并且准备好服务端的系统。设置的过程可以参考[Parse 的教程](https://parse.com/tutorials/ios-push-notifications)
 
-首先请[手动链接](linking-libraries-ios.html)PushNotificationIOS 的库（以下操作如果不熟悉，请自行补习 Xcode 的使用教程）：
+首先请[手动链接](linking-libraries-ios)PushNotificationIOS 的库（以下操作如果不熟悉，请自行补习 Xcode 的使用教程）：
 
 - 将`node_modules/react-native/Libraries/PushNotificationIOS/RCTPushNotification.xcodeproj`文件拖到 Xcode 界面中
 - 在 Xcode 的`Link Binary With Libraries`中添加`libRCTPushNotification.a`
@@ -220,7 +220,7 @@ var {
 } = ReactNative;
 
 var Button = React.createClass({
-  render: function() {
+  render: function () {
     return (
       <TouchableHighlight
         underlayColor={'white'}

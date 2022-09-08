@@ -3,9 +3,10 @@ id: version-0.56-communication-ios
 title: 和原生端通信
 original_id: communication-ios
 ---
+
 ##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
 
-通过[植入原生应用](integration-with-existing-apps.md)和[原生 UI 组件](native-component-ios.md)两篇文档，我们学习了 React Native 和原生组件的互相整合。在整合的过程中，我们会需要在两个世界间互相通信。有些方法已经在其他的指南中提到了，这篇文章总结了所有可行的技术。
+通过[植入原生应用](integration-with-existing-apps.md)和[原生 UI 组件](native-components-ios)两篇文档，我们学习了 React Native 和原生组件的互相整合。在整合的过程中，我们会需要在两个世界间互相通信。有些方法已经在其他的指南中提到了，这篇文章总结了所有可行的技术。
 
 ## 简介
 
@@ -77,7 +78,7 @@ rootView.appProperties = @{@"images" : imageList};
 
 ### 从 React Native 传递属性到原生组件
 
-这篇[文档](native-component-ios.html#属性)详细讨论了暴露原生组件属性的问题。简而言之，在你自定义的原生组件中通过`RCT_CUSTOM_VIEW_PROPERTY`宏导出属性，就可以直接在 React Native 中使用，就好像它们是普通的 React Native 组件一样。
+这篇[文档](native-components-ios#属性)详细讨论了暴露原生组件属性的问题。简而言之，在你自定义的原生组件中通过`RCT_CUSTOM_VIEW_PROPERTY`宏导出属性，就可以直接在 React Native 中使用，就好像它们是普通的 React Native 组件一样。
 
 ## 属性的限制
 
@@ -93,13 +94,13 @@ React Native 允许使用跨语言的函数调用。你可以在 JS 中调用原
 
 ### 从原生代码调用 React Natvie 函数（事件）
 
-事件的详细用法在这篇[文章](native-component-ios.md#事件)中进行了讨论。注意使用事件无法确保执行的时间，因为事件的处理函数是在单独的线程中执行。
+事件的详细用法在这篇[文章](native-components-ios#事件)中进行了讨论。注意使用事件无法确保执行的时间，因为事件的处理函数是在单独的线程中执行。
 
 事件很强大，它可以不需要引用直接修改 React Native 组件。但是，当你使用时要注意下面这些陷阱：
 
-* 由于事件可以从各种地方产生，它们可能导致混乱的依赖。
-* 事件共享相同的命名空间，因此你可能遇到名字冲突。冲突不会在编写代码时被探测到，因此很难排错。
-* 如果你使用了同一个 React Native 组件的多个引用，然后想在事件中区分它们，name 你很可能需要在事件中同时传递一些标识（你可以使用原生视图中的`reactTag`作为标识）。
+- 由于事件可以从各种地方产生，它们可能导致混乱的依赖。
+- 事件共享相同的命名空间，因此你可能遇到名字冲突。冲突不会在编写代码时被探测到，因此很难排错。
+- 如果你使用了同一个 React Native 组件的多个引用，然后想在事件中区分它们，name 你很可能需要在事件中同时传递一些标识（你可以使用原生视图中的`reactTag`作为标识）。
 
 在 React Native 中嵌入原生组件时，通常的做法是用原生组件的 RCTViewManager 作为视图的代理，通过 bridge 向 JS 发送事件。这样可以集中在一处调用相关的事件。
 
@@ -119,7 +120,7 @@ React Native 允许使用跨语言的函数调用。你可以在 JS 中调用原
 
 ### 在 React Native 中嵌入一个原生组件
 
-这个情况在[这篇文章](native-component-ios.md#样式)中进行了讨论。基本上，由于所有的原生视图都是`UIView`的子集，大多数类型和尺寸属性将和你期望的一样可以使用。
+这个情况在[这篇文章](native-components-ios#样式)中进行了讨论。基本上，由于所有的原生视图都是`UIView`的子集，大多数类型和尺寸属性将和你期望的一样可以使用。
 
 ### 在原生中嵌入一个 React Native 组件
 

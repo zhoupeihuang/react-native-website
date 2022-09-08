@@ -55,14 +55,6 @@ React Native 提供了一些内置的[核心组件](intro-react-native-component
     <p>一个简单的跨平台的按钮控件。</p>
   </div>
   <div class="component">
-    <h3><a href="picker">Picker</a></h3>
-    <p>在iOS和Android上调用各自原生的选择器控件。</p>
-  </div>
-  <div class="component">
-    <h3><a href="slider">Slider</a></h3>
-    <p>滑动数值选择器。</p>
-  </div>
-  <div class="component">
     <h3><a href="switch">Switch</a></h3>
     <p>开关控件。</p>
   </div>
