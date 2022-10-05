@@ -122,7 +122,7 @@ export default App = () => {
 
 ## setNativeProps to clear TextInput value
 
-Another very common use case of `setNativeProps` is to clear the value of a TextInput. The `controlled` prop of TextInput can sometimes drop characters when the `bufferDelay` is low and the user types very quickly. Some developers prefer to skip this prop entirely and instead use `setNativeProps` to directly manipulate the TextInput value when necessary. For example, the following code demonstrates clearing the input when you tap a button:
+清除文本输入框内容是 setNativeProps 的另一个常用方式.当 bufferDely 很低,用户输入很快时,文本输入框的 controlled参数有时会丢失. 一些开发者偏向于跳过prop操作,直接 使用 setNativeProps 来进行文本输入框值的显示操作.下面就是一个按下按钮清除文本输入框内容的例子:
 
 ```SnackPlayer name=Clear%20text
 import React from 'react';
@@ -155,13 +155,14 @@ export default App = () => {
 
 通过[巧妙运用`shouldComponentUpdate`方法](https://facebook.github.io/react/docs/advanced-performance.html#avoiding-reconciling-the-dom)，可以避免重新渲染那些实际没有变化的子组件所带来的额外开销，此时使用`setState`的性能已经可以与`setNativeProps`相媲美了。
 
+
 ## 其他原生方法
 
-The methods described here are available on most of the default components provided by React Native. Note, however, that they are _not_ available on composite components that aren't directly backed by a native view. This will generally include most components that you define in your own app.
+此处描述的方法大多数React Native 已经提供。但是这些在组合组件是不支持的，因为原生的视图不提供支持，包含你自己的应用中你自定的绝大多数组件
 
 ### measure(callback)
 
-Determines the location on screen, width, and height in the viewport of the given view and returns the values via an async callback. If successful, the callback will be called with the following arguments:
+测量视图在屏幕上的坐标、宽度、高度，异步回调这些参数。如果测量成功则回调如下参数：
 
 - x
 - y
@@ -170,13 +171,13 @@ Determines the location on screen, width, and height in the viewport of the give
 - pageX
 - pageY
 
-Note that these measurements are not available until after the rendering has been completed in native. If you need the measurements as soon as possible and you don't need `pageX` and `pageY`, consider using the [`onLayout`](view.md#onlayout) property instead.
+注意，这些参数必须在组件原生端渲染完成后才能返回视图测量值。若你想尽快的获取视图组件的测量值（且不需要`pageX`和`pageY`），可考虑使用[`onLayout` prop](view.md#onlayout) 来实现。
 
 Also the width and height returned by `measure()` are the width and height of the component in the viewport. If you need the actual size of the component, consider using the [`onLayout`](view.md#onlayout) property instead.
 
 ### measureInWindow(callback)
 
-Determines the location of the given view in the window and returns the values via an async callback. If the React root view is embedded in another native view, this will give you the absolute coordinates. If successful, the callback will be called with the following arguments:
+获取指定视图在窗口上的位置，异步返回量测值。如果根视图在另一个视图上，将返回绝对的位置。获取成功返回如下参数：
 
 - x
 - y
@@ -185,9 +186,11 @@ Determines the location of the given view in the window and returns the values v
 
 ### measureLayout(relativeToNativeComponentRef, onSuccess, onFail)
 
-Like `measure()`, but measures the view relative to an ancestor, specified with `relativeToNativeComponentRef` reference. This means that the returned coordinates are relative to the origin `x`, `y` of the ancestor view.
+类似`measure()`方法，测量相对于祖视图（通过`relativeToNativeComponentRef`来指定）的位置关系。返回的是相对于祖视图原点的`x`、`y`。
 
-> Note: This method can also be called with a `relativeToNativeNode` handler (instead of reference), but this variant is deprecated.
+:::note
+This method can also be called with a `relativeToNativeNode` handler (instead of reference), but this variant is deprecated.
+:::
 
 ```SnackPlayer name=measureLayout%20example&supportedPlatforms=android,ios
 import React, { useEffect, useRef, useState } from "react";
@@ -248,8 +251,8 @@ export default App;
 
 ### focus()
 
-Requests focus for the given input or view. The exact behavior triggered will depend on the platform and type of view.
+获取给定输入框或者视图的焦点。更进一步的变换操作依赖与不同的平台和不同的视图。
 
 ### blur()
 
-Removes focus from an input or view. This is the opposite of `focus()`.
+与 `focus()` 方法相反，该方法用来移除给定视图或者输入框的焦点。
