@@ -9,7 +9,7 @@ title: 其他参考资源
 
 如果你正在使用 React Native，那你应该已经对[React](https://facebook.github.io/react/)有一定的了解了。React 是基础中的基础所以我其实不太好意思提这个——但是，如果不幸你属于“但是”，那么请一定先了解下 React，它也非常适合编写现代化的网站。
 
-开发实践中的一个常见问题就是如何管理应用的“状态（state）”。这方面目前最流行的库非[Redux](http://redux.js.org/)莫属了。不要被 Redux 中经常出现的类似"reducer"这样的概念术语给吓住了——它其实是个很简单的库，网上也有很多优秀的[视频教程（英文）](https://egghead.io/courses/getting-started-with-redux) 。。
+开发实践中的一个常见问题就是如何管理应用的“状态（state）”。这方面目前最流行的库非[Redux](http://redux.js.org/)莫属了。不要被 Redux 中经常出现的类似"reducer"这样的概念术语给吓住了——它其实是个很简单的库，网上也有很多优秀的[视频教程（英文）](https://egghead.io/courses/getting-started-with-redux) 。
 
 如果你在寻找具有某个特定功能的第三方库，那么可以看看别人[精心整理的资源列表](https://github.com/jondot/awesome-react-native)。这里还有个类似的[中文资源列表](https://github.com/reactnativecn/react-native-guide)。
 
@@ -39,4 +39,4 @@ React[推特账户](https://twitter.com/reactjs)涵盖 React 和 React Native。
 
 世界各地有很多React Native[聚会](http://www.meetup.com/topics/react-native/)。在 React 聚会中通常也有 React Native 内容。
 
-有时我们会有 React 会议。我们发布了[React.js Conf 2017](https://www.youtube.com/playlist?list=PLb0IAmt7-GS3fZ46IGFirdqKTIxlws7e0)和[React.js Conf 2016](https://www.youtube.com/playlist?list=PLb0IAmt7-GS0M8Q95RIc2lOM6nc77q1IY)的视频，未来我们可能还会举办更多会议, 敬请关注。您还可以在[此处](http://www.awesome-react-native.com/#conferences)找到专门的 React Native 会议列表。
+有时我们会有 React 会议。我们发布了[React.js Conf 2017](https://www.youtube.com/playlist?list=PLb0IAmt7-GS3fZ46IGFirdqKTIxlws7e0)和[React.js Conf 2016](https://www.youtube.com/playlist?list=PLb0IAmt7-GS0M8Q95RIc2lOM6nc77q1IY)的视频，未来我们可能还会举办更多会议，敬请关注。您还可以在[此处](http://www.awesome-react-native.com/#conferences)找到专门的 React Native 会议列表。
