@@ -11,15 +11,15 @@ import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
 
 [Hermes](https://hermesengine.dev) 是专门针对 React Native 应用而优化的全新开源 JavaScript 引擎。对于很多应用来说，启用 Hermes 引擎可以优化启动时间，减少内存占用以及空间占用。目前 Hermes 是一个**可选的**特性，本文档会为你介绍如何将其启用。
 
-First, ensure you're using at least version 0.60.4 of React Native.
+首先请确保你运行的 React Native 版本在 0.60.4 或以上。
 
 If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-:::caution 关于兼容性的注意事项
+:::关于兼容性的注意事项
 Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
 :::
 
-:::info 对于 Windows 用户的注意事项
+:::对于 Windows 用户的注意事项
 Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 :::
 
