@@ -86,7 +86,7 @@ module.exports = {
 
 ## 用 TypeScript 写 React Native 的示例
 
-You can provide an interface for a React Component's [Props][props] and [State][state] via `React.Component<Props, State>` which will provide type-checking and editor auto-completing when working with that component in JSX.
+可以用`interface`来为 React 的函数组件编写[Props][props]的类型（使用`React.FC<Props>`）。这样在后续编码的过程中，编辑器就会根据这一类型来做类型检查并提供自动补全。
 
 ```tsx
 // components/Hello.tsx

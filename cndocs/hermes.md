@@ -13,7 +13,7 @@ import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
 
 首先请确保你运行的 React Native 版本在 0.60.4 或以上。
 
-If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
+如果你现有的项目运行的是较老的版本，那么必须要先升级。See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
 :::关于兼容性的注意事项
 Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
