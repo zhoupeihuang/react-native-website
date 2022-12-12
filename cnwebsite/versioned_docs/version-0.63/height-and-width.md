@@ -56,7 +56,7 @@ export default FlexDimensionsBasics;
 
 ## 百分比宽高
 
-If you want to fill a certain portion of the screen, but you _don't_ want to use the `flex` layout, you _can_ use **percentage values** in the component's style. Similar to flex dimensions, percentage dimensions require parent with a defined size.
+如果你想要按比例填充屏幕上某一部分，又不想使用 `flex` 布局，那么可以在组件的`style`中使用**百分比**。与弹性宽高相似，百分比宽高要求父容器有一个明确的尺寸。
 
 ```SnackPlayer name=Percentage%20Dimensions
 import React from 'react';
