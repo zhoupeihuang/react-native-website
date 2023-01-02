@@ -3,22 +3,33 @@ id: drawerlayoutandroid
 title: DrawerLayoutAndroid
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
 React component that wraps the platform `DrawerLayout` (Android only). The Drawer (typically used for navigation) is rendered with `renderNavigationView` and direct children are the main view (where your content goes). The navigation view is initially not visible on the screen, but can be pulled in from the side of the window specified by the `drawerPosition` prop and its width can be set by the `drawerWidth` prop.
 
 ## Example
 
-```SnackPlayer name=DrawerLayoutAndroid%20Component%20Example&supportedPlatforms=android
-import React, { useRef, useState } from "react";
-import { Button, DrawerLayoutAndroid, Text, StyleSheet, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=DrawerLayoutAndroid%20Component%20Example&supportedPlatforms=android&ext=js
+import React, {useRef, useState} from 'react';
+import {
+  Button,
+  DrawerLayoutAndroid,
+  Text,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 const App = () => {
   const drawer = useRef(null);
-  const [drawerPosition, setDrawerPosition] = useState("left");
+  const [drawerPosition, setDrawerPosition] = useState('left');
   const changeDrawerPosition = () => {
-    if (drawerPosition === "left") {
-      setDrawerPosition("right");
+    if (drawerPosition === 'left') {
+      setDrawerPosition('right');
     } else {
-      setDrawerPosition("left");
+      setDrawerPosition('left');
     }
   };
 
@@ -37,12 +48,9 @@ const App = () => {
       ref={drawer}
       drawerWidth={300}
       drawerPosition={drawerPosition}
-      renderNavigationView={navigationView}
-    >
+      renderNavigationView={navigationView}>
       <View style={styles.container}>
-        <Text style={styles.paragraph}>
-          Drawer on the {drawerPosition}!
-        </Text>
+        <Text style={styles.paragraph}>Drawer on the {drawerPosition}!</Text>
         <Button
           title="Change Drawer Position"
           onPress={() => changeDrawerPosition()}
@@ -62,22 +70,105 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 16
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
   },
   navigationContainer: {
-    backgroundColor: "#ecf0f1"
+    backgroundColor: '#ecf0f1',
   },
   paragraph: {
     padding: 16,
     fontSize: 15,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });
 
 export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=DrawerLayoutAndroid%20Component%20Example&supportedPlatforms=android&ext=tsx
+import React, {useRef, useState} from 'react';
+import {
+  Button,
+  DrawerLayoutAndroid,
+  Text,
+  StyleSheet,
+  View,
+} from 'react-native';
+
+const App = () => {
+  const drawer = useRef<DrawerLayoutAndroid>(null);
+  const [drawerPosition, setDrawerPosition] = useState<'left' | 'right'>(
+    'left',
+  );
+  const changeDrawerPosition = () => {
+    if (drawerPosition === 'left') {
+      setDrawerPosition('right');
+    } else {
+      setDrawerPosition('left');
+    }
+  };
+
+  const navigationView = () => (
+    <View style={[styles.container, styles.navigationContainer]}>
+      <Text style={styles.paragraph}>I'm in the Drawer!</Text>
+      <Button
+        title="Close drawer"
+        onPress={() => drawer.current?.closeDrawer()}
+      />
+    </View>
+  );
+
+  return (
+    <DrawerLayoutAndroid
+      ref={drawer}
+      drawerWidth={300}
+      drawerPosition={drawerPosition}
+      renderNavigationView={navigationView}>
+      <View style={styles.container}>
+        <Text style={styles.paragraph}>Drawer on the {drawerPosition}!</Text>
+        <Button
+          title="Change Drawer Position"
+          onPress={() => changeDrawerPosition()}
+        />
+        <Text style={styles.paragraph}>
+          Swipe from the side or press button below to see it!
+        </Text>
+        <Button
+          title="Open drawer"
+          onPress={() => drawer.current?.openDrawer()}
+        />
+      </View>
+    </DrawerLayoutAndroid>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  navigationContainer: {
+    backgroundColor: '#ecf0f1',
+  },
+  paragraph: {
+    padding: 16,
+    fontSize: 15,
+    textAlign: 'center',
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 ---
 
@@ -95,7 +186,7 @@ Inherits [View Props](view.md#props).
 
 Specifies the background color of the drawer. The default value is `white`. If you want to set the opacity of the drawer, use rgba. Example:
 
-```jsx
+```tsx
 return (
   <DrawerLayoutAndroid drawerBackgroundColor="rgba(0,0,0,0.5)" />
 );
@@ -220,7 +311,7 @@ Make the drawer take the entire screen and draw the background of the status bar
 
 ### `closeDrawer()`
 
-```jsx
+```tsx
 closeDrawer();
 ```
 
@@ -230,7 +321,7 @@ Closes the drawer.
 
 ### `openDrawer()`
 
-```jsx
+```tsx
 openDrawer();
 ```
 

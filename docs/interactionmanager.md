@@ -3,11 +3,13 @@ id: interactionmanager
 title: InteractionManager
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
 InteractionManager allows long-running work to be scheduled after any interactions/animations have completed. In particular, this allows JavaScript animations to run smoothly.
 
 Applications can schedule tasks to run after interactions with the following:
 
-```jsx
+```tsx
 InteractionManager.runAfterInteractions(() => {
   // ...long-running synchronous task...
 });
@@ -23,7 +25,7 @@ The touch handling system considers one or more active touches to be an 'interac
 
 InteractionManager also allows applications to register animations by creating an interaction 'handle' on animation start, and clearing it upon completion:
 
-```jsx
+```tsx
 var handle = InteractionManager.createInteractionHandle();
 // run animation... (`runAfterInteractions` tasks are queued)
 // later, on animation completion:
@@ -41,8 +43,11 @@ By default, queued tasks are executed together in a loop in one `setImmediate` b
 
 ### Basic
 
-```SnackPlayer name=InteractionManager%20Function%20Component%20Basic%20Example&supportedPlatforms=ios,android
-import React, { useState, useEffect } from "react";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=InteractionManager%20Function%20Component%20Basic%20Example&supportedPlatforms=ios,android&ext=js
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   Animated,
@@ -51,60 +56,65 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
+} from 'react-native';
 
 const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu",
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
 });
-
-const useMount = func => useEffect(() => func(), []);
 
 const useFadeIn = (duration = 5000) => {
   const [opacity] = useState(new Animated.Value(0));
 
   // Running the animation when the component is mounted
-  useMount(() => {
+  useEffect(() => {
     // Animated.timing() create a interaction handle by default, if you want to disabled that
     // behaviour you can set isInteraction to false to disabled that.
     Animated.timing(opacity, {
       toValue: 1,
       duration,
+      useNativeDriver: true,
     }).start();
-  });
+  }, [duration, opacity]);
 
   return opacity;
 };
 
-const Ball = ({ onShown }) => {
+const Ball = ({onShown}) => {
   const opacity = useFadeIn();
 
   // Running a method after the animation
-  useMount(() => {
-    const interactionPromise = InteractionManager.runAfterInteractions(() => onShown());
+  useEffect(() => {
+    const interactionPromise = InteractionManager.runAfterInteractions(() =>
+      onShown(),
+    );
     return () => interactionPromise.cancel();
-  });
+  }, [onShown]);
 
-  return <Animated.View style={[styles.ball, { opacity }]} />;
+  return <Animated.View style={[styles.ball, {opacity}]} />;
 };
 
 const App = () => {
   return (
     <View style={styles.container}>
       <Text>{instructions}</Text>
-      <Ball onShown={() => Alert.alert("Animation is done")} />
+      <Ball onShown={() => Alert.alert('Animation is done')} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   ball: {
     width: 100,
     height: 100,
-    backgroundColor: "salmon",
+    backgroundColor: 'salmon',
     borderRadius: 100,
   },
 });
@@ -112,10 +122,11 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-### Advanced
+</TabItem>
+<TabItem value="typescript">
 
-```SnackPlayer name=InteractionManager%20Function%20Component%20Advanced%20Example&supportedPlatforms=ios,android
-import React, { useEffect } from "react";
+```SnackPlayer name=InteractionManager%20Function%20Component%20Basic%20Example&supportedPlatforms=ios,android&ext=tsx
+import React, {useState, useEffect} from 'react';
 import {
   Alert,
   Animated,
@@ -124,39 +135,125 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
+} from 'react-native';
 
 const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
   android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu",
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
 });
 
-const useMount = func => useEffect(() => func(), []);
+const useFadeIn = (duration = 5000) => {
+  const [opacity] = useState(new Animated.Value(0));
+
+  // Running the animation when the component is mounted
+  useEffect(() => {
+    // Animated.timing() create a interaction handle by default, if you want to disabled that
+    // behaviour you can set isInteraction to false to disabled that.
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration,
+      useNativeDriver: true,
+    }).start();
+  }, [duration, opacity]);
+
+  return opacity;
+};
+
+type BallProps = {
+  onShown: () => void;
+};
+
+const Ball = ({onShown}: BallProps) => {
+  const opacity = useFadeIn();
+
+  // Running a method after the animation
+  useEffect(() => {
+    const interactionPromise = InteractionManager.runAfterInteractions(() =>
+      onShown(),
+    );
+    return () => interactionPromise.cancel();
+  }, [onShown]);
+
+  return <Animated.View style={[styles.ball, {opacity}]} />;
+};
+
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <Text>{instructions}</Text>
+      <Ball onShown={() => Alert.alert('Animation is done')} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ball: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'salmon',
+    borderRadius: 100,
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
+
+### Advanced
+
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=InteractionManager%20Function%20Component%20Advanced%20Example&supportedPlatforms=ios,android&ext=js
+import React, {useEffect} from 'react';
+import {
+  Alert,
+  Animated,
+  InteractionManager,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
 
 // You can create a custom interaction/animation and add
 // support for InteractionManager
 const useCustomInteraction = (timeLocked = 2000) => {
-  useMount(() => {
+  useEffect(() => {
     const handle = InteractionManager.createInteractionHandle();
 
     setTimeout(
       () => InteractionManager.clearInteractionHandle(handle),
-      timeLocked
+      timeLocked,
     );
 
     return () => InteractionManager.clearInteractionHandle(handle);
-  });
+  }, [timeLocked]);
 };
 
-const Ball = ({ onInteractionIsDone }) => {
+const Ball = ({onInteractionIsDone}) => {
   useCustomInteraction();
 
   // Running a method after the interaction
-  useMount(() => {
+  useEffect(() => {
     InteractionManager.runAfterInteractions(() => onInteractionIsDone());
-  });
+  }, [onInteractionIsDone]);
 
   return <Animated.View style={[styles.ball]} />;
 };
@@ -165,23 +262,108 @@ const App = () => {
   return (
     <View style={styles.container}>
       <Text>{instructions}</Text>
-      <Ball onInteractionIsDone={() => Alert.alert("Interaction is done")} />
+      <Ball onInteractionIsDone={() => Alert.alert('Interaction is done')} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   ball: {
     width: 100,
     height: 100,
-    backgroundColor: "salmon",
+    backgroundColor: 'salmon',
     borderRadius: 100,
   },
 });
 
 export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=InteractionManager%20Function%20Component%20Advanced%20Example&supportedPlatforms=ios,android&ext=tsx
+import React, {useEffect} from 'react';
+import {
+  Alert,
+  Animated,
+  InteractionManager,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+
+const instructions = Platform.select({
+  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+  android:
+    'Double tap R on your keyboard to reload,\n' +
+    'Shake or press menu button for dev menu',
+});
+
+// You can create a custom interaction/animation and add
+// support for InteractionManager
+const useCustomInteraction = (timeLocked = 2000) => {
+  useEffect(() => {
+    const handle = InteractionManager.createInteractionHandle();
+
+    setTimeout(
+      () => InteractionManager.clearInteractionHandle(handle),
+      timeLocked,
+    );
+
+    return () => InteractionManager.clearInteractionHandle(handle);
+  }, [timeLocked]);
+};
+
+type BallProps = {
+  onInteractionIsDone: () => void;
+};
+
+const Ball = ({onInteractionIsDone}: BallProps) => {
+  useCustomInteraction();
+
+  // Running a method after the interaction
+  useEffect(() => {
+    InteractionManager.runAfterInteractions(() => onInteractionIsDone());
+  }, [onInteractionIsDone]);
+
+  return <Animated.View style={[styles.ball]} />;
+};
+
+const App = () => {
+  return (
+    <View style={styles.container}>
+      <Text>{instructions}</Text>
+      <Ball onInteractionIsDone={() => Alert.alert('Interaction is done')} />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  ball: {
+    width: 100,
+    height: 100,
+    backgroundColor: 'salmon',
+    borderRadius: 100,
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 > **Note**: `InteractionManager.runAfterInteractions()` is not working properly on web. It triggers immediately without waiting until the interaction is finished.
 
@@ -191,8 +373,8 @@ export default App;
 
 ### `runAfterInteractions()`
 
-```jsx
-static runAfterInteractions(task)
+```tsx
+static runAfterInteractions(task?: (() => any) | SimpleTask | PromiseTask);
 ```
 
 Schedule a function to run after all interactions have completed. Returns a cancellable "promise".
@@ -201,8 +383,8 @@ Schedule a function to run after all interactions have completed. Returns a canc
 
 ### `createInteractionHandle()`
 
-```jsx
-static createInteractionHandle()
+```tsx
+static createInteractionHandle(): Handle;
 ```
 
 Notify manager that an interaction has started.
@@ -211,8 +393,8 @@ Notify manager that an interaction has started.
 
 ### `clearInteractionHandle()`
 
-```jsx
-static clearInteractionHandle(handle)
+```tsx
+static clearInteractionHandle(handle: Handle);
 ```
 
 Notify manager that an interaction has completed.
@@ -221,8 +403,8 @@ Notify manager that an interaction has completed.
 
 ### `setDeadline()`
 
-```jsx
-static setDeadline(deadline)
+```tsx
+static setDeadline(deadline: number);
 ```
 
 A positive number will use setTimeout to schedule any tasks after the eventLoopRunningTime hits the deadline value, otherwise all tasks will be executed in one setImmediate batch (default).

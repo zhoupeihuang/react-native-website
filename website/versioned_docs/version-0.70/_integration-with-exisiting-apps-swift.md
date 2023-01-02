@@ -1,5 +1,3 @@
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
-
 ## Key Concepts
 
 The keys to integrating React Native components into your iOS application are to:
@@ -154,8 +152,6 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 
 > If you get a warning such as "_The `swift-2048 [Debug]` target overrides the `FRAMEWORK_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-swift-2048/Pods-swift-2048.debug.xcconfig`. This can lead to problems with the CocoaPods installation_", then make sure the `Framework Search Paths` in `Build Settings` for both `Debug` and `Release` only contain `$(inherited)`.
 
-<M1Cocoapods />
-
 ### Code integration
 
 Now we will actually modify the native iOS application to integrate React Native. For our 2048 sample app, we will add a "High Score" screen in React Native.
@@ -176,15 +172,10 @@ In your `index.js`, create your component. In our sample here, we will add a `<T
 
 ```jsx
 import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 
-const RNHighScores = ({ scores }) => {
-  const contents = scores.map((score) => (
+const RNHighScores = ({scores}) => {
+  const contents = scores.map(score => (
     <Text key={score.name}>
       {score.name}:{score.value}
       {'\n'}
@@ -205,18 +196,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   highScoresTitle: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   scores: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
 // Module name

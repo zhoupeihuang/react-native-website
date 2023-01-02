@@ -17,56 +17,48 @@ This is an API that works both on Android and iOS and can show static alerts. Al
 <TabItem value="functional">
 
 ```SnackPlayer name=Alert%20Function%20Component%20Example&supportedPlatforms=ios,android
-import React, { useState } from "react";
-import { View, StyleSheet, Button, Alert } from "react-native";
+import React from 'react';
+import {View, StyleSheet, Button, Alert} from 'react-native';
 
 const App = () => {
   const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
 
   const createThreeButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Ask me later",
-          onPress: () => console.log("Ask me later pressed")
-        },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Ask me later',
+        onPress: () => console.log('Ask me later pressed'),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
 
   return (
     <View style={styles.container}>
-      <Button title={"2-Button Alert"} onPress={createTwoButtonAlert} />
-      <Button title={"3-Button Alert"} onPress={createThreeButtonAlert} />
+      <Button title={'2-Button Alert'} onPress={createTwoButtonAlert} />
+      <Button title={'3-Button Alert'} onPress={createThreeButtonAlert} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
-    alignItems: "center"
-  }
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
 });
 
 export default App;
@@ -76,49 +68,41 @@ export default App;
 <TabItem value="classical">
 
 ```SnackPlayer name=Alert%20Class%20Component%20Example&supportedPlatforms=ios,android
-import React, { Component } from "react";
-import { View, StyleSheet, Button, Alert } from "react-native";
+import React, {Component} from 'react';
+import {View, StyleSheet, Button, Alert} from 'react-native';
 
 class App extends Component {
   createTwoButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
 
   createThreeButtonAlert = () =>
-    Alert.alert(
-      "Alert Title",
-      "My Alert Msg",
-      [
-        {
-          text: "Ask me later",
-          onPress: () => console.log("Ask me later pressed")
-        },
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Ask me later',
+        onPress: () => console.log('Ask me later pressed'),
+      },
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
 
   render() {
     return (
       <View style={styles.container}>
-        <Button title={"2-Button Alert"} onPress={this.createTwoButtonAlert} />
+        <Button title={'2-Button Alert'} onPress={this.createTwoButtonAlert} />
 
         <Button
-          title={"3-Button Alert"}
+          title={'3-Button Alert'}
           onPress={this.createThreeButtonAlert}
         />
       </View>
@@ -129,9 +113,9 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-around",
-    alignItems: "center"
-  }
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
 });
 
 export default App;
@@ -142,7 +126,7 @@ export default App;
 
 ## iOS
 
-On iOS you can specify any number of buttons. Each button can optionally specify a style or be emphasized, available options are represented by the [AlertButtonStyle](#alertbuttonstyle-ios) enum and the `isPreferred` field on [Buttons](alert#buttons).
+On iOS you can specify any number of buttons. Each button can optionally specify a style or be emphasized, available options are represented by the [AlertButtonStyle](#alertbuttonstyle-ios) enum and the `isPreferred` field on [AlertButton](alert#alertbutton).
 
 ## Android
 
@@ -152,34 +136,34 @@ On Android at most three buttons can be specified. Android has a concept of a ne
 - Two buttons mean 'negative', 'positive' (such as 'Cancel', 'OK')
 - Three buttons mean 'neutral', 'negative', 'positive' (such as 'Later', 'Cancel', 'OK')
 
-Alerts on Android can be dismissed by tapping outside of the alert box. It is disabled by default and can be enabled by providing an optional [Options](alert#options) parameter with the cancelable property set to `true` i.e.<br/>`{ cancelable: true }`.
+Alerts on Android can be dismissed by tapping outside of the alert box. It is disabled by default and can be enabled by providing an optional [Options](alert#options) parameter with the cancelable property set to `true` i.e.<br/>`{cancelable: true}`.
 
 The cancel event can be handled by providing an `onDismiss` callback property inside the `options` parameter.
 
 ### Example <div class="label android">Android</div>
 
 ```SnackPlayer name=Alert%20Android%20Dissmissable%20Example&supportedPlatforms=android
-import React from "react";
-import { View, StyleSheet, Button, Alert } from "react-native";
+import React from 'react';
+import {View, StyleSheet, Button, Alert} from 'react-native';
 
 const showAlert = () =>
   Alert.alert(
-    "Alert Title",
-    "My Alert Msg",
+    'Alert Title',
+    'My Alert Msg',
     [
       {
-        text: "Cancel",
-        onPress: () => Alert.alert("Cancel Pressed"),
-        style: "cancel",
+        text: 'Cancel',
+        onPress: () => Alert.alert('Cancel Pressed'),
+        style: 'cancel',
       },
     ],
     {
       cancelable: true,
       onDismiss: () =>
         Alert.alert(
-          "This alert was dismissed by tapping outside of the alert dialog."
+          'This alert was dismissed by tapping outside of the alert dialog.',
         ),
-    }
+    },
   );
 
 const App = () => (
@@ -191,9 +175,9 @@ const App = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default App;
@@ -207,40 +191,52 @@ export default App;
 
 ### `alert()`
 
-```jsx
-static alert(title, message?, buttons?, options?)
+```tsx
+static alert (
+  title: string,
+  message?: string,
+  buttons?: AlertButton[],
+  options?: AlertOptions,
+);
 ```
 
 **Parameters:**
 
-| Name                                                   | Type                     | Description                                                             |
-| ------------------------------------------------------ | ------------------------ | ----------------------------------------------------------------------- |
-| title <div class="label basic required">Required</div> | string                   | The dialog's title. Passing `null` or empty string will hide the title. |
-| message                                                | string                   | An optional message that appears below the dialog's title.              |
-| buttons                                                | [Buttons](alert#buttons) | An optional array containing buttons configuration.                     |
-| options                                                | [Options](alert#options) | An optional Alert configuration.                                        |
+| Name                                                   | Type                               | Description                                                             |
+| ------------------------------------------------------ | ---------------------------------- | ----------------------------------------------------------------------- |
+| title <div class="label basic required">Required</div> | string                             | The dialog's title. Passing `null` or empty string will hide the title. |
+| message                                                | string                             | An optional message that appears below the dialog's title.              |
+| buttons                                                | [AlertButton](alert#alertbutton)[] | An optional array containing buttons configuration.                     |
+| options                                                | [Options](alert#options)           | An optional Alert configuration.                                        |
 
 ---
 
 ### `prompt()` <div class="label ios">iOS</div>
 
-```jsx
-static prompt(title, message?, callbackOrButtons?, type?, defaultValue?, keyboardType?)
+```tsx
+static prompt: (
+  title: string,
+  message?: string,
+  callbackOrButtons?: ((text: string) => void) | AlertButton[],
+  type?: AlertType,
+  defaultValue?: string,
+  keyboardType?: string,
+);
 ```
 
 Create and display a prompt to enter some text in form of Alert.
 
 **Parameters:**
 
-| Name                                                   | Type                                  | Description                                                                                                                                                                                           |
-| ------------------------------------------------------ | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| title <div class="label basic required">Required</div> | string                                | The dialog's title.                                                                                                                                                                                   |
-| message                                                | string                                | An optional message that appears above the text input.                                                                                                                                                |
-| callbackOrButtons                                      | function<hr/>[Buttons](alert#buttons) | If passed a function, it will be called with the prompt's value<br/>`(text: string) => void`, when the user taps 'OK'.<hr/>If passed an array, buttons will be configured based on the array content. |
-| type                                                   | [AlertType](alert#alerttype-ios)      | This configures the text input.                                                                                                                                                                       |
-| defaultValue                                           | string                                | The default text in text input.                                                                                                                                                                       |
-| keyboardType                                           | string                                | The keyboard type of first text field (if exists). One of TextInput [keyboardTypes](textinput#keyboardtype).                                                                                          |
-| options                                                | [Options](alert#options)              | An optional Alert configuration.                                                                                                                                                                      |
+| Name                                                   | Type                                            | Description                                                                                                                                                                                           |
+| ------------------------------------------------------ | ----------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| title <div class="label basic required">Required</div> | string                                          | The dialog's title.                                                                                                                                                                                   |
+| message                                                | string                                          | An optional message that appears above the text input.                                                                                                                                                |
+| callbackOrButtons                                      | function<hr/>[AlertButton](alert#alertButton)[] | If passed a function, it will be called with the prompt's value<br/>`(text: string) => void`, when the user taps 'OK'.<hr/>If passed an array, buttons will be configured based on the array content. |
+| type                                                   | [AlertType](alert#alerttype-ios)                | This configures the text input.                                                                                                                                                                       |
+| defaultValue                                           | string                                          | The default text in text input.                                                                                                                                                                       |
+| keyboardType                                           | string                                          | The keyboard type of first text field (if exists). One of TextInput [keyboardTypes](textinput#keyboardtype).                                                                                          |
+| options                                                | [Options](alert#options)                        | An optional Alert configuration.                                                                                                                                                                      |
 
 ---
 
@@ -283,9 +279,9 @@ An iOS Alert type.
 
 ---
 
-### Buttons
+### AlertButton
 
-Array of objects containing Alert buttons configuration.
+An object describing the configuration of a button in the alert.
 
 | Type             |
 | ---------------- |
@@ -302,7 +298,7 @@ Array of objects containing Alert buttons configuration.
 
 ---
 
-### Options
+### AlertOptions
 
 | Type   |
 | ------ |

@@ -3,6 +3,8 @@ id: flatlist
 title: FlatList
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
 A performant interface for rendering basic, flat lists, supporting the most handy features:
 
 - Fully cross-platform.
@@ -20,9 +22,19 @@ If you need section support, use [`<SectionList>`](sectionlist.md).
 
 ## Example
 
-```SnackPlayer name=flatlist-simple
+<Tabs groupId="language" defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=flatlist-simple&ext=js
 import React from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  StatusBar,
+} from 'react-native';
 
 const DATA = [
   {
@@ -39,27 +51,23 @@ const DATA = [
   },
 ];
 
-const Item = ({ title }) => (
+const Item = ({title}) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
   </View>
 );
 
 const App = () => {
-  const renderItem = ({ item }) => (
-    <Item title={item.title} />
-  );
-
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={DATA}
-        renderItem={renderItem}
+        renderItem={({item}) => <Item title={item.title} />}
         keyExtractor={item => item.id}
       />
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -80,6 +88,77 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=flatlist-simple&ext=tsx
+import React from 'react';
+import {
+  SafeAreaView,
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  StatusBar,
+} from 'react-native';
+
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
+
+type ItemProps = {title: string};
+
+const Item = ({title}: ItemProps) => (
+  <View style={styles.item}>
+    <Text style={styles.title}>{title}</Text>
+  </View>
+);
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => <Item title={item.title} />}
+        keyExtractor={item => item.id}
+      />
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    backgroundColor: '#f9c2ff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
+
 To render multiple columns, use the [`numColumns`](flatlist.md#numcolumns) prop. Using this approach instead of a `flexWrap` layout can prevent conflicts with the item height logic.
 
 More complex, selectable example below.
@@ -87,44 +166,54 @@ More complex, selectable example below.
 - By passing `extraData={selectedId}` to `FlatList` we make sure `FlatList` itself will re-render when the state changes. Without setting this prop, `FlatList` would not know it needs to re-render any items because it is a `PureComponent` and the prop comparison will not show any changes.
 - `keyExtractor` tells the list to use the `id`s for the react keys instead of the default `key` property.
 
-```SnackPlayer name=flatlist-selectable
-import React, { useState } from "react";
-import { FlatList, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity } from "react-native";
+<Tabs groupId="language" defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=flatlist-selectable&ext=js
+import React, {useState} from 'react';
+import {
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 const DATA = [
   {
-    id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-    title: "First Item",
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
   },
   {
-    id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-    title: "Second Item",
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
   },
   {
-    id: "58694a0f-3da1-471f-bd96-145571e29d72",
-    title: "Third Item",
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
   },
 ];
 
-const Item = ({ item, onPress, backgroundColor, textColor }) => (
-  <TouchableOpacity onPress={onPress} style={[styles.item, backgroundColor]}>
-    <Text style={[styles.title, textColor]}>{item.title}</Text>
+const Item = ({item, onPress, backgroundColor, textColor}) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+    <Text style={[styles.title, {color: textColor}]}>{item.title}</Text>
   </TouchableOpacity>
 );
 
 const App = () => {
-  const [selectedId, setSelectedId] = useState(null);
+  const [selectedId, setSelectedId] = useState();
 
-  const renderItem = ({ item }) => {
-    const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
+  const renderItem = ({item}) => {
+    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
     const color = item.id === selectedId ? 'white' : 'black';
 
     return (
       <Item
         item={item}
         onPress={() => setSelectedId(item.id)}
-        backgroundColor={{ backgroundColor }}
-        textColor={{ color }}
+        backgroundColor={backgroundColor}
+        textColor={color}
       />
     );
   };
@@ -134,7 +223,7 @@ const App = () => {
       <FlatList
         data={DATA}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={item => item.id}
         extraData={selectedId}
       />
     </SafeAreaView>
@@ -159,6 +248,103 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=flatlist-selectable&ext=tsx
+import React, {useState} from 'react';
+import {
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+
+type ItemData = {
+  id: string;
+  title: string;
+};
+
+const DATA: ItemData[] = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
+
+type ItemProps = {
+  item: ItemData;
+  onPress: () => void;
+  backgroundColor: string;
+  textColor: string;
+};
+
+const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+    <Text style={[styles.title, {color: textColor}]}>{item.title}</Text>
+  </TouchableOpacity>
+);
+
+const App = () => {
+  const [selectedId, setSelectedId] = useState<string>();
+
+  const renderItem = ({item}: {item: ItemData}) => {
+    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
+    const color = item.id === selectedId ? 'white' : 'black';
+
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        backgroundColor={backgroundColor}
+        textColor={color}
+      />
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        extraData={selectedId}
+      />
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+  },
+  title: {
+    fontSize: 32,
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
+
 This is a convenience wrapper around [`<VirtualizedList>`](virtualizedlist.md), and thus inherits its props (as well as those of [`<ScrollView>`](scrollview.md)) that aren't explicitly listed here, along with the following caveats:
 
 - Internal state is not preserved when content scrolls out of the render window. Make sure all your data is captured in the item data or external stores like Flux, Redux, or Relay.
@@ -180,8 +366,16 @@ Inherits [ScrollView Props](scrollview.md#props), unless it is nested in another
 
 ### <div class="label required basic">Required</div> **`renderItem`**
 
-```jsx
-renderItem({ item, index, separators });
+```tsx
+renderItem({
+  item: ItemT,
+  index: number,
+  separators: {
+    highlight: () => void;
+    unhighlight: () => void;
+    updateProps: (select: 'leading' | 'trailing', newProps: any) => void;
+  }
+}): JSX.Element;
 ```
 
 Takes an item from `data` and renders it into the list.
@@ -203,27 +397,24 @@ Provides additional metadata like `index` if you need it, as well as a more gene
 
 Example usage:
 
-```jsx
+```tsx
 <FlatList
   ItemSeparatorComponent={
     Platform.OS !== 'android' &&
-    (({ highlighted }) => (
+    (({highlighted}) => (
       <View
-        style={[
-          style.separator,
-          highlighted && { marginLeft: 0 }
-        ]}
+        style={[style.separator, highlighted && {marginLeft: 0}]}
       />
     ))
   }
-  data={[{ title: 'Title Text', key: 'item1' }]}
-  renderItem={({ item, index, separators }) => (
+  data={[{title: 'Title Text', key: 'item1'}]}
+  renderItem={({item, index, separators}) => (
     <TouchableHighlight
       key={item.key}
       onPress={() => this._onPress(item)}
       onShowUnderlay={separators.highlight}
       onHideUnderlay={separators.unhighlight}>
-      <View style={{ backgroundColor: 'white' }}>
+      <View style={{backgroundColor: 'white'}}>
         <Text>{item.title}</Text>
       </View>
     </TouchableHighlight>
@@ -325,13 +516,13 @@ A marker property for telling the list to re-render (since it implements `PureCo
 
 ### `getItemLayout`
 
-```jsx
+```tsx
 (data, index) => {length: number, offset: number, index: number}
 ```
 
 `getItemLayout` is an optional optimization that allows skipping the measurement of dynamic content if you know the size (height or width) of items ahead of time. `getItemLayout` is efficient if you have fixed size items, for example:
 
-```jsx
+```tsx
   getItemLayout={(data, index) => (
     {length: ITEM_HEIGHT, offset: ITEM_HEIGHT * index, index}
   )}
@@ -387,8 +578,8 @@ Reverses the direction of scroll. Uses scale transforms of `-1`.
 
 ### `keyExtractor`
 
-```jsx
-(item: object, index: number) => string;
+```tsx
+(item: ItemT, index: number) => string;
 ```
 
 Used to extract a unique key for a given item at the specified index. Key is used for caching and as the react key to track item re-ordering. The default extractor checks `item.key`, then `item.id`, and then falls back to using the index, like React does.
@@ -411,8 +602,8 @@ Multiple columns can only be rendered with `horizontal={false}` and will zig-zag
 
 ### `onEndReached`
 
-```jsx
-(info: {distanceFromEnd: number}) => void
+```tsx
+(info: {distanceFromEnd: number}) => void;
 ```
 
 Called once when the scroll position gets within `onEndReachedThreshold` of the rendered content.
@@ -435,8 +626,8 @@ How far from the end (in units of visible length of the list) the bottom edge of
 
 ### `onRefresh`
 
-```jsx
-() => void
+```tsx
+() => void;
 ```
 
 If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the `refreshing` prop correctly.
@@ -451,9 +642,10 @@ If provided, a standard RefreshControl will be added for "Pull to Refresh" funct
 
 Called when the viewability of rows changes, as defined by the `viewabilityConfig` prop.
 
-| Type                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------ |
-| (callback: { changed: array of [ViewToken](viewtoken)s, viewableItems: array of [ViewToken](viewtoken)s }) => void |
+| Type |
+| ---- |
+
+| (callback: {changed: [ViewToken](viewtoken)[], viewableItems: [ViewToken](viewtoken)[]} => void;
 
 ---
 
@@ -512,7 +704,7 @@ At least one of the `viewAreaCoveragePercentThreshold` or `itemVisiblePercentThr
   Error: Changing viewabilityConfig on the fly is not supported
 ```
 
-```jsx
+```tsx
 constructor (props) {
   super(props)
 
@@ -523,7 +715,7 @@ constructor (props) {
 }
 ```
 
-```jsx
+```tsx
 <FlatList
     viewabilityConfig={this.viewabilityConfig}
   ...
@@ -559,7 +751,7 @@ List of `ViewabilityConfig`/`onViewableItemsChanged` pairs. A specific `onViewab
 
 ### `flashScrollIndicators()`
 
-```jsx
+```tsx
 flashScrollIndicators();
 ```
 
@@ -569,8 +761,8 @@ Displays the scroll indicators momentarily.
 
 ### `getNativeScrollRef()`
 
-```jsx
-getNativeScrollRef();
+```tsx
+getNativeScrollRef(): React.ElementRef<typeof ScrollViewComponent>;
 ```
 
 Provides a reference to the underlying scroll component
@@ -579,8 +771,8 @@ Provides a reference to the underlying scroll component
 
 ### `getScrollResponder()`
 
-```jsx
-getScrollResponder();
+```tsx
+getScrollResponder(): ScrollResponderMixin;
 ```
 
 Provides a handle to the underlying scroll responder.
@@ -589,28 +781,16 @@ Provides a handle to the underlying scroll responder.
 
 ### `getScrollableNode()`
 
-```jsx
-getScrollableNode();
+```tsx
+getScrollableNode(): any;
 ```
 
 Provides a handle to the underlying scroll node.
 
----
-
-### `recordInteraction()`
-
-```jsx
-recordInteraction();
-```
-
-Tells the list an interaction has occurred, which should trigger viewability calculations, e.g. if `waitForInteractions` is true and the user has not scrolled. This is typically called by taps on items or by navigation actions.
-
----
-
 ### `scrollToEnd()`
 
-```jsx
-scrollToEnd(params);
+```tsx
+scrollToEnd(params?: {animated?: boolean});
 ```
 
 Scrolls to the end of the content. May be janky without `getItemLayout` prop.
@@ -629,8 +809,13 @@ Valid `params` keys are:
 
 ### `scrollToIndex()`
 
-```jsx
-scrollToIndex(params);
+```tsx
+scrollToIndex: (params: {
+  index: number;
+  animated?: boolean;
+  viewOffset?: number;
+  viewPosition?: number;
+});
 ```
 
 Scrolls to the item at the specified index such that it is positioned in the viewable area such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
@@ -654,8 +839,12 @@ Valid `params` keys are:
 
 ### `scrollToItem()`
 
-```jsx
-scrollToItem(params);
+```tsx
+scrollToItem(params: {
+  animated?: ?boolean,
+  item: Item,
+  viewPosition?: number,
+});
 ```
 
 Requires linear scan through data - use `scrollToIndex` instead if possible.
@@ -678,8 +867,11 @@ Valid `params` keys are:
 
 ### `scrollToOffset()`
 
-```jsx
-scrollToOffset(params);
+```tsx
+scrollToOffset(params: {
+  offset: number;
+  animated?: boolean;
+});
 ```
 
 Scroll to a specific content pixel offset in the list.

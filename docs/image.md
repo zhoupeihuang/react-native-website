@@ -17,9 +17,8 @@ This example shows fetching and displaying an image from local storage as well a
 <TabItem value="functional">
 
 ```SnackPlayer name=Function%20Component%20Example
-
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,7 +55,7 @@ const DisplayAnImage = () => {
       />
     </View>
   );
-}
+};
 
 export default DisplayAnImage;
 ```
@@ -65,9 +64,8 @@ export default DisplayAnImage;
 <TabItem value="classical">
 
 ```SnackPlayer name=Class%20Component%20Example
-
-import React, { Component } from 'react';
-import { AppRegistry, View, Image, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +95,9 @@ class DisplayAnImage extends Component {
         />
         <Image
           style={styles.logo}
-          source={{uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='}}
+          source={{
+            uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
+          }}
         />
       </View>
     );
@@ -116,9 +116,8 @@ You can also add `style` to an image:
 <TabItem value="functional">
 
 ```SnackPlayer name=Function%20Component%20Example
-
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -140,7 +139,7 @@ const DisplayAnImageWithStyle = () => {
       />
     </View>
   );
-}
+};
 
 export default DisplayAnImageWithStyle;
 ```
@@ -149,16 +148,15 @@ export default DisplayAnImageWithStyle;
 <TabItem value="classical">
 
 ```SnackPlayer name=Class%20Component%20Example
-
-import React, { Component } from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import React, {Component} from 'react';
+import {View, Image, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   stretch: {
     width: 50,
     height: 200,
-    resizeMode: 'stretch'
-  }
+    resizeMode: 'stretch',
+  },
 });
 
 class DisplayAnImageWithStyle extends Component {
@@ -230,6 +228,16 @@ When true, indicates the image is an accessibility element.
 ### `accessibilityLabel`
 
 The text that's read by the screen reader when the user interacts with the image.
+
+| Type   |
+| ------ |
+| string |
+
+---
+
+### `alt`
+
+A string that defines an alternative text description of the image, which will be read by the screen reader when the user interacts with it. Using this will automatically mark this element as accessible.
 
 | Type   |
 | ------ |
@@ -314,13 +322,23 @@ Similarly to `source`, this property represents the resource used to render the 
 
 ---
 
+### `objectFit`
+
+Determines how to resize the image when the frame doesn't match the raw image dimensions.
+
+| Type                                                   | Default   |
+| ------------------------------------------------------ | --------- |
+| enum(`'cover'`, `'contain'`, `'fill'`, `'scale-down'`) | `'cover'` |
+
+---
+
 ### `onError`
 
 Invoked on load error.
 
-| Type                                   |
-| -------------------------------------- |
-| (`{ nativeEvent: { error } }`) => void |
+| Type                                |
+| ----------------------------------- |
+| (`{nativeEvent: {error} }`) => void |
 
 ---
 
@@ -328,9 +346,9 @@ Invoked on load error.
 
 Invoked on mount and on layout changes.
 
-| Type                                                  |
-| ----------------------------------------------------- |
-| ({ nativeEvent: [LayoutEvent](layoutevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [LayoutEvent]layoutevent)} => void |
 
 ---
 
@@ -340,9 +358,9 @@ Invoked when load completes successfully.
 
 **Example:** `onLoad={({nativeEvent: {source: {width, height}}}) => setImageRealSize({width, height})}`
 
-| Type                                                              |
-| ----------------------------------------------------------------- |
-| ({ nativeEvent: [ImageLoadEvent](image#imageloadevent) }) => void |
+| Type                                                          |
+| ------------------------------------------------------------- |
+| ({nativeEvent: [ImageLoadEvent]image#imageloadevent)} => void |
 
 ---
 
@@ -382,9 +400,9 @@ Invoked when a partial load of the image is complete. The definition of what con
 
 Invoked on download progress.
 
-| Type                                           |
-| ---------------------------------------------- |
-| (`{ nativeEvent: { loaded, total } }`) => void |
+| Type                                        |
+| ------------------------------------------- |
+| (`{nativeEvent: {loaded, total} }`) => void |
 
 ---
 
@@ -531,8 +549,8 @@ Width of the image component.
 
 ### `abortPrefetch()` <div class="label android">Android</div>
 
-```jsx
-Image.abortPrefetch(requestId);
+```tsx
+static abortPrefetch(requestId: number);
 ```
 
 Abort prefetch request.
@@ -547,8 +565,12 @@ Abort prefetch request.
 
 ### `getSize()`
 
-```jsx
-Image.getSize(uri, success, [failure]);
+```tsx
+static getSize(
+  uri: string,
+  success: (width: number, height: number) => void,
+  failure?: (error: any) => void,
+): any;
 ```
 
 Retrieve the width and height (in pixels) of an image prior to displaying it. This method can fail if the image cannot be found, or fails to download.
@@ -567,8 +589,13 @@ In order to retrieve the image dimensions, the image may first need to be loaded
 
 ### `getSizeWithHeaders()`
 
-```jsx
-Image.getSizeWithHeaders(uri, headers, success, [failure]);
+```tsx
+static getSizeWithHeaders(
+  uri: string,
+  headers: {[index: string]: string},
+  success: (width: number, height: number) => void,
+  failure?: (error: any) => void,
+): any;
 ```
 
 Retrieve the width and height (in pixels) of an image prior to displaying it with the ability to provide the headers for the request. This method can fail if the image cannot be found, or fails to download. It also does not work for static image resources.
@@ -588,7 +615,7 @@ In order to retrieve the image dimensions, the image may first need to be loaded
 
 ### `prefetch()`
 
-```jsx
+```tsx
 await Image.prefetch(url);
 ```
 
@@ -605,8 +632,10 @@ Prefetches a remote image for later use by downloading it to the disk cache. Ret
 
 ### `queryCache()`
 
-```jsx
-await Image.queryCache(urls);
+```tsx
+static queryCache(
+  urls: string[],
+): Promise<Record<string, 'memory' | 'disk' | 'disk/memory'>>;
 ```
 
 Perform cache interrogation. Returns a promise which resolves to a mapping from URL to cache status, such as "disk", "memory" or "disk/memory". If a requested URL is not in the mapping, it means it's not in the cache.
@@ -621,11 +650,16 @@ Perform cache interrogation. Returns a promise which resolves to a mapping from 
 
 ### `resolveAssetSource()`
 
-```jsx
-Image.resolveAssetSource(source);
+```tsx
+static resolveAssetSource(source: ImageSourcePropType): {
+  height: number;
+  width: number;
+  scale: number;
+  uri: string;
+};
 ```
 
-Resolves an asset reference into an object which has the properties `uri`, `width`, and `height`.
+Resolves an asset reference into an object which has the properties `uri`, `scale`, `width`, and `height`.
 
 **Parameters:**
 

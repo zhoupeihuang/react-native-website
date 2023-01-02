@@ -18,7 +18,7 @@ When `true`, indicates that the view is an accessibility element. When a view is
 
 On Android, `accessible={true}` property for a react-native View will be translated into native `focusable={true}`.
 
-```jsx
+```tsx
 <View accessible={true}>
   <Text>text one</Text>
   <Text>text two</Text>
@@ -33,7 +33,7 @@ When a view is marked as accessible, it is a good practice to set an accessibili
 
 To use, set the `accessibilityLabel` property to a custom string on your View, Text or Touchable:
 
-```jsx
+```tsx
 <TouchableOpacity
   accessible={true}
   accessibilityLabel="Tap me!"
@@ -51,7 +51,7 @@ In the above example, the `accessibilityLabel` on the TouchableOpacity element w
 A reference to another element [nativeID](view.md#nativeid) used to build complex forms.
 The value of `accessibilityLabelledBy` should match the `nativeID` of the related element:
 
-```jsx
+```tsx
 <View>
   <Text nativeID="formLabel">Label for Input Field</Text>
   <TextInput
@@ -69,7 +69,7 @@ An accessibility hint helps users understand what will happen when they perform 
 
 To use, set the `accessibilityHint` property to a custom string on your View, Text or Touchable:
 
-```jsx
+```tsx
 <TouchableOpacity
   accessible={true}
   accessibilityLabel="Go back"
@@ -93,7 +93,7 @@ In the above example, TalkBack will read the hint after the label. At this time,
 
 By using the `accessibilityLanguage` property, the screen reader will understand which language to use while reading the element's **label**, **value** and **hint**. The provided string value must follow the [BCP 47 specification](https://www.rfc-editor.org/info/bcp47).
 
-```jsx
+```tsx
 <View
   accessible={true}
   accessibilityLabel="Pizza"
@@ -114,7 +114,7 @@ When components dynamically change, we want TalkBack to alert the end user. This
 - **polite** Accessibility services should announce changes to this view.
 - **assertive** Accessibility services should interrupt ongoing speech to immediately announce changes to this view.
 
-```jsx
+```tsx
 <TouchableWithoutFeedback onPress={addOne}>
   <View style={styles.embedded}>
     <Text>Click me</Text>
@@ -274,7 +274,7 @@ Defines a string value that labels an interactive element.
 
 Identifies the element that labels the element it is applied to. The value of `aria-labelledby` should match the [`nativeID`](view.md#nativeid) of the related element:
 
-```jsx
+```tsx
 <View>
   <Text nativeID="formLabel">Label for Input Field</Text>
   <TextInput aria-label="input" aria-labelledby="formLabel" />
@@ -292,6 +292,12 @@ Indicates that an element will be updated, and describes the types of updates th
 - **off** Accessibility services should not announce changes to this view.
 - **polite** Accessibility services should announce changes to this view.
 - **assertive** Accessibility services should interrupt ongoing speech to immediately announce changes to this view.
+
+| Type                                     | Default |
+| ---------------------------------------- | ------- |
+| enum(`'assertive'`, `'off'`, `'polite'`) | `'off'` |
+
+---
 
 ### `aria-modal` <div class="label ios">iOS</div>
 
@@ -313,15 +319,15 @@ Indicates whether a selectable element is currently selected or not.
 
 In the case of two overlapping UI components with the same parent, default accessibility focus can have unpredictable behavior. The `importantForAccessibility` property will resolve this by controlling if a view fires accessibility events and if it is reported to accessibility services. It can be set to `auto`, `yes`, `no` and `no-hide-descendants` (the last value will force accessibility services to ignore the component and all of its children).
 
-```jsx
+```tsx
 <View style={styles.container}>
   <View
-    style={[styles.layout, { backgroundColor: 'green' }]}
+    style={[styles.layout, {backgroundColor: 'green'}]}
     importantForAccessibility="yes">
     <Text>First layout</Text>
   </View>
   <View
-    style={[styles.layout, { backgroundColor: 'yellow' }]}
+    style={[styles.layout, {backgroundColor: 'yellow'}]}
     importantForAccessibility="no-hide-descendants">
     <Text>Second layout</Text>
   </View>
@@ -341,6 +347,40 @@ Use this property to assign a custom function to be called when someone activate
 ### `onMagicTap` <div class="label ios">iOS</div>
 
 Assign this property to a custom function which will be called when someone performs the "magic tap" gesture, which is a double-tap with two fingers. A magic tap function should perform the most relevant action a user could take on a component. In the Phone app on iPhone, a magic tap answers a phone call, or ends the current one. If the selected element does not have an `onMagicTap` function, the system will traverse up the view hierarchy until it finds a view that does.
+
+### `role`
+
+`role` communicates the purpose of a component to the user of an assistive technology. Has precedence over the [`accessibilityRole`](accessibility#accessibilityrole) prop.
+
+`role` can be one of the following:
+
+- **alert** Used when an element contains important text to be presented to the user.
+- **button** Used when the element should be treated as a button.
+- **checkbox** Used when an element represents a checkbox which can be checked, unchecked, or have mixed checked state.
+- **combobox** Used when an element represents a combo box, which allows the user to select among several choices.
+- **grid** Used with ScrollView, VirtualizedList, FlatList, or SectionList to represent a grid. Adds the in/out of grid announcements to the android GridView.
+- **heading** Used when an element acts as a header for a content section (e.g. the title of a navigation bar).
+- **img** Used when the element should be treated as an image. Can be combined with button or link, for example.
+- **link** Used when the element should be treated as a link.
+- **list** Used to identify a list of items.
+- **menu** Used when the component is a menu of choices.
+- **menubar** Used when a component is a container of multiple menus.
+- **menuitem** Used to represent an item within a menu.
+- **none** Used when the element has no role.
+- **presentation** Used when the element has no role.
+- **progressbar** Used to represent a component which indicates progress of a task.
+- **radio** Used to represent a radio button.
+- **radiogroup** Used to represent a group of radio buttons.
+- **scrollbar** Used to represent a scroll bar.
+- **searchbox** Used when the text field element should also be treated as a search field.
+- **slider** Used when an element can be "adjusted" (e.g. a slider).
+- **spinbutton** Used to represent a button which opens a list of choices.
+- **summary** Used when an element can be used to provide a quick summary of current conditions in the app when the app first launches.
+- **switch** Used to represent a switch which can be turned on and off.
+- **tab** Used to represent a tab.
+- **tablist** Used to represent a list of tabs.
+- **timer** Used to represent a timer.
+- **toolbar** Used to represent a tool bar (a container of action buttons or components).
 
 ## Accessibility Actions
 
@@ -371,15 +411,15 @@ The `label` field is optional for standard actions, and is often unused by assis
 
 To handle action requests, a component must implement an `onAccessibilityAction` function. The only argument to this function is an event containing the name of the action to perform. The below example from RNTester shows how to create a component which defines and handles several custom actions.
 
-```jsx
+```tsx
 <View
   accessible={true}
   accessibilityActions={[
-    { name: 'cut', label: 'cut' },
-    { name: 'copy', label: 'copy' },
-    { name: 'paste', label: 'paste' }
+    {name: 'cut', label: 'cut'},
+    {name: 'copy', label: 'copy'},
+    {name: 'paste', label: 'paste'},
   ]}
-  onAccessibilityAction={(event) => {
+  onAccessibilityAction={event => {
     switch (event.nativeEvent.actionName) {
       case 'cut':
         Alert.alert('Alert', 'cut action success');
@@ -403,17 +443,13 @@ The `AccessibilityInfo` API allows you to determine whether or not a screen read
 
 Sometimes it is useful to trigger an accessibility event on a UI component (i.e. when a custom view appears on a screen or set accessibility focus to a view). Native UIManager module exposes a method ‘sendAccessibilityEvent’ for this purpose. It takes two arguments: view tag and a type of an event. The supported event types are `typeWindowStateChanged`, `typeViewFocused` and `typeViewClicked`.
 
-```jsx
-import {
-  Platform,
-  UIManager,
-  findNodeHandle
-} from 'react-native';
+```tsx
+import {Platform, UIManager, findNodeHandle} from 'react-native';
 
 if (Platform.OS === 'android') {
   UIManager.sendAccessibilityEvent(
     findNodeHandle(this),
-    UIManager.AccessibilityEventTypes.typeViewFocused
+    UIManager.AccessibilityEventTypes.typeViewFocused,
   );
 }
 ```

@@ -6,8 +6,8 @@ title: StyleSheet
 A StyleSheet is an abstraction similar to CSS StyleSheets
 
 ```SnackPlayer name=StyleSheet
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={styles.container}>
@@ -19,20 +19,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "#eaeaea"
+    backgroundColor: '#eaeaea',
   },
   title: {
     marginTop: 16,
     paddingVertical: 8,
     borderWidth: 4,
-    borderColor: "#20232a",
+    borderColor: '#20232a',
     borderRadius: 6,
-    backgroundColor: "#61dafb",
-    color: "#20232a",
-    textAlign: "center",
+    backgroundColor: '#61dafb',
+    color: '#20232a',
+    textAlign: 'center',
     fontSize: 30,
-    fontWeight: "bold"
-  }
+    fontWeight: 'bold',
+  },
 });
 
 export default App;
@@ -51,15 +51,15 @@ Code quality tips:
 
 ### `compose()`
 
-```jsx
-static compose(style1: object, style2: object): object | array<object>
+```tsx
+static compose(style1: Object, style2: Object): Object | Object[];
 ```
 
 Combines two styles such that `style2` will override any styles in `style1`. If either style is falsy, the other one is returned without allocating an array, saving allocations and maintaining reference equality for PureComponent checks.
 
 ```SnackPlayer name=Compose
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={container}>
@@ -75,7 +75,7 @@ const page = StyleSheet.create({
   },
   text: {
     fontSize: 30,
-    color: '#000'
+    color: '#000',
   },
 });
 
@@ -86,7 +86,7 @@ const lists = StyleSheet.create({
   },
   listItem: {
     fontStyle: 'italic',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
 });
 
@@ -100,8 +100,8 @@ export default App;
 
 ### `create()`
 
-```jsx
-static create(obj: object): object
+```tsx
+static create(styles: Object): Object;
 ```
 
 Creates a StyleSheet style reference from the given object.
@@ -110,8 +110,8 @@ Creates a StyleSheet style reference from the given object.
 
 ### `flatten()`
 
-```jsx
-static flatten(style: array<object>): object
+```tsx
+static flatten(style: Object[]): Object;
 ```
 
 Flattens an array of style objects, into one aggregated style object. Alternatively, this method can be used to lookup IDs, returned by `StyleSheet.register`.
@@ -119,16 +119,14 @@ Flattens an array of style objects, into one aggregated style object. Alternativ
 > **NOTE:** Exercise caution as abusing this can tax you in terms of optimizations. IDs enable optimizations through the bridge and memory in general. Referring to style objects directly will deprive you of these optimizations.
 
 ```SnackPlayer name=Flatten
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={page.container}>
     <Text style={flattenStyle}>React Native</Text>
     <Text>Flatten Style</Text>
-    <Text style={page.code}>
-      {JSON.stringify(flattenStyle, null, 2)}
-    </Text>
+    <Text style={page.code}>{JSON.stringify(flattenStyle, null, 2)}</Text>
   </View>
 );
 
@@ -136,34 +134,31 @@ const page = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    alignItems: "center"
+    alignItems: 'center',
   },
   text: {
-    color: "#000",
+    color: '#000',
     fontSize: 14,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   code: {
     marginTop: 12,
     padding: 12,
     borderRadius: 8,
-    color: "#666",
-    backgroundColor: "#eaeaea"
-  }
+    color: '#666',
+    backgroundColor: '#eaeaea',
+  },
 });
 
 const typography = StyleSheet.create({
   header: {
-    color: "#61dafb",
+    color: '#61dafb',
     fontSize: 30,
-    marginBottom: 36
-  }
+    marginBottom: 36,
+  },
 });
 
-const flattenStyle = StyleSheet.flatten([
-  page.text,
-  typography.header
-]);
+const flattenStyle = StyleSheet.flatten([page.text, typography.header]);
 
 export default App;
 ```
@@ -176,8 +171,11 @@ This method internally uses `StyleSheetRegistry.getStyleByID(style)` to resolve 
 
 > **WARNING: EXPERIMENTAL.** Breaking changes will probably happen a lot and will not be reliably announced. The whole thing might be deleted, who knows? Use at your own risk.
 
-```jsx
-static setStyleAttributePreprocessor(property: string, process: (propValue: any) => any)
+```tsx
+static setStyleAttributePreprocessor(
+  property: string,
+  process: (propValue: any) => any,
+);
 ```
 
 Sets a function to use to pre-process a style property value. This is used internally to process color and transform values. You should not use this unless you really know what you are doing and have exhausted other options.
@@ -192,14 +190,14 @@ A very common pattern is to create overlays with position absolute and zero posi
 
 ```SnackPlayer name=absoluteFill
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={styles.container}>
     <View style={styles.box1}>
       <Text style={styles.text}>1</Text>
     </View>
-    <View style={styles.box2}>
+    <View style={[styles.box2, StyleSheet.absoluteFill]}>
       <Text style={styles.text}>2</Text>
     </View>
     <View style={styles.box3}>
@@ -210,7 +208,7 @@ const App = () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   box1: {
     position: 'absolute',
@@ -218,13 +216,12 @@ const styles = StyleSheet.create({
     left: 40,
     width: 100,
     height: 100,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   box2: {
-    ...StyleSheet.absoluteFill,
     width: 100,
     height: 100,
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
   },
   box3: {
     position: 'absolute',
@@ -232,12 +229,12 @@ const styles = StyleSheet.create({
     left: 120,
     width: 100,
     height: 100,
-    backgroundColor: 'green'
+    backgroundColor: 'green',
   },
   text: {
     color: '#FFF',
-    fontSize: 80
-  }
+    fontSize: 80,
+  },
 });
 
 export default App;
@@ -251,7 +248,7 @@ Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillOb
 
 ```SnackPlayer name=absoluteFillObject
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={styles.container}>
@@ -269,7 +266,7 @@ const App = () => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   box1: {
     position: 'absolute',
@@ -277,15 +274,15 @@ const styles = StyleSheet.create({
     left: 40,
     width: 100,
     height: 100,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   box2: {
-    ...StyleSheet.absoluteFill,
+    ...StyleSheet.absoluteFillObject,
     top: 120,
     left: 50,
     width: 100,
     height: 100,
-    backgroundColor: 'blue'
+    backgroundColor: 'blue',
   },
   box3: {
     ...StyleSheet.absoluteFillObject,
@@ -293,12 +290,12 @@ const styles = StyleSheet.create({
     left: 120,
     width: 100,
     height: 100,
-    backgroundColor: 'green'
+    backgroundColor: 'green',
   },
   text: {
     color: '#FFF',
-    fontSize: 80
-  }
+    fontSize: 80,
+  },
 });
 
 export default App;
@@ -311,8 +308,8 @@ export default App;
 This is defined as the width of a thin line on the platform. It can be used as the thickness of a border or division between two elements. Example:
 
 ```SnackPlayer name=hairlineWidth
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import {StyleSheet, Text, View} from 'react-native';
 
 const App = () => (
   <View style={styles.container}>
@@ -324,13 +321,13 @@ const App = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24
+    padding: 24,
   },
   row: {
     padding: 4,
-    borderBottomColor: "red",
-    borderBottomWidth: StyleSheet.hairlineWidth
-  }
+    borderBottomColor: 'red',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
 });
 
 export default App;
@@ -339,9 +336,3 @@ export default App;
 This constant will always be a round number of pixels (so a line defined by it can look crisp) and will try to match the standard width of a thin line on the underlying platform. However, you should not rely on it being a constant size, because on different platforms and screen densities its value may be calculated differently.
 
 A line with hairline width may not be visible if your simulator is downscaled.
-
----
-
-## `absoluteFill` vs. `absoluteFillObject`
-
-Currently, there is no difference between using `absoluteFill` vs. `absoluteFillObject`.

@@ -24,27 +24,34 @@ If a user has previously turned off a permission that you prompt for, the OS wil
 <TabItem value="functional">
 
 ```SnackPlayer name=PermissionsAndroid%20Example&supportedPlatforms=android
-import React from "react";
-import { Button, PermissionsAndroid, SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import {
+  Button,
+  PermissionsAndroid,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const requestCameraPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.CAMERA,
       {
-        title: "Cool Photo App Camera Permission",
+        title: 'Cool Photo App Camera Permission',
         message:
-          "Cool Photo App needs access to your camera " +
-          "so you can take awesome pictures.",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK"
-      }
+          'Cool Photo App needs access to your camera ' +
+          'so you can take awesome pictures.',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("You can use the camera");
+      console.log('You can use the camera');
     } else {
-      console.log("Camera permission denied");
+      console.log('Camera permission denied');
     }
   } catch (err) {
     console.warn(err);
@@ -61,17 +68,17 @@ const App = () => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#ecf0f1",
-    padding: 8
+    backgroundColor: '#ecf0f1',
+    padding: 8,
   },
   item: {
     margin: 24,
     fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center"
-  }
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export default App;
@@ -81,27 +88,34 @@ export default App;
 <TabItem value="classical">
 
 ```SnackPlayer name=PermissionsAndroid%20Example&supportedPlatforms=android
-import React, { Component } from "react";
-import { Button, PermissionsAndroid, SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import React, {Component} from 'react';
+import {
+  Button,
+  PermissionsAndroid,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const requestCameraPermission = async () => {
   try {
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.CAMERA,
       {
-        title: "Cool Photo App Camera Permission",
+        title: 'Cool Photo App Camera Permission',
         message:
-          "Cool Photo App needs access to your camera " +
-          "so you can take awesome pictures.",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK"
-      }
+          'Cool Photo App needs access to your camera ' +
+          'so you can take awesome pictures.',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
     );
     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-      console.log("You can use the camera");
+      console.log('You can use the camera');
     } else {
-      console.log("Camera permission denied");
+      console.log('Camera permission denied');
     }
   } catch (err) {
     console.warn(err);
@@ -117,22 +131,22 @@ class App extends Component {
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#ecf0f1",
-    padding: 8
+    backgroundColor: '#ecf0f1',
+    padding: 8,
   },
   item: {
     margin: 24,
     fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center"
-  }
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
 
 export default App;
@@ -183,7 +197,7 @@ Available as constants under `PermissionsAndroid.PERMISSIONS`:
 - `READ_MEDIA_IMAGES`: 'android.permission.READ_MEDIA_IMAGES'
 - `READ_MEDIA_VIDEO`: 'android.permission.READ_MEDIA_VIDEO'
 - `READ_MEDIA_AUDIO`: 'android.permission.READ_MEDIA_AUDIO'
-- `POST_NOTIFICATION`: 'android.permission.POST_NOTIFICATIONS'
+- `POST_NOTIFICATIONS`: 'android.permission.POST_NOTIFICATIONS'
 - `NEARBY_WIFI_DEVICES`: 'android.permission.NEARBY_WIFI_DEVICES'
 - `READ_VOICEMAIL`: 'com.android.voicemail.permission.READ_VOICEMAIL',
 - `WRITE_VOICEMAIL`: 'com.android.voicemail.permission.WRITE_VOICEMAIL',
@@ -202,18 +216,10 @@ Available as constants under `PermissionsAndroid.RESULTS`:
 
 ## Methods
 
-### `constructor()`
-
-```jsx
-constructor();
-```
-
----
-
 ### `check()`
 
-```jsx
-check(permission);
+```tsx
+static check(permission: Permission): Promise<boolean>;
 ```
 
 Returns a promise resolving to a boolean value as to whether the specified permissions has been granted.
@@ -228,8 +234,11 @@ Returns a promise resolving to a boolean value as to whether the specified permi
 
 ### `request()`
 
-```jsx
-request(permission, [rationale]);
+```tsx
+static request(
+  permission: Permission,
+  rationale?: Rationale,
+): Promise<PermissionStatus>;
 ```
 
 Prompts the user to enable a permission and returns a promise resolving to a string value (see result strings above) indicating whether the user allowed or denied the request or does not want to be asked again.
@@ -257,8 +266,10 @@ If `rationale` is provided, this function checks with the OS whether it is neces
 
 ### `requestMultiple()`
 
-```jsx
-requestMultiple(permissions);
+```tsx
+static requestMultiple(
+  permissions: Permission[],
+): Promise<{[key in Permission]: PermissionStatus}>;
 ```
 
 Prompts the user to enable multiple permissions in the same dialog and returns an object with the permissions as keys and strings as values (see result strings above) indicating whether the user allowed or denied the request or does not want to be asked again.

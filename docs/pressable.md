@@ -5,7 +5,7 @@ title: Pressable
 
 Pressable is a Core Component wrapper that can detect various stages of press interactions on any of its defined children.
 
-```jsx
+```tsx
 <Pressable onPress={onPressFunction}>
   <Text>I'm pressable!</Text>
 </Pressable>
@@ -43,8 +43,8 @@ Fingers are not the most precise instruments, and it is common for users to acci
 ## Example
 
 ```SnackPlayer name=Pressable
-import React, { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, {useState} from 'react';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 
 const App = () => {
   const [timesPressed, setTimesPressed] = useState(0);
@@ -60,20 +60,16 @@ const App = () => {
     <View style={styles.container}>
       <Pressable
         onPress={() => {
-          setTimesPressed((current) => current + 1);
+          setTimesPressed(current => current + 1);
         }}
-        style={({ pressed }) => [
+        style={({pressed}) => [
           {
-            backgroundColor: pressed
-              ? 'rgb(210, 230, 255)'
-              : 'white'
+            backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'white',
           },
-          styles.wrapperCustom
+          styles.wrapperCustom,
         ]}>
-        {({ pressed }) => (
-          <Text style={styles.text}>
-            {pressed ? 'Pressed!' : 'Press Me'}
-          </Text>
+        {({pressed}) => (
+          <Text style={styles.text}>{pressed ? 'Pressed!' : 'Press Me'}</Text>
         )}
       </Pressable>
       <View style={styles.logBox}>
@@ -86,22 +82,22 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   text: {
-    fontSize: 16
+    fontSize: 16,
   },
   wrapperCustom: {
     borderRadius: 8,
-    padding: 6
+    padding: 6,
   },
   logBox: {
     padding: 20,
     margin: 10,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#f0f0f0',
-    backgroundColor: '#f9f9f9'
-  }
+    backgroundColor: '#f9f9f9',
+  },
 });
 
 export default App;
@@ -169,41 +165,41 @@ Sets additional distance outside of element in which a press can be detected.
 
 Called if the time after `onPressIn` lasts longer than 500 milliseconds. This time period can be customized with [`delayLongPress`](#delaylongpress).
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ### `onPress`
 
 Called after `onPressOut`.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ### `onPressIn`
 
 Called immediately when a touch is engaged, before `onPressOut` and `onPress`.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ### `onPressOut`
 
 Called when a touch is released.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ### `pressRetentionOffset`
 
 Additional distance outside of this view in which a touch is considered a press before `onPressOut` is triggered.
 
-| Type                   | Default                                        |
-| ---------------------- | ---------------------------------------------- |
-| [Rect](rect) or number | `{ bottom: 30, left: 20, right: 20, top: 20 }` |
+| Type                   | Default                                      |
+| ---------------------- | -------------------------------------------- |
+| [Rect](rect) or number | `{bottom: 30, left: 20, right: 20, top: 20}` |
 
 ### `style`
 

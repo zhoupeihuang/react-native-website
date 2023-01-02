@@ -3,9 +3,7 @@ id: direct-manipulation
 title: Direct Manipulation
 ---
 
-import NativeDeprecated from './the-new-architecture/\_markdown_native_deprecation.mdx'
-
-<NativeDeprecated />
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 It is sometimes necessary to make changes directly to a component without using state/props to trigger a re-render of the entire subtree. When using React in the browser for example, you sometimes need to directly modify a DOM node, and the same is true for views in mobile apps. `setNativeProps` is the React Native equivalent to setting properties directly on a DOM node.
 
@@ -22,19 +20,19 @@ Before you use it, try to solve your problem with `setState` and [`shouldCompone
 
 [TouchableOpacity](https://github.com/facebook/react-native/blob/master/Libraries/Components/Touchable/TouchableOpacity.js) uses `setNativeProps` internally to update the opacity of its child component:
 
-```jsx
-const viewRef = useRef();
-const setOpacityTo = useCallback((value) => {
+```tsx
+const viewRef = useRef<View>();
+const setOpacityTo = useCallback(value => {
   // Redacted: animation related code
   viewRef.current.setNativeProps({
-    opacity: value
+    opacity: value,
   });
 }, []);
 ```
 
 This allows us to write the following code and know that the child will have its opacity updated in response to taps, without the child having any knowledge of that fact or requiring any changes to its implementation:
 
-```jsx
+```tsx
 <TouchableOpacity onPress={handlePress}>
   <View>
     <Text>Press me!</Text>
@@ -44,13 +42,13 @@ This allows us to write the following code and know that the child will have its
 
 Let's imagine that `setNativeProps` was not available. One way that we might implement it with that constraint is to store the opacity value in the state, then update that value whenever `onPress` is fired:
 
-```jsx
+```tsx
 const [buttonOpacity, setButtonOpacity] = useState(1);
 return (
   <TouchableOpacity
     onPressIn={() => setButtonOpacity(0.5)}
     onPressOut={() => setButtonOpacity(1)}>
-    <View style={{ opacity: buttonOpacity }}>
+    <View style={{opacity: buttonOpacity}}>
       <Text>Press me!</Text>
     </View>
   </TouchableOpacity>
@@ -65,22 +63,52 @@ If you look at the implementation of `setNativeProps` in [NativeMethodsMixin](ht
 
 Composite components are not backed by a native view, so you cannot call `setNativeProps` on them. Consider this example:
 
-```SnackPlayer name=setNativeProps%20with%20Composite%20Components
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
 
-const MyButton = (props) => (
-  <View style={{ marginTop: 50 }}>
+```SnackPlayer name=setNativeProps%20with%20Composite%20Components&ext=js
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+
+const MyButton = props => (
+  <View style={{marginTop: 50}}>
     <Text>{props.label}</Text>
   </View>
 );
 
-export default App = () => (
+const App = () => (
   <TouchableOpacity>
     <MyButton label="Press me!" />
   </TouchableOpacity>
 );
+
+export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=setNativeProps%20with%20Composite%20Components&ext=tsx
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+
+const MyButton = (props: {label: string}) => (
+  <View style={{marginTop: 50}}>
+    <Text>{props.label}</Text>
+  </View>
+);
+
+const App = () => (
+  <TouchableOpacity>
+    <MyButton label="Press me!" />
+  </TouchableOpacity>
+);
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 If you run this you will immediately see this error: `Touchable child must either be native or forward setNativeProps to a native component`. This occurs because `MyButton` isn't directly backed by a native view whose opacity should be set. You can think about it like this: if you define a component with `createReactClass` you would not expect to be able to set a style prop on it and have that work - you would need to pass the style prop down to a child, unless you are wrapping a native component. Similarly, we are going to forward `setNativeProps` to a native-backed child component.
 
@@ -88,22 +116,52 @@ If you run this you will immediately see this error: `Touchable child must eithe
 
 Since the `setNativeProps` method exists on any ref to a `View` component, it is enough to forward a ref on your custom component to one of the `<View />` components that it renders. This means that a call to `setNativeProps` on the custom component will have the same effect as if you called `setNativeProps` on the wrapped `View` component itself.
 
-```SnackPlayer name=Forwarding%20setNativeProps
-import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=Forwarding%20setNativeProps&ext=js
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 const MyButton = React.forwardRef((props, ref) => (
-  <View {...props} ref={ref} style={{ marginTop: 50 }}>
+  <View {...props} ref={ref} style={{marginTop: 50}}>
     <Text>{props.label}</Text>
   </View>
 ));
 
-export default App = () => (
+const App = () => (
   <TouchableOpacity>
     <MyButton label="Press me!" />
   </TouchableOpacity>
 );
+
+export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Forwarding%20setNativeProps&ext=tsx
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+
+const MyButton = React.forwardRef<View, {label: string}>((props, ref) => (
+  <View {...props} ref={ref} style={{marginTop: 50}}>
+    <Text>{props.label}</Text>
+  </View>
+));
+
+const App = () => (
+  <TouchableOpacity>
+    <MyButton label="Press me!" />
+  </TouchableOpacity>
+);
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 You can now use `MyButton` inside of `TouchableOpacity`!
 
@@ -113,15 +171,24 @@ You may have noticed that we passed all of the props down to the child view usin
 
 Another very common use case of `setNativeProps` is to edit the value of the TextInput. The `controlled` prop of TextInput can sometimes drop characters when the `bufferDelay` is low and the user types very quickly. Some developers prefer to skip this prop entirely and instead use `setNativeProps` to directly manipulate the TextInput value when necessary. For example, the following code demonstrates editing the input when you tap a button:
 
-```SnackPlayer name=Clear%20text
-import React from "react";
-import { useCallback, useRef } from "react";
-import { StyleSheet, TextInput, Text, TouchableOpacity, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=Clear%20text&ext=js
+import React from 'react';
+import {useCallback, useRef} from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const App = () => {
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const editText = useCallback(() => {
-    inputRef.current.setNativeProps({ text: "Edited Text" });
+    inputRef.current.setNativeProps({text: 'Edited Text'});
   }, []);
 
   return (
@@ -137,20 +204,71 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   input: {
     height: 50,
     width: 200,
     marginHorizontal: 20,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: '#ccc',
   },
 });
 
 export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Clear%20text&ext=tsx
+import React from 'react';
+import {useCallback, useRef} from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+
+const App = () => {
+  const inputRef = useRef<TextInput>(null);
+  const editText = useCallback(() => {
+    inputRef.current?.setNativeProps({text: 'Edited Text'});
+  }, []);
+
+  return (
+    <View style={styles.container}>
+      <TextInput ref={inputRef} style={styles.input} />
+      <TouchableOpacity onPress={editText}>
+        <Text>Edit text</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    height: 50,
+    width: 200,
+    marginHorizontal: 20,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 You can use the [`clear`](textinput#clear) method to clear the `TextInput` which clears the current input text using the same approach.
 
@@ -198,9 +316,12 @@ Like `measure()`, but measures the view relative to an ancestor, specified with 
 This method can also be called with a `relativeToNativeNode` handler (instead of reference), but this variant is deprecated.
 :::
 
-```SnackPlayer name=measureLayout%20example&supportedPlatforms=android,ios
-import React, { useEffect, useRef, useState } from "react";
-import { Text, View, StyleSheet } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=measureLayout%20example&supportedPlatforms=android,ios&ext=js
+import React, {useEffect, useRef, useState} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
 
 const App = () => {
   const textContainerRef = useRef(null);
@@ -212,25 +333,18 @@ const App = () => {
       textRef.current.measureLayout(
         textContainerRef.current,
         (left, top, width, height) => {
-          setMeasure({ left, top, width, height });
-        }
+          setMeasure({left, top, width, height});
+        },
       );
     }
   }, [measure]);
 
   return (
     <View style={styles.container}>
-      <View
-        ref={textContainerRef}
-        style={styles.textContainer}
-      >
-        <Text ref={textRef}>
-          Where am I? (relative to the text container)
-        </Text>
+      <View ref={textContainerRef} style={styles.textContainer}>
+        <Text ref={textRef}>Where am I? (relative to the text container)</Text>
       </View>
-      <Text style={styles.measure}>
-        {JSON.stringify(measure)}
-      </Text>
+      <Text style={styles.measure}>{JSON.stringify(measure)}</Text>
     </View>
   );
 };
@@ -238,22 +352,88 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   textContainer: {
-    backgroundColor: "#61dafb",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#61dafb',
+    justifyContent: 'center',
+    alignItems: 'center',
     padding: 12,
   },
   measure: {
-    textAlign: "center",
+    textAlign: 'center',
     padding: 12,
   },
 });
 
 export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=measureLayout%20example&ext=tsx
+import React, {useEffect, useRef, useState} from 'react';
+import {Text, View, StyleSheet} from 'react-native';
+
+type Measurements = {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+};
+
+const App = () => {
+  const textContainerRef = useRef<View>(null);
+  const textRef = useRef<Text>(null);
+  const [measure, setMeasure] = useState<Measurements | null>(null);
+
+  useEffect(() => {
+    if (textRef.current && textContainerRef.current) {
+      textRef.current?.measureLayout(
+        textContainerRef.current,
+        (left, top, width, height) => {
+          setMeasure({left, top, width, height});
+        },
+        () => {
+          console.error('measurement failed');
+        },
+      );
+    }
+  }, [measure]);
+
+  return (
+    <View style={styles.container}>
+      <View ref={textContainerRef} style={styles.textContainer}>
+        <Text ref={textRef}>Where am I? (relative to the text container)</Text>
+      </View>
+      <Text style={styles.measure}>{JSON.stringify(measure)}</Text>
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  textContainer: {
+    backgroundColor: '#61dafb',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 12,
+  },
+  measure: {
+    textAlign: 'center',
+    padding: 12,
+  },
+});
+
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 ### focus()
 

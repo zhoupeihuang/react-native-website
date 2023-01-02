@@ -14,8 +14,14 @@ Background drawable of native feedback touchable can be customized with `backgro
 ## Example
 
 ```SnackPlayer name=TouchableNativeFeedback%20Android%20Component%20Example&supportedPlatforms=android
-import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableNativeFeedback, StatusBar } from "react-native";
+import React, {useState} from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableNativeFeedback,
+  StatusBar,
+} from 'react-native';
 
 const App = () => {
   const [rippleColor, setRippleColor] = useState(randomHexColor());
@@ -27,8 +33,10 @@ const App = () => {
           setRippleColor(randomHexColor());
           setRippleOverflow(!rippleOverflow);
         }}
-        background={TouchableNativeFeedback.Ripple(rippleColor, rippleOverflow)}
-      >
+        background={TouchableNativeFeedback.Ripple(
+          rippleColor,
+          rippleOverflow,
+        )}>
         <View style={styles.touchable}>
           <Text style={styles.text}>TouchableNativeFeedback</Text>
         </View>
@@ -38,21 +46,21 @@ const App = () => {
 };
 
 const randomHexColor = () => {
-  return "#000000".replace(/0/g, function() {
-    return (~~(Math.random() * 16)).toString(16);
+  return '#000000'.replace(/0/g, function () {
+    return Math.round(Math.random() * 16).toString(16);
   });
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#ecf0f1",
-    padding: 8
+    backgroundColor: '#ecf0f1',
+    padding: 8,
   },
-  touchable: { flex: 0.5, borderColor: "black", borderWidth: 1 },
-  text: { alignSelf: "center" }
+  touchable: {flex: 0.5, borderColor: 'black', borderWidth: 1},
+  text: {alignSelf: 'center'},
 });
 
 export default App;
@@ -154,8 +162,10 @@ TV next focus up (see documentation for the View component).
 
 ### `SelectableBackground()`
 
-```jsx
-static SelectableBackground(rippleRadius: ?number)
+```tsx
+static SelectableBackground(
+  rippleRadius: number | null,
+): ThemeAttributeBackgroundPropType;
 ```
 
 Creates an object that represents android theme's default background for selectable elements (?android:attr/selectableItemBackground). `rippleRadius` parameter controls the radius of the ripple effect.
@@ -164,8 +174,10 @@ Creates an object that represents android theme's default background for selecta
 
 ### `SelectableBackgroundBorderless()`
 
-```jsx
-static SelectableBackgroundBorderless(rippleRadius: ?number)
+```tsx
+static SelectableBackgroundBorderless(
+  rippleRadius: number | null,
+): ThemeAttributeBackgroundPropType;
 ```
 
 Creates an object that represent android theme's default background for borderless selectable elements (?android:attr/selectableItemBackgroundBorderless). Available on android API level 21+. `rippleRadius` parameter controls the radius of the ripple effect.
@@ -174,8 +186,12 @@ Creates an object that represent android theme's default background for borderle
 
 ### `Ripple()`
 
-```jsx
-static Ripple(color: string, borderless: boolean, rippleRadius: ?number)
+```tsx
+static Ripple(
+  color: ColorValue,
+  borderless: boolean,
+  rippleRadius?: number | null,
+): RippleBackgroundPropType;
 ```
 
 Creates an object that represents ripple drawable with specified color (as a string). If property `borderless` evaluates to true the ripple will render outside of the view bounds (see native actionbar buttons as an example of that behavior). This background type is available on Android API level 21+.
@@ -192,6 +208,6 @@ Creates an object that represents ripple drawable with specified color (as a str
 
 ### `canUseNativeForeground()`
 
-```jsx
-static canUseNativeForeground()
+```tsx
+static canUseNativeForeground(): boolean;
 ```

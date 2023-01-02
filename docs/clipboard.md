@@ -3,7 +3,7 @@ id: clipboard
 title: '🚧 Clipboard'
 ---
 
-> **Deprecated.** Use one of the [community packages](https://reactnative.directory/?search=clipboard) instead.
+> **Removed.** Use one of the [community packages](https://reactnative.directory/?search=clipboard) instead.
 
 `Clipboard` gives you an interface for setting and getting content from Clipboard on both Android and iOS
 
@@ -12,24 +12,30 @@ title: '🚧 Clipboard'
 ## Example
 
 ```SnackPlayer name=Clipboard%20API%20Example&supportedPlatforms=ios,android
-
-import React, { useState } from 'react'
-import { SafeAreaView, View, Text, TouchableOpacity, Clipboard, StyleSheet } from 'react-native'
+import React, {useState} from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  TouchableOpacity,
+  Clipboard,
+  StyleSheet,
+} from 'react-native';
 
 const App = () => {
-  const [copiedText, setCopiedText] = useState('')
+  const [copiedText, setCopiedText] = useState('');
 
   const copyToClipboard = () => {
-    Clipboard.setString('hello world')
-  }
+    Clipboard.setString('hello world');
+  };
 
   const fetchCopiedText = async () => {
-    const text = await Clipboard.getString()
-    setCopiedText(text)
-  }
+    const text = await Clipboard.getString();
+    setCopiedText(text);
+  };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
         <TouchableOpacity onPress={() => copyToClipboard()}>
           <Text>Click here to copy to Clipboard</Text>
@@ -40,24 +46,23 @@ const App = () => {
 
         <Text style={styles.copiedText}>{copiedText}</Text>
       </View>
-
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   copiedText: {
     marginTop: 10,
-    color: 'red'
-  }
-})
+    color: 'red',
+  },
+});
 
-export default App
+export default App;
 ```
 
 # Reference

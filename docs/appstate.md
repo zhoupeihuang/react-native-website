@@ -28,25 +28,25 @@ To see the current state, you can check `AppState.currentState`, which will be k
 <TabItem value="functional">
 
 ```SnackPlayer name=AppState%20Function%20Component%20Example
-import React, { useRef, useState, useEffect } from "react";
-import { AppState, StyleSheet, Text, View } from "react-native";
+import React, {useRef, useState, useEffect} from 'react';
+import {AppState, StyleSheet, Text, View} from 'react-native';
 
 const AppStateExample = () => {
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   useEffect(() => {
-    const subscription = AppState.addEventListener("change", nextAppState => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
       if (
         appState.current.match(/inactive|background/) &&
-        nextAppState === "active"
+        nextAppState === 'active'
       ) {
-        console.log("App has come to the foreground!");
+        console.log('App has come to the foreground!');
       }
 
       appState.current = nextAppState;
       setAppStateVisible(appState.current);
-      console.log("AppState", appState.current);
+      console.log('AppState', appState.current);
     });
 
     return () => {
@@ -64,8 +64,8 @@ const AppStateExample = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -77,27 +77,30 @@ If you don't want to see the AppState update from `active` to `inactive` on iOS 
 </TabItem>
 <TabItem value="classical">
 
-```SnackPlayer name=AppState%20Class%20Component%20Example
-import React, { Component } from "react";
-import { AppState, StyleSheet, Text, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=AppState%20Class%20Component%20Example&ext=js
+import React, {Component} from 'react';
+import {AppState, StyleSheet, Text, View} from 'react-native';
 
 class AppStateExample extends Component {
   state = {
-    appState: AppState.currentState
+    appState: AppState.currentState,
   };
 
   componentDidMount() {
     this.appStateSubscription = AppState.addEventListener(
-      "change",
+      'change',
       nextAppState => {
         if (
           this.state.appState.match(/inactive|background/) &&
-          nextAppState === "active"
+          nextAppState === 'active'
         ) {
-          console.log("App has come to the foreground!");
+          console.log('App has come to the foreground!');
         }
-        this.setState({ appState: nextAppState });
-      }
+        this.setState({appState: nextAppState});
+      },
     );
   }
 
@@ -117,13 +120,69 @@ class AppStateExample extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  }
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default AppStateExample;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=AppState%20Class%20Component%20Example&ext=tsx
+import React, {Component} from 'react';
+import {AppState, StyleSheet, Text, View} from 'react-native';
+import type {NativeEventSubscription} from 'react-native';
+
+class AppStateExample extends Component {
+  appStateSubscription?: NativeEventSubscription;
+  state = {
+    appState: AppState.currentState,
+  };
+
+  componentDidMount() {
+    this.appStateSubscription = AppState.addEventListener(
+      'change',
+      nextAppState => {
+        if (
+          this.state.appState.match(/inactive|background/) &&
+          nextAppState === 'active'
+        ) {
+          console.log('App has come to the foreground!');
+        }
+        this.setState({appState: nextAppState});
+      },
+    );
+  }
+
+  componentWillUnmount() {
+    this.appStateSubscription?.remove();
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Current state is: {this.state.appState}</Text>
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
+
+export default AppStateExample;
+```
+
+</TabItem>
+</Tabs>
 
 </TabItem>
 </Tabs>
@@ -156,27 +215,20 @@ Received when the user is not actively interacting with the app. Useful in situa
 
 ### `addEventListener()`
 
-```jsx
-addEventListener(eventType, listener);
+```tsx
+static addEventListener(
+  type: AppStateEvent,
+  listener: (state: AppStateStatus) => void,
+): NativeEventSubscription;
 ```
 
 Sets up a function that will be called whenever the specified event type on AppState occurs. Valid values for `eventType` are
 [listed above](#events). Returns the `EventSubscription`.
 
----
-
-### `removeEventListener()`
-
-```jsx
-removeEventListener(eventType, listener);
-```
-
-> **Deprecated.** Use the `remove()` method on the `EventSubscription` returned by [`addEventListener()`](#addeventlistener).
-
 ## Properties
 
 ### `currentState`
 
-```jsx
-AppState.currentState;
+```tsx
+static currentState: AppStateStatus;
 ```

@@ -8,27 +8,28 @@ title: Settings
 ## Example
 
 ```SnackPlayer name=Settings%20Example&supportedPlatforms=ios
-import React, { useState } from "react";
-import { Button, Settings, StyleSheet, Text, View } from "react-native";
+import React, {useState} from 'react';
+import {Button, Settings, StyleSheet, Text, View} from 'react-native';
 
 const App = () => {
-  const [data, setData] = useState(Settings.get("data"));
-
-  const storeData = data => {
-    Settings.set(data);
-    setData(Settings.get("data"));
-  };
+  const [data, setData] = useState(() => Settings.get('data'));
 
   return (
     <View style={styles.container}>
       <Text>Stored value:</Text>
       <Text style={styles.value}>{data}</Text>
       <Button
-        onPress={() => storeData({ data: "React" })}
+        onPress={() => {
+          Settings.set({data: 'React'});
+          setData(Settings.get('data'));
+        }}
         title="Store 'React'"
       />
       <Button
-        onPress={() => storeData({ data: "Native" })}
+        onPress={() => {
+          Settings.set({data: 'Native'});
+          setData(Settings.get('data'));
+        }}
         title="Store 'Native'"
       />
     </View>
@@ -38,13 +39,13 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   value: {
     fontSize: 24,
-    marginVertical: 12
-  }
+    marginVertical: 12,
+  },
 });
 
 export default App;
@@ -58,8 +59,8 @@ export default App;
 
 ### `clearWatch()`
 
-```jsx
-static clearWatch(watchId: number)
+```tsx
+static clearWatch(watchId: number);
 ```
 
 `watchId` is the number returned by `watchKeys()` when the subscription was originally configured.
@@ -68,8 +69,8 @@ static clearWatch(watchId: number)
 
 ### `get()`
 
-```jsx
-static get(key: string): mixed
+```tsx
+static get(key: string): any;
 ```
 
 Get the current value for a given `key` in `NSUserDefaults`.
@@ -78,8 +79,8 @@ Get the current value for a given `key` in `NSUserDefaults`.
 
 ### `set()`
 
-```jsx
-static set(settings: object)
+```tsx
+static set(settings: Record<string, any>);
 ```
 
 Set one or more values in `NSUserDefaults`.
@@ -88,8 +89,8 @@ Set one or more values in `NSUserDefaults`.
 
 ### `watchKeys()`
 
-```jsx
-static watchKeys(keys: string | array<string>, callback: function): number
+```tsx
+static watchKeys(keys: string | array<string>, callback: () => void): number;
 ```
 
 Subscribe to be notified when the value for any of the keys specified by the `keys` parameter has been changed in `NSUserDefaults`. Returns a `watchId` number that may be used with `clearWatch()` to unsubscribe.

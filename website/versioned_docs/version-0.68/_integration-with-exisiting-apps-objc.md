@@ -1,4 +1,4 @@
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants'; import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 ## Key Concepts
 
@@ -186,8 +186,6 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 
 > If this fails with errors mentioning `xcrun`, make sure that in Xcode in **Preferences > Locations** the Command Line Tools are assigned.
 
-<M1Cocoapods />
-
 ### Code integration
 
 Now we will actually modify the native iOS application to integrate React Native. For our 2048 sample app, we will add a "High Score" screen in React Native.
@@ -208,15 +206,10 @@ In your `index.js`, create your component. In our sample here, we will add a `<T
 
 ```jsx
 import React from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 
-const RNHighScores = ({ scores }) => {
-  const contents = scores.map((score) => (
+const RNHighScores = ({scores}) => {
+  const contents = scores.map(score => (
     <Text key={score.name}>
       {score.name}:{score.value}
       {'\n'}
@@ -237,18 +230,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   highScoresTitle: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   scores: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
 // Module name

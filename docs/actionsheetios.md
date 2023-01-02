@@ -8,29 +8,29 @@ Displays native to iOS [Action Sheet](https://developer.apple.com/design/human-i
 ## Example
 
 ```SnackPlayer name=ActionSheetIOS&supportedPlatforms=ios
-import React, { useState } from "react";
-import { ActionSheetIOS, Button, StyleSheet, Text, View } from "react-native";
+import React, {useState} from 'react';
+import {ActionSheetIOS, Button, StyleSheet, Text, View} from 'react-native';
 
 const App = () => {
-  const [result, setResult] = useState("🔮");
+  const [result, setResult] = useState('🔮');
 
   const onPress = () =>
     ActionSheetIOS.showActionSheetWithOptions(
       {
-        options: ["Cancel", "Generate number", "Reset"],
+        options: ['Cancel', 'Generate number', 'Reset'],
         destructiveButtonIndex: 2,
         cancelButtonIndex: 0,
-        userInterfaceStyle: 'dark'
+        userInterfaceStyle: 'dark',
       },
       buttonIndex => {
         if (buttonIndex === 0) {
           // cancel action
         } else if (buttonIndex === 1) {
-          setResult(Math.floor(Math.random() * 100) + 1);
+          setResult(String(Math.floor(Math.random() * 100) + 1));
         } else if (buttonIndex === 2) {
-          setResult("🔮");
+          setResult('🔮');
         }
-      }
+      },
     );
 
   return (
@@ -44,12 +44,12 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   result: {
     fontSize: 64,
-    textAlign: "center"
-  }
+    textAlign: 'center',
+  },
 });
 
 export default App;
@@ -61,8 +61,11 @@ export default App;
 
 ### `showActionSheetWithOptions()`
 
-```jsx
-static showActionSheetWithOptions(options, callback)
+```tsx
+static showActionSheetWithOptions: (
+  options: ActionSheetIOSOptions,
+  callback: (buttonIndex: number) => void,
+);
 ```
 
 Display an iOS action sheet. The `options` object must contain one or more of:
@@ -82,18 +85,18 @@ The 'callback' function takes one parameter, the zero-based index of the selecte
 
 Minimal example:
 
-```jsx
+```tsx
 ActionSheetIOS.showActionSheetWithOptions(
   {
     options: ['Cancel', 'Remove'],
     destructiveButtonIndex: 1,
-    cancelButtonIndex: 0
+    cancelButtonIndex: 0,
   },
-  (buttonIndex) => {
+  buttonIndex => {
     if (buttonIndex === 1) {
       /* destructive action */
     }
-  }
+  },
 );
 ```
 
@@ -101,8 +104,8 @@ ActionSheetIOS.showActionSheetWithOptions(
 
 ### `dismissActionSheet()`
 
-```jsx
-static dismissActionSheet()
+```tsx
+static dismissActionSheet();
 ```
 
 Dismisses the most upper iOS action sheet presented, if no action sheet is present a warning is displayed.
@@ -111,8 +114,12 @@ Dismisses the most upper iOS action sheet presented, if no action sheet is prese
 
 ### `showShareActionSheetWithOptions()`
 
-```jsx
-static showShareActionSheetWithOptions(options, failureCallback, successCallback)
+```tsx
+static showShareActionSheetWithOptions: (
+  options: ShareActionSheetIOSOptions,
+  failureCallback: (error: Error) => void,
+  successCallback: (success: boolean, method: string) => void,
+);
 ```
 
 Display the iOS share sheet. The `options` object should contain one or both of `message` and `url` and can additionally have a `subject` or `excludedActivityTypes`:

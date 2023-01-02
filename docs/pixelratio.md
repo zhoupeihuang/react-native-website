@@ -9,12 +9,12 @@ title: PixelRatio
 
 You should get a higher resolution image if you are on a high pixel density device. A good rule of thumb is to multiply the size of the image you display by the pixel ratio.
 
-```jsx
-var image = getImage({
+```tsx
+const image = getImage({
   width: PixelRatio.getPixelSizeForLayoutSize(200),
-  height: PixelRatio.getPixelSizeForLayoutSize(100)
+  height: PixelRatio.getPixelSizeForLayoutSize(100),
 });
-<Image source={image} style={{ width: 200, height: 100 }} />;
+<Image source={image} style={{width: 200, height: 100}} />;
 ```
 
 ## Pixel grid snapping
@@ -30,14 +30,21 @@ In React Native, everything in JavaScript and within the layout engine works wit
 ## Example
 
 ```SnackPlayer name=PixelRatio%20Example
-import React from "react";
-import { Image, PixelRatio, ScrollView, StyleSheet, Text, View } from "react-native";
+import React from 'react';
+import {
+  Image,
+  PixelRatio,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 const size = 50;
 const cat = {
-  uri: "https://reactnative.dev/docs/assets/p_cat1.png",
+  uri: 'https://reactnative.dev/docs/assets/p_cat1.png',
   width: size,
-  height: size
+  height: size,
 };
 
 const App = () => (
@@ -64,7 +71,7 @@ const App = () => (
         source={cat}
         style={{
           width: PixelRatio.getPixelSizeForLayoutSize(size),
-          height: PixelRatio.getPixelSizeForLayoutSize(size)
+          height: PixelRatio.getPixelSizeForLayoutSize(size),
         }}
       />
     </View>
@@ -76,14 +83,14 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   value: {
     fontSize: 24,
     marginBottom: 12,
-    marginTop: 4
-  }
+    marginTop: 4,
+  },
 });
 
 export default App;
@@ -97,8 +104,8 @@ export default App;
 
 ### `get()`
 
-```jsx
-static get()
+```tsx
+static get(): number;
 ```
 
 Returns the device pixel density. Some examples:
@@ -127,8 +134,8 @@ Returns the device pixel density. Some examples:
 
 ### `getFontScale()`
 
-```jsx
-static getFontScale(): number
+```tsx
+static getFontScale(): number;
 ```
 
 Returns the scaling factor for font sizes. This is the ratio that is used to calculate the absolute font size, so any elements that heavily depend on that should use this to do calculations.
@@ -142,8 +149,8 @@ If a font scale is not set, this returns the device pixel ratio.
 
 ### `getPixelSizeForLayoutSize()`
 
-```jsx
-static getPixelSizeForLayoutSize(layoutSize: number): number
+```tsx
+static getPixelSizeForLayoutSize(layoutSize: number): number;
 ```
 
 Converts a layout size (dp) to pixel size (px).
@@ -154,8 +161,8 @@ Guaranteed to return an integer number.
 
 ### `roundToNearestPixel()`
 
-```jsx
-static roundToNearestPixel(layoutSize: number): number
+```tsx
+static roundToNearestPixel(layoutSize: number): number;
 ```
 
 Rounds a layout size (dp) to the nearest layout size that corresponds to an integer number of pixels. For example, on a device with a PixelRatio of 3, `PixelRatio.roundToNearestPixel(8.4) = 8.33`, which corresponds to exactly (8.33 \* 3) = 25 pixels.

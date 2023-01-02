@@ -26,27 +26,25 @@ The rest of this introduction to React uses cats in its examples: friendly, appr
 
 ```SnackPlayer name=Your%20Cat
 import React from 'react';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 
 const Cat = () => {
-  return (
-    <Text>Hello, I am your cat!</Text>
-  );
-}
+  return <Text>Hello, I am your cat!</Text>;
+};
 
 export default Cat;
 ```
 
 Here is how you do it: To define your `Cat` component, first use JavaScript’s [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) to import React and React Native’s [`Text`](/docs/next/text) Core Component:
 
-```jsx
+```tsx
 import React from 'react';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 ```
 
 Your component starts as a function:
 
-```jsx
+```tsx
 const Cat = () => {};
 ```
 
@@ -54,7 +52,7 @@ You can think of components as blueprints. Whatever a function component returns
 
 Here the `Cat` component will render a `<Text>` element:
 
-```jsx
+```tsx
 const Cat = () => {
   return <Text>Hello, I am your cat!</Text>;
 };
@@ -62,7 +60,7 @@ const Cat = () => {
 
 You can export your function component with JavaScript’s [`export default`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) for use throughout your app like so:
 
-```jsx
+```tsx
 const Cat = () => {
   return <Text>Hello, I am your cat!</Text>;
 };
@@ -76,14 +74,12 @@ export default Cat;
 Class components tend to be a bit more verbose than function components.
 
 ```SnackPlayer name=Your%20Cat
-import React, { Component } from 'react';
-import { Text } from 'react-native';
+import React, {Component} from 'react';
+import {Text} from 'react-native';
 
 class Cat extends Component {
   render() {
-    return (
-      <Text>Hello, I am your cat!</Text>
-    );
+    return <Text>Hello, I am your cat!</Text>;
   }
 }
 
@@ -92,19 +88,19 @@ export default Cat;
 
 You additionally import `Component` from React:
 
-```jsx
-import React, { Component } from 'react';
+```tsx
+import React, {Component} from 'react';
 ```
 
 Your component starts as a class extending `Component` instead of as a function:
 
-```jsx
+```tsx
 class Cat extends Component {}
 ```
 
 Class components have a `render()` function. Whatever is returned inside it is rendered as a React element:
 
-```jsx
+```tsx
 class Cat extends Component {
   render() {
     return <Text>Hello, I am your cat!</Text>;
@@ -114,7 +110,7 @@ class Cat extends Component {
 
 And as with function components, you can export your class component:
 
-```jsx
+```tsx
 class Cat extends Component {
   render() {
     return <Text>Hello, I am your cat!</Text>;
@@ -137,38 +133,60 @@ React and React Native use **JSX,** a syntax that lets you write elements inside
 
 ```SnackPlayer name=Curly%20Braces
 import React from 'react';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 
 const Cat = () => {
-  const name = "Maru";
-  return (
-    <Text>Hello, I am {name}!</Text>
-  );
-}
+  const name = 'Maru';
+  return <Text>Hello, I am {name}!</Text>;
+};
 
 export default Cat;
 ```
 
 Any JavaScript expression will work between curly braces, including function calls like `{getFullName("Rum", "Tum", "Tugger")}`:
 
-```SnackPlayer name=Curly%20Braces
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=Curly%20Braces&ext=js
 import React from 'react';
-import { Text } from 'react-native';
+import {Text} from 'react-native';
 
 const getFullName = (firstName, secondName, thirdName) => {
-  return firstName + " " + secondName + " " + thirdName;
-}
+  return firstName + ' ' + secondName + ' ' + thirdName;
+};
 
 const Cat = () => {
-  return (
-    <Text>
-      Hello, I am {getFullName("Rum", "Tum", "Tugger")}!
-    </Text>
-  );
-}
+  return <Text>Hello, I am {getFullName('Rum', 'Tum', 'Tugger')}!</Text>;
+};
 
 export default Cat;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Curly%20Braces&ext=tsx
+import React from 'react';
+import {Text} from 'react-native';
+
+const getFullName = (
+  firstName: string,
+  secondName: string,
+  thirdName: string,
+) => {
+  return firstName + ' ' + secondName + ' ' + thirdName;
+};
+
+const Cat = () => {
+  return <Text>Hello, I am {getFullName('Rum', 'Tum', 'Tugger')}!</Text>;
+};
+
+export default Cat;
+```
+
+</TabItem>
+</Tabs>
 
 You can think of curly braces as creating a portal into JS functionality in your JSX!
 
@@ -182,7 +200,7 @@ For example, you can nest [`Text`](text) and [`TextInput`](textinput) inside a [
 
 ```SnackPlayer name=Custom%20Components
 import React from 'react';
-import { Text, TextInput, View } from 'react-native';
+import {Text, TextInput, View} from 'react-native';
 
 const Cat = () => {
   return (
@@ -192,13 +210,13 @@ const Cat = () => {
         style={{
           height: 40,
           borderColor: 'gray',
-          borderWidth: 1
+          borderWidth: 1,
         }}
         defaultValue="Name me!"
       />
     </View>
   );
-}
+};
 
 export default Cat;
 ```
@@ -223,7 +241,7 @@ You can render this component multiple times and in multiple places without repe
 
 ```SnackPlayer name=Multiple%20Components
 import React from 'react';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 
 const Cat = () => {
   return (
@@ -231,7 +249,7 @@ const Cat = () => {
       <Text>I am also a cat!</Text>
     </View>
   );
-}
+};
 
 const Cafe = () => {
   return (
@@ -242,7 +260,7 @@ const Cafe = () => {
       <Cat />
     </View>
   );
-}
+};
 
 export default Cafe;
 ```
@@ -255,17 +273,20 @@ You can put as many cats in your cafe as you like. Each `<Cat>` renders a unique
 
 **Props** is short for “properties”. Props let you customize React components. For example, here you pass each `<Cat>` a different `name` for `Cat` to render:
 
-```SnackPlayer name=Multiple%20Props
-import React from 'react';
-import { Text, View } from 'react-native';
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
 
-const Cat = (props) => {
+```SnackPlayer name=Multiple%20Props&ext=js
+import React from 'react';
+import {Text, View} from 'react-native';
+
+const Cat = props => {
   return (
     <View>
       <Text>Hello, I am {props.name}!</Text>
     </View>
   );
-}
+};
 
 const Cafe = () => {
   return (
@@ -275,28 +296,65 @@ const Cafe = () => {
       <Cat name="Spot" />
     </View>
   );
-}
+};
 
 export default Cafe;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Multiple%20Props&ext=tsx
+import React from 'react';
+import {Text, View} from 'react-native';
+
+type CatProps = {
+  name: string;
+};
+
+const Cat = (props: CatProps) => {
+  return (
+    <View>
+      <Text>Hello, I am {props.name}!</Text>
+    </View>
+  );
+};
+
+const Cafe = () => {
+  return (
+    <View>
+      <Cat name="Maru" />
+      <Cat name="Jellylorum" />
+      <Cat name="Spot" />
+    </View>
+  );
+};
+
+export default Cafe;
+```
+
+</TabItem>
+</Tabs>
 
 Most of React Native’s Core Components can be customized with props, too. For example, when using [`Image`](image), you pass it a prop named [`source`](image#source) to define what image it shows:
 
 ```SnackPlayer name=Props
 import React from 'react';
-import { Text, View, Image } from 'react-native';
+import {Text, View, Image} from 'react-native';
 
 const CatApp = () => {
   return (
     <View>
       <Image
-        source={{uri: "https://reactnative.dev/docs/assets/p_cat1.png"}}
+        source={{
+          uri: 'https://reactnative.dev/docs/assets/p_cat1.png',
+        }}
         style={{width: 200, height: 200}}
       />
       <Text>Hello, I am your cat!</Text>
     </View>
   );
-}
+};
 
 export default CatApp;
 ```
@@ -320,28 +378,31 @@ The following example takes place in a cat cafe where two hungry cats are waitin
 
 You can add state to a component by calling [React’s `useState` Hook](https://reactjs.org/docs/hooks-state.html). A Hook is a kind of function that lets you “hook into” React features. For example, `useState` is a Hook that lets you add state to function components. You can learn more about [other kinds of Hooks in the React documentation.](https://reactjs.org/docs/hooks-intro.html)
 
-```SnackPlayer name=State
-import React, { useState } from "react";
-import { Button, Text, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
 
-const Cat = (props) => {
+```SnackPlayer name=State&ext=js
+import React, {useState} from 'react';
+import {Button, Text, View} from 'react-native';
+
+const Cat = props => {
   const [isHungry, setIsHungry] = useState(true);
 
   return (
     <View>
       <Text>
-        I am {props.name}, and I am {isHungry ? "hungry" : "full"}!
+        I am {props.name}, and I am {isHungry ? 'hungry' : 'full'}!
       </Text>
       <Button
         onPress={() => {
           setIsHungry(false);
         }}
         disabled={!isHungry}
-        title={isHungry ? "Pour me some milk, please!" : "Thank you!"}
+        title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
       />
     </View>
   );
-}
+};
 
 const Cafe = () => {
   return (
@@ -350,21 +411,66 @@ const Cafe = () => {
       <Cat name="Spot" />
     </>
   );
-}
+};
 
 export default Cafe;
 ```
 
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=State&ext=tsx
+import React, {useState} from 'react';
+import {Button, Text, View} from 'react-native';
+
+type CatProps = {
+  name: string;
+};
+
+const Cat = (props: CatProps) => {
+  const [isHungry, setIsHungry] = useState(true);
+
+  return (
+    <View>
+      <Text>
+        I am {props.name}, and I am {isHungry ? 'hungry' : 'full'}!
+      </Text>
+      <Button
+        onPress={() => {
+          setIsHungry(false);
+        }}
+        disabled={!isHungry}
+        title={isHungry ? 'Pour me some milk, please!' : 'Thank you!'}
+      />
+    </View>
+  );
+};
+
+const Cafe = () => {
+  return (
+    <>
+      <Cat name="Munkustrap" />
+      <Cat name="Spot" />
+    </>
+  );
+};
+
+export default Cafe;
+```
+
+</TabItem>
+</Tabs>
+
 First, you will want to import `useState` from React like so:
 
-```jsx
-import React, { useState } from 'react';
+```tsx
+import React, {useState} from 'react';
 ```
 
 Then you declare the component’s state by calling `useState` inside its function. In this example, `useState` creates an `isHungry` state variable:
 
-```jsx
-const Cat = (props) => {
+```tsx
+const Cat = (props: CatProps) => {
   const [isHungry, setIsHungry] = useState(true);
   // ...
 };
@@ -381,7 +487,7 @@ It doesn’t matter what names you use. But it can be handy to think of the patt
 
 Next you add the [`Button`](button) Core Component and give it an `onPress` prop:
 
-```jsx
+```tsx
 <Button
   onPress={() => {
     setIsHungry(false);
@@ -392,7 +498,7 @@ Next you add the [`Button`](button) Core Component and give it an `onPress` prop
 
 Now, when someone presses the button, `onPress` will fire, calling the `setIsHungry(false)`. This sets the state variable `isHungry` to `false`. When `isHungry` is false, the `Button`’s `disabled` prop is set to `true` and its `title` also changes:
 
-```jsx
+```tsx
 <Button
   //..
   disabled={!isHungry}
@@ -404,7 +510,7 @@ Now, when someone presses the button, `onPress` will fire, calling the `setIsHun
 
 Finally, put your cats inside a `Cafe` component:
 
-```jsx
+```tsx
 const Cafe = () => {
   return (
     <>
@@ -420,27 +526,30 @@ const Cafe = () => {
 
 The older class components approach is a little different when it comes to state.
 
-```SnackPlayer name=State%20and%20Class%20Components
-import React, { Component } from "react";
-import { Button, Text, View } from "react-native";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=State%20and%20Class%20Components&ext=js
+import React, {Component} from 'react';
+import {Button, Text, View} from 'react-native';
 
 class Cat extends Component {
-  state = { isHungry: true };
+  state = {isHungry: true};
 
   render() {
     return (
       <View>
         <Text>
           I am {this.props.name}, and I am
-          {this.state.isHungry ? " hungry" : " full"}!
+          {this.state.isHungry ? ' hungry' : ' full'}!
         </Text>
         <Button
           onPress={() => {
-            this.setState({ isHungry: false });
+            this.setState({isHungry: false});
           }}
           disabled={!this.state.isHungry}
           title={
-            this.state.isHungry ? "Pour me some milk, please!" : "Thank you!"
+            this.state.isHungry ? 'Pour me some milk, please!' : 'Thank you!'
           }
         />
       </View>
@@ -462,24 +571,76 @@ class Cafe extends Component {
 export default Cafe;
 ```
 
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=State%20and%20Class%20Components&ext=tsx
+import React, {Component} from 'react';
+import {Button, Text, View} from 'react-native';
+
+type CatProps = {
+  name: string;
+};
+
+class Cat extends Component<CatProps> {
+  state = {isHungry: true};
+
+  render() {
+    return (
+      <View>
+        <Text>
+          I am {this.props.name}, and I am
+          {this.state.isHungry ? ' hungry' : ' full'}!
+        </Text>
+        <Button
+          onPress={() => {
+            this.setState({isHungry: false});
+          }}
+          disabled={!this.state.isHungry}
+          title={
+            this.state.isHungry ? 'Pour me some milk, please!' : 'Thank you!'
+          }
+        />
+      </View>
+    );
+  }
+}
+
+class Cafe extends Component {
+  render() {
+    return (
+      <>
+        <Cat name="Munkustrap" />
+        <Cat name="Spot" />
+      </>
+    );
+  }
+}
+
+export default Cafe;
+```
+
+</TabItem>
+</Tabs>
+
 As always with class components, you must import the `Component` class from React:
 
-```jsx
-import React, { Component } from 'react';
+```tsx
+import React, {Component} from 'react';
 ```
 
 In class components, state is stored in a state object:
 
-```jsx
+```tsx
 export class Cat extends Component {
-  state = { isHungry: true };
+  state = {isHungry: true};
   //..
 }
 ```
 
 As with accessing props with `this.props`, you access this object inside your component with `this.state`:
 
-```jsx
+```tsx
 <Text>
   I am {this.props.name}, and I am
   {this.state.isHungry ? ' hungry' : ' full'}!
@@ -488,11 +649,11 @@ As with accessing props with `this.props`, you access this object inside your co
 
 And you set individual values inside the state object by passing an object with the key value pair for state and its new value to `this.setState()`:
 
-```jsx
+```tsx
 <Button
   onPress={() => {
-    this.setState({ isHungry: false });
-  }}>
+    this.setState({isHungry: false});
+  }}
   // ..
 />
 ```
@@ -501,7 +662,7 @@ And you set individual values inside the state object by passing an object with 
 
 When `this.state.isHungry` is false, the `Button`’s `disabled` prop is set to `true` and its `title` also changes:
 
-```jsx
+```tsx
 <Button
   // ..
   disabled={!this.state.isHungry}
@@ -515,7 +676,7 @@ When `this.state.isHungry` is false, the `Button`’s `disabled` prop is set to 
 
 Finally, put your cats inside a `Cafe` component:
 
-```jsx
+```tsx
 class Cafe extends Component {
   render() {
     return (

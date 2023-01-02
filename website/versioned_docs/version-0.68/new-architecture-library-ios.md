@@ -3,7 +3,6 @@ id: new-architecture-library-ios
 title: Enabling in iOS Library
 ---
 
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
 import NewArchitectureWarning from './\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
@@ -21,9 +20,6 @@ We'll need to ensure Folly is configured properly in any projects that consume y
 Add these to your `Pod::Spec.new` block:
 
 ```ruby
-# folly_version must match the version used in React Native
-# See folly_version in react-native/React/FBReactNativeSpec/FBReactNativeSpec.podspec
-folly_version = '2021.06.28.00-v2'
 folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
 Pod::Spec.new do |s|
@@ -37,7 +33,7 @@ Pod::Spec.new do |s|
   s.dependency "React-Core"
   s.dependency "React-RCTFabric" # This is for fabric component
   s.dependency "React-Codegen"
-  s.dependency "RCT-Folly", folly_version
+  s.dependency "RCT-Folly"
   s.dependency "RCTRequired"
   s.dependency "RCTTypeSafety"
   s.dependency "ReactCommon/turbomodule/core"
@@ -48,8 +44,6 @@ end
 :::caution
 
 Currently, the Folly version used here must match the Folly version used by React Native. A version mismatch here may lead to errors when running `pod install`. If CocoaPods flags an issue with your Folly version, then you may have a version mismatch. Check which version is used by the core modules Podspecs (e.g. FBReactNativeSpec.podspec), and try running `pod install` again after editing your podspec with the correct Folly version.
-
-<M1Cocoapods />
 
 :::
 

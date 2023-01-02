@@ -13,10 +13,10 @@ The underlay comes from wrapping the child in a new View, which can affect layou
 
 TouchableHighlight must have one child (not zero or more than one). If you wish to have several child components, wrap them in a View.
 
-```jsx
-function MyComponent(props) {
+```tsx
+function MyComponent(props: MyComponentProps) {
   return (
-    <View {...props} style={{ flex: 1, backgroundColor: '#fff' }}>
+    <View {...props} style={{flex: 1, backgroundColor: '#fff'}}>
       <Text>My Component</Text>
     </View>
   );
@@ -36,8 +36,8 @@ function MyComponent(props) {
 <TabItem value="functional">
 
 ```SnackPlayer name=TouchableHighlight%20Function%20Component%20Example
-import React, { useState } from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 const TouchableHighlightExample = () => {
   const [count, setCount] = useState(0);
@@ -51,32 +51,30 @@ const TouchableHighlightExample = () => {
         </View>
       </TouchableHighlight>
       <View style={styles.countContainer}>
-        <Text style={styles.countText}>
-          {count || null}
-        </Text>
+        <Text style={styles.countText}>{count || null}</Text>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 10
+    justifyContent: 'center',
+    paddingHorizontal: 10,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
   },
   countContainer: {
-    alignItems: "center",
-    padding: 10
+    alignItems: 'center',
+    padding: 10,
   },
   countText: {
-    color: "#FF00FF"
-  }
+    color: '#FF00FF',
+  },
 });
 
 export default TouchableHighlightExample;
@@ -86,18 +84,17 @@ export default TouchableHighlightExample;
 <TabItem value="classical">
 
 ```SnackPlayer name=TouchableHighlight%20Class%20Component%20Example
-import React, { Component } from "react";
-import { StyleSheet, Text, TouchableHighlight, View } from "react-native";
+import React, {Component} from 'react';
+import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { count: 0 };
-  }
+  state = {
+    count: 0,
+  };
 
   onPress = () => {
     this.setState({
-      count: this.state.count + 1
+      count: this.state.count + 1,
     });
   };
 
@@ -122,21 +119,21 @@ class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    paddingHorizontal: 10
+    justifyContent: 'center',
+    paddingHorizontal: 10,
   },
   button: {
-    alignItems: "center",
-    backgroundColor: "#DDDDDD",
-    padding: 10
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
   },
   countContainer: {
-    alignItems: "center",
-    padding: 10
+    alignItems: 'center',
+    padding: 10,
   },
   countText: {
-    color: "#FF00FF"
-  }
+    color: '#FF00FF',
+  },
 });
 
 export default App;

@@ -3,8 +3,8 @@ id: usecolorscheme
 title: useColorScheme
 ---
 
-```jsx
-import { useColorScheme } from 'react-native';
+```tsx
+import {useColorScheme} from 'react-native';
 ```
 
 The `useColorScheme` React hook provides and subscribes to color scheme updates from the [`Appearance`](appearance) module. The return value indicates the current user preferred color scheme. The value may be updated later, either through direct user action (e.g. theme selection in device settings) or on a schedule (e.g. light and dark themes that follow the day/night cycle).
@@ -23,7 +23,7 @@ The `useColorScheme` React hook provides and subscribes to color scheme updates 
 
 ```SnackPlayer
 import React from 'react';
-import { Text, StyleSheet, useColorScheme, View } from 'react-native';
+import {Text, StyleSheet, useColorScheme, View} from 'react-native';
 
 const App = () => {
   const colorScheme = useColorScheme();
@@ -37,8 +37,8 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

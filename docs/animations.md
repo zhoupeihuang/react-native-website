@@ -17,46 +17,118 @@ The [`Animated`](animated) API is designed to concisely express a wide variety o
 
 For example, a container view that fades in when it is mounted may look like this:
 
-```SnackPlayer
-import React, { useRef, useEffect } from 'react';
-import { Animated, Text, View } from 'react-native';
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
 
-const FadeInView = (props) => {
-  const fadeAnim = useRef(new Animated.Value(0)).current  // Initial value for opacity: 0
+```SnackPlayer ext=js
+import React, {useRef, useEffect} from 'react';
+import {Animated, Text, View} from 'react-native';
+
+const FadeInView = props => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
 
   useEffect(() => {
-    Animated.timing(
-      fadeAnim,
-      {
-        toValue: 1,
-        duration: 10000,
-      }
-    ).start();
-  }, [fadeAnim])
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 10000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
 
   return (
-    <Animated.View                 // Special animatable View
+    <Animated.View // Special animatable View
       style={{
         ...props.style,
-        opacity: fadeAnim,         // Bind opacity to animated value
-      }}
-    >
+        opacity: fadeAnim, // Bind opacity to animated value
+      }}>
       {props.children}
     </Animated.View>
   );
-}
+};
 
 // You can then use your `FadeInView` in place of a `View` in your components:
 export default () => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <FadeInView style={{width: 250, height: 50, backgroundColor: 'powderblue'}}>
-        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>Fading in</Text>
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <FadeInView
+        style={{
+          width: 250,
+          height: 50,
+          backgroundColor: 'powderblue',
+        }}>
+        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>
+          Fading in
+        </Text>
       </FadeInView>
     </View>
-  )
-}
+  );
+};
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer ext=tsx
+import React, {useRef, useEffect} from 'react';
+import {Animated, Text, View} from 'react-native';
+import type {PropsWithChildren} from 'react';
+import type {ViewStyle} from 'react-native';
+
+type FadeInViewProps = PropsWithChildren<{style: ViewStyle}>;
+
+const FadeInView: React.FC<FadeInViewProps> = props => {
+  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+
+  useEffect(() => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 10000,
+      useNativeDriver: true,
+    }).start();
+  }, [fadeAnim]);
+
+  return (
+    <Animated.View // Special animatable View
+      style={{
+        ...props.style,
+        opacity: fadeAnim, // Bind opacity to animated value
+      }}>
+      {props.children}
+    </Animated.View>
+  );
+};
+
+// You can then use your `FadeInView` in place of a `View` in your components:
+export default () => {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+      <FadeInView
+        style={{
+          width: 250,
+          height: 50,
+          backgroundColor: 'powderblue',
+        }}>
+        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>
+          Fading in
+        </Text>
+      </FadeInView>
+    </View>
+  );
+};
+```
+
+</TabItem>
+</Tabs>
 
 Let's break down what's happening here. In the `FadeInView` constructor, a new `Animated.Value` called `fadeAnim` is initialized as part of `state`. The opacity property on the `View` is mapped to this animated value. Behind the scenes, the numeric value is extracted and used to set opacity.
 
@@ -74,11 +146,12 @@ By default, `timing` will use an easeInOut curve that conveys gradual accelerati
 
 For example, if we want to create a 2-second long animation of an object that slightly backs up before moving to its final position:
 
-```jsx
+```tsx
 Animated.timing(this.state.xPosition, {
   toValue: 100,
   easing: Easing.back(),
-  duration: 2000
+  duration: 2000,
+  useNativeDriver: true,
 }).start();
 ```
 
@@ -90,24 +163,27 @@ Animations can be combined and played in sequence or in parallel. Sequential ani
 
 For example, the following animation coasts to a stop, then it springs back while twirling in parallel:
 
-```jsx
+```tsx
 Animated.sequence([
   // decay, then spring to start and twirl
   Animated.decay(position, {
     // coast to a stop
-    velocity: { x: gestureState.vx, y: gestureState.vy }, // velocity from gesture release
-    deceleration: 0.997
+    velocity: {x: gestureState.vx, y: gestureState.vy}, // velocity from gesture release
+    deceleration: 0.997,
+    useNativeDriver: true,
   }),
   Animated.parallel([
     // after decay, in parallel:
     Animated.spring(position, {
-      toValue: { x: 0, y: 0 } // return to start
+      toValue: {x: 0, y: 0}, // return to start
+      useNativeDriver: true,
     }),
     Animated.timing(twirl, {
       // and twirl
-      toValue: 360
-    })
-  ])
+      toValue: 360,
+      useNativeDriver: true,
+    }),
+  ]),
 ]).start(); // start the sequence group
 ```
 
@@ -121,12 +197,13 @@ You can [combine two animated values](animated#combining-animated-values) via ad
 
 There are some cases where an animated value needs to invert another animated value for calculation. An example is inverting a scale (2x --> 0.5x):
 
-```jsx
+```tsx
 const a = new Animated.Value(1);
 const b = Animated.divide(1, a);
 
 Animated.spring(a, {
-  toValue: 2
+  toValue: 2,
+  useNativeDriver: true,
 }).start();
 ```
 
@@ -136,16 +213,16 @@ Each property can be run through an interpolation first. An interpolation maps i
 
 A basic mapping to convert a 0-1 range to a 0-100 range would be:
 
-```jsx
+```tsx
 value.interpolate({
   inputRange: [0, 1],
-  outputRange: [0, 100]
+  outputRange: [0, 100],
 });
 ```
 
 For example, you may want to think about your `Animated.Value` as going from 0 to 1, but animate the position from 150px to 0px and the opacity from 0 to 1. This can be done by modifying `style` from the example above like so:
 
-```jsx
+```tsx
   style={{
     opacity: this.state.fadeAnim, // Binds directly
     transform: [{
@@ -159,10 +236,10 @@ For example, you may want to think about your `Animated.Value` as going from 0 t
 
 [`interpolate()`](animated#interpolate) supports multiple range segments as well, which is handy for defining dead zones and other handy tricks. For example, to get a negation relationship at -300 that goes to 0 at -100, then back up to 1 at 0, and then back down to zero at 100 followed by a dead-zone that remains at 0 for everything beyond that, you could do:
 
-```jsx
+```tsx
 value.interpolate({
   inputRange: [-300, -100, 0, 100, 101],
-  outputRange: [300, 0, 1, 0, 0]
+  outputRange: [300, 0, 1, 0, 0],
 });
 ```
 
@@ -185,10 +262,10 @@ Input | Output
 
 `interpolate()` also supports mapping to strings, allowing you to animate colors as well as values with units. For example, if you wanted to animate a rotation you could do:
 
-```jsx
+```tsx
 value.interpolate({
   inputRange: [0, 360],
-  outputRange: ['0deg', '360deg']
+  outputRange: ['0deg', '360deg'],
 });
 ```
 
@@ -198,13 +275,14 @@ value.interpolate({
 
 Animated values can also track other values by setting the `toValue` of an animation to another animated value instead of a plain number. For example, a "Chat Heads" animation like the one used by Messenger on Android could be implemented with a `spring()` pinned on another animated value, or with `timing()` and a `duration` of 0 for rigid tracking. They can also be composed with interpolations:
 
-```jsx
-Animated.spring(follower, { toValue: leader }).start();
+```tsx
+Animated.spring(follower, {toValue: leader}).start();
 Animated.timing(opacity, {
   toValue: pan.x.interpolate({
     inputRange: [0, 300],
-    outputRange: [1, 0]
-  })
+    outputRange: [1, 0],
+    useNativeDriver: true,
+  }),
 }).start();
 ```
 
@@ -216,10 +294,10 @@ Gestures, like panning or scrolling, and other events can map directly to animat
 
 For example, when working with horizontal scrolling gestures, you would do the following in order to map `event.nativeEvent.contentOffset.x` to `scrollX` (an `Animated.Value`):
 
-```jsx
+```tsx
  onScroll={Animated.event(
    // scrollX = e.nativeEvent.contentOffset.x
-   [{ nativeEvent: {
+   [{nativeEvent: {
         contentOffset: {
           x: scrollX
         }
@@ -236,7 +314,7 @@ The following example implements a horizontal scrolling carousel where the scrol
 <TabItem value="functional">
 
 ```SnackPlayer name=Animated&supportedPlatforms=ios,android
-import React, { useRef } from "react";
+import React, {useRef} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -245,15 +323,17 @@ import {
   View,
   ImageBackground,
   Animated,
-  useWindowDimensions
-} from "react-native";
+  useWindowDimensions,
+} from 'react-native';
 
-const images = new Array(6).fill('https://images.unsplash.com/photo-1556740749-887f6717d7e4');
+const images = new Array(6).fill(
+  'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
+);
 
 const App = () => {
   const scrollX = useRef(new Animated.Value(0)).current;
 
-  const { width: windowWidth } = useWindowDimensions();
+  const {width: windowWidth} = useWindowDimensions();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -266,23 +346,19 @@ const App = () => {
             {
               nativeEvent: {
                 contentOffset: {
-                  x: scrollX
-                }
-              }
-            }
+                  x: scrollX,
+                },
+              },
+            },
           ])}
-          scrollEventThrottle={1}
-        >
+          scrollEventThrottle={1}>
           {images.map((image, imageIndex) => {
             return (
-              <View
-                style={{ width: windowWidth, height: 250 }}
-                key={imageIndex}
-              >
-                <ImageBackground source={{ uri: image }} style={styles.card}>
+              <View style={{width: windowWidth, height: 250}} key={imageIndex}>
+                <ImageBackground source={{uri: image}} style={styles.card}>
                   <View style={styles.textContainer}>
                     <Text style={styles.infoText}>
-                      {"Image - " + imageIndex}
+                      {'Image - ' + imageIndex}
                     </Text>
                   </View>
                 </ImageBackground>
@@ -296,15 +372,15 @@ const App = () => {
               inputRange: [
                 windowWidth * (imageIndex - 1),
                 windowWidth * imageIndex,
-                windowWidth * (imageIndex + 1)
+                windowWidth * (imageIndex + 1),
               ],
               outputRange: [8, 16, 8],
-              extrapolate: "clamp"
+              extrapolate: 'clamp',
             });
             return (
               <Animated.View
                 key={imageIndex}
-                style={[styles.normalDot, { width }]}
+                style={[styles.normalDot, {width}]}
               />
             );
           })}
@@ -312,51 +388,51 @@ const App = () => {
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollContainer: {
     height: 300,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   card: {
     flex: 1,
     marginVertical: 4,
     marginHorizontal: 16,
     borderRadius: 5,
-    overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center"
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textContainer: {
-    backgroundColor: "rgba(0,0,0, 0.7)",
+    backgroundColor: 'rgba(0,0,0, 0.7)',
     paddingHorizontal: 24,
     paddingVertical: 8,
-    borderRadius: 5
+    borderRadius: 5,
   },
   infoText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   normalDot: {
     height: 8,
     width: 8,
     borderRadius: 4,
-    backgroundColor: "silver",
-    marginHorizontal: 4
+    backgroundColor: 'silver',
+    marginHorizontal: 4,
   },
   indicatorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
-  }
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default App;
@@ -365,8 +441,11 @@ export default App;
 </TabItem>
 <TabItem value="classical">
 
-```SnackPlayer name=Animated&supportedPlatforms=ios,android
-import React, { Component } from "react";
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=Animated&supportedPlatforms=ios,android&ext=js
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -375,32 +454,37 @@ import {
   View,
   ImageBackground,
   Animated,
-  Dimensions
-} from "react-native";
+  Dimensions,
+} from 'react-native';
 
-const images = new Array(6).fill('https://images.unsplash.com/photo-1556740749-887f6717d7e4');
+const images = new Array(6).fill(
+  'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
+);
 
-const window = Dimensions.get("window");
+const windowDimensions = Dimensions.get('window');
 
 export default class App extends Component {
   scrollX = new Animated.Value(0);
 
   state = {
     dimensions: {
-      window
-    }
+      window: windowDimensions,
+    },
   };
 
-  onDimensionsChange = ({ window }) => {
-    this.setState({ dimensions: { window } });
+  onDimensionsChange = ({window}) => {
+    this.setState({dimensions: {window}});
   };
 
   componentDidMount() {
-    Dimensions.addEventListener("change", this.onDimensionsChange);
+    this.dimensionsSubscription = Dimensions.addEventListener(
+      'change',
+      this.onDimensionsChange,
+    );
   }
 
   componentWillUnmount() {
-    Dimensions.removeEventListener("change", this.onDimensionsChange);
+    this.dimensionsSubscription.remove();
   }
 
   render() {
@@ -417,26 +501,24 @@ export default class App extends Component {
               {
                 nativeEvent: {
                   contentOffset: {
-                    x: this.scrollX
-                  }
-                }
-              }
+                    x: this.scrollX,
+                  },
+                },
+              },
             ])}
-            scrollEventThrottle={1}
-          >
+            scrollEventThrottle={1}>
             {images.map((image, imageIndex) => {
               return (
                 <View
                   style={{
                     width: windowWidth,
-                    height: 250
+                    height: 250,
                   }}
-                  key={imageIndex}
-                >
-                  <ImageBackground source={{ uri: image }} style={styles.card}>
+                  key={imageIndex}>
+                  <ImageBackground source={{uri: image}} style={styles.card}>
                     <View style={styles.textContainer}>
                       <Text style={styles.infoText}>
-                        {"Image - " + imageIndex}
+                        {'Image - ' + imageIndex}
                       </Text>
                     </View>
                   </ImageBackground>
@@ -450,15 +532,15 @@ export default class App extends Component {
                 inputRange: [
                   windowWidth * (imageIndex - 1),
                   windowWidth * imageIndex,
-                  windowWidth * (imageIndex + 1)
+                  windowWidth * (imageIndex + 1),
                 ],
                 outputRange: [8, 16, 8],
-                extrapolate: "clamp"
+                extrapolate: 'clamp',
               });
               return (
                 <Animated.View
                   key={imageIndex}
-                  style={[styles.normalDot, { width }]}
+                  style={[styles.normalDot, {width}]}
                 />
               );
             })}
@@ -472,55 +554,216 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   scrollContainer: {
     height: 300,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   card: {
     flex: 1,
     marginVertical: 4,
     marginHorizontal: 16,
     borderRadius: 5,
-    overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center"
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textContainer: {
-    backgroundColor: "rgba(0,0,0, 0.7)",
+    backgroundColor: 'rgba(0,0,0, 0.7)',
     paddingHorizontal: 24,
     paddingVertical: 8,
-    borderRadius: 5
+    borderRadius: 5,
   },
   infoText: {
-    color: "white",
+    color: 'white',
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   normalDot: {
     height: 8,
     width: 8,
     borderRadius: 4,
-    backgroundColor: "silver",
-    marginHorizontal: 4
+    backgroundColor: 'silver',
+    marginHorizontal: 4,
   },
   indicatorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center"
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Animated&supportedPlatforms=ios,android&ext=tsx
+import React, {Component} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  StyleSheet,
+  View,
+  ImageBackground,
+  Animated,
+  Dimensions,
+} from 'react-native';
+import type {ScaledSize, EmitterSubscription} from 'react-native';
+
+const images = new Array(6).fill(
+  'https://images.unsplash.com/photo-1556740749-887f6717d7e4',
+);
+
+const windowDimensions = Dimensions.get('window');
+
+export default class App extends Component {
+  dimensionsSubscription?: EmitterSubscription;
+  scrollX = new Animated.Value(0);
+
+  state = {
+    dimensions: {
+      window: windowDimensions,
+    },
+  };
+
+  onDimensionsChange = ({window}: {window: ScaledSize}) => {
+    this.setState({dimensions: {window}});
+  };
+
+  componentDidMount() {
+    this.dimensionsSubscription = Dimensions.addEventListener(
+      'change',
+      this.onDimensionsChange,
+    );
   }
+
+  componentWillUnmount() {
+    this.dimensionsSubscription?.remove();
+  }
+
+  render() {
+    const windowWidth = this.state.dimensions.window.width;
+
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.scrollContainer}>
+          <ScrollView
+            horizontal={true}
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event([
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: this.scrollX,
+                  },
+                },
+              },
+            ])}
+            scrollEventThrottle={1}>
+            {images.map((image, imageIndex) => {
+              return (
+                <View
+                  style={{
+                    width: windowWidth,
+                    height: 250,
+                  }}
+                  key={imageIndex}>
+                  <ImageBackground source={{uri: image}} style={styles.card}>
+                    <View style={styles.textContainer}>
+                      <Text style={styles.infoText}>
+                        {'Image - ' + imageIndex}
+                      </Text>
+                    </View>
+                  </ImageBackground>
+                </View>
+              );
+            })}
+          </ScrollView>
+          <View style={styles.indicatorContainer}>
+            {images.map((image, imageIndex) => {
+              const width = this.scrollX.interpolate({
+                inputRange: [
+                  windowWidth * (imageIndex - 1),
+                  windowWidth * imageIndex,
+                  windowWidth * (imageIndex + 1),
+                ],
+                outputRange: [8, 16, 8],
+                extrapolate: 'clamp',
+              });
+              return (
+                <Animated.View
+                  key={imageIndex}
+                  style={[styles.normalDot, {width}]}
+                />
+              );
+            })}
+          </View>
+        </View>
+      </SafeAreaView>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollContainer: {
+    height: 300,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  card: {
+    flex: 1,
+    marginVertical: 4,
+    marginHorizontal: 16,
+    borderRadius: 5,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textContainer: {
+    backgroundColor: 'rgba(0,0,0, 0.7)',
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 5,
+  },
+  infoText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  normalDot: {
+    height: 8,
+    width: 8,
+    borderRadius: 4,
+    backgroundColor: 'silver',
+    marginHorizontal: 4,
+  },
+  indicatorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 ```
 
 </TabItem>
 </Tabs>
 
+</TabItem>
+</Tabs>
+
 When using `PanResponder`, you could use the following code to extract the x and y positions from `gestureState.dx` and `gestureState.dy`. We use a `null` in the first position of the array, as we are only interested in the second argument passed to the `PanResponder` handler, which is the `gestureState`.
 
-```jsx
+```tsx
 onPanResponderMove={Animated.event(
   [null, // ignore the native event
   // extract dx and dy from gestureState
@@ -535,22 +778,22 @@ onPanResponderMove={Animated.event(
 <TabItem value="functional">
 
 ```SnackPlayer name=Animated
-import React, { useRef } from "react";
-import { Animated, View, StyleSheet, PanResponder, Text } from "react-native";
+import React, {useRef} from 'react';
+import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
 
 const App = () => {
   const pan = useRef(new Animated.ValueXY()).current;
   const panResponder = useRef(
     PanResponder.create({
       onMoveShouldSetPanResponder: () => true,
-      onPanResponderMove: Animated.event([
-        null,
-        { dx: pan.x, dy: pan.y }
-      ]),
+      onPanResponderMove: Animated.event([null, {dx: pan.x, dy: pan.y}]),
       onPanResponderRelease: () => {
-        Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
-      }
-    })
+        Animated.spring(pan, {
+          toValue: {x: 0, y: 0},
+          useNativeDriver: true,
+        }).start();
+      },
+    }),
   ).current;
 
   return (
@@ -558,33 +801,32 @@ const App = () => {
       <Text style={styles.titleText}>Drag & Release this box!</Text>
       <Animated.View
         style={{
-          transform: [{ translateX: pan.x }, { translateY: pan.y }]
+          transform: [{translateX: pan.x}, {translateY: pan.y}],
         }}
-        {...panResponder.panHandlers}
-      >
+        {...panResponder.panHandlers}>
         <View style={styles.box} />
       </Animated.View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleText: {
     fontSize: 14,
     lineHeight: 24,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   box: {
     height: 150,
     width: 150,
-    backgroundColor: "blue",
-    borderRadius: 5
-  }
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
 });
 
 export default App;
@@ -594,8 +836,8 @@ export default App;
 <TabItem value="classical">
 
 ```SnackPlayer name=Animated
-import React, { Component } from "react";
-import { Animated, View, StyleSheet, PanResponder, Text } from "react-native";
+import React, {Component} from 'react';
+import {Animated, View, StyleSheet, PanResponder, Text} from 'react-native';
 
 export default class App extends Component {
   pan = new Animated.ValueXY();
@@ -603,11 +845,14 @@ export default class App extends Component {
     onMoveShouldSetPanResponder: () => true,
     onPanResponderMove: Animated.event([
       null,
-      { dx: this.pan.x, dy: this.pan.y }
+      {dx: this.pan.x, dy: this.pan.y},
     ]),
     onPanResponderRelease: () => {
-      Animated.spring(this.pan, { toValue: { x: 0, y: 0 } }).start();
-    }
+      Animated.spring(this.pan, {
+        toValue: {x: 0, y: 0},
+        useNativeDriver: true,
+      }).start();
+    },
   });
 
   render() {
@@ -616,10 +861,9 @@ export default class App extends Component {
         <Text style={styles.titleText}>Drag & Release this box!</Text>
         <Animated.View
           style={{
-            transform: [{ translateX: this.pan.x }, { translateY: this.pan.y }]
+            transform: [{translateX: this.pan.x}, {translateY: this.pan.y}],
           }}
-          {...this.panResponder.panHandlers}
-        >
+          {...this.panResponder.panHandlers}>
           <View style={styles.box} />
         </Animated.View>
       </View>
@@ -630,20 +874,20 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   titleText: {
     fontSize: 14,
     lineHeight: 24,
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
   box: {
     height: 150,
     width: 150,
-    backgroundColor: "blue",
-    borderRadius: 5
-  }
+    backgroundColor: 'blue',
+    borderRadius: 5,
+  },
 });
 ```
 
@@ -663,13 +907,13 @@ You may notice that there is no clear way to read the current value while animat
 
 The `Animated` API is designed to be serializable. By using the [native driver](/blog/2017/02/14/using-native-driver-for-animated), we send everything about the animation to native before starting the animation, allowing native code to perform the animation on the UI thread without having to go through the bridge on every frame. Once the animation has started, the JS thread can be blocked without affecting the animation.
 
-Using the native driver for normal animations is straightforward. You can add `useNativeDriver: true` to the animation config when starting it.
+Using the native driver for normal animations can be accomplished by setting `useNativeDriver: true` in animation config when starting it. Animations without a `useNativeDriver` property will default to false for legacy reasons, but emit a warning (and typechecking error in TypeScript).
 
-```jsx
+```tsx
 Animated.timing(this.state.animatedValue, {
   toValue: 1,
   duration: 500,
-  useNativeDriver: true // <-- Add this
+  useNativeDriver: true, // <-- Set this to true
 }).start();
 ```
 
@@ -677,18 +921,18 @@ Animated values are only compatible with one driver so if you use native driver 
 
 The native driver also works with `Animated.event`. This is especially useful for animations that follow the scroll position as without the native driver, the animation will always run a frame behind the gesture due to the async nature of React Native.
 
-```jsx
+```tsx
 <Animated.ScrollView // <-- Use the Animated ScrollView wrapper
   scrollEventThrottle={1} // <-- Use 1 here to make sure no events are ever missed
   onScroll={Animated.event(
     [
       {
         nativeEvent: {
-          contentOffset: { y: this.state.animatedValue }
-        }
-      }
+          contentOffset: {y: this.state.animatedValue},
+        },
+      },
     ],
-    { useNativeDriver: true } // <-- Add this
+    {useNativeDriver: true}, // <-- Set this to true
   )}>
   {content}
 </Animated.ScrollView>
@@ -706,14 +950,14 @@ When an animation is running, it can prevent `VirtualizedList` components from r
 
 While using transform styles such as `rotateY`, `rotateX`, and others ensure the transform style `perspective` is in place. At this time some animations may not render on Android without it. Example below.
 
-```jsx
+```tsx
 <Animated.View
   style={{
     transform: [
-      { scale: this.state.scale },
-      { rotateY: this.state.rotateY },
-      { perspective: 1000 } // without this line this Animation will not render on Android while working fine on iOS
-    ]
+      {scale: this.state.scale},
+      {rotateY: this.state.rotateY},
+      {perspective: 1000}, // without this line this Animation will not render on Android while working fine on iOS
+    ],
   }}
 />
 ```
@@ -733,9 +977,8 @@ Note that although `LayoutAnimation` is very powerful and can be quite useful, i
 
 Note that in order to get this to work on **Android** you need to set the following flags via `UIManager`:
 
-```jsx
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+```tsx
+UIManager.setLayoutAnimationEnabledExperimental(true);
 ```
 
 ```SnackPlayer name=LayoutAnimations&supportedPlatforms=ios,android
@@ -749,7 +992,7 @@ import {
   View,
 } from 'react-native';
 
-const { UIManager } = NativeModules;
+const {UIManager} = NativeModules;
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -763,13 +1006,15 @@ export default class App extends React.Component {
   _onPress = () => {
     // Animate the update
     LayoutAnimation.spring();
-    this.setState({w: this.state.w + 15, h: this.state.h + 15})
-  }
+    this.setState({w: this.state.w + 15, h: this.state.h + 15});
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.box, {width: this.state.w, height: this.state.h}]} />
+        <View
+          style={[styles.box, {width: this.state.w, height: this.state.h}]}
+        />
         <TouchableOpacity onPress={this._onPress}>
           <View style={styles.button}>
             <Text style={styles.buttonText}>Press me!</Text>

@@ -3,6 +3,8 @@ id: tutorial
 title: Learn the Basics
 ---
 
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
+
 React Native is like React, but it uses native components instead of web components as building blocks. So to understand the basic structure of a React Native app, you need to understand some of the basic React concepts, like JSX, components, `state`, and `props`. If you already know React, you still need to learn some React Native specific stuff, like the native components. This tutorial is aimed at all audiences, whether you have React experience or not.
 
 Let's do this thing.
@@ -13,20 +15,20 @@ In accordance with the ancient traditions of our people, we must first build an 
 
 ```SnackPlayer name=Hello%20World
 import React from 'react';
-import { Text, View } from 'react-native';
+import {Text, View} from 'react-native';
 
 const HelloWorldApp = () => {
   return (
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
       <Text>Hello, world!</Text>
     </View>
-  )
-}
+  );
+};
 export default HelloWorldApp;
 ```
 
@@ -61,36 +63,80 @@ Most components can be customized when they are created, with different paramete
 
 Your own components can also use `props`. This lets you make a single component that is used in many different places in your app, with slightly different properties in each place. Refer to `props.YOUR_PROP_NAME` in your functional components or `this.props.YOUR_PROP_NAME` in your class components. Here's an example:
 
-```SnackPlayer name=Hello%20Props
+<Tabs groupId="language" defaultValue={constants.defaultSnackLanguage} values={constants.snackLanguages}>
+<TabItem value="javascript">
+
+```SnackPlayer name=Hello%20Props&ext=js
 import React from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   center: {
-    alignItems: 'center'
-  }
-})
+    alignItems: 'center',
+  },
+});
 
-const Greeting = (props) => {
+const Greeting = props => {
   return (
     <View style={styles.center}>
       <Text>Hello {props.name}!</Text>
     </View>
   );
-}
+};
 
 const LotsOfGreetings = () => {
   return (
     <View style={[styles.center, {top: 50}]}>
-      <Greeting name='Rexxar' />
-      <Greeting name='Jaina' />
-      <Greeting name='Valeera' />
+      <Greeting name="Rexxar" />
+      <Greeting name="Jaina" />
+      <Greeting name="Valeera" />
     </View>
   );
-}
+};
 
 export default LotsOfGreetings;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```SnackPlayer name=Hello%20Props&ext=tsx
+import React from 'react';
+import {Text, View, StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  center: {
+    alignItems: 'center',
+  },
+});
+
+type GreetingProps = {
+  name: string;
+};
+
+const Greeting = (props: GreetingProps) => {
+  return (
+    <View style={styles.center}>
+      <Text>Hello {props.name}!</Text>
+    </View>
+  );
+};
+
+const LotsOfGreetings = () => {
+  return (
+    <View style={[styles.center, {top: 50}]}>
+      <Greeting name="Rexxar" />
+      <Greeting name="Jaina" />
+      <Greeting name="Valeera" />
+    </View>
+  );
+};
+
+export default LotsOfGreetings;
+```
+
+</TabItem>
+</Tabs>
 
 Using `name` as a prop lets us customize the `Greeting` component, so we can reuse that component for each of our greetings. This example also uses the `Greeting` component in JSX. The power to do this is what makes React so cool.
 
@@ -110,10 +156,10 @@ In a React component, the props are the variables that we pass from a parent com
 
 <div className="two-columns">
 
-```jsx
+```tsx
 // ReactJS Counter Example using Hooks!
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 
 
@@ -141,11 +187,11 @@ const App = () => {
 
 ```
 
-```jsx
+```tsx
 // React Native Counter Example using Hooks!
 
-import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Button, StyleSheet} from 'react-native';
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -166,8 +212,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 });
 ```
 
@@ -178,41 +224,31 @@ As shown above, there is no difference in handling the `state` between [React](h
 In the following example we will show the same above counter example using classes.
 
 ```SnackPlayer name=Hello%20Classes
-import React, { Component } from 'react'
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-} from 'react-native'
+import React, {Component} from 'react';
+import {StyleSheet, TouchableOpacity, Text, View} from 'react-native';
 
 class App extends Component {
   state = {
-    count: 0
-  }
+    count: 0,
+  };
 
   onPress = () => {
     this.setState({
-      count: this.state.count + 1
-    })
-  }
+      count: this.state.count + 1,
+    });
+  };
 
- render() {
+  render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-         style={styles.button}
-         onPress={this.onPress}
-        >
-         <Text>Click me</Text>
+        <TouchableOpacity style={styles.button} onPress={this.onPress}>
+          <Text>Click me</Text>
         </TouchableOpacity>
         <View>
-          <Text>
-            You clicked { this.state.count } times
-          </Text>
+          <Text>You clicked {this.state.count} times</Text>
         </View>
       </View>
-    )
+    );
   }
 }
 
@@ -226,9 +262,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
     padding: 10,
-    marginBottom: 10
-  }
-})
+    marginBottom: 10,
+  },
+});
 
 export default App;
 ```

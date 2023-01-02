@@ -5,9 +5,9 @@ title: Button
 
 A basic button component that should render nicely on any platform. Supports a minimal level of customization.
 
-If this button doesn't look right for your app, you can build your own button using [TouchableOpacity](touchableopacity) or [TouchableWithoutFeedback](touchablewithoutfeedback). For inspiration, look at the [source code for this button component](https://github.com/facebook/react-native/blob/master/Libraries/Components/Button.js). Or, take a look at the [wide variety of button components built by the community](https://js.coach/?menu%5Bcollections%5D=React%20Native&page=1&query=button).
+If this button doesn't look right for your app, you can build your own button using [Pressable](pressable). For inspiration, look at the [source code for the Button component](https://github.com/facebook/react-native/blob/main/Libraries/Components/Button.js).
 
-```jsx
+```tsx
 <Button
   onPress={onPressLearnMore}
   title="Learn More"
@@ -20,17 +20,23 @@ If this button doesn't look right for your app, you can build your own button us
 
 ```SnackPlayer name=Button%20Example
 import React from 'react';
-import { StyleSheet, Button, View, SafeAreaView, Text, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Button,
+  View,
+  SafeAreaView,
+  Text,
+  Alert,
+} from 'react-native';
 
-const Separator = () => (
-  <View style={styles.separator} />
-);
+const Separator = () => <View style={styles.separator} />;
 
 const App = () => (
   <SafeAreaView style={styles.container}>
     <View>
       <Text style={styles.title}>
-        The title and onPress handler are required. It is recommended to set accessibilityLabel to help make your app usable by everyone.
+        The title and onPress handler are required. It is recommended to set
+        accessibilityLabel to help make your app usable by everyone.
       </Text>
       <Button
         title="Press me"
@@ -40,7 +46,9 @@ const App = () => (
     <Separator />
     <View>
       <Text style={styles.title}>
-        Adjust the color in a way that looks standard on each platform. On  iOS, the color prop controls the color of the text. On Android, the color adjusts the background color of the button.
+        Adjust the color in a way that looks standard on each platform. On iOS,
+        the color prop controls the color of the text. On Android, the color
+        adjusts the background color of the button.
       </Text>
       <Button
         title="Press me"
@@ -112,9 +120,9 @@ export default App;
 
 Handler to be called when the user taps the button.
 
-| Type                                        |
-| ------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) |
+| Type                                      |
+| ----------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) |
 
 ---
 

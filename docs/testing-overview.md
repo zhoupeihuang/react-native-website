@@ -29,7 +29,7 @@ The first step to improve your code quality is to start using static analysis to
 - **Linters** analyze code to catch common errors such as unused code and to help avoid pitfalls, to flag style guide no-nos like using tabs instead of spaces (or vice versa, depending on your configuration).
 - **Type checking** ensures that the construct you’re passing to a function matches what the function was designed to accept, preventing passing a string to a counting function that expects a number, for instance.
 
-React Native comes with two such tools configured out of the box: [ESLint](https://eslint.org/) for linting and [Flow](https://flow.org/en/docs/) for type checking. You can also use [TypeScript](typescript), which is a typed language that compiles to plain JavaScript.
+React Native comes with two such tools configured out of the box: [ESLint](https://eslint.org/) for linting and [TypeScript](typescript) for type checking.
 
 ## Writing Testable Code
 
@@ -138,10 +138,10 @@ There are several libraries that can help you testing these:
 
 Aside from rendering some UI, your components handle events like `onChangeText` for `TextInput` or `onPress` for `Button`. They may also contain other functions and event callbacks. Consider the following example:
 
-```jsx
+```tsx
 function GroceryShoppingList() {
   const [groceryItem, setGroceryItem] = useState('');
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState<string[]>([]);
 
   const addNewItemToShoppingList = useCallback(() => {
     setItems([groceryItem, ...items]);
@@ -153,13 +153,13 @@ function GroceryShoppingList() {
       <TextInput
         value={groceryItem}
         placeholder="Enter grocery item"
-        onChangeText={(text) => setGroceryItem(text)}
+        onChangeText={text => setGroceryItem(text)}
       />
       <Button
         title="Add the item to list"
         onPress={addNewItemToShoppingList}
       />
-      {items.map((item) => (
+      {items.map(item => (
         <Text key={item}>{item}</Text>
       ))}
     </>
@@ -184,15 +184,15 @@ Avoid testing implementation details like props or state—while such tests work
 
 Component testing libraries such as [React Native Testing Library](https://callstack.github.io/react-native-testing-library/) facilitate writing user-centric tests by careful choice of provided APIs. The following example uses `fireEvent` methods `changeText` and `press` that simulate a user interacting with the component and a query function `getAllByText` that finds matching `Text` nodes in the rendered output.
 
-```jsx
+```tsx
 test('given empty GroceryShoppingList, user can add an item to it', () => {
-  const { getByPlaceholder, getByText, getAllByText } = render(
-    <GroceryShoppingList />
+  const {getByPlaceholder, getByText, getAllByText} = render(
+    <GroceryShoppingList />,
   );
 
   fireEvent.changeText(
     getByPlaceholder('Enter grocery item'),
-    'banana'
+    'banana',
   );
   fireEvent.press(getByText('Add the item to list'));
 
@@ -209,7 +209,7 @@ This example is not testing how some state changes when you call a function. It 
 
 A "component snapshot" is a JSX-like string created by a custom React serializer built into Jest. This serializer lets Jest translate React component trees to string that's human-readable. Put another way: a component snapshot is a textual representation of your component’s render output _generated_ during a test run. It may look like this:
 
-```jsx
+```tsx
 <Text
   style={
     Object {

@@ -13,29 +13,29 @@ You can alternatively use `showWithGravity(message, duration, gravity)` to speci
 The 'showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)' method adds the ability to specify an offset with in pixels.
 
 ```SnackPlayer name=Toast%20Android%20API%20Example&supportedPlatforms=android
-import React from "react";
-import { View, StyleSheet, ToastAndroid, Button, StatusBar } from "react-native";
+import React from 'react';
+import {View, StyleSheet, ToastAndroid, Button, StatusBar} from 'react-native';
 
 const App = () => {
   const showToast = () => {
-    ToastAndroid.show("A pikachu appeared nearby !", ToastAndroid.SHORT);
+    ToastAndroid.show('A pikachu appeared nearby !', ToastAndroid.SHORT);
   };
 
   const showToastWithGravity = () => {
     ToastAndroid.showWithGravity(
-      "All Your Base Are Belong To Us",
+      'All Your Base Are Belong To Us',
       ToastAndroid.SHORT,
-      ToastAndroid.CENTER
+      ToastAndroid.CENTER,
     );
   };
 
   const showToastWithGravityAndOffset = () => {
     ToastAndroid.showWithGravityAndOffset(
-      "A wild toast appeared!",
+      'A wild toast appeared!',
       ToastAndroid.LONG,
       ToastAndroid.BOTTOM,
       25,
-      50
+      50,
     );
   };
 
@@ -57,63 +57,11 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#888888",
-    padding: 8
-  }
-});
-
-export default App;
-```
-
-### Imperative hack
-
-The ToastAndroid API is imperative, but there is a way to expose a declarative component from it as in this example:
-
-```SnackPlayer name=Advanced%20Toast%20Android%20API%20Example&supportedPlatforms=android
-import React, { useState, useEffect } from "react";
-import { View, StyleSheet, ToastAndroid, Button, StatusBar } from "react-native";
-
-const Toast = ({ visible, message }) => {
-  if (visible) {
-    ToastAndroid.showWithGravityAndOffset(
-      message,
-      ToastAndroid.LONG,
-      ToastAndroid.BOTTOM,
-      25,
-      50
-    );
-    return null;
-  }
-  return null;
-};
-
-const App = () => {
-  const [visibleToast, setVisibleToast] = useState(false);
-
-  useEffect(() => setVisibleToast(false), [visibleToast]);
-
-  const handleButtonPress = () => {
-    setVisibleToast(true);
-  };
-
-  return (
-    <View style={styles.container}>
-      <Toast visible={visibleToast} message="Example" />
-      <Button title="Toggle Toast" onPress={() => handleButtonPress()} />
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    paddingTop: StatusBar.currentHeight,
-    backgroundColor: "#888888",
-    padding: 8
-  }
+    backgroundColor: '#888888',
+    padding: 8,
+  },
 });
 
 export default App;
@@ -127,24 +75,30 @@ export default App;
 
 ### `show()`
 
-```jsx
-static show(message, duration)
+```tsx
+static show(message: string, duration: number);
 ```
 
 ---
 
 ### `showWithGravity()`
 
-```jsx
-static showWithGravity(message, duration, gravity)
+```tsx
+static showWithGravity(message: string, duration: number, gravity: number);
 ```
 
 ---
 
 ### `showWithGravityAndOffset()`
 
-```jsx
-static showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)
+```tsx
+static showWithGravityAndOffset(
+  message: string,
+  duration: number,
+  gravity: number,
+  xOffset: number,
+  yOffset: number,
+);
 ```
 
 ## Properties
@@ -153,8 +107,8 @@ static showWithGravityAndOffset(message, duration, gravity, xOffset, yOffset)
 
 Indicates the duration on the screen.
 
-```jsx
-ToastAndroid.SHORT;
+```tsx
+static SHORT: number;
 ```
 
 ---
@@ -163,8 +117,8 @@ ToastAndroid.SHORT;
 
 Indicates the duration on the screen.
 
-```jsx
-ToastAndroid.LONG;
+```tsx
+static LONG: number;
 ```
 
 ---
@@ -173,8 +127,8 @@ ToastAndroid.LONG;
 
 Indicates the position on the screen.
 
-```jsx
-ToastAndroid.TOP;
+```tsx
+static TOP: number;
 ```
 
 ---
@@ -183,8 +137,8 @@ ToastAndroid.TOP;
 
 Indicates the position on the screen.
 
-```jsx
-ToastAndroid.BOTTOM;
+```tsx
+static BOTTOM: number;
 ```
 
 ---
@@ -193,6 +147,6 @@ ToastAndroid.BOTTOM;
 
 Indicates the position on the screen.
 
-```jsx
-ToastAndroid.CENTER;
+```tsx
+static CENTER: number;
 ```

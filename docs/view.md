@@ -15,20 +15,19 @@ This example creates a `View` that wraps two boxes with color and a text compone
 <TabItem value="functional">
 
 ```SnackPlayer name=View%20Function%20Component%20Example
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import {View, Text} from 'react-native';
 
 const ViewBoxesWithColorAndText = () => {
   return (
     <View
       style={{
-        flexDirection: "row",
+        flexDirection: 'row',
         height: 100,
-        padding: 20
-      }}
-    >
-      <View style={{ backgroundColor: "blue", flex: 0.3 }} />
-      <View style={{ backgroundColor: "red", flex: 0.5 }} />
+        padding: 20,
+      }}>
+      <View style={{backgroundColor: 'blue', flex: 0.3}} />
+      <View style={{backgroundColor: 'red', flex: 0.5}} />
       <Text>Hello World!</Text>
     </View>
   );
@@ -41,21 +40,20 @@ export default ViewBoxesWithColorAndText;
 <TabItem value="classical">
 
 ```SnackPlayer name=View%20Class%20Component%20Example
-import React, { Component } from "react";
-import { View, Text } from "react-native";
+import React, {Component} from 'react';
+import {View, Text} from 'react-native';
 
 class App extends Component {
   render() {
     return (
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           height: 100,
-          padding: 20
-        }}
-      >
-        <View style={{ backgroundColor: "blue", flex: 0.3 }} />
-        <View style={{ backgroundColor: "red", flex: 0.5 }} />
+          padding: 20,
+        }}>
+        <View style={{backgroundColor: 'blue', flex: 0.3}} />
+        <View style={{backgroundColor: 'red', flex: 0.5}} />
         <Text>Hello World!</Text>
       </View>
     );
@@ -249,6 +247,117 @@ When `true`, indicates that the view is an accessibility element. By default, al
 
 ---
 
+### `aria-busy`
+
+Indicates an element is being modified and that assistive technologies may want to wait until the changes are complete before informing the user about the update.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | false   |
+
+---
+
+### `aria-checked`
+
+Indicates the state of a checkable element. This field can either take a boolean or the "mixed" string to represent mixed checkboxes.
+
+| Type             | Default |
+| ---------------- | ------- |
+| boolean, 'mixed' | false   |
+
+---
+
+### `aria-disabled`
+
+Indicates that the element is perceivable but disabled, so it is not editable or otherwise operable.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | false   |
+
+---
+
+### `aria-expanded`
+
+Indicates whether an expandable element is currently expanded or collapsed.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | false   |
+
+---
+
+### `aria-hidden`
+
+Indicates whether the accessibility elements contained within this accessibility element are hidden.
+
+For example, in a window that contains sibling views `A` and `B`, setting `aria-hidden` to `true` on view `B` causes VoiceOver to ignore the elements in the view `B`.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | false   |
+
+---
+
+### `aria-label`
+
+Defines a string value that labels an interactive element.
+
+| Type   |
+| ------ |
+| string |
+
+---
+
+### `aria-labelledby` <div class="label android">Android</div>
+
+Identifies the element that labels the element it is applied to. The value of `aria-labelledby` should match the [`nativeID`](view.md#nativeid) of the related element:
+
+```tsx
+<View>
+  <Text nativeID="formLabel">Label for Input Field</Text>
+  <TextInput aria-label="input" aria-labelledby="formLabel" />
+</View>
+```
+
+| Type   |
+| ------ |
+| string |
+
+---
+
+### `aria-live` <div class="label android">Android</div>
+
+Indicates that an element will be updated, and describes the types of updates the user agents, assistive technologies, and user can expect from the live region.
+
+- **off** Accessibility services should not announce changes to this view.
+- **polite** Accessibility services should announce changes to this view.
+- **assertive** Accessibility services should interrupt ongoing speech to immediately announce changes to this view.
+
+| Type                                     | Default |
+| ---------------------------------------- | ------- |
+| enum(`'assertive'`, `'off'`, `'polite'`) | `'off'` |
+
+---
+
+### `aria-modal` <div class="label ios">iOS</div>
+
+Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver. Has precedence over the [`accessibilityViewIsModal`](#accessibilityviewismodal-ios) prop.
+
+| Type    | Default |
+| ------- | ------- |
+| boolean | false   |
+
+---
+
+### `aria-selected`
+
+Indicates whether a selectable element is currently selected or not.
+
+| Type    |
+| ------- |
+| boolean |
+
 ### `aria-valuemax`
 
 Represents the maximum value for range-based components, such as sliders and progress bars. Has precedence over the `max` value in the `accessibilityValue` prop.
@@ -286,14 +395,6 @@ Represents the textual description of the component. Has precedence over the `te
 | Type   |
 | ------ |
 | string |
-
-### `aria-modal` <div class="label ios">iOS</div>
-
-Boolean value indicating whether VoiceOver should ignore the elements within views that are siblings of the receiver. Has precedence over the `accessibilityViewIsModal` prop.
-
-| Type | Default |
-| ---- | ------- |
-| bool | false   |
 
 ---
 
@@ -474,9 +575,9 @@ Invoked on mount and on layout changes.
 
 This event is fired immediately once the layout has been calculated, but the new layout may not yet be reflected on the screen at the time the event is received, especially if a layout animation is in progress.
 
-| Type                                                  |
-| ----------------------------------------------------- |
-| ({ nativeEvent: [LayoutEvent](layoutevent) }) => void |
+| Type                                                |
+| --------------------------------------------------- |
+| ({nativeEvent: [LayoutEvent](layoutevent)}) => void |
 
 ---
 
@@ -494,9 +595,9 @@ When `accessible` is `true`, the system will invoke this function when the user 
 
 Does this view want to "claim" touch responsiveness? This is called for every touch move on the `View` when it is not the responder.
 
-| Type                                                   |
-| ------------------------------------------------------ |
-| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
+| Type                                                 |
+| ---------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => boolean |
 
 ---
 
@@ -504,9 +605,9 @@ Does this view want to "claim" touch responsiveness? This is called for every to
 
 If a parent `View` wants to prevent a child `View` from becoming responder on a move, it should have this handler which returns `true`.
 
-| Type                                                   |
-| ------------------------------------------------------ |
-| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
+| Type                                                 |
+| ---------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => boolean |
 
 ---
 
@@ -514,9 +615,9 @@ If a parent `View` wants to prevent a child `View` from becoming responder on a 
 
 The View is now responding for touch events. This is the time to highlight and show the user what is happening.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -524,9 +625,9 @@ The View is now responding for touch events. This is the time to highlight and s
 
 The user is moving their finger.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -534,9 +635,9 @@ The user is moving their finger.
 
 Another responder is already active and will not release it to that `View` asking to be the responder.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -544,9 +645,9 @@ Another responder is already active and will not release it to that `View` askin
 
 Fired at the end of the touch.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -554,9 +655,9 @@ Fired at the end of the touch.
 
 The responder has been taken from the `View`. Might be taken by other views after a call to `onResponderTerminationRequest`, or might be taken by the OS without asking (e.g., happens with control center/ notification center on iOS)
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -564,9 +665,9 @@ The responder has been taken from the `View`. Might be taken by other views afte
 
 Some other `View` wants to become responder and is asking this `View` to release its responder. Returning `true` allows its release.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 
@@ -574,9 +675,9 @@ Some other `View` wants to become responder and is asking this `View` to release
 
 Does this view want to become responder on the start of a touch?
 
-| Type                                                   |
-| ------------------------------------------------------ |
-| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
+| Type                                                 |
+| ---------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => boolean |
 
 ---
 
@@ -584,9 +685,9 @@ Does this view want to become responder on the start of a touch?
 
 If a parent `View` wants to prevent a child `View` from becoming responder on a touch start, it should have this handler which returns `true`.
 
-| Type                                                   |
-| ------------------------------------------------------ |
-| ({ nativeEvent: [PressEvent](pressevent) }) => boolean |
+| Type                                                 |
+| ---------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => boolean |
 
 ---
 
@@ -618,8 +719,6 @@ Controls whether the `View` can be the target of touch events.
 }
 ```
 
-> Since `pointerEvents` does not affect layout/appearance, and we are already deviating from the spec by adding additional modes, we opt to not include `pointerEvents` on `style`. On some platforms, we would need to implement it as a `className` anyways. Using `style` or not is an implementation detail of the platform.
-
 | Type                                         |
 | -------------------------------------------- |
 | enum('box-none', 'none', 'box-only', 'auto') |
@@ -645,6 +744,16 @@ On Android, this is useful for animations and interactions that only modify opac
 | Type |
 | ---- |
 | bool |
+
+---
+
+### `role`
+
+`role` communicates the purpose of a component to the user of an assistive technology. Has precedence over the [`accessibilityRole`](view#accessibilityrole) prop.
+
+| Type                       |
+| -------------------------- |
+| [Role](accessibility#role) |
 
 ---
 
