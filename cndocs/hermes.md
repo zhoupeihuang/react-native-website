@@ -3,8 +3,6 @@ id: hermes
 title: 使用新的 Hermes 引擎
 ---
 
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
-
 <a href="https://hermesengine.dev">
 <img width={300} height={300} className="hermes-logo" src="/docs/assets/HermesLogo.svg" />
 </a>
@@ -27,30 +25,30 @@ Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.
 
 ### Android
 
-Edit your `android/app/build.gradle` file and make the change illustrated below:
+编辑 `android/app/build.gradle` 文件并做如下修改：
 
 ```diff
   project.ext.react = [
       entryFile: "index.js",
--     enableHermes: false  // clean and rebuild if changing
-+     enableHermes: true  // clean and rebuild if changing
+-     enableHermes: false  // 
++     enableHermes: true  // 修改后需 clean 编译缓存并重新编译
   ]
 ```
 
-Also, if you're using ProGuard, you will need to add these rules in `proguard-rules.pro` :
+如果你使用 ProGuard，那么需要在 `proguard-rules.pro` 文件中添加如下规则：
 
 ```
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }
 ```
 
-Next, if you've already built your app at least once, clean the build:
+如果在这之前已经编译过应用，那么需要清理下编译缓存：
 
 ```shell
 $ cd android && ./gradlew clean
 ```
 
-That's it! You should now be able to develop and deploy your app as usual:
+这样就完成了，然后可以正常编译并继续开发和部署了：
 
 ```shell
 $ npx react-native run-android
@@ -62,7 +60,7 @@ Android app bundles 格式从 react-native 0.62.0 版本开始支持。
 
 ### iOS
 
-Since React Native 0.64, Hermes also runs on iOS. To enable Hermes for iOS, edit your `ios/Podfile` file and make the change illustrated below:
+从 React Native 0.64 版本开始， Hermes 也支持在 iOS 上运行（且能够正常上架）。 To enable Hermes for iOS, edit your `ios/Podfile` file and make the change illustrated below:
 
 ```diff
    use_react_native!(
@@ -83,8 +81,6 @@ Once you've configured it, you can install the Hermes pods with:
 ```shell
 $ cd ios && pod install
 ```
-
-<M1Cocoapods />
 
 That's it! You should now be able to develop and deploy your app as usual:
 

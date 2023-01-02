@@ -3,23 +3,21 @@ id: hermes
 title: 使用新的 Hermes 引擎
 ---
 
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
-
 <a href="https://hermesengine.dev">
 <img width={300} height={300} className="hermes-logo" src="/docs/assets/HermesLogo.svg" />
 </a>
 
 [Hermes](https://hermesengine.dev) 是专门针对 React Native 应用而优化的全新开源 JavaScript 引擎。对于很多应用来说，启用 Hermes 引擎可以优化启动时间，减少内存占用以及空间占用。目前 Hermes 是一个**可选的**特性，本文档会为你介绍如何将其启用。
 
-First, ensure you're using at least version 0.60.4 of React Native.
+首先请确保你运行的 React Native 版本在 0.60.4 或以上。
 
-If you have an existing app based on an earlier version of React Native, you will have to upgrade it first. See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
+如果你现有的项目运行的是较老的版本，那么必须要先升级。See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-:::caution 关于兼容性的注意事项
+:::关于兼容性的注意事项
 Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
 :::
 
-:::info 对于 Windows 用户的注意事项
+:::对于 Windows 用户的注意事项
 Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 :::
 
@@ -27,30 +25,30 @@ Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.
 
 ### Android
 
-Edit your `android/app/build.gradle` file and make the change illustrated below:
+编辑 `android/app/build.gradle` 文件并做如下修改：
 
 ```diff
   project.ext.react = [
       entryFile: "index.js",
--     enableHermes: false  // clean and rebuild if changing
-+     enableHermes: true  // clean and rebuild if changing
+-     enableHermes: false  // 
++     enableHermes: true  // 修改后需 clean 编译缓存并重新编译
   ]
 ```
 
-Also, if you're using ProGuard, you will need to add these rules in `proguard-rules.pro` :
+如果你使用 ProGuard，那么需要在 `proguard-rules.pro` 文件中添加如下规则：
 
 ```
 -keep class com.facebook.hermes.unicode.** { *; }
 -keep class com.facebook.jni.** { *; }
 ```
 
-Next, if you've already built your app at least once, clean the build:
+如果在这之前已经编译过应用，那么需要清理下编译缓存：
 
 ```shell
 $ cd android && ./gradlew clean
 ```
 
-That's it! You should now be able to develop and deploy your app as usual:
+这样就完成了，然后可以正常编译并继续开发和部署了：
 
 ```shell
 $ npx react-native run-android
@@ -62,7 +60,7 @@ Android app bundles 格式从 react-native 0.62.0 版本开始支持。
 
 ### iOS
 
-Since React Native 0.64, Hermes also runs on iOS. To enable Hermes for iOS, edit your `ios/Podfile` file and make the change illustrated below:
+从 React Native 0.64 版本开始， Hermes 也支持在 iOS 上运行（且能够正常上架）。 To enable Hermes for iOS, edit your `ios/Podfile` file and make the change illustrated below:
 
 ```diff
    use_react_native!(
@@ -83,8 +81,6 @@ Once you've configured it, you can install the Hermes pods with:
 ```shell
 $ cd ios && pod install
 ```
-
-<M1Cocoapods />
 
 That's it! You should now be able to develop and deploy your app as usual:
 

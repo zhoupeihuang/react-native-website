@@ -1,6 +1,6 @@
 ---
 id: why
-title: Why A New Architecture
+title: 为何要设计新架构
 ---
 
 import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';

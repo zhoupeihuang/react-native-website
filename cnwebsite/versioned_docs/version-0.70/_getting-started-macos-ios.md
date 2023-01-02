@@ -1,4 +1,4 @@
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx'; import RemoveGlobalCLI from './\_remove-global-cli.md';
+import RemoveGlobalCLI from './\_remove-global-cli.md';
 
 ## 安装依赖
 
@@ -28,6 +28,35 @@ npx nrm use npm
 ```
 
 [Watchman](https://facebook.github.io/watchman)则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。
+
+### Ruby
+
+[Ruby](https://www.ruby-lang.org/en/) 是一种通用编程语言。React Native 在某些与 iOS 依赖管理相关的脚本中会使用到它。与所有编程语言一样，Ruby 多年来也发布了了许多不同的版本。
+
+React Native 使用 `.ruby-version` 文件来确保您的 Ruby 版本与所需的版本相一致。目前，macOS 12.5.1 自带的 Ruby 版本是 2.6.8，但这**并不是** React Native 所需的版本。我们建议安装 Ruby 版本管理器来安装和管理需要的版本。
+
+常见的 Ruby 版本管理器有：
+
+- [rbenv](https://github.com/rbenv/rbenv)
+- [RVM](https://rvm.io/)
+- [chruby](https://github.com/postmodern/chruby)
+- [asdf-vm](https://github.com/asdf-vm) 及其 [asdf-ruby](https://github.com/asdf-vm/asdf-ruby) 插件
+
+可以使用下面的命令来检查系统当前所使用的 Ruby 版本：
+
+```
+ruby --version
+```
+
+React Native 需要的版本 [记录在此](https://github.com/facebook/react-native/blob/main/template/_ruby-version)。你也可以在当前项目目录下的`.ruby-version`文件中找到所需的版本。（注：较早版本的 React Native 项目可能没有此文件）
+
+### Ruby 的包管理器 Bundler
+
+Ruby 使用 **gems** 这个词来指代其生态中的各种包/库/依赖。gem 就好比 npm 生态中的包，或是 Homebrew 中的 formula，或是 Cocoapods 中的 pod。
+
+Ruby 的 [Bundler](https://bundler.io/) 本身也是一个 gem，它的作用是管理项目中的 Ruby 依赖。我们需要使用 Ruby 来安装 Cocoapods，而 Bundler 会管理其相关的各种依赖，以保证其能够正常工作。
+
+如果你想进一步了解此工具，可以阅读这篇[英文说明](https://bundler.io/guides/rationale.html#bundlers-purpose-and-rationale).
 
 ### Yarn
 
@@ -71,8 +100,6 @@ brew install cocoapods
 
 要了解更多信息，可以访问[CocoaPods 的官网](https://guides.cocoapods.org/using/getting-started.html)。
 
-<M1Cocoapods />
-
 ## 创建新项目
 
 <RemoveGlobalCLI />
@@ -102,6 +129,14 @@ npx react-native init AwesomeProject --version X.XX.X
 ```shell
 npx react-native init AwesomeTSProject --template react-native-template-typescript
 ```
+
+### [可选文件] Xcode 的环境配置文件
+
+从 React Native 版本 0.69 开始，可以使用模板提供的 `.xcode.env` 文件来配置 Xcode 环境。
+
+`.xcode.env` 文件中包含一个环境变量示例，用于在 `NODE_BINARY` 变量中导出 `node` 执行文件的路径。这是将构建基础结构与`node`系统版本解耦的**推荐做法**。如果与默认值不同，则应使用您自己的路径或您自己的`node`版本管理器来自定义此变量。
+
+此外，您还可以在构建脚本阶段中添加任何其他环境变量并导入 `.xcode.env` 文件。如果您需要运行需要特定环境的脚本，这也是将构建阶段与特定环境解耦的**推荐做法**。
 
 ## 编译并运行 React Native 应用
 

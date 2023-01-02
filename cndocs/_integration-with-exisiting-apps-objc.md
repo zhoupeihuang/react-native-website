@@ -1,4 +1,4 @@
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants'; import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
 ## 核心概念
 
@@ -151,8 +151,6 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 ```
 
 > If this fails with errors mentioning `xcrun`, make sure that in Xcode in **Preferences > Locations** the Command Line Tools are assigned.
-
-<M1Cocoapods />
 
 ### 代码集成
 

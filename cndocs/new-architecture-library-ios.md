@@ -3,7 +3,6 @@ id: new-architecture-library-ios
 title: 在 iOS 库中启用
 ---
 
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
 import NewArchitectureWarning from './\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>

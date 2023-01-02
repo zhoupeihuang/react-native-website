@@ -1,5 +1,3 @@
-import M1Cocoapods from './\_markdown-m1-cocoapods.mdx';
-
 ## 核心概念
 
 把 React Native 组件集成到 iOS 应用中有如下几个主要步骤：
@@ -147,8 +145,6 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 > If this fails with errors mentioning `xcrun`, make sure that in Xcode in **Preferences > Locations** the Command Line Tools are assigned.
 
 > 如果你看到类似"_The `swift-2048 [Debug]` target overrides the `FRAMEWORK_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-swift-2048/Pods-swift-2048.debug.xcconfig`. This can lead to problems with the CocoaPods installation_"的警告，请查看 Xcode 的`Build Settings`中的`Framework Search Paths`选项，确保其中的`Debug`和`Release`都只包含`$(inherited)`。
-
-<M1Cocoapods />
 
 ### 代码集成
 

@@ -1,6 +1,6 @@
 ---
 id: pillars
-title: 新架构的“两驾马车”
+title: 新架构的“两大支柱”
 ---
 
 import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';

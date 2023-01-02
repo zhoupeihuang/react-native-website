@@ -98,6 +98,16 @@
       },
       {
         "type": "category",
+        "label": "C++",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          "the-new-architecture/cxx-cxxturbomodules",
+          "the-new-architecture/cxx-custom-types"
+        ]
+      },
+      {
+        "type": "category",
         "label": "向后兼容性",
         "collapsible": false,
         "collapsed": false,
