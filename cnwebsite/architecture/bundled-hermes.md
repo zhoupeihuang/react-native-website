@@ -1,31 +1,31 @@
 ---
 id: bundled-hermes
-title: 内置 Hermes 引擎
+title: 绑定 Hermes 引擎
 ---
 
 本页面综述了 Hermes 与 React Native 是**如何被构造**的。
 
-如果你要找的是如何在你的应用中使用 Hermes，可以从其他页面中找到帮助文档[using Hermes](/docs/hermes)。
+如果你要找的是如何在你的应用中使用 Hermes，可以阅读[使用新的 Hermes 引擎](/docs/hermes)。
 
 :::caution
-请注意这篇文章将会深入这一技术细节，因此目标读者为基于 Hermes 或 React Native 构建拓展的用户。React Native 的一般用户并不需要了解 React Native 与 Hermes 如何交互的深入细节。
+请注意这篇文章将会深入这一技术细节，因此目标读者为基于 Hermes 或 React Native 构建第三方库的用户。React Native 的一般用户并不需要了解 React Native 与 Hermes 如何交互的深入细节。
 :::
 
-## 什么是 'Bundled Hermes'
+## 什么是“绑定 Hermes 引擎”（Bundled Hermes）
 
-在 React Native 0.69.0 版本后，React Native 的每个版本都会**伴随**一个 Hermes 版本。我们把这种发布模型称作 **Bundled Hermes**。
+在 React Native 0.69.0 版本后，React Native 的每个版本都会**内置**一个绑定的 Hermes 版本。我们把这种发布模型称作 **Bundled Hermes**。
 
-因此在 0.69 版本之后，对每个可以公开使用的 React Native 版本，你都可以获得一个伴随该版本构建与测试的 JS 引擎。
+因此在 0.69 版本之后，对每个可以公开使用的 React Native 版本，你都可以获得一个跟随该版本进行构建与测试的 JS 引擎。
 
 ## 为什么我们要迁移到 'Bundled Hermes'
 
-历史版本中，React Native 和 Hermes 使用的是两套**不同的发布流程**，各自有不同的版本。 伴随着不同版本号的不同发布使得 OSS 生态十分困惑，一个特定的 Hermes 版本是否与 React Native 版本兼容(如，你需要知道 Hermes 0.11.0 至于 React Native 0.68.0 版本兼容，等等)。
+历史版本中，React Native 和 Hermes 使用的是两套**不同的发布流程**，各自有不同的版本。这一做法对开源社区带来了困扰，你很难知晓某个特定的 Hermes 版本是否与 React Native 版本兼容(例如 Hermes 0.11.0 只能和 React Native 0.68.0 版本兼容)。
 
 Hermes 和 React Natives 共享了一份 JSI 代码([Hermes 中](https://github.com/facebook/hermes/tree/main/API/jsi/jsi)，[React Native 中](https://github.com/facebook/react-native/tree/main/ReactCommon/jsi/jsi))。如果两个 JSI 拷贝没有同步，Hermes 的构建将不能与 React Native 的构建兼容。更多详情可以了解[ABI 兼容性问题的讨论](https://github.com/react-native-community/discussions-and-proposals/issues/257)。
 
-为了解决该问题，我们拓展了 React Native 的发布流程，它将下载并构建一份 Hermes 从而保证构建 Hermes 时使用了相同的 JSI 拷贝。
+为了解决该问题，我们改进了 React Native 的发布流程，以保证下载和构建 Hermes 时和当前的 React Native 使用了相同的 JSI 拷贝。
 
-基于此流程，我们会在发布 React Native 版本时，同时发布一个与它**完全兼容**的 Hermes 版本。基于我们开发的 React Native 版本来迁移升级 Hermes 版本，因此叫做 _Bundled Hermes_。
+基于此流程，我们会在发布 React Native 版本时，同时发布一个与它绑定的**完全兼容**的 Hermes 版本。基于我们开发的 React Native 版本来迁移升级 Hermes 版本，因此叫做“捆绑 Hermes 引擎” _Bundled Hermes_。
 
 ## 这将会如何影响应用开发者
 
@@ -35,12 +35,12 @@ Hermes 和 React Natives 共享了一份 JSI 代码([Hermes 中](https://github.
 
 ### iOS 用户
 
-在 iOS 中，我们移动了你在使用的 `hermes-engine`。
+在 iOS 中，我们移动了之前使用的 `hermes-engine`。
 
 在 React Native 0.69 以前，用户需要下载一个 pod(你可以在这里找到[podspec](https://github.com/CocoaPods/Specs/blob/master/Specs/5/d/0/hermes-engine/0.11.0/hermes-engine.podspec.json))。
 
 在 React Native 0.69 中，用户不再需要额外使用 podspec，它被定义在 `react-native` NPM 包中的 `sdks/hermes-engine/hermes-engine.podspec` 文件替换了。
-这个 podspec 依赖于一个预编译的 Hermes 压缩包(tarball)，该压缩包是作为 React Native 发布流程的一部分被上传到 GitHub Releases。(如，[这次发布中的资产](https://github.com/facebook/react-native/releases/tag/v0.69.0-rc.6))
+这个 podspec 依赖于一个预编译的 Hermes 压缩包(tarball)，该压缩包是作为 React Native 发布流程的一部分被上传到 GitHub Releases。(如，[0.69.0-rc.6 版本发布中的资源文件](https://github.com/facebook/react-native/releases/tag/v0.69.0-rc.6))
 
 ### Android 用户
 
@@ -95,9 +95,9 @@ React Native 0.69 之前，用户将会使用来自 `hermes-engine` NPM package 
 
 请注意，在写作这篇文章时，`enableHermes`/`hermes_enabled` 的默认值为`false`。 我们会在不久的将来寻找一个升级模板的机会， 来将默认值升级为`true`。
 
-## 这个改动如何影响贡献者和拓展开发者
+## 这个改动如何影响贡献者和第三方库开发者
 
-如果您是 React Native 的贡献者，或者您正在 React Native 或 Hermes 之上构建扩展，请进一步阅读我们解释 Bundled Hermes 的工作原理。
+如果您是 React Native 的贡献者，或者您正在 React Native 或 Hermes 之上构建第三方库，请进一步阅读我们解释 Bundled Hermes 的工作原理。
 
 ### Bundled Hermes 底层是如何工作的?
 
