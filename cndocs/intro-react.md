@@ -172,7 +172,7 @@ export default Cat;
 
 你可以把括号`{}`想象成在 JSX 中打开了一个可以调用 JS 功能的传送门！
 
-> 因为 JSX 语法糖的实质是调用`React.createElement`方法，所以你必须在文件头部引用`import React from 'react'`。
+> 在 React Native 0.71 版本之前，JSX 语法糖的实质是调用`React.createElement`方法，所以你必须在文件头部引用`import React from 'react'`。但在 React Native 0.71 版本之后，官方引入了[新的 JSX 转换](https://zh-hans.reactjs.org/blog/2020/09/22/introducing-the-new-jsx-transform.html)，可以**不用**再在文件头部写`import React from 'react'`。
 
 ## 自定义组件
 
