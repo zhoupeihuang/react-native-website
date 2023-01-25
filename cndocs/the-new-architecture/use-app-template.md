@@ -1,6 +1,6 @@
 ---
 id: use-app-template
-title: Creating a New Architecture App
+title: 创建启用新架构的应用
 ---
 
 import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
@@ -9,9 +9,9 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-This page will help you create a new React Native app that uses the New Architecture.
+本文档将帮助你从头创建一个启用了新架构的 React Native 应用。
 
-## Development environment
+## 开发环境
 
 Before continuing, make sure you've followed all the steps in [Setting up the development environment](getting-started.md), under the **React Native CLI Quickstart** tab.
 
@@ -21,7 +21,7 @@ If following the setup guide, stop when you reach the section **Running your Rea
 If you're using Expo, you can't enable the New Architecture at the moment, and will have to wait for a future release of the Expo SDK.
 :::
 
-## Creating a new application
+## 创建新应用
 
 <RemoveGlobalCLI />
 
@@ -35,17 +35,17 @@ npx react-native init AwesomeProject
 The New Architecture is available in React Native version 0.68 or later.
 :::
 
-## Configuration
+## 配置
 
 Follow the steps below to enable the New Architecture and build the app.
 
-### Enable Hermes
+### 启用 Hermes
 
 Hermes is an open-source JavaScript engine optimized for React Native. [Hermes will be the default engine in the future](https://github.com/reactwg/react-native-new-architecture/discussions/4), and we highly recommend you use it.
 
 Please [follow the instructions on the React Native website](hermes.md) in order to enable Hermes in your application.
 
-### Enable the New Architecture
+### 启用新架构
 
 #### Target OS
 
@@ -77,7 +77,7 @@ You will need to run `pod install` each time a dependency with native code chang
 and run it with `yarn pod-install`. Note that `bundle install` does not need to run a second time, as long as the Gemfile has not changed.
 :::
 
-#### Troubleshooting
+#### 常见问题
 
 ##### `react-native run-ios` fails
 
