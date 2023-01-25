@@ -1,6 +1,6 @@
 ---
 id: landing-page
-title: Introduction
+title: 新架构介绍
 ---
 
 import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';

@@ -7,38 +7,39 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-The goal of the New Architecture is to solve some of the issues that afflicted the Old Architecture in terms of performance and flexibility. This section provides the basic context to understand the Old Architecture limitations and how it has been possible to overcome them with the New Architecture.
+新架构的目标是解决困扰旧架构在性能和灵活性方面的一些问题。本节提供了基本的背景，以了解旧架构的局限性，以及如何通过新架构来克服这些局限性。
 
-This is not a technical deep dive: for further technical information, refer to the [Architecture](/architecture/overview) tab of the website.
+这不是一个技术上的深入研究：对于进一步的技术信息，请参考网站的[架构](/architecture/overview)标签。
 
-## Old Architecture's Issues
+## 旧架构的问题
 
-The Old Architecture used to work by serializing all the data that has to be passed from the JS layer to the native layer using a component called _The Bridge_. _The Bridge_ can be imagined as a bus where the producer layer sent some data for the consumer layer. The consumer could read the data, deserialize it and execute the required operations.
+旧的架构曾经通过使用一个叫做`桥（Bridge）`的组件将所有必须从 JS 层传递到本地层的数据序列化来工作。桥可以被想象成一条总线，生产者层为消费者层发送一些数据。消费者可以读取数据，将其反序列化并执行所需的操作。
 
-_The Bridge_ had some intrinsic limitations:
+桥有一些固有的限制：
 
-- **It was asynchronous:** one layer submitted the data to the bridge and asynchronously "waited" for the other layer to process them, even when this was not really necessary.
-- **It was single threaded:** JS used to work on a single thread, therefore the computation that happened in that world had to be performed on that single thread.
-- **It imposed extra overheads:** everytime one layer had to use the other one, it had to serialize some data. The other layer had to deserialize them. The chosen format was JSON, for its simplicity and human-readability, but despite being lightweight, it was a cost to pay.
+- **它是异步的**：某个层将数据提交给桥，再异步地"等待"另一个层来处理它们，即使有时候这并不是真正必要的。
+- **它是单线程的**：JS 是单线程的，因此发生在 JS 中的计算也必须在单线程上进行。
+- **它带来了额外的开销**：每当一个层必须使用另一个层时，它就必须序列化一些数据。另一层则必须对其进行反序列化。这里选择的格式是 JSON，因为它的简单性和人的可读性，但尽管是轻量级的，它也是有开销的。
 
-## New Architecture's Improvements
+## 新架构的改进
 
-The New Architecture dropped the concept of _The Bridge_ in favor of another communication mechanism: the _JavaScript Interface (JSI)_. The _JSI_ is an interface that allows a JavaScript object to hold a reference to a C++ and viceversa.
+新架构放弃了"桥"的概念，转而采用另一种通信机制：`JavaScript 接口（JSI）`。JSI 是一个接口，允许 JavaScript 对象持有对 C++ 的引用，反之亦然。
 
-Once an object has a reference to the other one, it can directly invoke methods on it. So, for example, a C++ object can now ask a JavaScript object to execute a method in the JavaScript world and viceversa.
+一旦一个对象拥有另一个对象的引用，它就可以直接调用该对象的方法。例如一个 C++ 对象现在可以直接调用一个 JavaScript 对象在 JavaScript 环境中执行一个方法，反之亦然。
 
-This idea allowed to unlock several benefits:
+这个想法可以带来几个好处：
 
-- **Synchronous execution:** it is now possibile to execute synchronously those functions that should not have been asynchronous in the first place.
-- **Concurrency:** it is possible from JavaScript to invoke functions that are executed on different thread.
-- **Lower overhead:** the New Architecture don't have to serialize/deserialize the data anymore, therefore there are no serialization taxes to pay.
-- **Code sharing:** by introducing C++, it is now possible to abstract all the platform agnostic code and to share it with ease between the plaforms.
-- **Type safety:** to make sure that JS can properly invoke methods on C++ objects and viceversa, a layer of code automatically generated has been added. The code is generated starting from some JS specification that must be typed through Flow or TypeScript.
+- **同步执行**：现在可以同步执行那些本来就不应该是异步的函数。
+- **并发**：可以在 JavaScript 中调用在不同线程上执行的函数。
+- **更低的开销**：新架构不需要再对数据进行序列化/反序列化，因此可以避免序列化的开销。
+- **代码共享**：通过引入 C++，现在有可能抽象出所有与平台无关的代码，并在平台之间轻松共享它。
+- **类型安全**：为了确保 JS 可以正确调用 C++ 对象的方法，反之亦然，因此增加了一层自动生成的代码。这些代码必须通过 Flow 或 TypeScript 类型化的 JS 规范来生成。
 
-These advantages are the foundations of the [TurboModule](pillars-turbomodules) system and a jumping stone to further enhancements. For example, it has been possible to develop a new renderer which is faster and more performant: [Fabric](/architecture/fabric-renderer) and its [Fabric Components](pillars-fabric-components).
+这些优势是[TurboModule](pillars-turbomodules)系统的基础，也是进一步增强功能的跳板。例如，我们有可能开发出一种新的渲染器，它的速度更快，性能更强：[Fabric](/architecture/fabric-renderer)及其[Fabric 组件](pillars-fabric-components)。
 
-## Further Reading
+## 进一步阅读
 
-For a technical overview of the New Architecture, have a look at the [Architecture tab](/architecture/overview).
+关于新架构的技术概述，请看[架构标签](/architecture/overview)。
 
-For more information on the Fabric Renderer, have a look at the [Fabric section](/architecture/fabric-renderer).
+关于新的 Fabric 渲染器的更多信息，请看[Fabric 部分](/architecture/fabric-renderer)。
+
