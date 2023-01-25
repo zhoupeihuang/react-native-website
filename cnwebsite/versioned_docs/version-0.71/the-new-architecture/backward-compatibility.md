@@ -17,7 +17,7 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 2. **更新代码**，以支持两个架构。Android 和 iOS 构建流水线都提供了一种方法，使得库能够与正确的 React Native 架构一起编译。
 3. **配置加载正确实现的规范**，以便 JavaScript 层在可用时利用新架构。
 
-:::info
+:::info 提示
 接下来的部分要求您熟悉**新架构**的[支柱](pillars)。
 :::
 

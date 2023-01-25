@@ -11,7 +11,7 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-:::info
+:::info 提示
 The creation of a backward compatible Fabric Component requires the knowledge of how to create a Fabric Component. To recall these concepts, have a look at this [guide](pillars-fabric-components).
 
 Fabric Components only work when the New Architecture is properly setup. If you already have a library that you want to migrate to the New Architecture, have a look at the [migration guide](../new-architecture-intro) as well.
@@ -106,7 +106,7 @@ This `if` guard prevents the dependencies from being installed when the environm
 
 To create a module that can work with both architectures, you need to configure Gradle to choose which files need to be compiled depending on the chosen architecture. This can be achieved by using **different source sets** in the Gradle configuration.
 
-:::note
+:::note 备注
 Please note that this is currently the suggested approach. While it might lead to some code duplication, it will ensure the maximum compatibility with both architectures. You will see how to reduce the duplication in the next section.
 :::
 
@@ -396,7 +396,7 @@ The **goal** is to conditionally `export` from the `index` file the proper objec
 
 ```ts
 // @flow
-import { requireNativeComponent } from 'react-native';
+import {requireNativeComponent} from 'react-native';
 
 const isFabricEnabled = global.nativeFabricUIManager != null;
 
@@ -427,7 +427,7 @@ export default myComponent;
 
 Whether you are using Flow or TypeScript for your specs, we understand which architecture is running by checking if the `global.nativeFabricUIManager` object has been set or not.
 
-:::caution
+:::caution 注意
 Please note that the New Architecture is still experimental. The `global.nativeFabricUIManager` API might change in the future for a function that encapsulate this check.
 :::
 

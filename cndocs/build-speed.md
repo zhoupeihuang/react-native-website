@@ -63,7 +63,7 @@ Specifically you can use two type of caches: local compiler caches and distribut
 
 ### Local caches
 
-:::info
+:::info 提示
 The following instructions will work for **both Android & iOS**.
 If you're building only Android apps, you should be good to go.
 If you're building also iOS apps, please follow the instructions in the [XCode Specific Setup](#xcode-specific-setup) section below.
@@ -100,7 +100,7 @@ $ which gcc
 
 If the results is `/usr/local/bin/gcc`, then you're effectively calling `ccache` which will wrap the `gcc` calls.
 
-:::caution
+:::caution 注意
 Please note that this setup of `ccache` will affect all the compilations that you're running on your machine, not only those related to React Native. Use it at your own risk. If you're failing to install/compile other software, this might be the reason. If that is the case, you can remove the symlink you created with:
 
 ```

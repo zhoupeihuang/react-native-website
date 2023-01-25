@@ -25,7 +25,7 @@ The next sections contain an high-level overview of the pillars, together with t
 
 Finally, we dive a little deeper into the [Codegen](pillars-codegen) process that is required to create all the C++ types and files used by our components, including some useful steps to work comfortably while developing the component.
 
-:::caution
+:::caution 注意
 To integrate a TurboModule or a Fabric Component in an app, the app has to run with the New Architecture enabled.
 
 To create a new app adopting the New Architecture, refer to the [Using the App Template](use-app-template) section.

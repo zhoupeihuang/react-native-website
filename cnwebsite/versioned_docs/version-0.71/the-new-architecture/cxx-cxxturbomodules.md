@@ -14,7 +14,7 @@ This guide shows you how to implement a Turbo Native Module using C++ only, a wa
 
 Before continuing with this guide, please read the [Turbo Native Modules](./pillars-turbomodule.md) section. As a further reference, we prepared an example for the RNTester app ([NativeCxxModuleExample](https://github.com/facebook/react-native/tree/main/packages/rn-tester/NativeCxxModuleExample)) and a sample run in our community repository ([run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)).
 
-:::caution
+:::caution 注意
 C++ Turbo Native Modules work with the **New Architecture** enabled.
 To migrate to the **New Architecture**, follow the [Migration guide](../new-architecture-intro)
 :::
@@ -134,7 +134,7 @@ Update your app's `package.json` file with the following entries:
 
 It adds necessary properties which we will later re-use in the iOS `podspec` file and configures **Codegen** to search for specs inside the `tm` folder.
 
-:::caution
+:::caution 注意
 C++ Turbo Native Modules don't autolink and need to be manually included into the app with the described steps below.
 :::
 
@@ -212,7 +212,7 @@ android {
 }
 ```
 
-:::note
+:::note 备注
 Ensure to pick the correct **android/app/build.gradle** file and not android/build.gradle.
 :::
 
@@ -309,7 +309,7 @@ For the final step, you'll need to write some native code to connect the JavaScr
 
 ### Run Codegen
 
-:::info
+:::info 提示
 Follow the [Codegen](./pillars-codegen) guide for general information.
 :::
 
@@ -345,7 +345,7 @@ You can directly work with the lower level `jsi::` types - but for convience C++
 
 Now create a `NativeSampleModule.h` file with the following content:
 
-:::note
+:::note 备注
 Due to current differences in the CMake and CocoaPod setup we need some creativity to include the correct Codegen header on each platform.
 :::
 

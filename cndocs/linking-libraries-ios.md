@@ -21,7 +21,7 @@ _我们随着 React Native 发布的所有库都在仓库中的`Libraries`文件
 $ npm install 某个带有原生依赖的库
 ```
 
-:::info
+:::info 提示
 React Native will link your libs based on `dependencies` and `devDependencies` in your `package.json` file.
 :::
 

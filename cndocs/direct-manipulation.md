@@ -122,7 +122,7 @@ export default App = () => {
 
 ## setNativeProps to clear TextInput value
 
-清除文本输入框内容是 setNativeProps 的另一个常用方式.当 bufferDely 很低,用户输入很快时,文本输入框的 controlled参数有时会丢失. 一些开发者偏向于跳过prop操作,直接 使用 setNativeProps 来进行文本输入框值的显示操作.下面就是一个按下按钮清除文本输入框内容的例子:
+清除文本输入框内容是 setNativeProps 的另一个常用方式.当 bufferDely 很低,用户输入很快时,文本输入框的 controlled 参数有时会丢失. 一些开发者偏向于跳过 prop 操作,直接 使用 setNativeProps 来进行文本输入框值的显示操作.下面就是一个按下按钮清除文本输入框内容的例子:
 
 ```SnackPlayer name=Clear%20text
 import React from 'react';
@@ -155,10 +155,9 @@ export default App = () => {
 
 通过[巧妙运用`shouldComponentUpdate`方法](https://facebook.github.io/react/docs/advanced-performance.html#avoiding-reconciling-the-dom)，可以避免重新渲染那些实际没有变化的子组件所带来的额外开销，此时使用`setState`的性能已经可以与`setNativeProps`相媲美了。
 
-
 ## 其他原生方法
 
-此处描述的方法大多数React Native 已经提供。但是这些在组合组件是不支持的，因为原生的视图不提供支持，包含你自己的应用中你自定的绝大多数组件
+此处描述的方法大多数 React Native 已经提供。但是这些在组合组件是不支持的，因为原生的视图不提供支持，包含你自己的应用中你自定的绝大多数组件
 
 ### measure(callback)
 
@@ -188,7 +187,7 @@ Also the width and height returned by `measure()` are the width and height of th
 
 类似`measure()`方法，测量相对于祖视图（通过`relativeToNativeComponentRef`来指定）的位置关系。返回的是相对于祖视图原点的`x`、`y`。
 
-:::note
+:::note 备注
 This method can also be called with a `relativeToNativeNode` handler (instead of reference), but this variant is deprecated.
 :::
 

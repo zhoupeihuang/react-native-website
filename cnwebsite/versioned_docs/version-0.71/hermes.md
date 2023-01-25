@@ -13,11 +13,11 @@ title: 使用新的 Hermes 引擎
 
 如果你现有的项目运行的是较老的版本，那么必须要先升级。See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-:::关于兼容性的注意事项
+:::caution 注意 关于兼容性的注意事项
 Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
 :::
 
-:::对于 Windows 用户的注意事项
+:::caution 注意 对于 Windows 用户的注意事项
 Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 :::
 
@@ -30,7 +30,7 @@ Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.
 ```diff
   project.ext.react = [
       entryFile: "index.js",
--     enableHermes: false  // 
+-     enableHermes: false  //
 +     enableHermes: true  // 修改后需 clean 编译缓存并重新编译
   ]
 ```
@@ -54,7 +54,7 @@ $ cd android && ./gradlew clean
 $ npx react-native run-android
 ```
 
-:::note 关于 Android App Bundles 格式的支持
+:::note 备注 关于 Android App Bundles 格式的支持
 Android app bundles 格式从 react-native 0.62.0 版本开始支持。
 :::
 
@@ -100,7 +100,7 @@ A `HermesInternal` global variable will be available in JavaScript that can be u
 const isHermes = () => !!global.HermesInternal;
 ```
 
-:::caution
+:::caution 注意
 If you are using a non-standard way of loading the JS bundle, it is possible that the `HermesInternal` variable is available but you aren't using the highly optimised pre-compiled bytecode.
 Confirm that you are using the `.hbc` file and also benchmark the before/after as detailed below.
 :::
@@ -133,7 +133,7 @@ You can [read more about the technical implementation on this page](/architectur
 
 Hermes supports the Chrome debugger by implementing the Chrome inspector protocol. This means Chrome's tools can be used to directly debug JavaScript running on Hermes, on an emulator or on a real, physical, device.
 
-:::info
+:::info 提示
 Note that this is very different with the "Remote JS Debugging" from the In-App Developer Menu documented in the [Debugging](debugging#debugging-using-a-custom-javascript-debugger) section, which actually runs the JS code on Chrome's V8 on your development machine (laptop or desktop).
 :::
 

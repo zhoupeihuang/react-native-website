@@ -8,7 +8,6 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-
 Fabric 组件是一种使用 [Fabric 渲染器](https://reactnative.dev/architecture/fabric-renderer)渲染并展示在屏幕上的 UI 组件。在**新架构**中，使用 Fabric 组件替代原生组件具有以下[优势](./why)：
 
 - 各个平台的强类型接口声明是一致的；
@@ -86,8 +85,8 @@ export default (codegenNativeComponent<NativeProps>(
 <TabItem value='typescript'>
 
 ```typescript
-import type { ViewProps } from 'ViewPropTypes';
-import type { HostComponent } from 'react-native';
+import type {ViewProps} from 'ViewPropTypes';
+import type {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 export interface NativeProps extends ViewProps {
@@ -96,7 +95,7 @@ export interface NativeProps extends ViewProps {
 }
 
 export default codegenNativeComponent<NativeProps>(
-  'RTNCenteredText'
+  'RTNCenteredText',
 ) as HostComponent<NativeProps>;
 ```
 
@@ -455,7 +454,7 @@ RCT_EXPORT_VIEW_PROPERTY(text, NSString)
 
 接下来，你需要暴露 `text` 属性给 Fabric 组件，使用宏定义 `RCT_EXPORT_VIEW_PROPERTY` 来声明属性名及其类型。
 
-:::info
+:::info 提示
 您可以查看 [RCTViewManager.h](https://github.com/facebook/react-native/blob/main/React/Base/RCTViewManager.h) 代码，了解更多用于导出属性、Emitter 及其它结构的宏定义。
 :::
 
@@ -835,7 +834,7 @@ RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
        // ...other React Native elements...
        <RTNCenteredText
          text="Hello World!"
-         style={{ width: '100%', height: 30 }}
+         style={{width: '100%', height: 30}}
        />
        // ...other React Native Elements
      );

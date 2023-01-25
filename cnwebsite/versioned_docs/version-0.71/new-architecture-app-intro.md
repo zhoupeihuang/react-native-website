@@ -157,7 +157,7 @@ We highly recommend using Hermes in your application. With Hermes enabled, you w
 
 Please [follow the instructions on the React Native website](hermes) to learn how to enable/disable Hermes.
 
-:::caution
+:::caution 注意
 
 **iOS:** If you opt out of using Hermes, you will need to replace `HermesExecutorFactory` with `JSCExecutorFactory` in any examples used throughout the rest of this guide.
 
@@ -234,7 +234,7 @@ React Native supports also a local version of this file `.xcode.env.local`. This
 
 TurboModules can be written using Objective-C or C++. In order to support both cases, any source files that include C++ code should use the `.mm` file extension. This extension corresponds to Objective-C++, a language variant that allows for the use of a combination of C++ and Objective-C in source files.
 
-:::info
+:::info 提示
 
 Use Xcode to rename existing files to ensure file references persist in your project. You might need to clean the build folder (_Project → Clean Build Folder_) before re-building the app. If the file is renamed outside of Xcode, you may need to click on the old `.m` file reference and Locate the new file.
 

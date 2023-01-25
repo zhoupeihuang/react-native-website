@@ -19,7 +19,7 @@ Turbo Native Modules 与 Native Modules 相比，存在以下[优势](./why)：
 
 本文档将指导您如何创建一个兼容 React Native 0.70.0 的基础 Turbo Native Module 。
 
-:::注意
+:::caution 注意
 使用 Turbo Native Module 前必须**开启新架构**。若要了解如何将代码迁移到新架构，您可参考此[迁移指南](../new-architecture-intro)。
 :::
 
@@ -77,15 +77,15 @@ export default (TurboModuleRegistry.get<Spec>(
 <TabItem value="typescript">
 
 ```typescript title="NativeCalculator.ts"
-import type { TurboModule } from 'react-native/Libraries/TurboModule/RCTExport';
-import { TurboModuleRegistry } from 'react-native';
+import type {TurboModule} from 'react-native/Libraries/TurboModule/RCTExport';
+import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
   add(a: number, b: number): Promise<number>;
 }
 
 export default TurboModuleRegistry.get<Spec>(
-  'RTNCalculator'
+  'RTNCalculator',
 ) as Spec | null;
 ```
 
@@ -101,7 +101,7 @@ export default TurboModuleRegistry.get<Spec>(
 
 最后，调用 `TurboModuleRegistry.get` 并传入模块名，它将在 Turbo Native Module 可用的时候进行加载。
 
-:::注意
+:::caution 注意
 当我们在编写 JavaScript 代码时，如果没有配置好对应的模块或依赖安装，就从第三方库导入类型，可能会使的您的 IDE 不能正确载入导入声明，从而显示错误或警告。这种情况是正常的，它不会在您添加模块到 App 的时候出现问题。
 :::
 
@@ -335,7 +335,7 @@ public class CalculatorPackage extends TurboReactPackage {
 
 首先，为生成 iOS 和 Android 平台的代码，本指导将向您展示如何手动执行由 **Codegen** 生成的脚本，以及生成所需要的平台代码。您可以在[这里](pillars-codegen.md)了解到更多关于 **Codegen** 的内容。
 
-:::注意
+:::caution 注意
 **Codegen** 生成的代码不该提交到版本管理系统，React Native 会在 App 构建的时候自动生成代码。这是为了确保在 App 内，所有第三方库都正确使用针对某一 React Native 版本的生成代码。
 :::
 
@@ -391,7 +391,7 @@ Turbo Native Module 接口的路径为 `generated/build/generated/ios/RTNCalcula
 
 查看 [Codegen](./pillars-codegen) 章节文档可获得更多文件生成相关细节。
 
-:::备注
+:::note 备注
 使用 **Codegen** 生成脚手架代码时，iOS 平台中不会自动清空 `build` 目录。假如您需要修改接口声明文件的命名，并重新执行了 **Codegen**，旧的代码会保留下来。如果发生了这种情况，您需要在重新执行 **Codegen** 之前删除 `build` 目录。
 
 ```
@@ -479,7 +479,7 @@ cd android
 
 这个脚本会向 App 添加 Java 包，然后打开 `android` 目录，创建一个 Gradle 任务来生成代码。
 
-:::备注
+:::note 备注
 在运行 **Codegen** 之前，您需要在 Android 中的 App 启动新架构。您可以通过修改 `gradle.properties` 文件中的 `newArchEnabled` 属性，将 `false` 改为 `true`。
 :::
 
@@ -649,7 +649,7 @@ RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 
 此命令会查询 iOS 工程里的所有的依赖，并对它们进行安装。`RCT_NEW_ARCH_ENABLED=1` 的意思是 **Cocoapods** 在执行 **Codegen** 前需要一些额外的操作。
 
-:::备注
+:::note 备注
 在使用 `RCT_NEW_ARCH_ENABLED=1` 之前，您可能需要先执行一遍 `bundle install`。后续除非修改了 Rudy 依赖，您不必再次运行 `bundle install`。
 :::
 
@@ -675,13 +675,13 @@ RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
  * @flow strict-local
  */
 import React from 'react';
-import { useState } from 'react';
-import type { Node } from 'react';
+import {useState} from 'react';
+import type {Node} from 'react';
 import {
   SafeAreaView,
   StatusBar,
   Text,
-  Button
+  Button,
 } from 'react-native';
 import RTNCalculator from 'rtn-calculator/js/NativeCalculator.js';
 
@@ -690,7 +690,7 @@ const App: () => Node = () => {
   return (
     <SafeAreaView>
       <StatusBar barStyle={'dark-content'} />
-      <Text style={{ marginLeft: 20, marginTop: 20 }}>
+      <Text style={{marginLeft: 20, marginTop: 20}}>
         3+7={result ?? '??'}
       </Text>
       <Button

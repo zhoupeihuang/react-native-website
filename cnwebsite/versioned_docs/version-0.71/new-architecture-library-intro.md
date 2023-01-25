@@ -17,7 +17,7 @@ The following steps will help ensure your modules and components are ready for t
 The JavaScript specs serve as the source of truth for the methods that are provided by each native module. They defines all APIs that are provided by the native module, along with the types of those constants and functions.
 Using a **typed** spec file allows to be intentional and declare all the input arguments and outputs of your native module’s methods.
 
-:::info
+:::info 提示
 Currently, this guide is written under the assumption that you will be using [Flow](https://flow.org/). The `react-native-codegen` package is also currently working only with Flow source as input. **TypeScript** support is in beta right now.
 :::
 
@@ -54,8 +54,8 @@ export default (TurboModuleRegistry.get<Spec>('<MODULE_NAME>'): ?Spec);
 <TabItem value="TypeScript">
 
 ```ts
-import type { TurboModule } from 'react-native';
-import { TurboModuleRegistry } from 'react-native';
+import type {TurboModule} from 'react-native';
+import {TurboModuleRegistry} from 'react-native';
 
 export interface Spec extends TurboModule {
   readonly getConstants: () => {};
@@ -102,8 +102,8 @@ export default (codegenNativeComponent<NativeProps>(
 <TabItem value="TypeScript">
 
 ```ts
-import type { ViewProps } from 'ViewPropTypes';
-import type { HostComponent } from 'react-native';
+import type {ViewProps} from 'ViewPropTypes';
+import type {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
 
 export interface NativeProps extends ViewProps {
@@ -111,7 +111,7 @@ export interface NativeProps extends ViewProps {
 }
 
 export default codegenNativeComponent<NativeProps>(
-  '<FABRIC COMPONENT>'
+  '<FABRIC COMPONENT>',
 ) as HostComponent<NativeProps>;
 ```
 
@@ -187,7 +187,7 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 On iOS, make sure that your library provides a Podspec (see [`react-native-webview`](https://github.com/react-native-community/react-native-webview/blob/master/react-native-webview.podspec) for an example).
 
-:::info
+:::info 提示
 
 To determine if your library is set up for autolinking, check the CocoaPods output after running `pod install` (or `arch -x86_64 pod install` in case of a Mac M1) on an iOS project. If you see "auto linking library name", you are all set to go.
 
@@ -501,10 +501,10 @@ return <RNTMyNativeViewNativeComponent />;
 ```
 
 ```js title="RNTMyNativeViewNativeComponent.js"
-import { requireNativeComponent } from 'react-native';
+import {requireNativeComponent} from 'react-native';
 
 const RNTMyNativeViewNativeComponent = requireNativeComponent(
-  'RNTMyNativeView'
+  'RNTMyNativeView',
 );
 
 export default RNTMyNativeViewNativeComponent;
@@ -515,7 +515,7 @@ export default RNTMyNativeViewNativeComponent;
 If `requireNativeComponent` is not typed, you can temporarily use the `mixed` type to fix the Flow warning, for example:
 
 ```js
-import type { HostComponent } from 'react-native/Libraries/Renderer/shims/ReactNativeTypes';
+import type {HostComponent} from 'react-native/Libraries/Renderer/shims/ReactNativeTypes';
 // ...
 const RCTWebViewNativeComponent: HostComponent<mixed> =
   requireNativeComponent < mixed > 'RNTMyNativeView';

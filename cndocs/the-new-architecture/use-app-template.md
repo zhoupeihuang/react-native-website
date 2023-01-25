@@ -17,7 +17,7 @@ Before continuing, make sure you've followed all the steps in [Setting up the de
 
 If following the setup guide, stop when you reach the section **Running your React Native Application**, and resume following this guide.
 
-:::caution
+:::caution 注意
 If you're using Expo, you can't enable the New Architecture at the moment, and will have to wait for a future release of the Expo SDK.
 :::
 
@@ -31,7 +31,7 @@ If you already have your development environment set up, create a new React Nati
 npx react-native init AwesomeProject
 ```
 
-:::caution
+:::caution 注意
 The New Architecture is available in React Native version 0.68 or later.
 :::
 
@@ -65,7 +65,7 @@ Then build and run the app as usual:
 yarn ios
 ```
 
-:::note
+:::note 备注
 You will need to run `pod install` each time a dependency with native code changes. Make this command easier to run by adding it to `scripts` to your project's `package.json` file:
 
 ```
@@ -102,7 +102,7 @@ Then build and run the app as usual:
 yarn android
 ```
 
-:::note
+:::note 备注
 You may notice longer build times with the New Architecture, due to additional step of C++ compilation with the Android NDK. To improve your build time, see [Speeding Up Your Build Phase](build-speed.md).
 :::
 

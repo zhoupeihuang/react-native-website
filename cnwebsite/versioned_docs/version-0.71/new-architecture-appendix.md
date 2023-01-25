@@ -35,7 +35,7 @@ This is recommended over using plain `Object`, for type safety.
 
 ### `Object`
 
-:::note
+:::note 备注
 Recommended to use [Object literal](#object-literal) instead.
 :::
 
@@ -81,7 +81,7 @@ Callback functions are not type checked, and are generalized as `Object`s.
 | ----------------- | ------------------------------------ | ------------------------ |
 | Yes               | `com.facebook.react.bridge.Callback` | `RCTResponseSenderBlock` |
 
-:::note
+:::note 备注
 You may also find it useful to refer to the JavaScript specifications for the core modules in React Native. These are located inside the `Libraries/` directory in the React Native repository.
 :::
 
