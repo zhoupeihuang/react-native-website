@@ -190,29 +190,32 @@ module.exports = {
         style: 'dark',
         items: [
           {
-            label: '文档',
-            type: 'doc',
-            docId: 'getting-started',
+            label: '开发文档',
+            type: 'dropdown',
             position: 'right',
-          },
-          {
-            label: '组件',
-            type: 'doc',
-            docId: 'components-and-apis',
-            position: 'right',
-          },
-          {
-            label: 'API',
-            type: 'doc',
-            docId: 'accessibilityinfo',
-            position: 'right',
-          },
-          {
-            label: '架构',
-            type: 'doc',
-            docId: 'architecture-overview',
-            position: 'right',
-            docsPluginId: 'architecture',
+            items: [
+              {
+                label: '入门指南',
+                type: 'doc',
+                docId: 'getting-started',
+              },
+              {
+                label: '组件',
+                type: 'doc',
+                docId: 'components-and-apis',
+              },
+              {
+                label: 'API',
+                type: 'doc',
+                docId: 'accessibilityinfo',
+              },
+              {
+                label: '架构',
+                type: 'doc',
+                docId: 'architecture-overview',
+                docsPluginId: 'architecture',
+              },
+            ],
           },
           {
             label: '实战课',

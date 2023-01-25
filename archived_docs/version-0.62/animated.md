@@ -220,7 +220,7 @@ export default App;
 通过在动画上调用`start()`来启动动画。 `start()`可以传入一个回调函数，以便在动画完成时得到通知调用。如果动画运行正常，则完成回调收到的值为`{finished：true}`。如果动画是因为调用了`stop()`而结束（例如，因为它被手势或其他动画中断），则它会收到`{finished：false}`。
 
 ```jsx
-Animated.timing({}).start(({ finished }) => {
+Animated.timing({}).start(({finished}) => {
   /* 动画完成的回调函数 */
 });
 ```
@@ -554,7 +554,7 @@ Animations are started by calling start() on your animation. start() takes a com
 Start example with callback:
 
 ```jsx
-Animated.timing({}).start(({ finished }) => {
+Animated.timing({}).start(({finished}) => {
   /* completion callback */
 });
 ```
@@ -617,4 +617,4 @@ Exported for ease of type checking. All animated values derive from this class.
 
 ### `attachNativeEvent`
 
-Imperative API to attach an animated value to an event on a view. Prefer using `Animated.event` with `useNativeDrive: true` if possible.
+Imperative API to attach an animated value to an event on a view. Prefer using `Animated.event` with `useNativeDriver: true` if possible.

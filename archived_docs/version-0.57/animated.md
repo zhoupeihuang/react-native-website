@@ -15,8 +15,8 @@ Animated.timing(
   // Animate value over time
   this.state.fadeAnim, // The value to drive
   {
-    toValue: 1 // Animate to final value of 1
-  }
+    toValue: 1, // Animate to final value of 1
+  },
 ).start(); // Start the animation
 ```
 
@@ -414,4 +414,4 @@ Exported for ease of type checking. All animated values derive from this class.
 
 ### `attachNativeEvent`
 
-Imperative API to attach an animated value to an event on a view. Prefer using `Animated.event` with `useNativeDrive: true` if possible.
+Imperative API to attach an animated value to an event on a view. Prefer using `Animated.event` with `useNativeDriver: true` if possible.

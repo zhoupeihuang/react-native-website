@@ -9,22 +9,23 @@ The `Animated` library is designed to make animations fluid, powerful, and easy 
 The simplest workflow for creating an animation is to to create an `Animated.Value`, hook it up to one or more style attributes of an animated component, and then drive updates via animations using `Animated.timing()`:
 
 ```jsx
-Animated.timing(                            // Animate value over time
-  this.state.fadeAnim,                      // The value to drive
+Animated.timing(
+  // Animate value over time
+  this.state.fadeAnim, // The value to drive
   {
-    toValue: 1,                             // Animate to final value of 1
-  }
-).start();                                  // Start the animation
+    toValue: 1, // Animate to final value of 1
+  },
+).start(); // Start the animation
 ```
 
 你可以在[动画](animations.html)文档中看到更多实际的例子。
 
 ## 概览
 
-`Animated`提供了两种类型的值：  
+`Animated`提供了两种类型的值：
 
-- `Animated.Value()`用于单个值 
-- `Animated.ValueXY()`用于矢量值 
+- `Animated.Value()`用于单个值
+- `Animated.ValueXY()`用于矢量值
 
 `Animated.Value`可以绑定到样式或是其他属性上，也可以进行插值运算。单个`Animated.Value`可以用在任意多个属性上。
 
@@ -34,11 +35,11 @@ Animated.timing(                            // Animate value over time
 
 - `Animated.decay()`以指定的初始速度开始变化，然后变化速度越来越慢直至停下。 starts with an initial velocity and gradually slows to a stop.
 - `Animated.spring()` provides a simple spring physics model.
-- `Animated.timing()` animates a value over time using [easing函数](easing.html).
+- `Animated.timing()` animates a value over time using [easing 函数](easing.html).
 
 大多数情况下你应该使用`timing()`。By default, it uses a symmetric easeInOut curve that conveys the gradual acceleration of an object to full speed and concludes by gradually decelerating to a stop.
 
-### 使用动画 
+### 使用动画
 
 Animations are started by calling `start()` on your animation. `start()` takes a completion callback that will be called when the animation is done. If the animation finished running normally, the completion callback will be invoked with `{finished: true}`. If the animation is done because `stop()` was called on it before it could finish (e.g. because it was interrupted by a gesture or another animation), then it will receive `{finished: false}`.
 
@@ -48,9 +49,9 @@ By using the native driver, we send everything about the animation to native bef
 
 You can use the native driver by specifying `useNativeDriver: true` in your animation configuration. 你可以在[动画文档](animations.html#使用原生动画驱动) 中看到更详细的解释。
 
-### 自定义动画组件 
+### 自定义动画组件
 
-组件必须经过特殊处理才能用于动画。所谓的特殊处理主要是指把动画值绑定到属性上，并且在一帧帧执行动画时避免react重新渲染和重新调和的开销。此外还得在组件卸载时做一些清理工作，使得这些组件在使用时是安全的。
+组件必须经过特殊处理才能用于动画。所谓的特殊处理主要是指把动画值绑定到属性上，并且在一帧帧执行动画时避免 react 重新渲染和重新调和的开销。此外还得在组件卸载时做一些清理工作，使得这些组件在使用时是安全的。
 
 - `createAnimatedComponent()`方法正是用来处理组件，使其可以用于动画。
 
@@ -61,7 +62,7 @@ You can use the native driver by specifying `useNativeDriver: true` in your anim
 - `Animated.Text`
 - `Animated.View`
 
-### 组合动画 
+### 组合动画
 
 Animations can also be combined in complex ways using composition functions:
 
@@ -74,7 +75,7 @@ Animations can also be chained together simply by setting the `toValue` of one a
 
 By default, if one animation is stopped or interrupted, then all other animations in the group are also stopped.
 
-### 合成动画值 
+### 合成动画值
 
 你可以使用加减乘除以及取余等运算来把两个动画值合成为一个新的动画值。
 
@@ -83,7 +84,7 @@ By default, if one animation is stopped or interrupted, then all other animation
 - `Animated.modulo()`
 - `Animated.multiply()`
 
-### 插值 
+### 插值
 
 The `interpolate()` function allows input ranges to map to different output ranges. By default, it will extrapolate the curve beyond the ranges given, but you can also have it clamp the output value. It uses lineal interpolation by default but also supports easing functions.
 
@@ -91,7 +92,7 @@ The `interpolate()` function allows input ranges to map to different output rang
 
 你可以在[动画](animations.html#插值)文档中了解到更多。
 
-### 处理手势和其他事件 
+### 处理手势和其他事件
 
 Gestures, like panning or scrolling, and other events can map directly to animated values using `Animated.event()`. This is done with a structured map syntax so that values can be extracted from complex event objects. The first level is an array to allow mapping across multiple args, and that array contains nested objects.
 
@@ -235,7 +236,7 @@ For example, when working with horizontal scrolling gestures, you would do the f
 	</div>
 	<div class="prop"><h4 class="methodTitle"><a class="anchor" name="attachnativeevent"></a><span class="methodType">static </span>attachNativeEvent<span class="methodType">(viewRef, eventName, argMapping)</span> <a class="hash-link" href="#attachnativeevent">#</a></h4>
 		<div><p>Imperative API to attach an animated value to an event on a view. Prefer using
-	<code>Animated.event</code> with <code>useNativeDrive: true</code> if possible.</p></div>
+	<code>Animated.event</code> with <code>useNativeDriver: true</code> if possible.</p></div>
 	</div>
 	<div class="prop"><h4 class="methodTitle"><a class="anchor" name="forkevent"></a><span class="methodType">static </span>forkEvent<span class="methodType">(event, listener)</span> <a class="hash-link" href="#forkevent">#</a></h4>
 		<div><p>Advanced imperative API for snooping on animated events that are passed in through props. Use
@@ -352,41 +353,44 @@ For example, when working with horizontal scrolling gestures, you would do the f
 
 ## class AnimatedValueXY
 
-用来驱动2D动画的2D值，譬如滑动操作等。API和普通的`Animated.Value`几乎一样，只不过是个复合结构。它实际上包含两个普通的`Animated.Value`。
+用来驱动 2D 动画的 2D 值，譬如滑动操作等。API 和普通的`Animated.Value`几乎一样，只不过是个复合结构。它实际上包含两个普通的`Animated.Value`。
 
 例子：
 
 ```jsx
 class DraggableView extends React.Component {
-   constructor(props) {
-     super(props);
-     this.state = {
-       pan: new Animated.ValueXY(), // inits to zero
-     };
-     this.state.panResponder = PanResponder.create({
-       onStartShouldSetPanResponder: () => true,
-       onPanResponderMove: Animated.event([null, {
-         dx: this.state.pan.x, // x,y are Animated.Value
-         dy: this.state.pan.y,
-       }]),
-       onPanResponderRelease: () => {
-         Animated.spring(
-           this.state.pan,         // Auto-multiplexed
-           {toValue: {x: 0, y: 0}} // Back to zero
-         ).start();
-       },
-     });
-   }
-   render() {
-     return (
-       <Animated.View
-         {...this.state.panResponder.panHandlers}
-         style={this.state.pan.getLayout()}>
-         {this.props.children}
-       </Animated.View>
-     );
-   }
- }
+  constructor(props) {
+    super(props);
+    this.state = {
+      pan: new Animated.ValueXY(), // inits to zero
+    };
+    this.state.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: Animated.event([
+        null,
+        {
+          dx: this.state.pan.x, // x,y are Animated.Value
+          dy: this.state.pan.y,
+        },
+      ]),
+      onPanResponderRelease: () => {
+        Animated.spring(
+          this.state.pan, // Auto-multiplexed
+          {toValue: {x: 0, y: 0}}, // Back to zero
+        ).start();
+      },
+    });
+  }
+  render() {
+    return (
+      <Animated.View
+        {...this.state.panResponder.panHandlers}
+        style={this.state.pan.getLayout()}>
+        {this.props.children}
+      </Animated.View>
+    );
+  }
+}
 ```
 
 ### 方法
@@ -395,51 +399,52 @@ class DraggableView extends React.Component {
 	<div class="prop">
 		<h4 class="propTitle"><a class="anchor" name="constructor"></a>constructor<span class="propType">(valueIn?: ?{x: number | AnimatedValue; y: number | AnimatedValue})</span> <a class="hash-link" href="#constructor">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="setvalue"></a>setValue<span class="propType">(value: {x: number; y: number})</span> <a class="hash-link" href="#setvalue">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="setvalue"></a>setValue<span class="propType">(value: {x: number; y: number})</span> <a class="hash-link" href="#setvalue">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="setoffset"></a>setOffset<span class="propType">(offset: {x: number; y: number})</span> <a class="hash-link" href="#setoffset">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="setoffset"></a>setOffset<span class="propType">(offset: {x: number; y: number})</span> <a class="hash-link" href="#setoffset">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="flattenoffset"></a>flattenOffset<span class="propType">()</span> <a class="hash-link" href="#flattenoffset">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="flattenoffset"></a>flattenOffset<span class="propType">()</span> <a class="hash-link" href="#flattenoffset">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="stopanimation"></a>stopAnimation<span class="propType">(callback?: ?() =&gt; number)</span> <a class="hash-link" href="#stopanimation">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="stopanimation"></a>stopAnimation<span class="propType">(callback?: ?() =&gt; number)</span> <a class="hash-link" href="#stopanimation">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="addlistener"></a>addListener<span class="propType">(callback: ValueXYListenerCallback)</span> <a class="hash-link" href="#addlistener">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="addlistener"></a>addListener<span class="propType">(callback: ValueXYListenerCallback)</span> <a class="hash-link" href="#addlistener">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="removelistener"></a>removeListener<span class="propType">(id: string)</span> <a class="hash-link" href="#removelistener">#</a></h4>
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="removelistener"></a>removeListener<span class="propType">(id: string)</span> <a class="hash-link" href="#removelistener">#</a></h4>
 
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="getlayout"></a>getLayout<span class="propType">()</span> <a class="hash-link" href="#getlayout">#</a></h4>
-		<div>
-			<p>将一个<code>{x, y}</code>组合转换为<code>{left, top}</code>以用于样式。例如：</p>
-			<pre><code class="lang-javascript"> style={<span class="hljs-keyword">this</span>.state.anim.getLayout()}
+    </div>
+    <div class="prop">
+    	<h4 class="propTitle"><a class="anchor" name="getlayout"></a>getLayout<span class="propType">()</span> <a class="hash-link" href="#getlayout">#</a></h4>
+    	<div>
+    		<p>将一个<code>{x, y}</code>组合转换为<code>{left, top}</code>以用于样式。例如：</p>
+    		<pre><code class="lang-javascript"> style={<span class="hljs-keyword">this</span>.state.anim.getLayout()}
+
 </code></pre>
-		</div>
-	</div>
-	<div class="prop">
-		<h4 class="propTitle"><a class="anchor" name="gettranslatetransform"></a>getTranslateTransform<span class="propType">()</span> <a class="hash-link" href="#gettranslatetransform">#</a></h4>
-		<div>
-			<p>将一个<code>{x, y}</code> 组合转换为一个可用的位移变换(translation transform)，例如：</p>
-			<pre><code class="lang-javascript"> style={{
+</div>
+</div>
+<div class="prop">
+<h4 class="propTitle"><a class="anchor" name="gettranslatetransform"></a>getTranslateTransform<span class="propType">()</span> <a class="hash-link" href="#gettranslatetransform">#</a></h4>
+<div>
+<p>将一个<code>{x, y}</code> 组合转换为一个可用的位移变换(translation transform)，例如：</p>
+<pre><code class="lang-javascript"> style={{
    transform: <span class="hljs-keyword">this</span>.state.anim.getTranslateTransform()
  }}
 </code></pre>
-		</div>
-	</div>
+</div>
 </div>
 
+</div>
 
 ## class AnimatedInterpolation
 
