@@ -16,7 +16,7 @@ If you want to add support for new / custom types in your app / library, you onl
 
 This guide continues the previous [C++ Turbo Native Modules](./cxx-cxxturbomodules) section.
 
-## Example: Int64
+## 示例：Int64
 
 C++ Turbo Native Modules don't support `int64_t` numbers yet - because JavaScript doesn't support numbers greater `2^53`.
 
@@ -117,7 +117,7 @@ In your app you can call this new native function via:
 
 which should return `2097152`.
 
-## Any custom type
+## 任意自定义类型
 
 Similar to the example above you can now write custom `bridging` functionality for any custom C++ type you want to expose to react-native. E.g., you can add support for `folly::StringPiece`, `QString`, `boost::filesystem::path`, `absl::optional` or any other type you need to support in your C++ Turbo Native Modules.
 

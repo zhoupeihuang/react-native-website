@@ -1,16 +1,16 @@
 ---
 id: pillars
-title: 新架构的“两大支柱”
+title: 新架构的两大支柱
 ---
 
 import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-The New Architecture is composed mainly by two pillars:
+新架构主要由两大支柱组成：
 
-- [TurboModules](pillars-turbomodules)
-- [Fabric Components](pillars-fabric-components).
+- [新的原生模块体系 - Turbo Modules](pillars-turbomodules)
+- [新的渲染器 - Fabric](pillars-fabric-components)
 
 TurboModules are the preferred way to create libraries that leverage some platform specific API. Fabric Components are the preferred way to create reusable UI components, providing a native experience to the users.
 
@@ -19,9 +19,9 @@ The main goal of this section is to drive the reader through a step-by-step guid
 The next sections contain an high-level overview of the pillars, together with the steps to create them. To create one of these pillars, the steps are:
 
 1. Define a JavaScript specification using Flow or TypeScript.
-1. Configure the dependencies management system to generate code from the provided spec.
-1. Implement the Native code.
-1. Integrate the code in the app.
+2. Configure the dependencies management system to generate code from the provided spec.
+3. Implement the Native code.
+4. Integrate the code in the app.
 
 Finally, we dive a little deeper into the [Codegen](pillars-codegen) process that is required to create all the C++ types and files used by our components, including some useful steps to work comfortably while developing the component.
 
