@@ -13,11 +13,11 @@ title: 使用新的 Hermes 引擎
 
 如果你现有的项目运行的是较老的版本，那么必须要先升级。See [Upgrading to new React Native Versions](/docs/upgrading) for how to do this. After upgrading the app, make sure everything works before trying to switch to Hermes.
 
-:::关于兼容性的注意事项
+:::caution 关于兼容性的注意事项
 Each Hermes release is aimed at a specific RN version. The rule of thumb is to always follow [Hermes releases](https://github.com/facebook/hermes/releases) strictly. Version mismatch can result in instant crash of your apps in the worst case scenario.
 :::
 
-:::对于 Windows 用户的注意事项
+:::caution 对于 Windows 用户的注意事项
 Hermes 需要 [Microsoft Visual C++ 2015 Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=48145)
 :::
 
