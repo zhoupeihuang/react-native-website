@@ -82,7 +82,7 @@ Android Studio 默认会安装最新版本的 Android SDK。目前编译 React N
 
 最后点击"Apply"来下载和安装这些组件。
 
-#### 3. 配置 ANDROID_SDK_ROOT 环境变量
+#### 3. 配置 ANDROID_HOME 环境变量
 
 React Native 需要通过环境变量来了解你的 Android SDK 装在什么路径，从而正常进行编译。
 
@@ -90,14 +90,14 @@ React Native 需要通过环境变量来了解你的 Android SDK 装在什么路
 
 ```shell
 # 如果你不是通过Android Studio安装的sdk，则其路径可能不同，请自行确定清楚。
-export ANDROID_SDK_ROOT=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/tools/bin
-export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
-export PATH=$PATH:$ANDROID_SDK_ROOT/emulator
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/emulator
 ```
 
-使用`source $HOME/.zshrc`命令来使环境变量设置立即生效（否则重启后才生效）。可以使用`echo $ANDROID_SDK_ROOT`检查此变量是否已正确设置
+使用`source $HOME/.zshrc`命令来使环境变量设置立即生效（否则重启后才生效）。可以使用`echo $ANDROID_HOME`检查此变量是否已正确设置
 
 > 请确保你正确指定了 Android SDK 路径。你可以在 Android Studio 的"Preferences"菜单中查看 SDK 的真实路径，具体是**Appearance & Behavior** → **System Settings** → **Android SDK**
 

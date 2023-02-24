@@ -76,13 +76,13 @@ Android Studio 默认会安装最新版本的 Android SDK。目前编译 React N
 
 最后点击"Apply"来下载和安装这些组件。
 
-#### 3. 配置 ANDROID_SDK_ROOT 环境变量
+#### 3. 配置 ANDROID_HOME 环境变量
 
 React Native 需要通过环境变量来了解你的 Android SDK 装在什么路径，从而正常进行编译。
 
-打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量` -> `新建`，创建一个名为`ANDROID_SDK_ROOT`的环境变量（系统或用户变量均可），指向你的 Android SDK 所在的目录（具体的路径可能和下图不一致，请自行确认）：
+打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量` -> `新建`，创建一个名为`ANDROID_HOME`的环境变量（系统或用户变量均可），指向你的 Android SDK 所在的目录（具体的路径可能和下图不一致，请自行确认）：
 
-![ANDROID_SDK_ROOT Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
+![ANDROID_HOME Environment Variable](/docs/assets/GettingStartedAndroidEnvironmentVariableANDROID_HOME.png)
 
 SDK 默认是安装在下面的目录：
 
@@ -99,10 +99,10 @@ C:\Users\你的用户名\AppData\Local\Android\Sdk
 打开`控制面板` -> `系统和安全` -> `系统` -> `高级系统设置` -> `高级` -> `环境变量`，选中**Path**变量，然后点击**编辑**。点击**新建**然后把这些工具目录路径添加进去：platform-tools、emulator、tools、tools/bin
 
 ```powershell
-%ANDROID_SDK_ROOT%\platform-tools
-%ANDROID_SDK_ROOT%\emulator
-%ANDROID_SDK_ROOT%\tools
-%ANDROID_SDK_ROOT%\tools\bin
+%ANDROID_HOME%\platform-tools
+%ANDROID_HOME%\emulator
+%ANDROID_HOME%\tools
+%ANDROID_HOME%\tools\bin
 ```
 
 ## 创建新项目

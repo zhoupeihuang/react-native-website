@@ -13,12 +13,12 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 ## 开发环境
 
-Before continuing, make sure you've followed all the steps in [Setting up the development environment](getting-started.md), under the **React Native CLI Quickstart** tab.
+在继续之前，请确保你已经完成[搭建开发环境](getting-started.md)中的**完整原生环境**中的所有步骤。
 
-If following the setup guide, stop when you reach the section **Running your React Native Application**, and resume following this guide.
+如果正在按照指南搭建，当配置到**运行你的 React Native 应用程序**部分时停止，然后继续按照本指南进行。
 
 :::caution 注意
-If you're using Expo, you can't enable the New Architecture at the moment, and will have to wait for a future release of the Expo SDK.
+如果你正在使用 Expo，则目前无法启用新架构，必须等待 Expo 的未来版本。
 :::
 
 ## 创建新应用
@@ -37,7 +37,7 @@ The New Architecture is available in React Native version 0.68 or later.
 
 ## 配置
 
-Follow the steps below to enable the New Architecture and build the app.
+按照以下步骤，启用新架构并构建应用程序。
 
 ### 启用 Hermes
 
