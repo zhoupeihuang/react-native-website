@@ -7,27 +7,26 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-The New Architecture is composed mainly by two pillars:
+新架构主要由两大支柱组成：
 
-- [TurboModules](pillars-turbomodules)
-- [Fabric Components](pillars-fabric-components).
+- [新的原生模块体系 - Turbo Modules](pillars-turbomodules)
+- [新的渲染器 - Fabric](pillars-fabric-components)
 
-TurboModules are the preferred way to create libraries that leverage some platform specific API. Fabric Components are the preferred way to create reusable UI components, providing a native experience to the users.
+TurboModules 是创建利用某些平台特定 API 的库的首选方法。Fabric 组件是创建可重用 UI 组件的首选方法，为用户提供原生体验。
 
-The main goal of this section is to drive the reader through a step-by-step guide to create their first TurboModule or Fabric Component.
+本节的主要目标是通过逐步指南引导读者创建他们的第一个 TurboModule 或 Fabric 组件。
 
-The next sections contain an high-level overview of the pillars, together with the steps to create them. To create one of these pillars, the steps are:
+接下来的几节包含支柱的高级概述，以及创建它们的步骤。要创建这些支柱中的一个，步骤如下：
 
-1. Define a JavaScript specification using Flow or TypeScript.
-1. Configure the dependencies management system to generate code from the provided spec.
-1. Implement the Native code.
-1. Integrate the code in the app.
+1. 使用 Flow 或 TypeScript 定义 JavaScript 规范。
+2. 配置依赖管理系统以从提供的规范生成代码。
+3. 实现原生代码。
+4. 将代码集成到应用程序中。
 
-Finally, we dive a little deeper into the [Codegen](pillars-codegen) process that is required to create all the C++ types and files used by our components, including some useful steps to work comfortably while developing the component.
+最后，我们深入探讨了[Codegen](pillars-codegen)过程，该过程需要创建我们的组件使用的所有 C++类型和文件，包括一些在开发组件时提升效率的有用步骤。
 
 :::caution 注意
-To integrate a TurboModule or a Fabric Component in an app, the app has to run with the New Architecture enabled.
+注意要将 TurboModule 或 Fabric 组件集成到应用中，应用必须启用新架构。
 
-To create a new app adopting the New Architecture, refer to the [Using the App Template](use-app-template) section.
-To migrate an existing app to the New Architecture, refer to the [Migration](../new-architecture-intro) guide.
+要创建采用新架构的新应用，请参阅[使用应用模板](use-app-template) 部分。要将现有应用迁移到新架构，请参阅[迁移](../new-architecture-intro)指南。
 :::
