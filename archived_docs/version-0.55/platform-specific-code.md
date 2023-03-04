@@ -3,6 +3,7 @@ id: version-0.55-platform-specific-code
 title: 特定平台代码
 original_id: platform-specific-code
 ---
+
 ##### 本文档贡献者：[sunnylqm](https://github.com/search?q=sunnylqm%40qq.com+in%3Aemail&type=Users)(100.00%)
 
 在编写跨平台的应用时，我们肯定希望尽可能多地复用代码。但是总有些时候我们会碰到针对不同平台编写不同代码的需求。
@@ -10,7 +11,7 @@ original_id: platform-specific-code
 React Native 提供了两种方法来区分平台：
 
 - 使用[`Platform`模块](platform-specific-code.md#platform模块).
-- 使用[特定平台扩展名](platform-specific-code.md#特定平台扩展名).
+- 使用[特定平台后缀](platform-specific-code.md#特定平台后缀).
 
 另外有些内置组件的某些属性可能只在特定平台上有效。请在阅读文档时留意。
 
@@ -19,10 +20,10 @@ React Native 提供了两种方法来区分平台：
 React Native 提供了一个检测当前运行平台的模块。如果组件只有一小部分代码需要依据平台定制，那么这个模块就可以派上用场。
 
 ```jsx
-import { Platform, StyleSheet } from "react-native";
+import {Platform, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-  height: Platform.OS === "ios" ? 200 : 100
+  height: Platform.OS === 'ios' ? 200 : 100,
 });
 ```
 
@@ -31,20 +32,20 @@ const styles = StyleSheet.create({
 还有个实用的方法是 Platform.select()，它可以以 Platform.OS 为 key，从传入的对象中返回对应平台的值，见下面的示例：
 
 ```jsx
-import { Platform, StyleSheet } from "react-native";
+import {Platform, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     ...Platform.select({
       ios: {
-        backgroundColor: "red"
+        backgroundColor: 'red',
       },
       android: {
-        backgroundColor: "blue"
-      }
-    })
-  }
+        backgroundColor: 'blue',
+      },
+    }),
+  },
 });
 ```
 
@@ -54,8 +55,8 @@ const styles = StyleSheet.create({
 
 ```jsx
 const Component = Platform.select({
-  ios: () => require("ComponentIOS"),
-  android: () => require("ComponentAndroid")
+  ios: () => require('ComponentIOS'),
+  android: () => require('ComponentAndroid'),
 })();
 
 <Component />;
@@ -66,10 +67,10 @@ const Component = Platform.select({
 在 Android 上，`Version`属性是一个数字，表示 Android 的 api level：
 
 ```jsx
-import { Platform } from "react-native";
+import {Platform} from 'react-native';
 
 if (Platform.Version === 25) {
-  console.log("Running on Nougat!");
+  console.log('Running on Nougat!');
 }
 ```
 
@@ -78,17 +79,17 @@ if (Platform.Version === 25) {
 在 iOS 上，`Version`属性是`-[UIDevice systemVersion]`的返回值，具体形式为一个表示当前系统版本的字符串。比如可能是"10.3"。
 
 ```jsx
-import { Platform } from "react-native";
+import {Platform} from 'react-native';
 
 const majorVersionIOS = parseInt(Platform.Version, 10);
 if (majorVersionIOS <= 9) {
-  console.log("Work around a change in behavior");
+  console.log('Work around a change in behavior');
 }
 ```
 
-## 特定平台扩展名
+## 特定平台后缀
 
-当不同平台的代码逻辑较为复杂时，最好是放到不同的文件里，这时候我们可以使用特定平台扩展名。React Native 会检测某个文件是否具有`.ios.`或是`.android.`的扩展名，然后根据当前运行的平台自动加载正确对应的文件。
+当不同平台的代码逻辑较为复杂时，最好是放到不同的文件里，这时候我们可以使用特定平台后缀。React Native 会检测某个文件是否具有`.ios.`或是`.android.`的后缀，然后根据当前运行的平台自动加载正确对应的文件。
 
 比如你可以在项目中创建下面这样的组件：
 
@@ -97,10 +98,10 @@ BigButton.ios.js
 BigButton.android.js
 ```
 
-然后去掉平台扩展名直接引用：
+然后去掉平台后缀直接引用：
 
 ```jsx
-const BigButton = require("./BigButton");
+const BigButton = require('./BigButton');
 ```
 
 React Native 会根据运行平台的不同自动引入正确对应的组件。
