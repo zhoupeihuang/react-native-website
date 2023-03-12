@@ -418,7 +418,7 @@ static diffClamp(a, min, max)
 
 Create a new Animated value that is limited between 2 values. It uses the difference between the last value so even if the value is far from the bounds it will start changing when the value starts getting closer again. (`value = clamp(value + diff, min, max)`).
 
-This is useful with scroll events, for example, to show the navbar when scrolling up and to hide it when scrolling down.
+这在滚动事件中很有用，例如，在向上滚动时显示导航条，向下滚动时隐藏导航条。
 
 ---
 
