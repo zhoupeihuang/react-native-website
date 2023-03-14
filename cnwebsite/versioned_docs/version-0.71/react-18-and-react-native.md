@@ -10,13 +10,13 @@ import NewArchitectureWarning from './\_markdown-new-architecture-warning.mdx';
 
 This page describes how to use React 18 with React Native using the React Native's New Architecture.
 
-> **简而言之：** 第一个和 React 18 兼容的 React Native 版本是 **0.69.0**. In order to use the new features in React 18 including automatic batching, `startTransition`, and `useDeferredValue`, you must migrate your React Native app to the New Architecture.
+> **简而言之：** 第一个和 React 18 兼容的 React Native 版本是 **0.69.0**。但要想完整享受到 React 18 中的新特性（如自动批量变更状态， `startTransition`以及`useDeferredValue`等），你必须在应用中启用新架构。
 
 ## React 18 与 React Native 的新架构
 
 React 18 引入了 [多个全新特性](https://reactjs.org/blog/2022/03/29/react-v18.html)：
 
-- 自动批处理状态变更 (Automatic batching)
+- 自动批量变更状态 (Automatic batching)
 - 新的严格模式 (Strict Mode)
 - 新的 hooks (`useId`, `useSyncExternalStore`)
 
@@ -25,7 +25,7 @@ React 18 引入了 [多个全新特性](https://reactjs.org/blog/2022/03/29/reac
 - `startTransition`
 - `useTransition`
 - `useDeferredValue`
-- Full Suspense support
+- 完整的 Suspense 特性支持
 
 The concurrent features in React 18 are built on top of the new concurrent rendering engine. Concurrent rendering is a new behind-the-scenes mechanism that enables React to prepare multiple versions of your UI at the same time.
 
@@ -35,13 +35,13 @@ Fortunately, the New Architecture was written bottom-up with concurrent renderin
 
 ## React 18 默认启用
 
-Starting in React Native 0.69, React 18 is **enabled by default** when you enable the New Architecture.
+从 React Native 0.69 开始， React 18 会在启用新架构的同时**默认启用**。
 
 The means you’re able to use the new features in React 18 as soon as you migrate. Since the new concurrent features are opt-in by using features like `startTransition` or `Suspense`, we expect React 18 to work out-of-the-box with minimal changes for users who migrate to the New Architecture or create a new app with the New Architecture enabled.
 
 However, if you do hit any issues, we provide an option to opt-out of the new root in React 18. Opt-ing out means your app will run in React 17 mode, and none of the features of React 18 will be accessible.
 
-### Opt-ing out of React 18 on Android
+### 在 Android 上单独禁用 React 18
 
 On Android, you will be able to override the `isConcurrentRootEnabled` in your ActivityDelegate (in the `MainActivity` file), and enable/disable Concurrent React.
 
@@ -98,7 +98,7 @@ class MainActivity : ReactActivity() {
 </TabItem>
 </Tabs>
 
-### Opt-ing out of React 18 on iOS
+### 在 iOS 上单独禁用 React 18
 
 On iOS, you'll have access to the `concurrentRootEnabled` method on your `AppDelegate.mm` file. You should change the returned value to `false` (or `NO`) to disable the feature.
 
@@ -115,8 +115,8 @@ On iOS, you'll have access to the `concurrentRootEnabled` method on your `AppDel
 }
 ```
 
-### Users on React Native 0.69 not yet migrated to the New Architecture
+### 使用 React Native 0.69 但没有启用新架构
 
-Note: Users on React Native 0.69, but still on the Old Architecture will still use React 17 mode even if React 18 is installed in the `package.json` file.
+注意：使用 React Native 0.69 但仍然停留在旧架构上的用户会继续使用 React 17，即便你在`package.json`中指定安装了 React 18.
 
-Overriding the `isConcurrentRootEnabled` method will have no effect on your app.
+此时覆盖应用中的`isConcurrentRootEnabled`方法不会生效。
