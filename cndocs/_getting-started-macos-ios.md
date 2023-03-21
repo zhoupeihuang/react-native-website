@@ -29,38 +29,9 @@ npx nrm use npm
 
 [Watchman](https://facebook.github.io/watchman)则是由 Facebook 提供的监视文件系统变更的工具。安装此工具可以提高开发时的性能（packager 可以快速捕捉文件的变化从而实现实时刷新）。
 
-### Ruby
-
-[Ruby](https://www.ruby-lang.org/en/) 是一种通用编程语言。React Native 在某些与 iOS 依赖管理相关的脚本中会使用到它。与所有编程语言一样，Ruby 多年来也发布了了许多不同的版本。
-
-React Native 使用 `.ruby-version` 文件来确保您的 Ruby 版本与所需的版本相一致。目前，macOS 12.5.1 自带的 Ruby 版本是 2.6.8，但这**并不是** React Native 所需的版本。我们建议安装 Ruby 版本管理器来安装和管理需要的版本。
-
-常见的 Ruby 版本管理器有：
-
-- [rbenv](https://github.com/rbenv/rbenv)
-- [RVM](https://rvm.io/)
-- [chruby](https://github.com/postmodern/chruby)
-- [asdf-vm](https://github.com/asdf-vm) 及其 [asdf-ruby](https://github.com/asdf-vm/asdf-ruby) 插件
-
-可以使用下面的命令来检查系统当前所使用的 Ruby 版本：
-
-```
-ruby --version
-```
-
-React Native 需要的版本 [记录在此](https://github.com/facebook/react-native/blob/main/template/_ruby-version)。你也可以在当前项目目录下的`.ruby-version`文件中找到所需的版本。（注：较早版本的 React Native 项目可能没有此文件）
-
-### Ruby 的包管理器 Bundler
-
-Ruby 使用 **gems** 这个词来指代其生态中的各种包/库/依赖。gem 就好比 npm 生态中的包，或是 Homebrew 中的 formula，或是 Cocoapods 中的 pod。
-
-Ruby 的 [Bundler](https://bundler.io/) 本身也是一个 gem，它的作用是管理项目中的 Ruby 依赖。我们需要使用 Ruby 来安装 Cocoapods，而 Bundler 会管理其相关的各种依赖，以保证其能够正常工作。
-
-如果你想进一步了解此工具，可以阅读这篇[英文说明](https://bundler.io/guides/rationale.html#bundlers-purpose-and-rationale).
-
 ### Yarn
 
-[Yarn](http://yarnpkg.com)是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。
+[Yarn](https://classic.yarnpkg.com)是 Facebook 提供的替代 npm 的工具，可以加速 node 模块的下载。
 
 ```
 npm install -g yarn

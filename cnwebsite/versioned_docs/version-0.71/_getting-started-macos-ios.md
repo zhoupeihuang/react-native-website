@@ -48,7 +48,7 @@ React Native 使用 `.ruby-version` 文件来确保您的 Ruby 版本与所需�
 ruby --version
 ```
 
-React Native 需要的版本 [记录在此](https://github.com/facebook/react-native/blob/main/template/_ruby-version)。你也可以在当前项目目录下的`.ruby-version`文件中找到所需的版本。（注：较早版本的 React Native 项目可能没有此文件）
+React Native 需要的版本 [记录在此](https://github.com/facebook/react-native/blob/v0.71.4/.ruby-version)。你也可以在当前项目目录下的`.ruby-version`文件中找到所需的版本。（注：较早版本的 React Native 项目可能没有此文件）
 
 ### Ruby 的包管理器 Bundler
 
