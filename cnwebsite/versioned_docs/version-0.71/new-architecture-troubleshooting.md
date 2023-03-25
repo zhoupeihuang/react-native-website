@@ -7,38 +7,38 @@ import NewArchitectureWarning from './\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-This page contains resolutions to common problem you might face when migrating to the New Architecture.
+本页面会记录一些迁移到新架构时可能遇到的常见问题的解决方案。
 
-## Xcode Build Issues
+## Xcode 编译报错
 
-Should the XCode Build fail with:
+如果在 XCode 编译时碰到类似下面的报错:
 
 **Command PhaseScriptExecution failed with a nonzero exit code**
 
-This error indicates that the codegen script that is injected into the Xcode build pipeline has exited early. You may get this for either your own library, or one of the core RN libraries (FBReactNativeSpec, rncore).
+此错误表示注入到 Xcode 构建管道中的 codegen 脚本已经提前退出。您可能会在自己的库或某一个核心 RN 库（FBReactNativeSpec，rncore）中遇到此问题。
 
-Open `~/Library/Developer/Xcode/DerivedData`. and look for a folder named after your Xcode workspace (“RNTesterPods-AAAA” where “AAAA” is a string of characters). Within that folder, go to Build → Intermediates.noindex → Pods.build → Debug-iphonesimulator (or the equivalent for your iOS device, if applicable). Inside, look for the folder named after the codegen library has the script error. The logs for the script phase can be found within the DerivedSources folder, in a file named `codegen-LibraryName.log`. This log output should provide clarity on the source of the error.
+打开`~/Library/Developer/Xcode/DerivedData`，查找以您的 Xcode 工作区命名的文件夹（例如“RNTesterPods-AAAA”，其中“AAAA”是一串字符）。在该文件夹中，转到 Build → Intermediates.noindex → Pods.build → Debug-iphonesimulator（或适用于您的 iOS 设备的等效文件夹）。在其中，查找以 codegen 库命名的文件夹，其中包含脚本错误。脚本阶段的日志可以在`DerivedSources`文件夹中找到，文件名为`codegen-LibraryName.log`。此日志输出应提供有关错误来源的一些说明。
 
-## CocoaPods and Node Reset
+## 重置 CocoaPods 与 Node
 
-The CocoaPods integration will see frequent updates as we rollout the New Architecture, and it is possible to end up with your workspace in a broken state after one of these changes. You may clean up any changes related to the codegen by performing some of these steps:
+CocoaPods 集成将随着我们推出新架构而频繁更新，可能会在这些更改之后导致您的项目无法运行。您可以通过尝试执行以下步骤清理与代码生成相关的任何更改：
 
-1. Run `pod deintegrate` in your ios directory (or wherever your Podfile is located) and re-run `pod install` (or `arch -x86_64 pod install`, in case of a Mac M1).
-2. Delete `Podfile.lock` and re-run `pod install` (or `arch -x86_64 pod install`, in case of a Mac M1).
-3. Delete `node_modules` and re-run `yarn install`.
-4. Delete your codegen artifacts and re-run `pod install` (or `arch -x86_64 pod install`, in case of a Mac M1), then clean and build your Xcode project.
+1. 在您的 ios 目录（或您的 Podfile 所在的任何位置）中运行 `pod deintegrate`，然后重新运行 `pod install`（或 `arch -x86_64 pod install`，如果在 Apple M1 芯片电脑中碰到运行问题的话）。
+2. 删除 `Podfile.lock`，然后重新运行 `pod install`（或 `arch -x86_64 pod install`，如果在 Apple M1 芯片电脑中碰到运行问题的话）。
+3. 删除 `node_modules`，然后重新运行 `yarn install`。
+4. 删除您的代码生成工件，然后重新运行 `pod install`（或 `arch -x86_64 pod install`，如果在 Apple M1 芯片电脑中碰到运行问题的话），然后清理并构建您的 Xcode 项目。
 
-## Folly Version
+## Folly 的版本问题
 
-As it happens, the Folly version used in your podspec must match whatever version is used in React Native at this time. If you see the following error after running `pod install`:
+您的 podspec 中使用的 Folly 版本必须与当前 React Native 使用的版本匹配。如果在运行“pod install”后看到以下错误：
 
 ```
 [!] CocoaPods could not find compatible versions for pod "RCT-Folly":
 ```
 
-...you may have a version-mismatch. Take a look at your `node_modules/react-native/React/FBReactNativeSpec/FBReactNativeSpec.podspec` file and make note of the `folly_version` used there. Go back to your own podspec and set your `folly_version` to match.
+...这意味着当前的版本可能不匹配。检查下 `node_modules/react-native/React/FBReactNativeSpec/FBReactNativeSpec.podspec` 文件中的 `folly_version` 记录的版本。然后将你自己的 podspec 中的`folly_version`设为一致的版本。
 
-## Android build is failing with `OutOfMemoryException`
+## Android 编译时碰到内存不足的报错`OutOfMemoryException`
 
 If your Android Gradle builds are failing with: `OutOfMemoryException: Out of memory: Java heap space.` or similar errors related to low memory, you might need to increase the memory allocated to the JVM.
 
