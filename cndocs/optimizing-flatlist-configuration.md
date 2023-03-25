@@ -111,9 +111,9 @@ You can use the community packages (such as [react-native-fast-image](https://gi
 
 ### 使用 getItemLayout
 
-If all your list item components have the same height (or width, for a horizontal list), providing the [getItemLayout](flatlist#getitemlayout) prop removes the need for your `FlatList` to manage async layout calculations. This is a very desirable optimization technique.
+如果您的列表项组件都具有相同的高度（或宽度，对于水平列表），则提供 [getItemLayout](flatlist#getitemlayout)属性可以消除您的 `FlatList` 管理异步布局计算的需要。这是一种非常理想的优化技术。
 
-If your components have dynamic size and you really need performance, consider asking your design team if they may think of a redesign in order to perform better.
+如果您的组件具有动态大小并且确实需要性能，请考虑询问设计团队是否可以重新设计以获得更好的性能。
 
 ### 使用 keyExtractor 或 key
 
