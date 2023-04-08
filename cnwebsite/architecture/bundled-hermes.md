@@ -1,6 +1,6 @@
 ---
 id: bundled-hermes
-title: 绑定 Hermes 引擎
+title: 捆绑 Hermes 引擎
 ---
 
 本页面综述了 Hermes 与 React Native 是**如何被构造**的。
@@ -11,9 +11,9 @@ title: 绑定 Hermes 引擎
 请注意这篇文章将会深入这一技术细节，因此目标读者为基于 Hermes 或 React Native 构建第三方库的用户。React Native 的一般用户并不需要了解 React Native 与 Hermes 如何交互的深入细节。
 :::
 
-## 什么是“绑定 Hermes 引擎”（Bundled Hermes）
+## 什么是“捆绑 Hermes 引擎”（Bundled Hermes）
 
-在 React Native 0.69.0 版本后，React Native 的每个版本都会**内置**一个绑定的 Hermes 版本。我们把这种发布模型称作 **Bundled Hermes**。
+在 React Native 0.69.0 版本后，React Native 的每个版本都会**内置**一个捆绑的 Hermes 版本。我们把这种发布模型称作 **Bundled Hermes**。
 
 因此在 0.69 版本之后，对每个可以公开使用的 React Native 版本，你都可以获得一个跟随该版本进行构建与测试的 JS 引擎。
 
