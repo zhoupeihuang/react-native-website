@@ -179,9 +179,6 @@ require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
-folly_version = '2021.07.22.00'
-folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
-
 Pod::Spec.new do |s|
   s.name            = "rtn-calculator"
   s.version         = package["version"]
@@ -195,20 +192,7 @@ Pod::Spec.new do |s|
 
   s.source_files    = "ios/**/*.{h,m,mm,swift}"
 
-  s.dependency "React-Core"
-
-  s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
-  s.pod_target_xcconfig    = {
-    "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
-    "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
-    "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
-  }
-
-  s.dependency "React-Codegen"
-  s.dependency "RCT-Folly", folly_version
-  s.dependency "RCTRequired"
-  s.dependency "RCTTypeSafety"
-  s.dependency "ReactCommon/turbomodule/core"
+  install_modules_dependencies(s)
 end
 ```
 
@@ -349,12 +333,12 @@ public class CalculatorPackage extends TurboReactPackage {
 cd MyApp
 yarn add ../RTNCalculator
 cd ..
-node MyApp/node_modules/react-native/scripts/generate-artifacts.js \
+node MyApp/node_modules/react-native/scripts/generate-codegen-artifacts .js \
   --path MyApp/ \
   --outputPath RTNCalculator/generated/
 ```
 
-这脚本首先使用 `yarn add` 将 `RTNCalculator` 模块添加到 App。然后通过 `generate-artifacts.js` 脚本调用 Codegen。
+这脚本首先使用 `yarn add` 将 `RTNCalculator` 模块添加到 App。然后通过 `generate-codegen-artifacts.js` 脚本调用 Codegen。
 
 `--path` 选项用于声明 App 的路径，`--outputPath` 选项用于声明 Codegen 生成代码的存放路径。
 
