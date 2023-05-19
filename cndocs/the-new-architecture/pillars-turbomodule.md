@@ -151,7 +151,7 @@ shared 是 `package.json` 文件中的一个配置项，它将在 yarn 安装您
     "type": "modules",
     "jsSrcsDir": "js",
     "android": {
-      "javaPackageName": "com.calculator"
+      "javaPackageName": "com.rtncalculator"
     }
   }
 }
@@ -166,7 +166,7 @@ shared 是 `package.json` 文件中的一个配置项，它将在 yarn 安装您
 - `name`：第三方库的名称。按照惯例，名称应以 `Spec` 为结尾
 - `type`：在这个 npm 包里的模块类型。在本例中，我们开发的是 Turbo Native Module，所以值为 `modules`
 - `jsSrcsDir`：用于找到 `js` 接口声明文件的相对路径，它将被 **Codegen** 解析
-- `android.javaPackageName`：由 **Codegen** 生成的 Java 包名
+- `android.javaPackageName`：由 **Codegen** 生成的 Java 包名 (需与AndroidManifest.xml中包名一致)
 
 ### iOS：创建 `podspec` 文件
 
@@ -219,7 +219,7 @@ android
         └── java
             └── com
                 └── rtncalculator
-                    └── RTNCalculatorPackage.java
+                    └── CalculatorPackage.java
 ```
 
 #### `build.gradle`
@@ -267,7 +267,7 @@ dependencies {
 
 ```xml title="AndroidManifest.xml"
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.RTNCalculator">
+          package="com.rtncalculator">
 </manifest>
 ```
 
@@ -277,10 +277,10 @@ dependencies {
 
 最后，您需要一个继承 `TurboReactPackage` 接口的类。在运行 **Codegen** 前，您不用完整实现这个类。对于 App 而言，一个没有实现接口的空类就已经能当做一个 React Native 依赖，**Codegen** 会尝试生成其脚手架代码。
 
-创建 `android/src/main/java/com/rtncalculator` 目录，在这个目录内创建 `RTNCalculatorPackage.java` 文件
+创建 `android/src/main/java/com/rtncalculator` 目录，在这个目录内创建 `CalculatorPackage.java` 文件
 
-```java title="RTNCalculatorPackage.java"
-package com.RTNCalculator;
+```java title="CalculatorPackage.java"
+package com.rtncalculator;
 
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.NativeModule;
@@ -497,8 +497,8 @@ codegen
 
 Android 平台上 Turbo Native Module 的原生代码需执行如下步骤：
 
-1.  创建用于实现模块的 `RTNCalculatorModule.java`
-2.  修改之前生成的 `RTNCalculatorPackage.java`
+1.  创建用于实现模块的 `CalculatorModule.java`
+2.  修改之前生成的 `CalculatorPackage.java`
 
 您的 Android 第三方库目录文件结构应为如下：
 
@@ -510,7 +510,7 @@ android
         ├── AndroidManifest.xml
         └── java
             └── com
-                └── RTNCalculator
+                └── rtncalculator
                     ├── CalculatorModule.java
                     └── CalculatorPackage.java
 ```
@@ -518,7 +518,7 @@ android
 ##### 创建 `CalculatorModule.java`
 
 ```java title="CalculatorModule.java"
-package com.RTNCalculator;
+package com.rtncalculator;
 
 import androidx.annotation.NonNull;
 import com.facebook.react.bridge.NativeModule;
@@ -556,7 +556,7 @@ public class CalculatorModule extends NativeCalculatorSpec {
 ##### 修改 `CalculatorPackage.java`
 
 ```diff title="CalculatorPackage.java"
-package com.RTNCalculator;
+package com.rtncalculator;
 
 import androidx.annotation.Nullable;
 import com.facebook.react.bridge.NativeModule;
