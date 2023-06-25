@@ -29,13 +29,13 @@ JavaScript spec files **must** be named `Native<MODULE_NAME>.js`, and they expor
 
 The following is a basic JavaScript spec template, written using the [Flow](https://flow.org/) and [TypeScript](https://www.typescriptlang.org/) syntax.
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">
 
-```ts
-// @flow
+```js
+// @flow strict
 
 import type {TurboModule} from 'react-native/Libraries/TurboModule/RCTExport';
 import {TurboModuleRegistry} from 'react-native';
@@ -47,13 +47,15 @@ export interface Spec extends TurboModule {
   getString(id: string): Promise<string>;
 }
 
-export default (TurboModuleRegistry.get<Spec>('<MODULE_NAME>'): ?Spec);
+export default (TurboModuleRegistry.get<Spec>(
+  '<MODULE_NAME>',
+): ?Spec);
 ```
 
 </TabItem>
 <TabItem value="TypeScript">
 
-```ts
+```tsx
 import type {TurboModule} from 'react-native';
 import {TurboModuleRegistry} from 'react-native';
 
@@ -76,12 +78,12 @@ JavaScript spec files **must** be named `<FABRIC COMPONENT>NativeComponent.js` (
 
 The following snippet shows a basic JavaScript spec template, written in [Flow](https://flow.org/) as well as [TypeScript](https://www.typescriptlang.org/).
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">
 
-```ts
+```js
 // @flow strict-local
 
 import type {ViewProps} from 'react-native/Libraries/Components/View/ViewPropTypes';
@@ -94,14 +96,14 @@ type NativeProps = $ReadOnly<{|
 |}>;
 
 export default (codegenNativeComponent<NativeProps>(
-   '<FABRIC COMPONENT>',
+  '<FABRIC COMPONENT>',
 ): HostComponent<NativeProps>);
 ```
 
 </TabItem>
 <TabItem value="TypeScript">
 
-```ts
+```tsx
 import type {ViewProps} from 'ViewPropTypes';
 import type {HostComponent} from 'react-native';
 import codegenNativeComponent from 'react-native/Libraries/Utilities/codegenNativeComponent';
@@ -136,9 +138,10 @@ You can use predefined types for your JavaScript spec, here is a list of them:
 - `Double`
 - `Float`
 - `Int32`
+- `UnsafeObject`
 - `WithDefault<Type, Value>` - Sets default value for type
-- `BubblingEventHandler<T>` - For bubbling events (eg: `onChange`).
-- `DirectEventHandler<T>` - For direct events (eg: `onClick`).
+- `BubblingEventHandler<T>` - For events that are propagated (bubbled) up the component tree from child to parent up to the root (eg: `onStartShouldSetResponder`).
+- `DirectEventHandler<T>` - For events that are called only on element recieving the event (eg: `onClick`) and don't bubble.
 
 Later on those types are compiled to coresponding equivalents on target platforms.
 
@@ -224,7 +227,7 @@ Android also requires to have the [React Gradle Plugin properly configured](new-
 
 In the New Architecture, most `UIManager` methods will become available as instance methods on native component instances obtained via `ref`:
 
-```ts
+```tsx
 function MyComponent(props: Props) {
   const viewRef = useRef(null);
 
@@ -259,9 +262,9 @@ We will eventually deprecate `UIManager`. However, we recognize that migrations 
 
 **Example**
 
-```ts
+```tsx
 class MyComponent extends React.Component<Props> {
-  _viewRef: ?React.ElementRef<typeof View>;
+  _viewRef?: React.ElementRef<typeof View>;
 
   render() {
     const {somePropValue} = this.props;
@@ -371,7 +374,7 @@ return <RNTMyNativeView />;
 
 #### New way
 
-```tsx title="RNTMyNativeNativeComponent.tsx"
+```js title="RNTMyNativeNativeComponent.js"
 import RNTMyNativeViewNativeComponent from './RNTMyNativeViewNativeComponent';
 
 [...]
@@ -379,7 +382,7 @@ import RNTMyNativeViewNativeComponent from './RNTMyNativeViewNativeComponent';
 return <RNTMyNativeViewNativeComponent />;
 ```
 
-```tsx title="RNTMyNativeViewNativeComponent.tsx"
+```js title="RNTMyNativeViewNativeComponent.js"
 import {requireNativeComponent} from 'react-native';
 
 const RNTMyNativeViewNativeComponent = requireNativeComponent(
@@ -394,25 +397,31 @@ export default RNTMyNativeViewNativeComponent;
 If `requireNativeComponent` is not typed, you can temporarily use the `mixed` type to fix the Flow warning, for example:
 
 ```js
+// @flow strict-local
+
 import type {HostComponent} from 'react-native/Libraries/Renderer/shims/ReactNativeTypes';
 // ...
 const RCTWebViewNativeComponent: HostComponent<mixed> =
-  requireNativeComponent < mixed > 'RNTMyNativeView';
+  requireNativeComponent<mixed>('RNTMyNativeView');
 ```
 
 #### Later on you can replace `requireNativeComponent`
 
 When you are ready to migrate to Fabric you can replace `requireNativeComponent` with `codegenNativeComponent`:
 
-```ts title="RNTMyNativeViewNativeComponent.ts"
+```js title="RNTMyNativeViewNativeComponent.js"
+// @flow strict-local
+
 export default (codegenNativeComponent<NativeProps>(
-   'RNTMyNativeView',
+  'RNTMyNativeView',
 ): HostComponent<NativeProps>);
 ```
 
 And update the main file:
 
-```ts title="RNTMyNativeNativeComponent.ts"
+```js title="RNTMyNativeNativeComponent.js"
+// @flow strict-local
+
 export default require('./RNTMyNativeViewNativeComponent')
   .default;
 ```
@@ -441,7 +450,9 @@ class MyComponent extends React.Component<Props> {
 
 **Creating NativeCommands with `codegenNativeCommands`**
 
-```ts title="MyCustomMapNativeComponent.ts"
+```js title="MyCustomMapNativeComponent.js"
+// @flow strict-local
+
 import codegenNativeCommands from 'react-native/Libraries/Utilities/codegenNativeCommands';
 import type {HostComponent} from 'react-native/Libraries/Renderer/shims/ReactNativeTypes';
 
@@ -449,15 +460,16 @@ type MyCustomMapNativeComponentType = HostComponent<NativeProps>;
 
 interface NativeCommands {
   +moveToRegion: (
-     viewRef: React.ElementRef<MyCustomMapNativeComponentType>,
-      region: MapRegion,
-      duration: number,
-   ) => void;
- }
+    viewRef: React.ElementRef<MyCustomMapNativeComponentType>,
+    region: MapRegion,
+    duration: number,
+  ) => void;
+}
 
-export const Commands: NativeCommands = codegenNativeCommands<NativeCommands>({
-  supportedCommands: ['moveToRegion'],
-});
+export const Commands: NativeCommands =
+  codegenNativeCommands<NativeCommands>({
+    supportedCommands: ['moveToRegion'],
+  });
 ```
 
 Note:
@@ -469,11 +481,13 @@ Note:
 
 #### Using Your Command
 
-```tsx
+```js
+// @flow strict-local
+
 import {Commands, ...} from './MyCustomMapNativeComponent';
 
 class MyComponent extends React.Component<Props> {
-  _ref?: React.ElementRef<typeof MyCustomMapNativeComponent>;
+  _ref: ?React.ElementRef<typeof MyCustomMapNativeComponent>;
 
   _captureRef: (ref: React.ElementRef<typeof MyCustomMapNativeComponent>) => {
     this._ref = ref;
@@ -510,7 +524,7 @@ RCT_EXPORT_METHOD(moveToRegion:(nonnull NSNumber *)reactTag
 
 **Android**
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin

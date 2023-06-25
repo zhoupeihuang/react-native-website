@@ -13,7 +13,7 @@ This example shows fetching and displaying an image from local storage as well a
 
 ## Examples
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Function%20Component%20Example
@@ -112,7 +112,7 @@ export default DisplayAnImage;
 
 You can also add `style` to an image:
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Function%20Component%20Example
@@ -203,7 +203,7 @@ dependencies {
 }
 ```
 
-> Note: the version listed above may not be updated in time. Please check [`ReactAndroid/gradle.properties`](https://github.com/facebook/react-native/blob/main/ReactAndroid/gradle.properties) in the main repo to see which fresco version is being used in a specific tagged version.
+> Note: the version listed above may not be updated in time. Please check [`ReactAndroid/gradle.properties`](https://github.com/facebook/react-native/blob/0.68-stable/ReactAndroid/gradle.properties) in the main repo to see which fresco version is being used in a specific tagged version.
 
 ---
 

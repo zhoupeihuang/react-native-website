@@ -66,7 +66,7 @@ There are two requirements the file containing this specification must meet:
 
 Below are specifications of the `RTNCenteredText` component in both Flow and TypeScript. Create a `RTNCenteredTextNativeComponent` file with the proper extension in the `js` folder.
 
-<Tabs groupId="fabric-component-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="fabric-component-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value='flow'>
 
 ```typescript
@@ -239,7 +239,10 @@ android
 
 First, create a `build.gradle` file in the `android` folder, with the following contents:
 
-```kotlin title="build.gradle"
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
+
+```java title="build.gradle"
 buildscript {
   ext.safeExtGet = {prop, fallback ->
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -277,13 +280,60 @@ dependencies {
 }
 ```
 
+</TabItem>
+
+<TabItem value="kotlin">
+
+```kotlin title="build.gradle"
+buildscript {
+  ext.safeExtGet = {prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  }
+  repositories {
+    google()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath("com.android.tools.build:gradle:7.3.1")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.facebook.react'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+  compileSdkVersion safeExtGet('compileSdkVersion', 33)
+  namespace "com.rtncenteredtext"
+
+  defaultConfig {
+    minSdkVersion safeExtGet('minSdkVersion', 21)
+    targetSdkVersion safeExtGet('targetSdkVersion', 33)
+    buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", "true")
+  }
+}
+
+repositories {
+  mavenCentral()
+  google()
+}
+
+dependencies {
+  implementation 'com.facebook.react:react-native'
+}
+```
+
+</TabItem>
+</Tabs>
+
 #### The `ReactPackage` class
 
 Then, you need a class that implements the `ReactPackage` interface. To run the **Codegen** process, you don't have to completely implement the Package class: an empty implementation is enough for the app to pick up the module as a proper React Native dependency and to try and generate the scaffolding code.
 
 Create an `android/src/main/java/com/rtncenteredtext` folder and, inside that folder, create a `CenteredTextPackage.java` file.
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="CenteredTextPackage.java"
@@ -457,7 +507,7 @@ The most important call is to the `RCT_EXPORT_MODULE`, which is required to expo
 Then, you have to expose the `text` property for the Fabric Native Component. This is done with the `RCT_EXPORT_VIEW_PROPERTY` macro, specifying a name and a type.
 
 :::info
-There are other macros that can be used to export custom properties, emitters, and other constructs. You can view the code that specifies them [here](https://github.com/facebook/react-native/blob/main/React/Views/RCTViewManager.h).
+There are other macros that can be used to export custom properties, emitters, and other constructs. You can view the code that specifies them [here](https://github.com/facebook/react-native/blob/0.71-stable/React/Views/RCTViewManager.h).
 :::
 
 ##### RTNCenteredText.h
@@ -653,7 +703,7 @@ android
 
 ##### CenteredText.java
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="CenteredText.java"
@@ -730,7 +780,7 @@ This class represents the actual view Android is going to represent on screen. I
 
 ##### CenteredTextManager.java
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="CenteredTextManager.java"
@@ -749,10 +799,10 @@ import com.facebook.react.viewmanagers.RTNCenteredTextManagerInterface;
 import com.facebook.react.viewmanagers.RTNCenteredTextManagerDelegate;
 
 @ReactModule(name = CenteredTextManager.NAME)
-public class CenteredTextManager extends SimpleViewManager<RTNCenteredText>
-        implements RTNCenteredTextManagerInterface<RTNCenteredText> {
+public class CenteredTextManager extends SimpleViewManager<CenteredText>
+        implements RTNCenteredTextManagerInterface<CenteredText> {
 
-    private final ViewManagerDelegate<RTNCenteredText> mDelegate;
+    private final ViewManagerDelegate<CenteredText> mDelegate;
 
     static final String NAME = "RTNCenteredText";
 
@@ -762,7 +812,7 @@ public class CenteredTextManager extends SimpleViewManager<RTNCenteredText>
 
     @Nullable
     @Override
-    protected ViewManagerDelegate<RTNCenteredText> getDelegate() {
+    protected ViewManagerDelegate<CenteredText> getDelegate() {
         return mDelegate;
     }
 
@@ -774,13 +824,13 @@ public class CenteredTextManager extends SimpleViewManager<RTNCenteredText>
 
     @NonNull
     @Override
-    protected RTNCenteredText createViewInstance(@NonNull ThemedReactContext context) {
-        return new RTNCenteredText(context);
+    protected CenteredText createViewInstance(@NonNull ThemedReactContext context) {
+        return new CenteredText(context);
     }
 
     @Override
     @ReactProp(name = "text")
-    public void setText(RTNCenteredText view, @Nullable String text) {
+    public void setText(CenteredText view, @Nullable String text) {
         view.setText(text);
     }
 }
@@ -833,7 +883,7 @@ It is also responsible for exporting all the constructs required by React Native
 
 Finally, open the `CenteredTextPackage.java` file in the `android/src/main/java/com/rtncenteredtext` folder and update it with the following lines
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```diff title="CenteredTextPackage.java update"
@@ -903,6 +953,13 @@ yarn add ../RTNCenteredText
 
 This command adds the `RTNCenteredText` Component to the `node_modules` of your app.
 
+If the package was previously added to your app, you will need to update it:
+
+```sh
+cd MyApp
+yarn upgrade rtn-centered-text
+```
+
 ### iOS
 
 Then, you need to install the new dependencies in your iOS project. To do so, you need to run these commands:
@@ -912,7 +969,7 @@ cd ios
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-This command installs the iOS dependencies for the project. The `RCT_NEW_ARCH_ENABLED=1` flag instructs **Cocoapods** that it has to execute some additional operations to run **Codegen**.
+This command installs the iOS dependencies for the project. The `RCT_NEW_ARCH_ENABLED=1` flag instructs **CocoaPods** that it has to execute some additional operations to run **Codegen**.
 
 :::note
 You may have to run `bundle install` once before you can use `RCT_NEW_ARCH_ENABLED=1 bundle exec pod install`. You won't need to run `bundle install` anymore, unless you need to change the ruby dependencies.
@@ -927,29 +984,59 @@ Android configuration requires to enable the **New Architecture**.
 
 ### JavaScript
 
-Finally, you can read the Component in your JavaScript application.
-To do so, you have to:
+Finally, you can use the component in your JavaScript application.
 
-1. Import the Component in the js file that uses it. So, if you want to use it in the `App.tsx`, you need to add this line:
+<Tabs groupId="final-app" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<TabItem value="flow">
 
-   ```tsx title="App.tsx"
-   import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
-   ```
+```typescript title="App.js"
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+import React from 'react';
+import type {Node} from 'react';
+import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
 
-2. Then, you need to use it in another React Native component. The syntax is the same as for any other component:
-   ```tsx title="App.tsx"
-   // ... other code
-   const App: () => Node = () => {
-     // ... other App code ...
-     return (
-       // ...other React Native elements...
-       <RTNCenteredText
-         text="Hello World!"
-         style={{width: '100%', height: 30}}
-       />
-       // ...other React Native Elements
-     );
-   };
-   ```
+const App: () => Node = () => {
+  return (
+    <RTNCenteredText
+      text="Hello World!"
+      style={{width: '100%', height: 30}}
+    />
+  );
+};
+export default App;
+```
+
+</TabItem>
+<TabItem value="typescript">
+
+```typescript title="App.tsx"
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+import React from 'react';
+import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
+
+const App: () => JSX.Element = () => {
+  return (
+    <RTNCenteredText
+      text="Hello World!"
+      style={{width: '100%', height: 30}}
+    />
+  );
+};
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 Now, you can run the React Native app and see your Component on the screen.

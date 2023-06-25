@@ -38,13 +38,13 @@ While the last step is the same for all the platforms, the first two steps are d
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs Turbo Native Modules using [Cocoapods](https://cocoapods.org) as a dependency manager.
+The Apple platform installs Turbo Native Modules using [CocoaPods](https://cocoapods.org) as a dependency manager.
 
 Every Turbo Native Module defines a `podspec` that looks like this:
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs TurboModules using [Cocoapods](https://cocoapods.org) as dependency manager.
+The Apple platform installs TurboModules using [CocoaPods](https://cocoapods.org) as dependency manager.
 
 Every TurboModule defines a `podspec` that looks like this:
 
@@ -291,7 +291,7 @@ public class MyModule extends ReactContextBaseJavaModule {
     // declare an instance of the implementation
     private MyModuleImpl implementation;
 
-    CalculatorModule(ReactApplicationContext context) {
+    MyModule(ReactApplicationContext context) {
         super(context);
         // initialize the implementation of the module
         implementation = MyModuleImpl();
@@ -318,7 +318,7 @@ public class MyModule extends MyModuleSpec {
     // declare an instance of the implementation
     private MyModuleImpl implementation;
 
-    CalculatorModule(ReactApplicationContext context) {
+    MyModule(ReactApplicationContext context) {
         super(context);
         // initialize the implementation of the module
         implementation = MyModuleImpl();
@@ -355,7 +355,7 @@ import MyModule from 'your-module/src/index';
 
 Since `TurboModuleRegistry.get` taps into the old Native Modules API under the hood, we need to re-export our module, to avoid registering it multiple times.
 
-<Tabs groupId="turbomodule-backward-compatibility"
+<Tabs groupId="turbomodule-backward-compatibility" queryString
       defaultValue={constants.defaultTurboModuleSpecLanguage}
       values={constants.turboModuleSpecLanguages}>
 <TabItem value="Flow">

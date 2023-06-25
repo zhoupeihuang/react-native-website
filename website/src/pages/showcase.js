@@ -14,13 +14,15 @@ import ThemedImage from '@theme/ThemedImage';
 import {Section} from './index';
 import IconExternalLink from '../theme/Icon/ExternalLink';
 
-const renderApp = (app, i) => {
-  const imgSource = !app.icon.startsWith('http')
-    ? useBaseUrl('img/showcase/' + app.icon)
-    : app.icon;
+const renderApp = (app, i) => <AppBox app={app} key={`app-${app.name}-${i}`} />;
+
+const AppBox = ({app}) => {
+  const imgSource = useBaseUrl(
+    app.icon.startsWith('http') ? app.icon : 'img/showcase/' + app.icon
+  );
 
   return (
-    <div className="showcase" key={`app-${app.name}-${i}`}>
+    <div className="showcase">
       <div className="iconBox">
         <img src={imgSource} alt={app.name} className="iconBackground" />
         <img src={imgSource} alt={app.name} className="icon" />
@@ -46,32 +48,37 @@ const renderApp = (app, i) => {
 };
 
 const renderLinks = app => {
-  if (!app.linkAppStore && !app.linkPlayStore) {
+  if (!app.linkAppStore && !app.linkPlayStore && !app.linkDesktop) {
     return <p />;
   }
 
-  const linkAppStore = app.linkAppStore ? (
-    <a href={app.linkAppStore} target="_blank">
-      iOS
-    </a>
-  ) : null;
-  const linkPlayStore = app.linkPlayStore ? (
-    <a href={app.linkPlayStore} target="_blank">
-      Android
-    </a>
-  ) : null;
+  const links = [
+    app.linkAppStore ? (
+      <a key="ios" href={app.linkAppStore} target="_blank">
+        iOS
+      </a>
+    ) : null,
+    app.linkPlayStore ? (
+      <a key="android" href={app.linkPlayStore} target="_blank">
+        Android
+      </a>
+    ) : null,
+    app.linkDesktop ? (
+      <a key="desktop" href={app.linkDesktop} target="_blank">
+        Desktop
+      </a>
+    ) : null,
+  ]
+    .filter(Boolean)
+    .flatMap((link, i) =>
+      i === 0 ? [link] : [<span key={i}> • </span>, link]
+    );
 
-  return (
-    <p className="showcaseLinks">
-      {linkPlayStore}
-      {linkPlayStore && linkAppStore ? <span> • </span> : ''}
-      {linkAppStore}
-    </p>
-  );
+  return <p className="showcaseLinks">{links}</p>;
 };
 
 const randomizeApps = apps =>
-  apps.filter(app => !app.group).sort(() => 0.5 - Math.random());
+  [...apps].filter(app => !app.group).sort(() => 0.5 - Math.random());
 
 const Showcase = () => {
   const {siteConfig} = useDocusaurusContext();

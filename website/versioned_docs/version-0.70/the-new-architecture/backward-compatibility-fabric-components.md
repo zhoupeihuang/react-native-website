@@ -38,7 +38,7 @@ While the last step is the same for all the platforms, the first two steps are d
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs Fabric Native Components using [Cocoapods](https://cocoapods.org) as a dependency manager.
+The Apple platform installs Fabric Native Components using [CocoaPods](https://cocoapods.org) as a dependency manager.
 
 Every Fabric Native Component defines a `podspec` that looks like this:
 
@@ -395,7 +395,7 @@ import MyComponent from 'your-component/src/index';
 
 Since `codegenNativeComponent` is calling the `requireNativeComponent` under the hood, we need to re-export our component, to avoid registering it multiple times.
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">

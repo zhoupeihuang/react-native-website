@@ -91,7 +91,7 @@ const ExampleComponent = () => {
 
 `PanResponder` works with `Animated` API to help build complex gestures in the UI. The following example contains an animated `View` component which can be dragged freely across the screen
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=PanResponder
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
 </TabItem>
 </Tabs>
 
-Try the [PanResponder example in RNTester](https://github.com/facebook/react-native/blob/master/packages/rn-tester/js/examples/PanResponder/PanResponderExample.js).
+Try the [PanResponder example in RNTester](https://github.com/facebook/react-native/blob/0.62-stable/packages/rn-tester/js/examples/PanResponder/PanResponderExample.js).
 
 ---
 

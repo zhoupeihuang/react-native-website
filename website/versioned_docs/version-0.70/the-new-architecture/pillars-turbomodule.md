@@ -60,7 +60,7 @@ There are two requirements the file containing this specification must meet:
 1. The file **must** be named `Native<MODULE_NAME>`, with a `.js` or `.jsx` extension when using Flow, or a `.ts`, or `.tsx` extension when using TypeScript. Codegen will only look for files matching this pattern.
 2. The file must export a `TurboModuleRegistrySpec` object.
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="flow">
 
 ```typescript title="NativeCalculator.js"
@@ -244,7 +244,10 @@ android
 
 First, create a `build.gradle` file in the `android` folder, with the following contents:
 
-```kotlin title="build.gradle"
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
+
+```java title="build.gradle"
 buildscript {
   ext.safeExtGet = {prop, fallback ->
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -278,6 +281,50 @@ dependencies {
   implementation 'com.facebook.react:react-native:+'
 }
 ```
+
+</TabItem>
+
+<TabItem value="kotlin">
+
+```kotlin title="build.gradle"
+buildscript {
+  ext.safeExtGet = {prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  }
+  repositories {
+    google()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath("com.android.tools.build:gradle:7.1.1")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.facebook.react'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+  compileSdkVersion safeExtGet('compileSdkVersion', 31)
+}
+
+repositories {
+  maven {
+    // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+    url "$projectDir/../node_modules/react-native/android"
+  }
+  mavenCentral()
+  google()
+}
+
+dependencies {
+  implementation 'com.facebook.react:react-native:+'
+}
+```
+
+</TabItem>
+</Tabs>
 
 #### The `AndroidManifest.xml`
 
@@ -458,7 +505,7 @@ Then the `add` method, whose signature must match the one specified by the Codeg
 Finally, the `getTurboModule` method gets an instance of the Turbo Native Module so that the JavaScript side can invoke its methods. The function is defined in (and requested by) the `RTNCalculatorSpec.h` file that was generated earlier by Codegen.
 
 :::info
-There are other macros that can be used to export modules and methods. You view the code that specifies them [here](https://github.com/facebook/react-native/blob/main/React/Base/RCTBridgeModule.h).
+There are other macros that can be used to export modules and methods. You view the code that specifies them [here](https://github.com/facebook/react-native/blob/0.70-stable/React/Base/RCTBridgeModule.h).
 :::
 
 ### Android
@@ -647,7 +694,7 @@ cd ios
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-This command will look for all the dependencies of the project and it will install the iOS ones. The `RCT_NEW_ARCH_ENABLED=1` instruct **Cocoapods** that it has to run some additional operations to run **Codegen**.
+This command will look for all the dependencies of the project and it will install the iOS ones. The `RCT_NEW_ARCH_ENABLED=1` instruct **CocoaPods** that it has to run some additional operations to run **Codegen**.
 
 :::note
 You may have to run `bundle install` once before you can use `RCT_NEW_ARCH_ENABLED=1 bundle exec pod install`. You won't need to run `bundle install` anymore, unless you need to change the Ruby dependencies.
@@ -666,7 +713,10 @@ Now you can use your Turbo Native Module calculator in your app!
 
 Here's an example App.js file using the `add` method:
 
-```js title="App.js"
+<Tabs groupId="final-app" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<TabItem value="flow">
+
+```typescript title="App.js"
 /**
  * Sample React Native App
  * https://github.com/facebook/react-native
@@ -705,5 +755,49 @@ const App: () => Node = () => {
 };
 export default App;
 ```
+
+</TabItem>
+<TabItem value="typescript">
+
+```typescript title="App.tsx"
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+import React from 'react';
+import {useState} from 'react';
+import {
+  SafeAreaView,
+  StatusBar,
+  Text,
+  Button,
+} from 'react-native';
+import RTNCalculator from 'rtn-calculator/js/NativeCalculator';
+
+const App: () => JSX.Element = () => {
+  const [result, setResult] = useState<number | null>(null);
+  return (
+    <SafeAreaView>
+      <StatusBar barStyle={'dark-content'} />
+      <Text style={{marginLeft: 20, marginTop: 20}}>
+        3+7={result ?? '??'}
+      </Text>
+      <Button
+        title="Compute"
+        onPress={async () => {
+          const value = await RTNCalculator?.add(3, 7);
+          setResult(value ?? null);
+        }}
+      />
+    </SafeAreaView>
+  );
+};
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 Try this out to see your Turbo Native Module in action!

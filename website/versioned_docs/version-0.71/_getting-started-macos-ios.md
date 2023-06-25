@@ -23,7 +23,7 @@ If you have already installed Node on your system, make sure it is Node 14 or ne
 
 [Ruby](https://www.ruby-lang.org/en/) is a general-purpose programming language. React Native uses in some scripts related to the iOS dependency management. As every programming language, there are different versions of Ruby that have been developed during the years.
 
-React Native uses a `.ruby-version` file to make sure that your version of Ruby is aligned with what is needed. Currently, macOS 12.5.1 is shipped with Ruby 2.6.8, which is **not** what is required by React Native. Our suggestion is to install a Ruby version manager and to install the proper version of Ruby in your system.
+React Native uses a `.ruby-version` file to make sure that your version of Ruby is aligned with what is needed. Currently, macOS 13.2 is shipped with Ruby 2.6.10, which is **not** what is required by this version of React Native (2.7.6). Our suggestion is to install a Ruby version manager and to install the proper version of Ruby in your system.
 
 Some common Ruby version manager are:
 
@@ -38,13 +38,13 @@ To check what is your current version of Ruby, you can run this command:
 ruby --version
 ```
 
-React Native uses [this version](https://github.com/facebook/react-native/blob/main/template/_ruby-version) of Ruby. You can also find which version your specific project needs in the `.ruby-version` file at root of your RN project.
+React Native uses [this version](https://github.com/facebook/react-native/blob/v0.71.3/.ruby-version) of Ruby. You can also find which version your specific project needs in the `.ruby-version` file at root of your RN project.
 
 ### Ruby's Bundler
 
-Ruby uses the concept of **gems** to handle its own dependencies. You can think of a gem as a package in NPM, a formula in Homebrew or a single pod in Cocoapods.
+Ruby uses the concept of **gems** to handle its own dependencies. You can think of a gem as a package in NPM, a formula in Homebrew or a single pod in CocoaPods.
 
-Ruby's [Bundler](https://bundler.io/) is a Ruby gem that helps managing the Ruby dependencies of your project. We need Ruby to install Cocoapods and using Bundler will make sure that all the dependencies are aligned and that the project works properly.
+Ruby's [Bundler](https://bundler.io/) is a Ruby gem that helps managing the Ruby dependencies of your project. We need Ruby to install CocoaPods and using Bundler will make sure that all the dependencies are aligned and that the project works properly.
 
 If you want to learn more about why we need this tool, you can read [this article](https://bundler.io/guides/rationale.html#bundlers-purpose-and-rationale).
 
@@ -81,7 +81,7 @@ React Native has a built-in command line interface. Rather than install and mana
 You can use React Native's built-in command line interface to generate a new project. Let's create a new React Native project called "AwesomeProject":
 
 ```shell
-npx react-native init AwesomeProject
+npx react-native@latest init AwesomeProject
 ```
 
 This is not necessary if you are integrating React Native into an existing application, if you "ejected" from Expo, or if you're adding iOS support to an existing React Native project (see [Integration with Existing Apps](integration-with-existing-apps.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
@@ -102,7 +102,7 @@ If you are having trouble with iOS, try to reinstall the dependencies by running
 If you want to start a new project with a specific React Native version, you can use the `--version` argument:
 
 ```shell
-npx react-native init AwesomeProject --version X.XX.X
+npx react-native@X.XX.X init AwesomeProject --version X.XX.X
 ```
 
 You can also start a project with a custom React Native template with the `--template` argument.
@@ -160,7 +160,7 @@ The above command will automatically run your app on the iOS Simulator by defaul
 
 Now that you have successfully run the app, let's modify it.
 
-- Open `App.js` in your text editor of choice and edit some lines.
+- Open `App.tsx` in your text editor of choice and edit some lines.
 - Hit `⌘R` in your iOS Simulator to reload the app and see your changes!
 
 ### That's it!

@@ -14,12 +14,12 @@ This page will help you install and build your first React Native app.
 
 **If you are already familiar with mobile development**, you may want to use React Native CLI. It requires Xcode or Android Studio to get started. If you already have one of these tools installed, you should be able to get up and running within a few minutes. If they are not installed, you should expect to spend about an hour installing and configuring them.
 
-<Tabs groupId="guide" defaultValue={constants.defaultGuide} values={constants.guides}>
+<Tabs groupId="guide" queryString defaultValue={constants.defaultGuide} values={constants.guides}>
 <TabItem value="quickstart">
 
 Run the following command to create a new React Native project called "AwesomeProject":
 
-<Tabs groupId="package-manager" defaultValue={constants.defaultPackageManager} values={constants.packageManagers}>
+<Tabs groupId="package-manager" queryString defaultValue={constants.defaultPackageManager} values={constants.packageManagers}>
 <TabItem value="npm">
 
 ```shell
@@ -50,7 +50,7 @@ Install the [Expo Go](https://expo.dev/client) app on your iOS or Android phone 
 
 <h3>Modifying your app</h3>
 
-Now that you have successfully run the app, let's modify it. Open `App.tsx` in your text editor of choice and edit some lines. The application should reload automatically once you save your changes.
+Now that you have successfully run the app, let's modify it. Open `App.js` in your text editor of choice and edit some lines. The application should reload automatically once you save your changes.
 
 <h3>That's it!</h3>
 
@@ -91,12 +91,12 @@ The instructions are a bit different depending on your development operating sys
 
 #### Development OS
 
-<Tabs groupId="os" defaultValue={constants.defaultOs} values={constants.oses} className="pill-tabs">
+<Tabs groupId="os" queryString defaultValue={constants.defaultOs} values={constants.oses} className="pill-tabs">
 <TabItem value="macos">
 
 #### Target OS
 
-<Tabs groupId="platform" defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
+<Tabs groupId="platform" queryString defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
 <TabItem value="android">
 
 [//]: # 'macOS, Android'
@@ -118,7 +118,7 @@ The instructions are a bit different depending on your development operating sys
 
 #### Target OS
 
-<Tabs groupId="platform" defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
+<Tabs groupId="platform" queryString defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
 <TabItem value="android">
 
 [//]: # 'Windows, Android'
@@ -142,7 +142,7 @@ The instructions are a bit different depending on your development operating sys
 
 #### Target OS
 
-<Tabs groupId="platform" defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
+<Tabs groupId="platform" queryString defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
 <TabItem value="android">
 
 [//]: # 'Linux, Android'

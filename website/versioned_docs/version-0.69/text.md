@@ -11,7 +11,7 @@ A React component for displaying text.
 
 In the following example, the nested title and body text will inherit the `fontFamily` from `styles.baseText`, but the title provides its own additional styles. The title and body will stack on top of each other on account of the literal newlines:
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Text%20Functional%20Component%20Example
@@ -493,11 +493,31 @@ Does this view want to "claim" touch responsiveness? This is called for every to
 
 ### `onPress`
 
-This function is called on press.
+Function called on user press, triggered after `onPressOut`.
 
-| Type                                                |
-| --------------------------------------------------- |
-| ({ nativeEvent: [PressEvent](pressevent) }) => void |
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
+
+---
+
+### `onPressIn`
+
+Called immediately when a touch is engaged, before `onPressOut` and `onPress`.
+
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
+
+---
+
+### `onPressOut`
+
+Called when a touch is released.
+
+| Type                                              |
+| ------------------------------------------------- |
+| ({nativeEvent: [PressEvent](pressevent)}) => void |
 
 ---
 

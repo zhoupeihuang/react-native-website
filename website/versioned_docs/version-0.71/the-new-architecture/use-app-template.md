@@ -28,7 +28,7 @@ If you're using Expo, you can't enable the New Architecture at the moment and wi
 If you already have your development environment set up, create a new React Native project from the template:
 
 ```shell
-npx react-native init AwesomeProject
+npx react-native@latest init AwesomeProject
 ```
 
 :::caution
@@ -49,7 +49,7 @@ Please [follow the instructions on the React Native website](hermes.md) to enabl
 
 #### Target OS
 
-<Tabs groupId="platform" defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
+<Tabs groupId="platform" queryString defaultValue={constants.defaultPlatform} values={constants.platforms} className="pill-tabs">
 <TabItem value="ios">
 
 Navigate to the `ios` directory and run the following:

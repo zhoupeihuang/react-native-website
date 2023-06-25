@@ -24,7 +24,12 @@ We recommend installing the OpenJDK distribution called Azul **Zulu** using [Hom
 ```shell
 brew tap homebrew/cask-versions
 brew install --cask zulu11
+
+# Get path to where cask was installed to double-click installer
+brew info --cask zulu11
 ```
+
+After you install the JDK, update your `JAVA_HOME` environment variable. If you used above steps, JDK will likely be at `/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home`
 
 The Zulu OpenJDK distribution offers JDKs for **both Intel and M1 Macs**. This will make sure your builds are faster on M1 Macs compared to using an Intel-based JDK.
 
@@ -34,7 +39,7 @@ If you have already installed JDK on your system, make sure it is JDK 11 or newe
 
 Setting up your development environment can be somewhat tedious if you're new to Android development. If you're already familiar with Android development, there are a few things you may need to configure. In either case, please make sure to carefully follow the next few steps.
 
-<h4>1. Install Android Studio</h4>
+<h4 id="android-studio">1. Install Android Studio</h4>
 
 [Download and install Android Studio](https://developer.android.com/studio/index.html). While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:
 
@@ -48,7 +53,7 @@ Then, click "Next" to install all of these components.
 
 Once setup has finalized and you're presented with the Welcome screen, proceed to the next step.
 
-<h4>2. Install the Android SDK</h4>
+<h4 id="android-sdk">2. Install the Android SDK</h4>
 
 Android Studio installs the latest Android SDK by default. Building a React Native app with native code, however, requires the `Android 12 (S)` SDK in particular. Additional Android SDKs can be installed through the SDK Manager in Android Studio.
 

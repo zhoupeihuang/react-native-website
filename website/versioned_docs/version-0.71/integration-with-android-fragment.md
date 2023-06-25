@@ -19,7 +19,7 @@ You will need to implement the `ReactApplication` interface in your main Applica
 
 Ensure your main Application class implements ReactApplication:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -38,7 +38,7 @@ public class MyReactApplication extends Application implements ReactApplication 
 
 Override the required methods `getUseDeveloperSupport`, `getPackages` and `getReactNativeHost`:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -48,7 +48,7 @@ class MyReactApplication : Application(), ReactApplication {
         SoLoader.init(this, false)
     }
     private val reactNativeHost =
-        object : ReactNativeHost(this) {
+        object : DefaultReactNativeHost(this) {
             override fun getUseDeveloperSupport() = BuildConfig.DEBUG
             override fun getPackages(): List<ReactPackage> {
                 val packages = PackageList(this).getPackages().toMutableList()
@@ -71,7 +71,7 @@ public class MyReactApplication extends Application implements ReactApplication 
         SoLoader.init(this, false);
     }
 
-    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+    private final ReactNativeHost mReactNativeHost = new DefaultReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
             return BuildConfig.DEBUG;
@@ -96,7 +96,7 @@ public class MyReactApplication extends Application implements ReactApplication 
 
 If you are using Android Studio, use Alt + Enter to add all missing imports in your class. Alternatively these are the required imports to include manually:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -106,6 +106,7 @@ import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
+import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 ```
 
@@ -119,6 +120,7 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
 
 import java.util.List;
@@ -163,7 +165,7 @@ Now in your Activity class (e.g. `MainActivity.java` or `MainActivity.kt`) you n
 
 Add the button field to the top of your Activity:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -182,7 +184,7 @@ private Button mButton;
 
 Update your Activity's `onCreate` method as follows:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -239,7 +241,7 @@ If you are using a starter kit for React Native, replace the "HelloWorld" string
 
 Add the `getLaunchOptions` method which will allow you to pass props through to your component. This is optional and you can remove `setLaunchOptions` if you don't need to pass any props.
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin
@@ -265,7 +267,7 @@ private Bundle getLaunchOptions(String message) {
 
 Add all missing imports in your Activity class. Be careful to use your package’s BuildConfig and not the one from the facebook package! Alternatively these are the required imports to include manually:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin

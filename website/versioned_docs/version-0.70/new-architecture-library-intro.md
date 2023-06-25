@@ -29,7 +29,7 @@ JavaScript spec files **must** be named `Native<MODULE_NAME>.js` and they export
 
 The following is a basic JavaScript spec template, written using the [Flow](https://flow.org/) syntax as well as [TypeScript](https://www.typescriptlang.org/).
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">
@@ -76,7 +76,7 @@ JavaScript spec files **must** be named `<FABRIC COMPONENT>NativeComponent.js` (
 
 The following snippet shows a basic JavaScript spec template, written in [Flow](https://flow.org/) as well as [TypeScript](https://www.typescriptlang.org/).
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">
@@ -136,9 +136,10 @@ You can use predefined types for your JavaScript spec, here is a list of them:
 - `Double`
 - `Float`
 - `Int32`
+- `UnsafeObject`
 - `WithDefault<Type, Value>` - Sets default value for type
-- `BubblingEventHandler<T>` - For bubbling events (eg: `onChange`).
-- `DirectEventHandler<T>` - For direct events (eg: `onClick`).
+- `BubblingEventHandler<T>` - For events that are propagated (bubbled) up the component tree from child to parent up to the root (eg: `onStartShouldSetResponder`).
+- `DirectEventHandler<T>` - For events that are called only on element recieving the event (eg: `onClick`) and don't bubble.
 
 Later on those types are compiled to coresponding equivalents on target platforms.
 
@@ -631,7 +632,7 @@ RCT_EXPORT_METHOD(moveToRegion:(nonnull NSNumber *)reactTag
 
 **Android**
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="kotlin">
 
 ```kotlin

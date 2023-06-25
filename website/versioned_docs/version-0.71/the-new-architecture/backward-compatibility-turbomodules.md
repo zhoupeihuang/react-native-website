@@ -40,7 +40,7 @@ While the last step is the same for all the platforms, the first two steps are d
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs Turbo Native Modules using [Cocoapods](https://cocoapods.org) as a dependency manager.
+The Apple platform installs Turbo Native Modules using [CocoaPods](https://cocoapods.org) as a dependency manager.
 
 If you are already using the [`install_module_dependencies`](https://github.com/facebook/react-native/blob/82e9c6ad611f1fb816de056ff031716f8cb24b4e/scripts/react_native_pods.rb#L145) function, then **there is nothing to do**. The function already takes care of installing the proper dependencies when the New Architecture is enabled and avoids them when it is not enabled.
 
@@ -272,7 +272,7 @@ my-module
 
 The code that should go in the `MyModuleImpl.java`, and that can be shared by the Legacy Native Module and the Turbo Native Module is, for example:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="example of MyModuleImpl.java"
@@ -325,7 +325,7 @@ Then, the Legacy Native Module and the Turbo Native Module can be updated with t
 
 For example, for a Legacy Native Module:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="Native Module using the Impl module"
@@ -377,7 +377,7 @@ class MyModule(context: ReactApplicationContext) : ReactContextBaseJavaModule(co
 
 And, for a Turbo Native Module:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="TurboModule using the Impl module"
@@ -385,7 +385,7 @@ public class MyModule extends MyModuleSpec {
     // declare an instance of the implementation
     private MyModuleImpl implementation;
 
-    CalculatorModule(ReactApplicationContext context) {
+    MyModule(ReactApplicationContext context) {
         super(context);
         // initialize the implementation of the module
         implementation = MyModuleImpl();
@@ -416,8 +416,9 @@ class MyModule(reactContext: ReactApplicationContext) : MyModuleSpec(reactContex
 
   override fun getName(): String = MyModuleImpl.NAME
 
-  override fun add(a: Double, b: Double, promise: Promise) {
-    implementation.add(a, b, promise)
+  override fun foo(a: Double, b: Double, promise: Promise) {
+    // Use the implementation instance to execute the function.
+    implementation.foo(a, b, promise)
   }
 }
 ```
@@ -441,7 +442,7 @@ import MyModule from 'your-module/src/index';
 
 Since `TurboModuleRegistry.get` taps into the old Native Modules API under the hood, we need to re-export our module, to avoid registering it multiple times.
 
-<Tabs groupId="turbomodule-backward-compatibility"
+<Tabs groupId="turbomodule-backward-compatibility" queryString
       defaultValue={constants.defaultTurboModuleSpecLanguage}
       values={constants.turboModuleSpecLanguages}>
 <TabItem value="Flow">

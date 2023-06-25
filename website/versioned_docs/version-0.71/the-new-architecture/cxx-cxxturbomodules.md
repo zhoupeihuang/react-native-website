@@ -12,7 +12,7 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 This guide shows you how to implement a Turbo Native Module using C++ only, a way to share the same implementation with any supported platform (Android, iOS, macOS or Windows).
 
-Before continuing with this guide, please read the [Turbo Native Modules](./pillars-turbomodule.md) section. As a further reference, we prepared an example for the RNTester app ([NativeCxxModuleExample](https://github.com/facebook/react-native/tree/main/packages/rn-tester/NativeCxxModuleExample)) and a sample run in our community repository ([run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)).
+Before continuing with this guide, please read the [Turbo Native Modules](./pillars-turbomodule.md) section. As a further reference, we prepared an example for the RNTester app ([NativeCxxModuleExample](https://github.com/facebook/react-native/tree/0.71-stable/packages/rn-tester/NativeCxxModuleExample)) and a sample run in our community repository ([run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)).
 
 :::caution
 C++ Turbo Native Modules work with the **New Architecture** enabled.
@@ -33,7 +33,7 @@ To create a C++ Turbo Native Module, you need to:
 As first step, create a new application:
 
 ```sh
-npx react-native@v0.71.0-rc.3 init CxxTurboModulesGuide --version v0.71.0-rc.3
+npx react-native init CxxTurboModulesGuide
 cd CxxTurboModulesGuide
 yarn install
 ```
@@ -67,7 +67,7 @@ CxxTurboModulesGuide
 
 Create the following spec inside the `tm` folder:
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -260,7 +260,7 @@ Android apps aren't setup for native code compilation by default.
 
 1.) Create the folder `android/app/src/main/jni`
 
-2.) Copy `CMakeLists.txt` and `Onload.cpp` from [node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/v0.71.0-rc.3/ReactAndroid/cmake-utils/default-app-setup) into the `android/app/src/main/jni` folder.
+2.) Copy `CMakeLists.txt` and `Onload.cpp` from [node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/0.71-stable/ReactAndroid/cmake-utils/default-app-setup) into the `android/app/src/main/jni` folder.
 
 Update `Onload.cpp` with the following entries:
 

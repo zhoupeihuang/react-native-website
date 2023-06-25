@@ -66,7 +66,7 @@ There are two requirements the file containing this specification must meet:
 
 Below are specifications of the `RTNCenteredText` component in both Flow and TypeScript. Create a `RTNCenteredText` file with the proper extension in the `js` folder.
 
-<Tabs groupId="fabric-component-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="fabric-component-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value='flow'>
 
 ```typescript
@@ -255,7 +255,10 @@ android
 
 First, create a `build.gradle` file in the `android` folder, with the following contents:
 
-```kotlin title="build.gradle"
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
+
+```java title="build.gradle"
 buildscript {
   ext.safeExtGet = {prop, fallback ->
     rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
@@ -265,7 +268,7 @@ buildscript {
     gradlePluginPortal()
   }
   dependencies {
-    classpath("com.android.tools.build:gradle:7.1.1")
+    classpath("com.android.tools.build:gradle:7.3.1")
   }
 }
 
@@ -295,6 +298,56 @@ dependencies {
   implementation 'com.facebook.react:react-native:+'
 }
 ```
+
+</TabItem>
+
+<TabItem value="kotlin">
+
+```kotlin title="build.gradle"
+buildscript {
+  ext.safeExtGet = {prop, fallback ->
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+  }
+  repositories {
+    google()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath("com.android.tools.build:gradle:7.3.1")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.22")
+  }
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'com.facebook.react'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+android {
+  compileSdkVersion safeExtGet('compileSdkVersion', 31)
+
+  defaultConfig {
+    minSdkVersion safeExtGet('minSdkVersion', 21)
+    targetSdkVersion safeExtGet('targetSdkVersion', 31)
+    buildConfigField("boolean", "IS_NEW_ARCHITECTURE_ENABLED", "true")
+  }
+}
+
+repositories {
+  maven {
+    // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
+    url "$projectDir/../node_modules/react-native/android"
+  }
+  mavenCentral()
+  google()
+}
+
+dependencies {
+  implementation 'com.facebook.react:react-native:+'
+}
+```
+
+</TabItem>
+</Tabs>
 
 #### The `AndroidManifest.xml`
 
@@ -462,7 +515,7 @@ The most important call is to the `RCT_EXPORT_MODULE` which is required to expor
 Then, you have to expose the `text` property for the Fabric Component. This is done with the `RCT_EXPORT_VIEW_PROPERTY` macro, specifying a name and a type.
 
 :::info
-There are other macros that can be used to export custom properties, emitters and other constructs. You can view the code that specifies them [here](https://github.com/facebook/react-native/blob/main/React/Views/RCTViewManager.h)
+There are other macros that can be used to export custom properties, emitters and other constructs. You can view the code that specifies them [here](https://github.com/facebook/react-native/blob/0.70-stable/React/Views/RCTViewManager.h)
 :::
 
 ##### RTNCenteredText.h
@@ -804,6 +857,13 @@ yarn add ../RTNCenteredText
 
 This command adds the `RTNCenteredText` Component to the `node_modules` of your app.
 
+If the package was previously added to your app, you will need to update it:
+
+```sh
+cd MyApp
+yarn upgrade rtn-centered-text
+```
+
 ### iOS
 
 Then, you need to install the new dependencies in your iOS project. To do so, you need to run these commands:
@@ -813,7 +873,7 @@ cd ios
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-This command installs the iOS dependencies for the project. The `RCT_NEW_ARCH_ENABLED=1` flag instructs **Cocoapods** that it has to execute some additional operations to run **Codegen**.
+This command installs the iOS dependencies for the project. The `RCT_NEW_ARCH_ENABLED=1` flag instructs **CocoaPods** that it has to execute some additional operations to run **Codegen**.
 
 :::note
 You may have to run `bundle install` once before you can use `RCT_NEW_ARCH_ENABLED=1 bundle exec pod install`. You won't need to run `bundle install` anymore, unless you need to change the ruby dependencies.
@@ -828,29 +888,59 @@ Android configuration requires to enable the **New Architecture**.
 
 ### JavaScript
 
-Finally, you can read the Component in your JavaScript application.
-To do so, you have to:
+Finally, you can use the component in your JavaScript application.
 
-1. Import the Component in the js file that uses it. So, if you want to use it in the `App.js`, you need to add this line:
+<Tabs groupId="final-app" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<TabItem value="flow">
 
-   ```js title="App.js"
-   import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
-   ```
+```typescript title="App.js"
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ * @flow strict-local
+ */
+import React from 'react';
+import type {Node} from 'react';
+import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
 
-2. Then, you need to use it in another React Native component. The syntax is the same as for any other component:
-   ```js title="App.js"
-   // ... other code
-   const App: () => Node = () => {
-     // ... other App code ...
-     return (
-       // ...other React Native elements...
-       <RTNCenteredText
-         text="Hello World!"
-         style={{width: '100%', height: 30}}
-       />
-       // ...other React Native Elements
-     );
-   };
-   ```
+const App: () => Node = () => {
+  return (
+    <RTNCenteredText
+      text="Hello World!"
+      style={{width: '100%', height: 30}}
+    />
+  );
+};
+export default App;
+```
+
+</TabItem>
+<TabItem value="typescript">
+
+```typescript title="App.tsx"
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
+import React from 'react';
+import RTNCenteredText from 'rtn-centered-text/js/RTNCenteredTextNativeComponent';
+
+const App: () => JSX.Element = () => {
+  return (
+    <RTNCenteredText
+      text="Hello World!"
+      style={{width: '100%', height: 30}}
+    />
+  );
+};
+export default App;
+```
+
+</TabItem>
+</Tabs>
 
 Now, you can run the React Native app and see your Component on the screen.

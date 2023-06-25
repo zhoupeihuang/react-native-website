@@ -9,7 +9,7 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
 
 ### Image Resize Mode
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Image%20Resize%20Modes%20Function%20Component%20Example
@@ -182,7 +182,7 @@ export default DisplayAnImageWithStyle;
 
 ### Image Border
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Style%20BorderWidth%20and%20BorderColor%20Function%20Component%20Example
@@ -265,7 +265,7 @@ export default DisplayAnImageWithStyle;
 
 ### Image Border Radius
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Style%20Border%20Radius%20Function%20Component%20Example
@@ -416,7 +416,7 @@ export default DisplayAnImageWithStyle;
 
 ### Image Tint
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
+<Tabs groupId="syntax" queryString defaultValue={constants.defaultSyntax} values={constants.syntax}>
 <TabItem value="functional">
 
 ```SnackPlayer name=Style%20tintColor%20Function%20Component
@@ -612,9 +612,34 @@ For details of how this works under the hood, see [Fresco documentation](https:/
 
 ### `resizeMode`
 
+Determines how to resize the image when the frame doesn't match the raw image dimensions. Defaults to `cover`.
+
+- `cover`: Scale the image uniformly (maintain the image's aspect ratio) so that:
+
+  - Both dimensions (width and height) of the image will be equal to or larger than the corresponding dimension of the view (minus padding)
+  - At least one dimension of the scaled image will be equal to the corresponding dimension of the view (minus padding)
+
+- `contain`: Scale the image uniformly (maintain the image's aspect ratio) so that both dimensions (width and height) of the image will be equal to or less than the corresponding dimension of the view (minus padding).
+
+- `stretch`: Scale width and height independently, This may change the aspect ratio of the src.
+
+- `repeat`: Repeat the image to cover the frame of the view. The image will keep its size and aspect ratio, unless it is larger than the view, in which case it will be scaled down uniformly so that it is contained in the view.
+
+- `center`: Center the image in the view along both dimensions. If the image is larger than the view, scale it down uniformly so that it is contained in the view.
+
 | Type                                                              | Default   |
 | ----------------------------------------------------------------- | --------- |
 | enum(`'cover'`, `'contain'`, `'stretch'`, `'repeat'`, `'center'`) | `'cover'` |
+
+---
+
+### `objectFit`
+
+Determines how to resize the image when the frame doesn't match the raw image dimensions.
+
+| Type                                                   | Default   |
+| ------------------------------------------------------ | --------- |
+| enum(`'cover'`, `'contain'`, `'fill'`, `'scale-down'`) | `'cover'` |
 
 ---
 

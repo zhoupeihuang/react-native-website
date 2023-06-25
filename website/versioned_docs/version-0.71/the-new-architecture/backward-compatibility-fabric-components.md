@@ -40,7 +40,7 @@ While the last step is the same for all the platforms, the first two steps are d
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs Fabric Native Components using [Cocoapods](https://cocoapods.org) as a dependency manager.
+The Apple platform installs Fabric Native Components using [CocoaPods](https://cocoapods.org) as a dependency manager.
 
 If you are already using the [`install_module_dependencies`](https://github.com/facebook/react-native/blob/82e9c6ad611f1fb816de056ff031716f8cb24b4e/scripts/react_native_pods.rb#L145) function, then **there is nothing to do**. The function already takes care of installing the proper dependencies when the New Architecture is enabled and avoiding them when it is not enabled.
 
@@ -304,7 +304,7 @@ my-component
 
 The code that should go in the `MyComponentViewManagerImpl.java` and that can be shared between the Native Component and the Fabric Native Component is, for example:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="example of MyComponentViewManager.java"
@@ -352,7 +352,7 @@ Then, the Native Component and the Fabric Native Component can be updated using 
 
 For example, for a Native Component:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="Native Component using the ViewManagerImpl"
@@ -410,7 +410,7 @@ class MyComponentViewManager(var context: ReactApplicationContext) : SimpleViewM
 
 And, for a Fabric Native Component:
 
-<Tabs groupId="android-language" defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
 <TabItem value="java">
 
 ```java title="Fabric Component using the ViewManagerImpl"
@@ -499,7 +499,7 @@ import MyComponent from 'your-component/src/index';
 
 Since `codegenNativeComponent` is calling the `requireNativeComponent` under the hood, we need to re-export our component, to avoid registering it multiple times.
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">

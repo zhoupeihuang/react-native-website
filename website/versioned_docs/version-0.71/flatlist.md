@@ -22,7 +22,7 @@ If you need section support, use [`<SectionList>`](sectionlist.md).
 
 ## Example
 
-<Tabs groupId="language" defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
+<Tabs groupId="language" queryString defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
 <TabItem value="javascript">
 
 ```SnackPlayer name=flatlist-simple&ext=js
@@ -166,7 +166,7 @@ More complex, selectable example below.
 - By passing `extraData={selectedId}` to `FlatList` we make sure `FlatList` itself will re-render when the state changes. Without setting this prop, `FlatList` would not know it needs to re-render any items because it is a `PureComponent` and the prop comparison will not show any changes.
 - `keyExtractor` tells the list to use the `id`s for the react keys instead of the default `key` property.
 
-<Tabs groupId="language" defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
+<Tabs groupId="language" queryString defaultValue={constants.dewfaultSnackLanguage} values={constants.snackLanguages}>
 <TabItem value="javascript">
 
 ```SnackPlayer name=flatlist-selectable&ext=js
@@ -642,10 +642,9 @@ If provided, a standard RefreshControl will be added for "Pull to Refresh" funct
 
 Called when the viewability of rows changes, as defined by the `viewabilityConfig` prop.
 
-| Type |
-| ---- |
-
-| (callback: {changed: [ViewToken](viewtoken)[], viewableItems: [ViewToken](viewtoken)[]} => void;
+| Type                                                                                             |
+| ------------------------------------------------------------------------------------------------ |
+| (callback: {changed: [ViewToken](viewtoken)[], viewableItems: [ViewToken](viewtoken)[]} => void; |
 
 ---
 
@@ -683,7 +682,7 @@ This may improve scroll performance for large lists. On Android the default valu
 
 ### `viewabilityConfig`
 
-See [`ViewabilityHelper.js`](https://github.com/facebook/react-native/blob/master/Libraries/Lists/ViewabilityHelper.js) for flow type and further documentation.
+See [`ViewabilityHelper.js`](https://github.com/facebook/react-native/blob/0.71-stable/Libraries/Lists/ViewabilityHelper.js) for flow type and further documentation.
 
 | Type              |
 | ----------------- |

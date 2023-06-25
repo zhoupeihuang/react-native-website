@@ -6,7 +6,7 @@ You will need Node, the React Native command line interface, a JDK, and Android 
 
 While you can use any editor of your choice to develop your app, you will need to install Android Studio in order to set up the necessary tooling to build your React Native app for Android.
 
-<h3>Node, JDK</h3>
+<h3 id="jdk">Node, JDK</h3>
 
 We recommend installing Node via [Chocolatey](https://chocolatey.org), a popular package manager for Windows.
 
@@ -30,7 +30,7 @@ If you have already installed Node on your system, make sure it is Node 14 or ne
 
 Setting up your development environment can be somewhat tedious if you're new to Android development. If you're already familiar with Android development, there are a few things you may need to configure. In either case, please make sure to carefully follow the next few steps.
 
-<h4>1. Install Android Studio</h4>
+<h4 id="android-studio">1. Install Android Studio</h4>
 
 [Download and install Android Studio](https://developer.android.com/studio/index.html). While on Android Studio installation wizard, make sure the boxes next to all of the following items are checked:
 
@@ -45,9 +45,9 @@ Then, click "Next" to install all of these components.
 
 Once setup has finalized and you're presented with the Welcome screen, proceed to the next step.
 
-<h4>2. Install the Android SDK</h4>
+<h4 id="android-sdk">2. Install the Android SDK</h4>
 
-Android Studio installs the latest Android SDK by default. Building a React Native app with native code, however, requires the `Android 12 (S)` SDK in particular. Additional Android SDKs can be installed through the SDK Manager in Android Studio.
+Android Studio installs the latest Android SDK by default. Building a React Native app with native code, however, requires the `Android 13 (Tiramisu)` SDK in particular. Additional Android SDKs can be installed through the SDK Manager in Android Studio.
 
 To do that, open Android Studio, click on "More Actions" button and select "SDK Manager".
 
@@ -55,12 +55,12 @@ To do that, open Android Studio, click on "More Actions" button and select "SDK 
 
 > The SDK Manager can also be found within the Android Studio "Preferences" dialog, under **Appearance & Behavior** → **System Settings** → **Android SDK**.
 
-Select the "SDK Platforms" tab from within the SDK Manager, then check the box next to "Show Package Details" in the bottom right corner. Look for and expand the `Android 12 (S)` entry, then make sure the following items are checked:
+Select the "SDK Platforms" tab from within the SDK Manager, then check the box next to "Show Package Details" in the bottom right corner. Look for and expand the `Android 13 (Tiramisu)` entry, then make sure the following items are checked:
 
-- `Android SDK Platform 31`
+- `Android SDK Platform 33`
 - `Intel x86 Atom_64 System Image` or `Google APIs Intel x86 Atom System Image`
 
-Next, select the "SDK Tools" tab and check the box next to "Show Package Details" here as well. Look for and expand the `Android SDK Build-Tools` entry, then make sure that `31.0.0` is selected.
+Next, select the "SDK Tools" tab and check the box next to "Show Package Details" here as well. Look for and expand the `Android SDK Build-Tools` entry, then make sure that `33.0.0` is selected.
 
 Finally, click "Apply" to download and install the Android SDK and related build tools.
 
@@ -115,7 +115,7 @@ React Native has a built-in command line interface. Rather than install and mana
 React Native has a built-in command line interface, which you can use to generate a new project. You can access it without installing anything globally using `npx`, which ships with Node.js. Let's create a new React Native project called "AwesomeProject":
 
 ```shell
-npx react-native init AwesomeProject
+npx react-native@latest init AwesomeProject
 ```
 
 This is not necessary if you are integrating React Native into an existing application, if you "ejected" from Expo, or if you're adding Android support to an existing React Native project (see [Integration with Existing Apps](integration-with-existing-apps.md)). You can also use a third-party CLI to init your React Native app, such as [Ignite CLI](https://github.com/infinitered/ignite).
@@ -125,7 +125,7 @@ This is not necessary if you are integrating React Native into an existing appli
 If you want to start a new project with a specific React Native version, you can use the `--version` argument:
 
 ```shell
-npx react-native init AwesomeProject --version X.XX.X
+npx react-native@X.XX.X init AwesomeProject --version X.XX.X
 ```
 
 You can also start a project with a custom React Native template with the `--template` argument.
@@ -146,7 +146,7 @@ If you use Android Studio to open `./AwesomeProject/android`, you can see the li
 
 ![Android Studio AVD Manager](/docs/assets/GettingStartedAndroidStudioAVD.png)
 
-If you have recently installed Android Studio, you will likely need to [create a new AVD](https://developer.android.com/studio/run/managing-avds.html). Select "Create Virtual Device...", then pick any Phone from the list and click "Next", then select the **S** API Level 31 image.
+If you have recently installed Android Studio, you will likely need to [create a new AVD](https://developer.android.com/studio/run/managing-avds.html). Select "Create Virtual Device...", then pick any Phone from the list and click "Next", then select the **Tiramisu** API Level 33 image.
 
 > If you don't have HAXM installed, click on "Install HAXM" or follow [these instructions](https://github.com/intel/haxm/wiki/Installation-Instructions-on-Windows) to set it up, then go back to the AVD Manager.
 
@@ -190,7 +190,7 @@ If everything is set up correctly, you should see your new app running in your A
 
 Now that you have successfully run the app, let's modify it.
 
-- Open `App.js` in your text editor of choice and edit some lines.
+- Open `App.tsx` in your text editor of choice and edit some lines.
 - Press the `R` key twice or select `Reload` from the Developer Menu (`Ctrl + M`) to see your changes!
 
 <h3>That's it!</h3>
