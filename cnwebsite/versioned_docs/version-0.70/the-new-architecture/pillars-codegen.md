@@ -151,7 +151,7 @@ codegen
 
 一旦 Gradle 任务执行完毕，您就能看到所生成的不同结构的 TurboModule 或 Fabric 组件代码文件。以下标签页展示它们各自的目录文件结构：
 
-<Tabs groupId="android-codegen" defaultValue={constants.defaultNewArchFeature} values={constants.newArchFeatures}>
+<Tabs groupId="android-codegen" queryString defaultValue={constants.defaultNewArchFeature} values={constants.newArchFeatures}>
 <TabItem value="turbomodules">
 
 ```sh

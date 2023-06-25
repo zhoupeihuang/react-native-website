@@ -20,7 +20,10 @@ module.exports = {
   projectName: 'react-native',
   url: 'https://reactnative.cn',
   baseUrl: '/',
-  clientModules: [require.resolve('./snackPlayerInitializer.js')],
+  clientModules: [
+    require.resolve('./modules/snackPlayerInitializer.js'),
+    require.resolve('./modules/jumpToFragment.js'),
+  ],
   trailingSlash: false,
   scripts: [
     {src: '//snack.expo.dev/embed.js', defer: true},

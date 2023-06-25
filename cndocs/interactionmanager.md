@@ -15,9 +15,9 @@ InteractionManager.runAfterInteractions(() => {
 
 和其他的延迟计划函数对比：
 
-* requestAnimationFrame(): 用来执行在一段时间内控制视图动画的代码。
-* setImmediate/setTimeout(): 在稍后执行代码。注意这有可能会延迟当前正在进行的动画。
-* runAfterInteractions(): 在稍后执行代码，不会延迟当前进行的动画。
+- `requestAnimationFrame()` 用来执行在一段时间内控制视图动画的代码。
+- `setImmediate/setTimeout()` 在稍后执行代码。注意这有可能会延迟当前正在进行的动画。
+- `runAfterInteractions()` 在稍后执行代码，不会延迟当前进行的动画。
 
 触摸处理系统会把一个或多个进行中的触摸操作认定为'交互'，并且会将`runAfterInteractions()`的回调函数延迟执行，直到所有的触摸操作都结束或取消了。
 
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-> **注意**: `InteractionManager.runAfterInteractions()`在web上不能正常工作。它会立即触发而不是等待交互动画结束。
+> **注意**: `InteractionManager.runAfterInteractions()`在 web 上不能正常工作。它会立即触发而不是等待交互动画结束。
 
 ---
 

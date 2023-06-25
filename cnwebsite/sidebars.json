@@ -20,7 +20,13 @@
     "开发流程": [
       "running-on-device",
       "fast-refresh",
-      "debugging",
+      {
+        "type": "category",
+        "label": "调试",
+        "collapsible": false,
+        "collapsed": false,
+        "items": ["debugging", "react-devtools", "native-debugging"]
+      },
       "symbolication",
       "testing-overview",
       "libraries",
@@ -63,6 +69,7 @@
     "性能调优": [
       "performance",
       "build-speed",
+      "speeding-ci-builds",
       "optimizing-flatlist-configuration",
       "ram-bundles-inline-requires",
       "profiling",
