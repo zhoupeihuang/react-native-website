@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "docusaurus start",
-    "build": "docusaurus build && yarn run update-redirect ./build/_redirects ./versions.json",
+    "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve",
