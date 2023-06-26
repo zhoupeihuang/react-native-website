@@ -1,6 +1,6 @@
 ---
 id: cxx-custom-types
-title: Supporting Custom C++ Types
+title: 支持自定义 C++ 类型
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,17 +10,17 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-By default C++ Turbo Native Modules support [bridging functionality](https://github.com/facebook/react-native/tree/main/ReactCommon/react/bridging) for most `std::` standard types.
+默认情况下，C++ Turbo Native 模块支持大多数 `std::` 标准类型的[桥接功能](https://github.com/facebook/react-native/tree/main/packages/react-native/ReactCommon/react/bridging)。
 
-If you want to add support for new / custom types in your app / library, you only need to provide the necessary `bridging` header file.
+如果您想在应用程序 / 库中添加对新 / 自定义类型的支持，则只需提供必要的`桥接`头文件即可。
 
-This guide continues the previous [C++ Turbo Native Modules](./cxx-cxxturbomodules) section.
+本指南延续上一节[C++ Turbo 原生模块](./cxx-cxxturbomodules)。
 
-## 示例：Int64
+## 实例: Int64
 
-C++ Turbo Native Modules don't support `int64_t` numbers yet - because JavaScript doesn't support numbers greater `2^53`.
+C++ Turbo 原生模块尚不支持`int64_t`数字 - 因为 JavaScript 不支持大于`2^53`的数字。
 
-We can't represent numbers > `2^53` as JavaScript `number`'s - but we can represent them as JavaScript `string`'s and automatically convert (aka. `bridge`) them to C++ `int64_t`'s by creating a custom Bridging header file called `Int64.h` in the `tm` folder:
+我们无法将 > `2^53` 的数字表示为JavaScript 的`number`类型，但我们可以将它们表示为 JavaScript 的`string`类型并通过在`tm`文件夹中创建名为`Int64.h`的自定义桥接头文件来自动把它们转换到 C++ 的`int64_t`类型: 
 
 ```cpp Int64.h
 #pragma once
@@ -63,7 +63,7 @@ Omitting either `fromJS` or `toJS` would make you `bridging` header either _read
 
 Now you can add the following function to your JavaScript spec:
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -157,7 +157,7 @@ export type CustomType = {
 
 which can be exposed to your C++ Turbo Native Module via
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -271,8 +271,8 @@ With `std::string, bool, std::optional<int32_t>` you define the property types o
 
 Without any custom conversion functions:
 
-- you can only `bridge` a JS string to a [std::string](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/AString.h) and a JS boolean to a [bool](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/Bool.h).
-- but you can choose different JS `number` [representations in C++](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/Number.h).
+- you can only `bridge` a JS string to a [std::string](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/AString.h) and a JS boolean to a [bool](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/Bool.h).
+- but you can choose different JS `number` [representations in C++](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/Number.h).
 
 #### Base class
 
