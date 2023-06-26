@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
 export default App;
 ```
 
-> **注意**: `InteractionManager.runAfterInteractions()`在web上不能正常工作。它会立即触发而不是等待交互动画结束。
+> **注意**: `InteractionManager.runAfterInteractions()`在 web 上不能正常工作。它会立即触发而不是等待交互动画结束。
 
 ---
 

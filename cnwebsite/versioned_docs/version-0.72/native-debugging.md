@@ -12,7 +12,6 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
   </p>
 </div>
 
-
 ## 访问控制台日志
 
 在运行 RN 应用时，可以在终端中运行如下命令来查看控制台的日志：
@@ -31,4 +30,3 @@ If you're using Expo CLI, console logs already appear in the same terminal outpu
 ## 调试原生代码
 
 在和原生代码打交道时（比如编写原生模块），可以直接从 Android Studio 或是 Xcode 中启动应用，并利用这些 IDE 的内置功能来调试（比如设置断点）。这一方面和开发原生应用并无二致。
-

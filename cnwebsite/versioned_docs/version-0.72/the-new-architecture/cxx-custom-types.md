@@ -1,6 +1,6 @@
 ---
 id: cxx-custom-types
-title: Supporting Custom C++ Types
+title: 支持自定义 C++ 类型
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,17 +10,17 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-By default C++ Turbo Native Modules support [bridging functionality](https://github.com/facebook/react-native/tree/main/ReactCommon/react/bridging) for most `std::` standard types.
+默认情况下，C++ Turbo Native 模块支持大多数 `std::` 标准类型的[桥接功能](https://github.com/facebook/react-native/tree/main/packages/react-native/ReactCommon/react/bridging)。
 
-If you want to add support for new / custom types in your app / library, you only need to provide the necessary `bridging` header file.
+如果您想在应用程序 / 库中添加对新 / 自定义类型的支持，则只需提供必要的`桥接`头文件即可。
 
-This guide continues the previous [C++ Turbo Native Modules](./cxx-cxxturbomodules) section.
+本指南延续上一节[C++ Turbo 原生模块](./cxx-cxxturbomodules)。
 
-## 示例：Int64
+## 实例: Int64
 
-C++ Turbo Native Modules don't support `int64_t` numbers yet - because JavaScript doesn't support numbers greater `2^53`.
+C++ Turbo 原生模块尚不支持`int64_t`数字 - 因为 JavaScript 不支持大于`2^53`的数字。
 
-We can't represent numbers > `2^53` as JavaScript `number`'s - but we can represent them as JavaScript `string`'s and automatically convert (aka. `bridge`) them to C++ `int64_t`'s by creating a custom Bridging header file called `Int64.h` in the `tm` folder:
+我们无法将 > `2^53` 的数字表示为 JavaScript 的`number`类型，但我们可以将它们表示为 JavaScript 的`string`类型并通过在`tm`文件夹中创建名为`Int64.h`的自定义桥接头文件来自动把它们转换到 C++ 的`int64_t`类型:
 
 ```cpp Int64.h
 #pragma once
@@ -53,17 +53,17 @@ struct Bridging<int64_t> {
 } // namespace facebook::react
 ```
 
-The key components for your custom `bridging` header are:
+自定义的桥接头文件的关键组件包括：
 
-- Explicit specialization of the `Bridging` struct for your custom type, `int64_t` in this case
-- A `fromJs` function to convert from `jsi::` types to your custom type
-- A `toJS` function to convert from your custom type to `jsi:` types
+- 明确指定`Bridging`结构体为自定义的类型，本例中为`int64_t`
+- 一个 `fromJs` 函数将从 `jsi::` 类型转换为自定义的类型
+- 一个 `toJS` 函数将从自定义的类型转换为 `jsi:` 类型
 
-Omitting either `fromJS` or `toJS` would make you `bridging` header either _readonly_ or _writeonly_.
+省略任一函数都会使你的桥接头文件成为 _只读_ 或 _只写_ 。
 
-Now you can add the following function to your JavaScript spec:
+现在，您可以向 JavaScript 规范添加以下函数：
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -84,7 +84,7 @@ Now you can add the following function to your JavaScript spec:
 </TabItem>
 </Tabs>
 
-Declare it in your `NativeSampleModule.h` file and include the `Int64.h` header file:
+在你的 `NativeSampleModule.h` 文件中声明它并包含 `Int64.h` 头文件：
 
 ```cpp
 //...
@@ -93,7 +93,7 @@ Declare it in your `NativeSampleModule.h` file and include the `Int64.h` header 
 int32_t cubicRoot(jsi::Runtime& rt, int64_t input);
 ```
 
-And implement it in `NativeSampleModule.cpp`:
+并将其实现在`NativeSampleModule.cpp`中：
 
 ```cpp
 //...
@@ -104,7 +104,7 @@ int32_t NativeSampleModule::cubicRoot(jsi::Runtime& rt, int64_t input) {
 }
 ```
 
-In your app you can call this new native function via:
+在您的应用中，您可以通过以下方式调用此新的本地函数：
 
 ```js
 <Section title="Cxx TurboModule">
@@ -115,11 +115,11 @@ In your app you can call this new native function via:
 </Section>
 ```
 
-which should return `2097152`.
+应该返回 `2097152`。
 
 ## 任意自定义类型
 
-Similar to the example above you can now write custom `bridging` functionality for any custom C++ type you want to expose to react-native. E.g., you can add support for `folly::StringPiece`, `QString`, `boost::filesystem::path`, `absl::optional` or any other type you need to support in your C++ Turbo Native Modules.
+与上面的示例类似，您现在可以为要公开给 React Native 的任何自定义 C++ 类型编写自定义桥接功能。例如，您可以在 C++ Turbo 原生模块中添加对`folly::StringPiece`、`QString`、`boost::filesystem::path`、`absl::optional`或其他任何需要支持的类型。
 
 ```cpp title="Path.h"
 #pragma once
@@ -143,9 +143,9 @@ struct Bridging<boost::filesystem::path> {
 } // namespace facebook::react
 ```
 
-## Custom structs
+## 自定义结构体
 
-You can use the same approach for you custom types in JavaScript such as this one:
+你可以使用相同的方法来处理 JavaScript 中的自定义类型，例如：
 
 ```js
 export type CustomType = {
@@ -155,9 +155,9 @@ export type CustomType = {
 };
 ```
 
-which can be exposed to your C++ Turbo Native Module via
+可以通过 C++ Turbo 原生模块公开访问
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -178,9 +178,9 @@ which can be exposed to your C++ Turbo Native Module via
 </TabItem>
 </Tabs>
 
-### Manually typed
+### 手动声明类型
 
-To use this custom type in C++, you need to define your custom Struct and `bridging` function e.g., directly in `NativeSampleModule.h`:
+要在 C++ 中使用此自定义类型，您需要在`NativeSampleModule.h`文件中直接定义自己的结构体和桥接函数：
 
 ```cpp
 struct CustomType {
@@ -216,13 +216,13 @@ struct Bridging<CustomType> {
 };
 ```
 
-Declare it in your `NativeSampleModule.h` file:
+在你的 `NativeSampleModule.h` 文件中声明它：
 
 ```cpp
   CustomType passCustomType(jsi::Runtime& rt, CustomType input);
 ```
 
-Implement it in `NativeSampleModule.cpp`:
+在 `NativeSampleModule.cpp` 文件中实现:
 
 ```cpp
 CustomType NativeSampleModule::passCustomType(jsi::Runtime& rt, CustomType input) {
@@ -233,7 +233,7 @@ CustomType NativeSampleModule::passCustomType(jsi::Runtime& rt, CustomType input
 }
 ```
 
-In your app you can call this new native function via:
+在应用中，可以通过以下方式调用此新的原生函数：
 
 ```js
 <Section title="Cxx TurboModule">
@@ -248,13 +248,13 @@ In your app you can call this new native function via:
 </Section>
 ```
 
-which should return `{"key":"1909","enabled":false","time":42}`.
+应该会返回`{"key":"1909","enabled":false","time":42}`。
 
-This works - but is quite complex.
+以上做法可行，但比较复杂。
 
-### Struct generator
+### 结构体生成器
 
-[**Codegen**](pillars-codegen.md) for C++ Turbo Native Modules does support struct generators, so you can simplify the code above in `NativeSampleModule.h` to:
+[**Codegen**](pillars-codegen.md) 支持 C++ Turbo 原生模块的结构体生成器，因此您可以将 `NativeSampleModule.h` 中的代码简化为：
 
 ```cpp
 using CustomType = NativeSampleModuleBaseCustomType<std::string, bool, std::optional<int32_t>>;
@@ -263,23 +263,23 @@ struct Bridging<CustomType>
     : NativeSampleModuleBaseCustomTypeBridging<std::string, bool, std::optional<int32_t>> {};
 ```
 
-With `using CustomType` you declare a name for your concrete struct.
+使用 `using CustomType` 可以为你的具体结构体声明一个名称。
 
-#### Member types
+#### 成员类型
 
-With `std::string, bool, std::optional<int32_t>` you define the property types of the struct members in the order they were defined in your JavaScript spec. The **order matters**. The _1st_ template argument refers to the _1st_ data type of the struct, and so forth.
+使用 `std::string、bool 和 std::optional<int32_t>`，您可以按照在 JavaScript 规范中定义的顺序定义结构成员的属性类型。**顺序很重要**。第一个模板参数指的是结构体的第一个数据类型，依此类推。
 
-Without any custom conversion functions:
+如果没有任何自定义转换函数：
 
-- you can only `bridge` a JS string to a [std::string](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/AString.h) and a JS boolean to a [bool](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/Bool.h).
-- but you can choose different JS `number` [representations in C++](https://github.com/facebook/react-native/blob/main/ReactCommon/react/bridging/Number.h).
+- 您只能将 JS 字符串桥接到 [std::string](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/AString.h)，并将 JS 布尔值桥接到 [bool](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/Bool.h)。
+- 但是您可以选择不同的 JS `number` 的[C++表示方式](https://github.com/facebook/react-native/blob/main/packages/react-native/ReactCommon/react/bridging/Number.h)。
 
-#### Base class
+#### 基类
 
-`NativeSampleModuleBaseCustomType` is an auto-generated template in your `AppSpecsJSI.h` which name is generated by:
+`NativeSampleModuleBaseCustomType` 是在你的 `AppSpecsJSI.h` 中自动生成的模板，其名称由以下内容生成：
 
-- `NativeSampleModule` (name of C++ Turbo Native Module in the JavaScript spec) +
-- `Base` (constant) +
-- `CustomType` (name of type in the JavaScript spec)
+- `NativeSampleModule`（C++ Turbo 原生模块在 JavaScript 规范中的名称）+
+- `Base`（常量）+
+- `CustomType`（JavaScript 规范中类型的名称）
 
-The same naming schema applies to the necessary `Bridging` struct which is defined via `struct Bridging<CustomType>`.
+同样的命名规则也适用于必要的 `Bridging` 结构体，该结构体通过 `struct Bridging<CustomType>` 定义。
