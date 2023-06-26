@@ -1,6 +1,6 @@
 ---
 id: cxx-cxxturbomodules
-title: C++ Turbo Native Modules
+title: C++ Turbo 原生模块
 ---
 
 import Tabs from '@theme/Tabs';
@@ -10,9 +10,9 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-This guide shows you how to implement a Turbo Native Module using C++ only, a way to share the same implementation with any supported platform (Android, iOS, macOS or Windows).
+本指南将向您展示如何仅使用 C++ 实现Turbo 原生模块，以便与任何支持的平台（Android、iOS、macOS或Windows）共享相同的实现。
 
-Before continuing with this guide, please read the [Turbo Native Modules](./pillars-turbomodule.md) section. As a further reference, we prepared an example for the RNTester app ([NativeCxxModuleExample](https://github.com/facebook/react-native/tree/main/packages/rn-tester/NativeCxxModuleExample)) and a sample run in our community repository ([run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)).
+在继续本指南之前，请阅读[Turbo Native Modules](./pillars-turbomodule.md)部分。作为进一步参考，我们为 RNTester 应用准备了一个示例（[NativeCxxModuleExample](https://github.com/facebook/react-native/tree/main/packages/rn-tester/NativeCxxModuleExample)），并在我们的社区代码库中提供了另一个示例（[run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)）。
 
 :::caution 注意
 C++ Turbo Native Modules work with the **New Architecture** enabled.
@@ -33,7 +33,7 @@ To create a C++ Turbo Native Module, you need to:
 As first step, create a new application:
 
 ```sh
-npx react-native@v0.71.0-rc.3 init CxxTurboModulesGuide --version v0.71.0-rc.3
+npx react-native init CxxTurboModulesGuide
 cd CxxTurboModulesGuide
 yarn install
 ```
@@ -67,7 +67,7 @@ CxxTurboModulesGuide
 
 Create the following spec inside the `tm` folder:
 
-<Tabs groupId="turbomodule-specs" defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
+<Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
 
 ```typescript title="NativeSampleModule.ts"
@@ -134,7 +134,7 @@ Update your app's `package.json` file with the following entries:
 
 It adds necessary properties which we will later re-use in the iOS `podspec` file and configures **Codegen** to search for specs inside the `tm` folder.
 
-:::caution 注意
+:::caution
 C++ Turbo Native Modules don't autolink and need to be manually included into the app with the described steps below.
 :::
 
@@ -212,7 +212,7 @@ android {
 }
 ```
 
-:::note 备注
+:::note
 Ensure to pick the correct **android/app/build.gradle** file and not android/build.gradle.
 :::
 
@@ -228,7 +228,7 @@ To register a C++ Turbo Native Module in your app you will need to update `ios/C
 #import <React/RCTBundleURLProvider.h>
 + #import <React/CoreModulesPlugins.h>
 + #import <ReactCommon/RCTTurboModuleManager.h>
-+ #import <TurboModules/NativeSampleModule.h>
++ #import <NativeSampleModule.h>
 
 + @interface AppDelegate () <RCTTurboModuleManagerDelegate> {}
 + @end
@@ -260,7 +260,7 @@ Android apps aren't setup for native code compilation by default.
 
 1.) Create the folder `android/app/src/main/jni`
 
-2.) Copy `CMakeLists.txt` and `Onload.cpp` from [node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/v0.71.0-rc.3/ReactAndroid/cmake-utils/default-app-setup) into the `android/app/src/main/jni` folder.
+2.) Copy `CMakeLists.txt` and `Onload.cpp` from [node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/main/packages/react-native/ReactAndroid/cmake-utils/default-app-setup) into the `android/app/src/main/jni` folder.
 
 Update `Onload.cpp` with the following entries:
 
@@ -309,7 +309,7 @@ For the final step, you'll need to write some native code to connect the JavaScr
 
 ### Run Codegen
 
-:::info 提示
+:::info
 Follow the [Codegen](./pillars-codegen) guide for general information.
 :::
 
@@ -345,7 +345,7 @@ You can directly work with the lower level `jsi::` types - but for convience C++
 
 Now create a `NativeSampleModule.h` file with the following content:
 
-:::note 备注
+:::note
 Due to current differences in the CMake and CocoaPod setup we need some creativity to include the correct Codegen header on each platform.
 :::
 
@@ -415,7 +415,7 @@ CxxTurboModulesGuide
 │   └── CxxTurboModulesGuide
 │       └── AppDelegate.mm (updated)
 ├── js
-    └── App.tsx|jsx (updated)
+│   └── App.tsx|jsx (updated)
 └── tm
     ├── CMakeLists.txt
     ├── NativeSampleModule.h
