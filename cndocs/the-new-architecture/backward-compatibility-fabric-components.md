@@ -1,6 +1,6 @@
 ---
 id: backward-compatibility-fabric-components
-title: Fabric Components as Native Components
+title: 使 Fabric 组件与传统原生组件兼容
 ---
 
 import Tabs from '@theme/Tabs';
@@ -12,35 +12,45 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 <NewArchitectureWarning/>
 
 :::info 提示
-The creation of a backward compatible Fabric Component requires the knowledge of how to create a Fabric Component. To recall these concepts, have a look at this [guide](pillars-fabric-components).
+创建向后兼容的 Fabric 原生组件需要了解如何创建传统的原生组件。要回忆这些概念，请查看此[指南](pillars-fabric-components)。
 
-Fabric Components only work when the New Architecture is properly setup. If you already have a library that you want to migrate to the New Architecture, have a look at the [migration guide](../new-architecture-intro) as well.
+仅当正确设置了新架构时，Fabric 原生组件才能正常工作。如果您已经有一个要迁移到新架构的库，请参阅[迁移指南](../new-architecture-intro)。
 :::
 
-Creating a backward compatible Fabric Component lets your users continue leverage your library, independently from the architecture they use. The creation of such a component requires a few steps:
+创建向后兼容的 Fabric 原生组件可以让用户独立于他们使用的架构继续利用您的库。创建这样一个组件需要以下几个步骤：
 
-1. Configure the library so that dependencies are prepared set up properly for both the Old and the New Architecture.
-1. Update the codebase so that the New Architecture types are not compiled when not available.
-1. Uniform the JavaScript API so that your user code won't need changes.
+1. 配置库，使得依赖项能够为旧和新架构正确设置。
+2. 更新代码库，以便在不可用时不编译新架构类型。
+3. 统一 JavaScript API，使得用户代码无需更改。
+
+:::info 提示
+
+我们将在本指南中使用以下**术语**：
+
+- **传统原生组件** - 用于指代运行在旧版React Native架构上的组件。
+- **Fabric原生组件** - 用于指代已经适配新版原生渲染器Fabric的组件。为简洁起见，我们称之为**Fabric组件**。
+
+:::
 
 <BetaTS />
 
-While the last step is the same for all the platforms, the first two steps are different for iOS and Android.
+虽然最后一步对于所有平台都是相同的，但前两步在iOS和Android上是不同的。
 
-## Configure the Fabric Component Dependencies
+## 配置 Fabric 原生组件依赖
 
 ### <a name="dependencies-ios" />iOS
 
-The Apple platform installs Fabric Components using [Cocoapods](https://cocoapods.org) as dependency manager.
+Apple 平台使用 [Cocoapods](https://cocoapods.org) 作为依赖管理器来安装 Fabric 原生组件。
 
-Every Fabric Component defines a `podspec` that looks like this:
+如果您已经在使用[`install_module_dependencies`](https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L198)函数，那么**无需进行任何操作**。该函数已经在启用新架构时自动安装适当的依赖项，并在未启用时避免它们。
+
+否则，您的 Fabric 原生组件的`podspec`应如下所示：
 
 ```ruby
 require "json"
 
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
-folly_version = '2021.07.22.00'
 folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
 
 Pod::Spec.new do |s|
@@ -69,48 +79,66 @@ Pod::Spec.new do |s|
 
   s.dependency "React-RCTFabric"
   s.dependency "React-Codegen"
-  s.dependency "RCT-Folly", folly_version
+  s.dependency "RCT-Folly"
   s.dependency "RCTRequired"
   s.dependency "RCTTypeSafety"
   s.dependency "ReactCommon/turbomodule/core"
 end
 ```
 
-The **goal** is to avoid installing the dependencies when the app is prepared for the Old Architecture.
-
-When we want to install the dependencies, we use the following commands depending on the architecture:
-
-```sh
-# For the Old Architecture, we use:
-pod install
-
-# For the New Architecture, we use:
-RCT_NEW_ARCH_ENABLED=1 pod install
-```
-
-Therefore, we can leverage this environment variable in the `podspec` to exclude the settings and the dependencies that are related to the New Architecture:
+当启用新架构时，应安装额外的依赖项，并在未启用时避免安装它们。
+为了实现这一点，您可以使用 [`install_modules_dependencies`](https://github.com/facebook/react-native/blob/main/packages/react-native/scripts/react_native_pods.rb#L198)。请按照以下步骤更新 `.podspec` 文件：
 
 ```diff
-+ if ENV['RCT_NEW_ARCH_ENABLED'] == '1' then
-    # The following lines are required by the New Architecture.
-    s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
-    # ... other dependencies ...
-    s.dependency "ReactCommon/turbomodule/core"
-+ end
+require "json"
+
+package = JSON.parse(File.read(File.join(__dir__, "package.json")))
+
+- folly_compiler_flags = '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32'
+
+Pod::Spec.new do |s|
+  # Default fields for a valid podspec
+  s.name            = "<FC Name>"
+  s.version         = package["version"]
+  s.summary         = package["description"]
+  s.description     = package["description"]
+  s.homepage        = package["homepage"]
+  s.license         = package["license"]
+  s.platforms       = { :ios => "11.0" }
+  s.author          = package["author"]
+  s.source          = { :git => package["repository"], :tag => "#{s.version}" }
+
+  s.source_files    = "ios/**/*.{h,m,mm,swift}"
+  # React Native Core dependency
++  install_modules_dependencies(s)
+-  s.dependency "React-Core"
+-  # The following lines are required by the New Architecture.
+-  s.compiler_flags = folly_compiler_flags + " -DRCT_NEW_ARCH_ENABLED=1"
+-  s.pod_target_xcconfig    = {
+-      "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\"",
+-      "OTHER_CPLUSPLUSFLAGS" => "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1",
+-      "CLANG_CXX_LANGUAGE_STANDARD" => "c++17"
+-  }
+-
+-  s.dependency "React-RCTFabric"
+-  s.dependency "React-Codegen"
+-  s.dependency "RCT-Folly"
+-  s.dependency "RCTRequired"
+-  s.dependency "RCTTypeSafety"
+-  s.dependency "ReactCommon/turbomodule/core"
 end
 ```
 
-This `if` guard prevents the dependencies from being installed when the environment variable is not set.
-
 ### Android
 
-To create a module that can work with both architectures, you need to configure Gradle to choose which files need to be compiled depending on the chosen architecture. This can be achieved by using **different source sets** in the Gradle configuration.
+要创建一个在两种架构中都能使用的原生组件，您需要配置 Gradle 以根据所选架构选择哪些文件需要编译。这可以通过在Gradle配置中使用**不同的 sourceSets**来实现。
 
-:::note 备注
-Please note that this is currently the suggested approach. While it might lead to some code duplication, it will ensure the maximum compatibility with both architectures. You will see how to reduce the duplication in the next section.
+
+:::note 注意
+请注意，这是目前建议的方法。虽然可能会导致一些代码重复，但它将确保与两种架构的最大兼容性。您将在下一节中了解如何减少重复。
 :::
 
-To configure the Fabric Component so that it picks the proper sourceset, you have to update the `build.gradle` file in the following way:
+要配置 Fabric 原生组件以选择正确的 sourceSet，您需要按照以下方式更新 `build.gradle` 文件：
 
 ```diff title="build.gradle"
 +// Add this function in case you don't have it already
@@ -136,23 +164,23 @@ defaultConfig {
 }
 ```
 
-This changes do three main things:
+这些更改主要做了三个事情：
 
-1. The first lines define a function that returns whether the New Architecture is enabled or not.
-2. The `buildConfigField` line defines a build configuration boolean field called `IS_NEW_ARCHITECTURE_ENABLED`, and initialize it using the function declared in the first step. This allows you to check at runtime if a user has specified the `newArchEnabled` property or not.
-3. The last lines leverage the function declared in step one to decide which source sets we need to build, depending on the choosen architecture.
+1. 第一行定义了一个函数，用于返回新架构是否已启用。
+2. `buildConfigField` 行定义了一个名为 `IS_NEW_ARCHITECTURE_ENABLED` 的构建配置布尔字段，并使用第一步中声明的函数进行初始化。这允许您在运行时检查用户是否指定了 `newArchEnabled` 属性。
+3. 最后几行利用第一步中声明的函数来决定我们需要构建哪些源集，具体取决于所选择的架构。
 
-## Update the codebase
+## 更新代码库
 
 ### iOS
 
-The second step is to instruct Xcode to avoid compiling all the lines using the New Architecture types and files when we are building an app with the Old Architecture.
+第二步是指示 Xcode 在构建旧架构的应用程序时避免编译所有使用新架构类型和文件的行。
 
-A Fabric Component requires an header file and an implementation file to add the actual `View` to the module.
+Fabric 原生组件需要一个头文件和一个实现文件来将实际的`View`添加到模块中。
 
-For example, the `RNMyComponentView.h` header file could look like this:
+例如，`RNMyComponentView.h`头文件可能如下所示：
 
-```objective-c
+```objectivec title='RNMyComponentView.h'
 #import <React/RCTViewComponentView.h>
 #import <UIKit/UIKit.h>
 
@@ -171,7 +199,7 @@ NS_ASSUME_NONNULL_END
 
 The implementation `RNMyComponentView.mm` file, instead, could look like this:
 
-```objective-c
+```objectivec title='RNMyComponentView.mm'
 #import "RNMyComponentView.h"
 
 // <react/renderer imports>
@@ -213,7 +241,7 @@ Class<RCTComponentViewProtocol> MyComponentViewCls(void)
 @end
 ```
 
-To make sure that Xcode skips these files, we can wrap **both** of them in some `#ifdef RCT_NEW_ARCH_ENABLED` compilation pragma. For example, the header file could change as follows:
+为了确保 Xcode 跳过这些文件，我们可以将它们**同时**包含在一些 `#ifdef RCT_NEW_ARCH_ENABLED` 编译指令中。例如，头文件可以按以下方式更改：
 
 ```diff
 + #ifdef RCT_NEW_ARCH_ENABLED
@@ -226,28 +254,28 @@ To make sure that Xcode skips these files, we can wrap **both** of them in some 
 + #endif
 ```
 
-The same two lines should be added in the implementation file, as first and last lines.
+在实现文件中，应将相同的两行代码添加为第一行和最后一行。
 
-The above snippet uses the same `RCT_NEW_ARCH_ENABLED` flag used in the previous [section](#dependencies-ios). When this flag is not set, Xcode skips the lines within the `#ifdef` during compilation and it does not include them into the compiled binary. The compiled binary will have a the `RNMyComponentView.o` object but it will be an empty object.
+上面的片段使用了与前一个[部分](#dependencies-ios)中使用的`RCT_NEW_ARCH_ENABLED`标志相同。当未设置此标志时，Xcode在编译期间跳过`#ifdef`内的代码，并且不将其包含到已编译二进制文件中。已编译二进制文件将具有 `RNMyComponentView.o` 对象，但它将是一个空对象。
 
 ### Android
 
-As we can't use conditional compilation blocks on Android, we will define two different source sets. This will allow to create a backward compatible TurboModule with the proper source that is loaded and compiled depending on the used architecture.
+由于在 Android 上无法使用条件编译块，因此我们将定义两个不同的源集。这将允许创建一个向后兼容的 TurboModule，并根据所使用的架构加载和编译适当的源。
 
-Therefore, you have to:
+因此，您需要：
 
-1. Create a Native Component in the `src/oldarch` path. See [this guide](../native-components-android) to learn how to create a Native Component.
-2. Create a Fabric Component in the `src/newarch` path. See [this guide](pillars-fabric-components) to learn how to create a Fabric Component.
+1. 在 `src/oldarch` 路径中创建一个传统原生组件。请参阅 [此指南](../native-components-android) 以了解如何创建传统原生组件。
+2. 在 `src/newarch` 路径中创建一个 Fabric 原生组件。请参阅 [此指南](pillars-fabric-components) 以了解如何创建 Fabric 原生组件。
 
-and then instruct Gradle to decide which implementation to pick.
+然后指示 Gradle 决定选择哪个实现。
 
-Some files can be shared between a Native and a Fabric Component: these should be created or moved into a folder that is loaded by both the architectures. These files are:
+一些文件可以在 Legacy 和 Fabric 组件之间共享：这些文件应该被创建或移动到两种架构都加载的文件夹中。这些文件包括：
 
-- the `<MyComponentView>.java` that instantiate and configure the Android View for both the components.
-- the `<MyComponentView>ManagerImpl.java` file where which contains the logic of the ViewManager that can be shared between the Native and the Fabric Component.
-- the `<MyComponentView>Package.java` file used to load the component.
+- `<MyComponentView>.java` 实例化并配置用于两个组件的 Android View 的代码。
+- `<MyComponentView>ManagerImpl.java` 文件包含可在传统和 Fabric 组件之间共享的 ViewManager 的逻辑。
+- `<MyComponentView>Package.java` 文件用于加载组件。
 
-The final folder structure looks like this:
+最终目录结构如下：
 
 ```sh
 my-component
@@ -258,7 +286,7 @@ my-component
 │       │   ├── AndroidManifest.xml
 │       │   └── java
 │       │       └── com
-│       │           └── MyComponent
+│       │           └── mycomponent
 │       │               ├── MyComponentView.java
 │       │               ├── MyComponentViewManagerImpl.java
 │       │               └── MyComponentViewPackage.java
@@ -275,10 +303,14 @@ my-component
 └── package.json
 ```
 
-The code that should go in the `MyComponentViewManagerImpl.java` and that can be shared between the Native Component and the Fabric Component is, for example:
+应该放在`MyComponentViewManagerImpl.java`中的代码可以在原生组件和 Fabric 原生组件之间共享，例如：
+
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
 
 ```java title="example of MyComponentViewManager.java"
-package com.MyComponent;
+package com.mycomponent;
+
 import androidx.annotation.Nullable;
 import com.facebook.react.uimanager.ThemedReactContext;
 
@@ -291,14 +323,38 @@ public class MyComponentViewManagerImpl {
     }
 
     public static void setFoo(MyComponentView view, String param) {
-        // implement the logic of the foo function using the view and the param passed.
+        // 使用传递的视图和参数实现 foo 函数的逻辑。
     }
 }
 ```
 
-Then, the Native Component and the Fabric Component can be updated using the function declared in the shared manager.
+</TabItem>
+<TabItem value="kotlin">
 
-For example, for a Native Component:
+```kotlin title="example of MyComponentViewManager.kt"
+package com.mycomponent
+
+import com.facebook.react.uimanager.ThemedReactContext
+
+object MyComponentViewManagerImpl {
+  const val NAME = "MyComponent"
+  fun createViewInstance(context: ThemedReactContext?) = MyComponentView(context)
+
+  fun setFoo(view: MyComponentView, param: String) {
+    // 使用传递的视图和参数实现 foo 函数的逻辑。
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+然后，可以使用共享管理器中声明的函数更新传统原生组件和 Fabric 原生组件。
+
+例如，在传统原生组件中：
+
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
 
 ```java title="Native Component using the ViewManagerImpl"
 public class MyComponentViewManager extends SimpleViewManager<MyComponentView> {
@@ -311,29 +367,55 @@ public class MyComponentViewManager extends SimpleViewManager<MyComponentView> {
 
     @Override
     public String getName() {
-        // static NAME property from the shared implementation
+        // 从共享实现中获取静态名称属性
         return MyComponentViewManagerImpl.NAME;
     }
 
     @Override
     public MyComponentView createViewInstance(ThemedReactContext context) {
-        // static createViewInstance function from the shared implementation
+        // 从共享实现中获取静态createViewInstance函数
         return MyComponentViewManagerImpl.createViewInstance(context);
     }
 
     @ReactProp(name = "foo")
     public void setFoo(MyComponentView view, String param) {
-        // static custom function from the shared implementation
+        //// 从共享实现中获取静态自定义函数
         MyComponentViewManagerImpl.setFoo(view, param);
     }
 
 }
 ```
 
-And, for a Fabric Component:
+</TabItem>
+<TabItem value="kotlin">
+
+```kotlin title="Native Component using the ViewManagerImpl"
+class MyComponentViewManager(var context: ReactApplicationContext) : SimpleViewManager<MyComponentView>() {
+  // 从共享实现中获取静态名称属性
+  override fun getName() = MyComponentViewManagerImpl.NAME
+
+  public override fun createViewInstance(context: ThemedReactContext): MyComponentView =
+    // 从共享实现中获取静态createViewInstance函数
+    MyComponentViewManagerImpl.createViewInstance(context)
+
+  @ReactProp(name = "foo")
+  fun setFoo(view: MyComponentView, param: String) {
+    // 从共享实现中获取静态自定义函数
+    MyComponentViewManagerImpl.setFoo(view, param)
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+在 Fabric 原生组件中：
+
+<Tabs groupId="android-language" queryString defaultValue={constants.defaultAndroidLanguage} values={constants.androidLanguages}>
+<TabItem value="java">
 
 ```java title="Fabric Component using the ViewManagerImpl"
-// Use the static NAME property from the shared implementation
+// 从共享实现中获取静态名称属性
 @ReactModule(name = MyComponentViewManagerImpl.NAME)
 public class MyComponentViewManager extends SimpleViewManager<MyComponentView>
         implements MyComponentViewManagerInterface<MyComponentView> {
@@ -353,83 +435,87 @@ public class MyComponentViewManager extends SimpleViewManager<MyComponentView>
     @NonNull
     @Override
     public String getName() {
-        // static NAME property from the shared implementation
+        // 从共享实现中获取静态名称属性
         return MyComponentViewManagerImpl.NAME;
     }
 
     @NonNull
     @Override
     protected MyComponentView createViewInstance(@NonNull ThemedReactContext context) {
-        // static createViewInstance function from the shared implementation
+        // 从共享实现中获取静态createViewInstance函数
         return MyComponentViewManagerImpl.createViewInstance(context);
     }
 
     @Override
     @ReactProp(name = "foo")
     public void setFoo(MyComponentView view, @Nullable String param) {
-        // static custom function from the shared implementation
-        MyComponentViewManagerImpl.setFoo(view, param]);
+       // 从共享实现中获取静态自定义函数
+        MyComponentViewManagerImpl.setFoo(view, param);
     }
 }
 ```
 
-For a step-by-step example on how to achieve this, have a look at [this repo](https://github.com/react-native-community/RNNewArchitectureLibraries/tree/feat/back-fabric-comp).
+</TabItem>
+<TabItem value="kotlin">
 
-## Unify the JavaScript specs
+```kotlin title="Fabric Component using the ViewManagerImpl"
+// 从共享实现中获取静态名称属性
+@ReactModule(name = MyComponentViewManagerImpl.NAME)
+class MyComponentViewManager(context: ReactApplicationContext) : SimpleViewManager<MyComponentView>(), MyComponentViewManagerInterface<MyComponentView> {
+  private val delegate: ViewManagerDelegate<MyComponentView> = MyComponentViewManagerDelegate(this)
+
+  override fun getDelegate(): ViewManagerDelegate<MyComponentView> = delegate
+
+  // 从共享实现中获取静态名称属性
+  override fun getName(): String = MyComponentViewManagerImpl.NAME
+
+  override fun createViewInstance(context: ThemedReactContext): MyComponentView =
+    // 从共享实现中获取静态createViewInstance函数
+    MyComponentViewManagerImpl.createViewInstance(context)
+
+  @ReactProp(name = "foo")
+  override fun setFoo(view: MyComponentView, text: String) {
+    // 从共享实现中获取静态自定义函数
+    MyComponentViewManagerImpl.setFoo(view, param);
+  }
+}
+```
+
+</TabItem>
+</Tabs>
+
+想要了解如何一步步实现这个过程，可以查看[此示范仓库](https://github.com/react-native-community/RNNewArchitectureLibraries/tree/feat/back-fabric-comp)。
+
+## 统一 JavaScript 规范
 
 <BetaTS />
 
-The last step makes sure that the JavaScript behaves transparently to chosen architecture.
+最后一步确保 JavaScript 独立于所选架构。
 
-For a Fabric Component, the source of truth is the `<YourModule>NativeComponent.js` (or `.ts`) spec file. The app accesses the spec file like this:
+对于 Fabric 原生组件，关键点是`<YourModule>NativeComponent.js`(或`.ts`)规范文件。应用通过以下方式访问规范文件：
 
 ```ts
 import MyComponent from 'your-component/src/index';
 ```
 
-The **goal** is to conditionally `export` from the `index` file the proper object, given the architecture chosen by the user. We can achieve this with a code that looks like this:
+由于 `codegenNativeComponent` 在底层调用了 `requireNativeComponent`，我们需要重新导出组件，以避免多次注册。
 
-<Tabs groupId="fabric-component-backward-compatibility"
+<Tabs groupId="fabric-component-backward-compatibility" queryString
       defaultValue={constants.defaultFabricComponentSpecLanguage}
       values={constants.fabricComponentSpecLanguages}>
 <TabItem value="Flow">
 
 ```ts
 // @flow
-import {requireNativeComponent} from 'react-native';
-
-const isFabricEnabled = global.nativeFabricUIManager != null;
-
-const myComponent = isFabricEnabled
-  ? require('./MyComponentNativeComponent').default
-  : requireNativeComponent('MyComponent');
-
-export default myComponent;
+export default require('./MyComponentNativeComponent').default;
 ```
 
 </TabItem>
 <TabItem value="TypeScript">
 
 ```ts
-import requireNativeComponent from 'react-native/Libraries/ReactNative/requireNativeComponent';
-
-const isFabricEnabled = global.nativeFabricUIManager != null;
-
-const myComponent = isFabricEnabled
-  ? require('./MyComponentNativeComponent').default
-  : requireNativeComponent('MyComponent');
-
-export default myComponent;
+export default require('./MyComponentNativeComponent').default;
 ```
 
 </TabItem>
 </Tabs>
-
-Whether you are using Flow or TypeScript for your specs, we understand which architecture is running by checking if the `global.nativeFabricUIManager` object has been set or not.
-
-:::caution 注意
-Please note that the New Architecture is still experimental. The `global.nativeFabricUIManager` API might change in the future for a function that encapsulate this check.
-:::
-
-- If that object is `null`, the app has not enabled the Fabric feature. It's running on the Old Architecture, and the fallback is to use the default Native Components implementation ([iOS](../native-components-ios) or [Android](../native-components-android)).
-- If that object is set, the app is running with Fabric enabled and it should use the `<MyComponent>NativeComponent` spec to access the Fabric Component.
