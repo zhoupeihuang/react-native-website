@@ -96,47 +96,8 @@ React Native 框架整体是作为 node 模块安装到项目中的。下一步�
 $ pod init
 ```
 
-`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这样（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
-
-```
-# target的名字一般与你的项目名字相同
-target 'NumberTileGame' do
-
-  # 'node_modules'目录一般位于项目根目录中
-  # 但是如果你的结构不同，那你就要根据实际路径修改下面的`:path`
-  pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
-  pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
-  pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
-  pod 'RCTTypeSafety', :path => "../node_modules/react-native/Libraries/TypeSafety"
-  pod 'React', :path => '../node_modules/react-native/'
-  pod 'React-Core', :path => '../node_modules/react-native/'
-  pod 'React-CoreModules', :path => '../node_modules/react-native/React/CoreModules'
-  pod 'React-Core/DevSupport', :path => '../node_modules/react-native/'
-  pod 'React-RCTActionSheet', :path => '../node_modules/react-native/Libraries/ActionSheetIOS'
-  pod 'React-RCTAnimation', :path => '../node_modules/react-native/Libraries/NativeAnimation'
-  pod 'React-RCTBlob', :path => '../node_modules/react-native/Libraries/Blob'
-  pod 'React-RCTImage', :path => '../node_modules/react-native/Libraries/Image'
-  pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
-  pod 'React-RCTNetwork', :path => '../node_modules/react-native/Libraries/Network'
-  pod 'React-RCTSettings', :path => '../node_modules/react-native/Libraries/Settings'
-  pod 'React-RCTText', :path => '../node_modules/react-native/Libraries/Text'
-  pod 'React-RCTVibration', :path => '../node_modules/react-native/Libraries/Vibration'
-  pod 'React-Core/RCTWebSocket', :path => '../node_modules/react-native/'
-
-  pod 'React-cxxreact', :path => '../node_modules/react-native/ReactCommon/cxxreact'
-  pod 'React-jsi', :path => '../node_modules/react-native/ReactCommon/jsi'
-  pod 'React-jsiexecutor', :path => '../node_modules/react-native/ReactCommon/jsiexecutor'
-  pod 'React-jsinspector', :path => '../node_modules/react-native/ReactCommon/jsinspector'
-  pod 'ReactCommon/callinvoker', :path => "../node_modules/react-native/ReactCommon"
-  pod 'ReactCommon/turbomodule/core', :path => "../node_modules/react-native/ReactCommon"
-  pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
-
-  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
-  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
-  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
-end
-```
+`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这个模板文件（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
+[Podfile 示范模板](https://github.com/facebook/react-native/blob/main/packages/react-native/template/ios/Podfile)
 
 创建好了`Podfile`后，就可以开始安装 React Native 的 pod 包了。
 
@@ -223,7 +184,7 @@ AppRegistry.registerComponent('RNHighScores', () => RNHighScores);
 
 > `RNHighScores`是整体 js 模块（即你所有的 js 代码）的名称。你在 iOS 原生代码中添加 React Native 视图时会用到这个名称。
 
-#### 核心组件： `RCTRootView`
+#### 核心组件：`RCTRootView`
 
 现在我们已经在`index.js`中创建了 React Native 组件，下一步就是把这个组件添加给一个新的或已有的`ViewController`。最简单的方法是可选地为您的组件创建一个事件路径，然后将该组件添加到现有的“ViewController”中。
 
