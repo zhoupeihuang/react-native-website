@@ -26,7 +26,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "yarn react-native start"
+    "start": "react-native start"
   }
 }
 ```
@@ -59,41 +59,54 @@ $ yarn add react@16.2.0
 
 ## 把 React Native 添加到你的应用中
 
-### 配置 maven
+### 配置 Gradle
 
-在你的 app 中 `build.gradle` 文件中添加 React Native 和 JSC 引擎依赖:
+React Native 使用 React Native Gradle Plugin 来配置您的依赖项和项目设置。
 
-```gradle
-dependencies {
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    ...
-    implementation "com.facebook.react:react-native:+" // From node_modules
-    implementation "org.webkit:android-jsc:+"
-}
+首先，让我们通过添加以下行来编辑您的`settings.gradle`文件：
+
+```groovy
+includeBuild('../node_modules/react-native-gradle-plugin')
 ```
 
-> 如果想要指定特定的 React Native 版本，可以用具体的版本号替换 `+`，当然前提是你从 npm 里下载的是这个版本。
+然后你需要打开顶层的 `build.gradle` 文件并添加这一行：
 
-在项目的 `build.gradle` 文件中为 React Native 和 JSC 引擎添加 maven 源的路径，必须写在 "allprojects" 代码块中
-
-```gradle
-allprojects {
+```diff
+buildscript {
     repositories {
-        maven {
-            // All of React Native (JS, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
-        }
-        maven {
-            // Android JSC is installed from npm
-            url("$rootDir/../node_modules/jsc-android/dist")
-        }
-        ...
+        google()
+        mavenCentral()
     }
-    ...
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
++       classpath("com.facebook.react:react-native-gradle-plugin")
+    }
 }
 ```
 
-> 确保依赖路径的正确！以免在 Android Studio 运行 Gradle 同步构建时抛出 “Failed to resolve: com.facebook.react:react-native:0.x.x" 异常。
+这将确保 React Native Gradle Plugin 在您的项目中可用。
+最后，在 `app/build.gradle` 文件中添加以下行（注意它的路径不同于上面，是`app/build.gradle`）：
+
+```diff
+apply plugin: "com.android.application"
++apply plugin: "com.facebook.react"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Other dependencies here
++   implementation "com.facebook.react:react-android"
++   implementation "com.facebook.react:hermes-android"
+}
+```
+
+这些依赖项可在 `mavenCentral()` 上获得，因此请确保您已在 `repositories{}` 块中定义它。
+
+:::info 提示
+我们故意不为这些`implementation`依赖项指定版本，因为 React Native Gradle Plugin 会自动处理它。如果您不使用 React Native Gradle Plugin，则必须手动指定版本。
+:::
 
 ### 启用原生模块的自动链接
 
@@ -113,11 +126,15 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 
 接着，在 `AndroidManifest.xml` 清单文件中声明网络权限:
 
-    <uses-permission android:name="android.permission.INTERNET" />
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
 
 如果需要访问 `DevSettingsActivity` 界面（即开发者菜单），则还需要在 `AndroidManifest.xml` 中声明:
 
-    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+```xml
+<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+```
 
 开发者菜单一般仅用于在开发时从 Packager 服务器刷新 JavaScript 代码，所以在正式发布时你可以去掉这一权限。
 
@@ -164,16 +181,14 @@ apply from: file("../../node_modules/@react-native-community/cli-platform-androi
 import React from 'react';
 import {AppRegistry, StyleSheet, Text, View} from 'react-native';
 
-class HelloWorld extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.hello}>Hello, World</Text>
-      </View>
-    );
-  }
-}
-var styles = StyleSheet.create({
+const HelloWorld = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.hello}>Hello, World</Text>
+    </View>
+  );
+};
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
