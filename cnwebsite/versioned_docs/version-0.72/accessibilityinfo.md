@@ -3,173 +3,70 @@ id: accessibilityinfo
 title: AccessibilityInfo
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
-
 有时候我们希望知道用户的设备是否正在运行读屏应用。`AccessibilityInfo`正是用于此目的。你可以用它来查询读屏应用的当前状态，并且可以监听其状态变化。
 
 ## 示例
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
-
-```SnackPlayer name=AccessibilityInfo%20Function%20Component%20Example&supportedPlatforms=android,ios
-import React, { useState, useEffect } from "react";
-import { AccessibilityInfo, View, Text, StyleSheet } from "react-native";
+```SnackPlayer name=AccessibilityInfo%20Example&supportedPlatforms=android,ios
+import React, {useState, useEffect} from 'react';
+import {AccessibilityInfo, View, Text, StyleSheet} from 'react-native';
 
 const App = () => {
   const [reduceMotionEnabled, setReduceMotionEnabled] = useState(false);
   const [screenReaderEnabled, setScreenReaderEnabled] = useState(false);
 
   useEffect(() => {
-    AccessibilityInfo.addEventListener(
-      "reduceMotionChanged",
-      handleReduceMotionToggled
+    const reduceMotionChangedSubscription = AccessibilityInfo.addEventListener(
+      'reduceMotionChanged',
+      isReduceMotionEnabled => {
+        setReduceMotionEnabled(isReduceMotionEnabled);
+      },
     );
-    AccessibilityInfo.addEventListener(
-      "screenReaderChanged",
-      handleScreenReaderToggled
+    const screenReaderChangedSubscription = AccessibilityInfo.addEventListener(
+      'screenReaderChanged',
+      isScreenReaderEnabled => {
+        setScreenReaderEnabled(isScreenReaderEnabled);
+      },
     );
 
-    AccessibilityInfo.isReduceMotionEnabled().then(
-      reduceMotionEnabled => {
-        setReduceMotionEnabled(reduceMotionEnabled);
-      }
-    );
-    AccessibilityInfo.isScreenReaderEnabled().then(
-      screenReaderEnabled => {
-        setScreenReaderEnabled(screenReaderEnabled);
-      }
-    );
+    AccessibilityInfo.isReduceMotionEnabled().then(isReduceMotionEnabled => {
+      setReduceMotionEnabled(isReduceMotionEnabled);
+    });
+    AccessibilityInfo.isScreenReaderEnabled().then(isScreenReaderEnabled => {
+      setScreenReaderEnabled(isScreenReaderEnabled);
+    });
 
     return () => {
-      AccessibilityInfo.removeEventListener(
-        "reduceMotionChanged",
-        handleReduceMotionToggled
-      );
-      AccessibilityInfo.removeEventListener(
-        "screenReaderChanged",
-        handleScreenReaderToggled
-      );
+      reduceMotionChangedSubscription.remove();
+      screenReaderChangedSubscription.remove();
     };
   }, []);
-
-  const handleReduceMotionToggled = reduceMotionEnabled => {
-    setReduceMotionEnabled(reduceMotionEnabled);
-  };
-
-  const handleScreenReaderToggled = screenReaderEnabled => {
-    setScreenReaderEnabled(screenReaderEnabled);
-  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.status}>
-        The reduce motion is {reduceMotionEnabled ? "enabled" : "disabled"}.
+        The reduce motion is {reduceMotionEnabled ? 'enabled' : 'disabled'}.
       </Text>
       <Text style={styles.status}>
-        The screen reader is {screenReaderEnabled ? "enabled" : "disabled"}.
+        The screen reader is {screenReaderEnabled ? 'enabled' : 'disabled'}.
       </Text>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   status: {
-    margin: 30
-  }
+    margin: 30,
+  },
 });
 
 export default App;
 ```
-
-</TabItem>
-<TabItem value="classical">
-
-```SnackPlayer name=AccessibilityInfo%20Class%20Component%20Example&supportedPlatforms=android,ios
-import React, { Component } from 'react';
-import { AccessibilityInfo, View, Text, StyleSheet } from 'react-native';
-
-class AccessibilityStatusExample extends Component {
-  state = {
-    reduceMotionEnabled: false,
-    screenReaderEnabled: false,
-  };
-
-  componentDidMount() {
-    AccessibilityInfo.addEventListener(
-      'reduceMotionChanged',
-      this._handleReduceMotionToggled
-    );
-    AccessibilityInfo.addEventListener(
-      'screenReaderChanged',
-      this._handleScreenReaderToggled
-    );
-
-    AccessibilityInfo.isReduceMotionEnabled().then(reduceMotionEnabled => {
-      this.setState({ reduceMotionEnabled });
-    });
-    AccessibilityInfo.isScreenReaderEnabled().then(screenReaderEnabled => {
-      this.setState({ screenReaderEnabled });
-    });
-  }
-
-  componentWillUnmount() {
-    AccessibilityInfo.removeEventListener(
-      'reduceMotionChanged',
-      this._handleReduceMotionToggled
-    );
-
-    AccessibilityInfo.removeEventListener(
-      'screenReaderChanged',
-      this._handleScreenReaderToggled
-    );
-  }
-
-  _handleReduceMotionToggled = reduceMotionEnabled => {
-    this.setState({ reduceMotionEnabled });
-  };
-
-  _handleScreenReaderToggled = screenReaderEnabled => {
-    this.setState({ screenReaderEnabled });
-  };
-
-  render() {
-    return (
-      <View style={this.styles.container}>
-        <Text style={this.styles.status}>
-          The reduce motion is{' '}
-          {this.state.reduceMotionEnabled ? 'enabled' : 'disabled'}.
-        </Text>
-        <Text style={this.styles.status}>
-          The screen reader is{' '}
-          {this.state.screenReaderEnabled ? 'enabled' : 'disabled'}.
-        </Text>
-      </View>
-    );
-  }
-
-  styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    status: {
-      margin: 30,
-    },
-  });
-}
-
-export default AccessibilityStatusExample;
-```
-
-</TabItem>
-</Tabs>
 
 ---
 
@@ -177,29 +74,108 @@ export default AccessibilityStatusExample;
 
 ## 方法
 
-### `isBoldTextEnabled()`
+### `addEventListener()`
 
-```jsx
-static isBoldTextEnabled()
+```tsx
+static addEventListener(
+  eventName: AccessibilityChangeEventName | AccessibilityAnnouncementEventName,
+  handler: (
+    event: AccessibilityChangeEvent | AccessibilityAnnouncementFinishedEvent,
+  ) => void,
+): EmitterSubscription;
 ```
 
-**iOS-Only.** Query whether a bold text is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when bold text is enabled and `false` otherwise.
+添加一个监听函数，支持的事件类型如下：
 
-### `isGrayscaleEnabled()`
+| 事件名称                                                                             | 描述                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityServiceChanged`<br/><div class="label two-lines android">Android</div> | 当启用某些服务（如 TalkBack、其他 Android 辅助技术和第三方辅助功能服务）时触发。事件处理程序的参数是一个布尔值。当启用一些辅助功能服务时，该布尔值为`true`，否则为`false`。        |
+| `announcementFinished`<br/><div class="label two-lines ios">iOS</div>                | 当屏幕阅读器完成公告时触发。事件处理程序的参数是一个带有以下键的字典：<ul><li>`announcement`：屏幕阅读器宣布的字符串。</li><li>`success`：指示公告是否成功进行的布尔值。</li></ul> |
+| `boldTextChanged`<br/><div class="label two-lines ios">iOS</div>                     | 当加粗文本切换状态改变时触发。事件处理程序的参数是一个布尔值。当启用加粗文本时，布尔值为`true`，否则为`false`。                                                                    |
+| `grayscaleChanged`<br/><div class="label two-lines ios">iOS</div>                    | 当灰度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用灰度时，布尔值为`true`，否则为`false`。                                                                          |
+| `invertColorsChanged`<br/><div class="label two-lines ios">iOS</div>                 | 当反转颜色切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用反转颜色时，布尔值为`true`，否则为`false`。                                                                  |
+| `reduceMotionChanged`                                                                | 当减少动画的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少动画（或在“开发者选项”中，“转换动画比例”为“关闭动画”）时，布尔值为`true`，否则为`false`。                    |
+| `reduceTransparencyChanged`<br/><div class="label two-lines ios">iOS</div>           | 当减少透明度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少透明度时，布尔值为`true`，否则为`false`。                                                              |
+| `screenReaderChanged`                                                                | 当屏幕阅读器的状态发生变化时触发。事件处理程序的参数是一个布尔值。当启用屏幕阅读器时，该布尔值为`true`，否则为`false`。                                                            |
 
-```jsx
-static isGrayscaleEnabled()
+---
+
+### `announceForAccessibility()`
+
+```tsx
+static announceForAccessibility(announcement: string);
 ```
 
-**iOS-Only.** Query whether grayscale is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when grayscale is enabled and `false` otherwise.
+发送一个字符串给读屏应用朗读。
 
-### `isInvertColorsEnabled()`
+---
 
-```jsx
-static isInvertColorsEnabled()
+### `announceForAccessibilityWithOptions()`
+
+```tsx
+static announceForAccessibilityWithOptions(
+  announcement: string,
+  options: options: {queue?: boolean},
+);
 ```
 
-**iOS-Only.** Query whether invert colors is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when invert colors is enabled and `false` otherwise.
+发送一个字符串，以便屏幕阅读器进行修改。默认情况下，公告将中断任何现有的语音，但在 iOS 上，可以通过在选项对象中设置 `queue` 为 `true` 来排队到现有的语音后面。
+
+**参数:**
+
+| 名称                                                          | 类型   | 描述                                                                    |
+| ------------------------------------------------------------- | ------ | ----------------------------------------------------------------------- |
+| announcement <div class="label basic required">Required</div> | string | 要发送的字符串                                                          |
+| options <div class="label basic required">Required</div>      | object | `queue` - 在正在进行的语音后面排队发布 <div class="label ios">iOS</div> |
+
+---
+
+### `getRecommendedTimeoutMillis()` <div class="label android">Android</div>
+
+```tsx
+static getRecommendedTimeoutMillis(originalTimeout: number): Promise<number>;
+```
+
+获取用户需要的超时时间（以毫秒为单位）。
+此值在“辅助功能”设置中的“执行操作所需时间（辅助功能超时）”中设置。
+
+**参数:**
+
+| 名称                                                             | 类型   | 描述                                                           |
+| ---------------------------------------------------------------- | ------ | -------------------------------------------------------------- |
+| originalTimeout <div class="label basic required">Required</div> | number | 如果未设置“辅助功能超时”，则返回的超时时间。以毫秒为单位指定。 |
+
+---
+
+### `isBoldTextEnabled()` <div class="label ios">iOS</div>
+
+```tsx
+static isBoldTextEnabled(): Promise<boolean>:
+```
+
+查询是否启用了加粗文本。返回一个解析为布尔值的 Promise。当加粗文本已启用时，结果为 `true`；否则为 `false`。
+
+---
+
+### `isGrayscaleEnabled()` <div class="label ios">iOS</div>
+
+```tsx
+static isGrayscaleEnabled(): Promise<boolean>;
+```
+
+查询当前是否启用了灰度模式。返回一个解析为布尔值的 Promise 对象。当灰度模式已启用时，结果为 `true`；否则为 `false`。
+
+---
+
+### `isInvertColorsEnabled()` <div class="label ios">iOS</div>
+
+```tsx
+static isInvertColorsEnabled(): Promise<boolean>;
+```
+
+查询反转颜色是否已启用。返回一个解析为布尔值的 Promise。当反转颜色已启用时，结果为 `true`；否则为 `false`。
+
+---
 
 ### `isReduceMotionEnabled()`
 
@@ -207,72 +183,46 @@ static isInvertColorsEnabled()
 static isReduceMotionEnabled()
 ```
 
-Query whether reduce motion is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when reduce motion is enabled and `false` otherwise.
+查询当前是否启用了减少动画。返回一个解析为布尔值的 Promise。当减少动画被启用时，结果为 `true`，否则为 `false`。
 
-### `isReduceTransparencyEnabled()`
+---
 
-```jsx
-static isReduceTransparencyEnabled()
+### `isReduceTransparencyEnabled()` <div class="label ios">iOS</div>
+
+```tsx
+static isReduceTransparencyEnabled(): Promise<boolean>;
 ```
 
-**iOS-Only.** Query whether reduce transparency is currently enabled. Returns a promise which resolves to a boolean. The result is `true` when a reduce transparency is enabled and `false` otherwise.
+查询当前是否启用了减少透明度。返回一个解析为布尔值的 Promise。当减少透明度已启用时，结果为 `true`，否则为 `false`。
+
+---
 
 ### `isScreenReaderEnabled()`
 
-```jsx
-static isScreenReaderEnabled()
+```tsx
+static isScreenReaderEnabled(): Promise<boolean>;
 ```
 
 查询读屏应用当前是否开启。返回值为一个 promise，最终解析值为一个布尔值。`true`表示开启状态，`false`反之。
 
 ---
 
-### `addEventListener()`
+### `prefersCrossFadeTransitions()` <div class="label ios">iOS</div>
 
-```jsx
-static addEventListener(eventName, handler)
+```tsx
+static prefersCrossFadeTransitions(): Promise<boolean>;
 ```
 
-添加一个监听函数，支持的事件类型如下：
-
-- `boldTextChanged`: iOS-only event. Fires when the state of the bold text toggle changes. The argument to the event handler is a boolean. The boolean is `true` when bold text is enabled and `false` otherwise.
-- `grayscaleChanged`: iOS-only event. Fires when the state of the gray scale toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a gray scale is enabled and `false` otherwise.
-- `invertColorsChanged`: iOS-only event. Fires when the state of the invert colors toggle changes. The argument to the event handler is a boolean. The boolean is `true` when invert colors is enabled and `false` otherwise.
-- `reduceMotionChanged`: Fires when the state of the reduce motion toggle changes. The argument to the event handler is a boolean. The boolean is `true` when a reduce motion is enabled (or when "Transition Animation Scale" in "Developer options" is "Animation off") and `false` otherwise.
-- `screenReaderChanged`: 读屏应用状态改变时触发。传递给监听函数的参数为布尔值，`true`表示开启状态，`false`反之。
-- `reduceTransparencyChanged`: iOS-only event. Fires when the state of the reduce transparency toggle changes. The argument to the event handler is a boolean. The boolean is `true` when reduce transparency is enabled and `false` otherwise.
-- `announcementFinished`: 仅 iOS 可用。在读屏软件完成一次朗读后触发。传递给监听函数的参数为一个字典，包含以下两个字段：
-  - `announcement`: 读屏软件所读的字符串。
-  - `success`: 此次朗读是否成功完成。
+查询当前是否启用了减少动画和优先使用交叉淡入淡出过渡设置。返回一个解析为布尔值的 Promise。当优先使用交叉淡入淡出过渡被启用时，结果为 `true`，否则为 `false`。
 
 ---
 
 ### `setAccessibilityFocus()`
 
-```jsx
-static setAccessibilityFocus(reactTag)
+```tsx
+static setAccessibilityFocus(reactTag: number);
 ```
 
 将读屏软件的焦点设置到某个 react 组件上。在 Android 等同于调用 `UIManager.sendAccessibilityEvent(reactTag, UIManager.AccessibilityEventTypes.typeViewFocused);`.
 
-> **Note**: Make sure that any `View` you want to receive the accessibility focus has `accessible={true}`.
-
----
-
-### `announceForAccessibility()`
-
-```jsx
-static announceForAccessibility(announcement)
-```
-
-发送一个字符串给读屏应用朗读。
-
----
-
-### `removeEventListener()`
-
-```jsx
-static removeEventListener(eventName, handler)
-```
-
-移除一个监听函数。
+> **注意**：确保您想要接收可访问性焦点的任何`View`都具有`accessible = {true}`属性。

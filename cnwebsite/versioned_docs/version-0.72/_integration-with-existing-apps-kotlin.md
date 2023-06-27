@@ -1,24 +1,26 @@
-## Key Concepts
+import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
 
-The keys to integrating React Native components into your Android application are to:
+## 核心概念
 
-1. Set up React Native dependencies and directory structure.
-2. Develop your React Native components in JavaScript.
-3. Add a `ReactRootView` to your Android app. This view will serve as the container for your React Native component.
-4. Start the React Native server and run your native application.
-5. Verify that the React Native aspect of your application works as expected.
+把 React Native 组件集成到 Android 应用中有如下几个主要步骤：
 
-## Prerequisites
+1.  配置好 React Native 依赖和项目结构。
+2.  创建 js 文件，编写 React Native 组件的 js 代码。
+3.  在应用中添加一个`ReactRootView`。这个`ReactRootView`正是用来承载你的 React Native 组件的容器。
+4.  启动 React Native 的 Metro 服务，运行应用。
+5.  验证这部分组件是否正常工作。
 
-Follow the React Native CLI Quickstart in the [environment setup guide](environment-setup) to configure your development environment for building React Native apps for Android.
+## 开发环境准备
 
-### 1. Set up directory structure
+首先按照[开发环境搭建教程](environment-setup)来安装 React Native 在 Android 平台上所需的一切依赖软件。
 
-To ensure a smooth experience, create a new folder for your integrated React Native project, then copy your existing Android project to an `/android` subfolder.
+### 1. 配置项目目录结构
 
-### 2. Install JavaScript dependencies
+首先创建一个空目录用于存放 React Native 项目，然后在其中创建一个`/android`子目录，把你现有的 Android 项目拷贝到`/android`子目录中。
 
-Go to the root directory for your project and create a new `package.json` file with the following contents:
+### 2. 安装 JavaScript 依赖包
+
+在项目根目录下创建一个名为`package.json`的空文本文件，然后填入以下内容：
 
 ```
 {
@@ -26,119 +28,125 @@ Go to the root directory for your project and create a new `package.json` file w
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "yarn react-native start"
+    "start": "react-native start"
   }
 }
 ```
 
-Next, make sure you have [installed the yarn package manager](https://yarnpkg.com/lang/en/docs/install/).
+> 示例中的`version`字段没有太大意义（除非你要把你的项目发布到 npm 仓库）。`scripts`中是用于启动 Metro 服务的命令。
 
-Install the `react` and `react-native` packages. Open a terminal or command prompt, then navigate to the directory with your `package.json` file and run:
+接下来我们使用 yarn 或 npm（两者都是 node 的包管理器）来安装 React 和 React Native 模块。请打开一个终端/命令提示行，进入到项目目录中（即包含有 package.json 文件的目录），然后运行下列命令来安装：
 
 ```shell
 $ yarn add react-native
 ```
 
-This will print a message similar to the following (scroll up in the yarn output to see it):
+这样默认会安装最新版本的 React Native，同时会打印出类似下面的警告信息（你可能需要滚动屏幕才能注意到）：
 
 > warning "react-native@0.52.2" has unmet peer dependency "react@16.2.0".
 
-This is OK, it means we also need to install React:
+这是正常现象，意味着我们还需要安装指定版本的 React：
 
-```shell
-$ yarn add react@version_printed_above
+```
+$ yarn add react@16.2.0
 ```
 
-Yarn has created a new `/node_modules` folder. This folder stores all the JavaScript dependencies required to build your project.
+注意必须严格匹配警告信息中所列出的版本，高了或者低了都不可以。
 
-Add `node_modules/` to your `.gitignore` file.
+> 如果你使用多个第三方依赖，可能这些第三方各自要求的 react 版本有所冲突，此时应优先满足`react-native`所需要的`react`版本。其他第三方能用则用，不能用则只能考虑选择其他库。
 
-## Adding React Native to your app
+所有 JavaScript 依赖模块都会被安装到项目根目录下的`node_modules/`目录中（这个目录我们原则上不复制、不移动、不修改、不上传，随用随装）。
 
-### Configuring maven
+把`node_modules/`目录记录到`.gitignore`文件中（即不上传到版本控制系统，只保留在本地）。
 
-Add the React Native and JSC dependency to your app's `build.gradle` file:
+## 把 React Native 添加到你的应用中
 
-```gradle
+### 配置 Gradle
+
+React Native 使用 React Native Gradle Plugin 来配置您的依赖项和项目设置。
+
+首先，让我们通过添加以下行来编辑您的`settings.gradle`文件：
+
+```groovy
+includeBuild('../node_modules/react-native-gradle-plugin')
+```
+
+然后你需要打开顶层的 `build.gradle` 文件并添加这一行：
+
+```diff
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle:7.3.1")
++       classpath("com.facebook.react:react-native-gradle-plugin")
+    }
+}
+```
+
+这将确保 React Native Gradle Plugin 在您的项目中可用。
+最后，在 `app/build.gradle` 文件中添加以下行（注意它的路径不同于上面，是`app/build.gradle`）：
+
+```diff
+apply plugin: "com.android.application"
++apply plugin: "com.facebook.react"
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
-    implementation "com.android.support:appcompat-v7:27.1.1"
-    ...
-    implementation "com.facebook.react:react-native:+" // From node_modules
-    implementation "org.webkit:android-jsc:+"
+    // Other dependencies here
++   implementation "com.facebook.react:react-android"
++   implementation "com.facebook.react:hermes-android"
 }
 ```
 
-> If you want to ensure that you are always using a specific React Native version in your native build, replace `+` with an actual React Native version you've downloaded from `npm`.
+这些依赖项可在 `mavenCentral()` 上获得，因此请确保您已在 `repositories{}` 块中定义它。
 
-Add an entry for the local React Native and JSC maven directories to the top-level `settings.gradle`. Be sure to add it to the “dependencyResolutionManagement” block, above other maven repositories:
+:::info 提示
+我们故意不为这些`implementation`依赖项指定版本，因为 React Native Gradle Plugin 会自动处理它。如果您不使用 React Native Gradle Plugin，则必须手动指定版本。
+:::
 
-```gradle
-dependencyResolutionManagement {
-    ...
-    repositories {
-        ...
-        maven {
-            url "$rootDir/../node_modules/react-native/android"
-        }
-        maven {
-            url("$rootDir/../node_modules/jsc-android/dist")
-        }
-    }
-}
-```
+### 启用原生模块的自动链接
 
-> If your project has the dependency repositories configured in the top-level `build.gradle`, be sure to add the entries to the “allprojects” block above other maven repositories:
-
-```gradle
-allprojects {
-    repositories {
-        maven {
-            // All of React Native (JS, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
-        }
-        maven {
-            // Android JSC is installed from npm
-            url("$rootDir/../node_modules/jsc-android/dist")
-        }
-        ...
-    }
-    ...
-}
-```
-
-> Make sure that the path is correct! You shouldn’t run into any “Failed to resolve: com.facebook.react:react-native:0.x.x" errors after running Gradle sync in Android Studio.
-
-### Enable native modules autolinking
-
-To use the power of [autolinking](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md), we have to apply it a few places. First add the following entry to `settings.gradle`:
+要使用[自动链接](https://github.com/react-native-community/cli/blob/master/docs/autolinking.md)的功能，我们必须将其应用于几个地方。首先，将以下内容添加到`settings.gradle`:
 
 ```gradle
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 ```
 
-Next add the following entry at the very bottom of the `app/build.gradle`:
+接下来，在`app/build.gradle`的最底部添加以下内容:
 
 ```gradle
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
 ```
 
-### Configuring permissions
+### 配置权限
 
-Next, make sure you have the Internet permission in your `AndroidManifest.xml`:
+接着，在 `AndroidManifest.xml` 清单文件中声明网络权限:
 
-    <uses-permission android:name="android.permission.INTERNET" />
+```xml
+<uses-permission android:name="android.permission.INTERNET" />
+```
 
-If you need to access to the `DevSettingsActivity` add to your `AndroidManifest.xml`:
+如果需要访问 `DevSettingsActivity` 界面（即开发者菜单），则还需要在 `AndroidManifest.xml` 中声明:
 
-    <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+```xml
+<activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+```
 
-This is only used in dev mode when reloading JavaScript from the development server, so you can strip this in release builds if you need to.
+开发者菜单一般仅用于在开发时从 Packager 服务器刷新 JavaScript 代码，所以在正式发布时你可以去掉这一权限。
 
-### Cleartext Traffic (API level 28+)
+### 允许明文传输（http 接口） (API level 28+)
 
-> Starting with Android 9 (API level 28), cleartext traffic is disabled by default; this prevents your application from connecting to the [Metro bundler][metro]. The changes below allow cleartext traffic in debug builds.
+> 从 Android 9 (API level 28)开始，默认情况下明文传输（http 接口）是禁用的，只能访问 https 接口。这将阻止应用程序连接到[Metro bundler](https://facebook.github.io/metro)。下面的更改允许调试版本中的明文通信。
 
-#### 1. Apply the `usesCleartextTraffic` option to your Debug `AndroidManifest.xml`
+#### 1. 为 debug 版本启用 `usesCleartextTraffic`选项
+
+在`src/debug/AndroidManifest.xml`中添加`usesCleartextTraffic`选项：
 
 ```xml
 <!-- ... -->
@@ -149,27 +157,27 @@ This is only used in dev mode when reloading JavaScript from the development ser
 <!-- ... -->
 ```
 
-This is not required for Release builds.
+如果希望在正式打包后也能继续访问 http 接口，则需要在`src/main/AndroidManifest.xml`中也添加这一选项。
 
-To learn more about Network Security Config and the cleartext traffic policy [see this link](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted).
+要了解有关网络安全配置和明文通信策略的更多信息，请参阅[此链接](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted)。
 
-### Code integration
+### 代码集成
 
-Now we will actually modify the native Android application to integrate React Native.
+现在我们将修改原生 Android 应用程序以集成 React Native。
 
-#### The React Native component
+#### React Native 组件
 
-The first bit of code we will write is the actual React Native code for the new "High Score" screen that will be integrated into our application.
+我们首先要写的是"High Score"（得分排行榜）的 JavaScript 端的代码。
 
-##### 1. Create a `index.js` file
+##### 1. 创建一个`index.js`文件
 
-First, create an empty `index.js` file in the root of your React Native project.
+首先在项目根目录中创建一个空的`index.js`文件。(注意一些老的教程可能提到，在 0.49 版本之前是 index.android.js 文件)
 
-`index.js` is the starting point for React Native applications, and it is always required. It can be a small file that `require`s other file that are part of your React Native component or application, or it can contain all the code that is needed for it. In our case, we will put everything in `index.js`.
+`index.js`是 React Native 应用在 Android 上的入口文件。而且它是不可或缺的！它可以是个很简单的文件，简单到可以只包含一行`require/import`导入语句。本教程中为了简单示范，把全部的代码都写到了`index.js`里（当然实际开发中我们并不推荐这样做）。
 
-##### 2. Add your React Native code
+##### 2. 添加你自己的 React Native 代码
 
-In your `index.js`, create your component. In our sample here, we will add a `<Text>` component within a styled `<View>`:
+在`index.js`中添加你自己的组件。这里我们只是简单的添加一个`<Text>`组件，然后用一个带有样式的`<View>`组件把它包起来。
 
 ```jsx
 import React from 'react';
@@ -182,7 +190,7 @@ const HelloWorld = () => {
     </View>
   );
 };
-var styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -200,13 +208,13 @@ AppRegistry.registerComponent(
 );
 ```
 
-##### 3. Configure permissions for development error overlay
+##### 3. 配置权限以便开发中的红屏错误能正确显示
 
-If your app is targeting the Android `API level 23` or greater, make sure you have the permission `android.permission.SYSTEM_ALERT_WINDOW` enabled for the development build. You can check this with `Settings.canDrawOverlays(this)`. This is required in dev builds because React Native development errors must be displayed above all the other windows. Due to the new permissions system introduced in the API level 23 (Android M), the user needs to approve it. This can be achieved by adding the following code to your Activity's in `onCreate()` method.
+如果你的应用会运行在 Android 6.0（API level 23）或更高版本，请确保你在开发版本中有打开`悬浮窗(overlay)`权限。你可以在代码中使用`Settings.canDrawOverlays(this);`来检查。之所以需要这一权限，是因为我们会把开发中的报错显示在悬浮窗中（仅在开发阶段需要）。在 Android 6.0（API level 23）中用户需要手动同意授权。具体请求授权的做法是在`onCreate()`中添加如下代码。其中`OVERLAY_PERMISSION_REQ_CODE`是用于回传授权结果的字段。
 
 ```kotlin
 companion object {
-    const val OVERLAY_PERMISSION_REQ_CODE = 1  // Choose any value
+    const val OVERLAY_PERMISSION_REQ_CODE = 1  // 任写一个值
 }
 
 ...
@@ -220,7 +228,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 }
 ```
 
-Finally, the `onActivityResult()` method (as shown in the code below) has to be overridden to handle the permission Accepted or Denied cases for consistent UX. Also, for integrating Native Modules which use `startActivityForResult`, we need to pass the result to the `onActivityResult` method of our `ReactInstanceManager` instance.
+最后，必须重写`onActivityResult()`方法（如下面的代码所示）来处理权限接受或拒绝情况以实现一致的用户体验。此外，为了集成使用 startActivityForResult 的原生模块，我们需要将结果传递给 ReactInstanceManager 实例的 onActivityResult 方法。
 
 ```kotlin
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -235,11 +243,11 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
 }
 ```
 
-#### The Magic: `ReactRootView`
+#### 核心组件：`ReactRootView`
 
-Let's add some native code in order to start the React Native runtime and tell it to render our JS component. To do this, we're going to create an `Activity` that creates a `ReactRootView`, starts a React application inside it and sets it as the main content view.
+我们还需要添加一些原生代码来启动 React Native 的运行时环境并让它开始渲染。首先需要在一个`Activity`中创建一个`ReactRootView`对象，然后在这个对象之中启动 React Native 应用，并将它设为界面的主视图。
 
-> If you are targeting Android version <5, use the `AppCompatActivity` class from the `com.android.support:appcompat` package instead of `Activity`.
+> 如果你要在安卓 5.0 以下的系统上运行，请用 `com.android.support:appcompat` 包中的 `AppCompatActivity` 代替 `Activity` 。
 
 ```kotlin
 class MyReactActivity : Activity(), DefaultHardwareBackBtnHandler {
@@ -250,9 +258,9 @@ class MyReactActivity : Activity(), DefaultHardwareBackBtnHandler {
         SoLoader.init(this, false)
         reactRootView = ReactRootView(this)
         val packages: List<ReactPackage> = PackageList(application).packages
-        // Packages that cannot be autolinked yet can be added manually here, for example:
+        // 有一些第三方可能不能自动链接，对于这些包我们可以用下面的方式手动添加进来：
         // packages.add(MyReactNativePackage())
-        // Remember to include them in `settings.gradle` and `app/build.gradle` too.
+        // 同时需要手动把他们添加到`settings.gradle`和 `app/build.gradle`配置文件中。
         reactInstanceManager = ReactInstanceManager.builder()
             .setApplication(application)
             .setCurrentActivity(this)
@@ -262,8 +270,8 @@ class MyReactActivity : Activity(), DefaultHardwareBackBtnHandler {
             .setUseDeveloperSupport(BuildConfig.DEBUG)
             .setInitialLifecycleState(LifecycleState.RESUMED)
             .build()
-        // The string here (e.g. "MyReactNativeApp") has to match
-        // the string in AppRegistry.registerComponent() in index.js
+        // 注意这里的 MyReactNativeApp 必须对应"index.js"中的
+        // "AppRegistry.registerComponent()"的第一个参数
         reactRootView?.startReactApplication(reactInstanceManager, "MyReactNativeApp", null)
         setContentView(reactRootView)
     }
@@ -274,13 +282,11 @@ class MyReactActivity : Activity(), DefaultHardwareBackBtnHandler {
 }
 ```
 
-> If you are using a starter kit for React Native, replace the "HelloWorld" string with the one in your index.js file (it’s the first argument to the `AppRegistry.registerComponent()` method).
+执行"Sync Project files with Gradle"操作。
 
-Perform a “Sync Project files with Gradle” operation.
+如果你使用的是 Android Studio , 可以使用`Alt + Enter`快捷键来自动为 MyReactActivity 类补上缺失的 import 语句。注意`BuildConfig`应该是在你自己的包中自动生成，无需额外引入。千万不要从`com.facebook...`的包中引入！
 
-If you are using Android Studio, use `Alt + Enter` to add all missing imports in your MyReactActivity class. Be careful to use your package’s `BuildConfig` and not the one from the `facebook` package.
-
-We need set the theme of `MyReactActivity` to `Theme.AppCompat.Light.NoActionBar` because some React Native UI components rely on this theme.
+我们需要把 `MyReactActivity` 的主题设定为 `Theme.AppCompat.Light.NoActionBar` ，因为里面有许多组件都使用了这一主题。
 
 ```xml
 <activity
@@ -290,9 +296,9 @@ We need set the theme of `MyReactActivity` to `Theme.AppCompat.Light.NoActionBar
 </activity>
 ```
 
-> A `ReactInstanceManager` can be shared by multiple activities and/or fragments. You will want to make your own `ReactFragment` or `ReactActivity` and have a singleton _holder_ that holds a `ReactInstanceManager`. When you need the `ReactInstanceManager` (e.g., to hook up the `ReactInstanceManager` to the lifecycle of those Activities or Fragments) use the one provided by the singleton.
+> 一个`ReactInstanceManager`可以在多个 activities 或 fragments 间共享。你将需要创建自己的`ReactFragment`或`ReactActivity`，并拥有一个保存`ReactInstanceManager`的单例持有者。当你需要`ReactInstanceManager`（例如，将`ReactInstanceManager`连接到这些 Activities 或 Fragments 的生命周期）时，请使用单例提供的那个。
 
-Next, we need to pass some activity lifecycle callbacks to the `ReactInstanceManager` and `ReactRootView`:
+下一步我们需要把一些 activity 的生命周期回调传递给`ReactInstanceManager`：
 
 ```kotlin
 override fun onPause() {
@@ -312,7 +318,7 @@ override fun onDestroy() {
 }
 ```
 
-We also need to pass back button events to React Native:
+我们还需要把后退按钮事件传递给 React Native：
 
 ```kotlin
 override fun onBackPressed() {
@@ -321,9 +327,9 @@ override fun onBackPressed() {
 }
 ```
 
-This allows JavaScript to control what happens when the user presses the hardware back button (e.g. to implement navigation). When JavaScript doesn't handle the back button press, your `invokeDefaultOnBackPressed` method will be called. By default this finishes your `Activity`.
+这允许 JavaScript 控制用户按下设备后退按钮时发生的情况（例如，执行导航时）。当 JavaScript 不处理后退按钮按下的情况时，将调用`invokeDefaultOnBackPressed`方法。默认情况下，这将完成你的`Activity`。
 
-Finally, we need to hook up the dev menu. By default, this is activated by (rage) shaking the device, but this is not very useful in emulators. So we make it show when you press the hardware menu button (use `Ctrl + M` if you're using Android Studio emulator):
+最后，我们需要连接开发菜单。默认情况下通过（狂）摇晃设备来激活，但这在模拟器中不是很有用，只有当你按下设备菜单按钮时才显示（如果你使用的是 Android Studio 模拟器，请使用<kbd>Ctrl</kbd> + <kbd>M</kbd>）:
 
 ```kotlin
 override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
@@ -335,42 +341,43 @@ override fun onKeyUp(keyCode: Int, event: KeyEvent?): Boolean {
 }
 ```
 
-Now your activity is ready to run some JavaScript code.
+现在 activity 已就绪，可以运行一些 JavaScript 代码了。
 
-### Test your integration
+### 测试集成结果
 
-You have now done all the basic steps to integrate React Native with your current application. Now we will start the [Metro bundler][metro] to build the `index.bundle` package and the server running on localhost to serve it.
+你已经完成了将 React Native 与当前应用程序集成的所有基本步骤。现在我们将启动[Metro bundler](https://facebook.github.io/metro)来构建`index.bundle`包，并通过本地主机提供服务。
 
-##### 1. Run the packager
+##### 1. 运行 Metro 服务
 
-To run your app, you need to first start the development server. To do this, run the following command in the root directory of your React Native project:
+运行应用首先需要启动开发服务器（Metro）。你只需在项目根目录中执行以下命令即可：
 
 ```shell
 $ yarn start
 ```
 
-##### 2. Run the app
+##### 2. 运行你的应用
 
-Now build and run your Android app as normal.
+保持 Metro 的窗口运行不要关闭，然后像往常一样编译运行你的 Android 应用(在命令行中执行`./gradlew installDebug`或是在 Android Studio 中编译运行)。
 
-Once you reach your React-powered activity inside the app, it should load the JavaScript code from the development server and display:
+编译执行一切顺利进行之后，在进入到 MyReactActivity 时应该就能立刻从 Metro 中读取 JavaScript 代码并执行和显示：
 
 ![Screenshot](/docs/assets/EmbeddedAppAndroid.png)
 
-### Creating a release build in Android Studio
+### 在 Android Studio 中打包
 
-You can use Android Studio to create your release builds too! It’s as quick as creating release builds of your previously-existing native Android app. There’s one additional step, which you’ll have to do before every release build. You need to execute the following to create a React Native bundle, which will be included with your native Android app:
+你也可以使用 Android Studio 来打 release 包！其步骤基本和原生应用一样，只是如果你**没有**使用 React Native Gradle Plugin 的话，则在每次编译打包之前需要先执行 js 文件的打包(即生成离线的 jsbundle 文件)。具体的 js 打包命令如下：
 
 ```shell
+# 注：如果你使用了 React Native Gradle Plugin，则其会自动执行以下命令，不需要手动执行
 $ npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/com/your-company-name/app-package-name/src/main/assets/index.android.bundle --assets-dest android/com/your-company-name/app-package-name/src/main/res/
 ```
 
-> Don’t forget to replace the paths with correct ones and create the assets folder if it doesn’t exist.
+> 注意把上述命令中的路径替换为你实际项目的路径。如果 assets 目录不存在，则需要提前自己创建一个。
 
-Now, create a release build of your native app from within Android Studio as usual and you should be good to go!
+然后在 Android Studio 中正常生成 release 版本即可！
 
-### Now what?
+### 然后呢？
 
-At this point you can continue developing your app as usual. Refer to our [debugging](debugging) and [deployment](running-on-device) docs to learn more about working with React Native.
+然后就可以开发啦~可是我完全不会 React Native 怎么办？
 
-[metro]: https://facebook.github.io/metro/
+我们建议你先通读本站的所有文档，看看博客，看看论坛。如果觉得知识太零散，不够系统，那么你也可以考虑下购买我们的[付费咨询服务](/about#技术支持与商务合作)。

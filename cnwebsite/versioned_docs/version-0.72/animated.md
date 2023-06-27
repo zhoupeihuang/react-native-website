@@ -3,35 +3,26 @@ id: animated
 title: Animated
 ---
 
-import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import constants from '@site/core/TabsConstants';
-
 `Animated`库旨在使动画变得流畅，强大并易于构建和维护。`Animated`侧重于输入和输出之间的声明性关系，以及两者之间的可配置变换，此外还提供了简单的 `start/stop`方法来控制基于时间的动画执行。
 
 创建动画最基本的工作流程是先创建一个 `Animated.Value` ，将它连接到动画组件的一个或多个样式属性，然后使用`Animated.timing()`通过动画效果展示数据的变化：
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
-
 > 请不要直接修改动画值！你可以用[`useRef` Hook](https://zh-hans.reactjs.org/docs/hooks-reference.html#useref)来返回一个可修改的 ref 引用。ref 对象的`current`属性在初始化时被赋予给定的动画值，且在组件的生命周期内保存不被销毁。
-
-</TabItem>
-<TabItem value="classical">
-
-> 请不要直接修改动画值！我们一般在 class 组件中使用一个[状态变量](intro-react#state)或是成员变量来存放它。
-
-</TabItem>
-</Tabs>
 
 ## 示例
 
 下面的例子演示了一个根据动画值`fadeAnim`来淡入淡出的视图：
 
-<Tabs groupId="syntax" defaultValue={constants.defaultSyntax} values={constants.syntax}>
-<TabItem value="functional">
-
 ```SnackPlayer name=Animated
-import React, { useRef } from "react";
-import { Animated, Text, View, StyleSheet, Button } from "react-native";
+import React, {useRef} from 'react';
+import {
+  Animated,
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  SafeAreaView,
+} from 'react-native';
 
 const App = () => {
   // fadeAnim will be used as the value for opacity. Initial Value: 0
@@ -41,141 +32,62 @@ const App = () => {
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 5000
+      duration: 5000,
+      useNativeDriver: true,
     }).start();
   };
 
   const fadeOut = () => {
-    // Will change fadeAnim value to 0 in 5 seconds
+    // Will change fadeAnim value to 0 in 3 seconds
     Animated.timing(fadeAnim, {
       toValue: 0,
-      duration: 5000
+      duration: 3000,
+      useNativeDriver: true,
     }).start();
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Animated.View
         style={[
           styles.fadingContainer,
           {
-            opacity: fadeAnim // Bind opacity to animated value
-          }
-        ]}
-      >
+            // Bind opacity to animated value
+            opacity: fadeAnim,
+          },
+        ]}>
         <Text style={styles.fadingText}>Fading View!</Text>
       </Animated.View>
       <View style={styles.buttonRow}>
-        <Button title="Fade In" onPress={fadeIn} />
-        <Button title="Fade Out" onPress={fadeOut} />
+        <Button title="Fade In View" onPress={fadeIn} />
+        <Button title="Fade Out View" onPress={fadeOut} />
       </View>
-    </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   fadingContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: "powderblue"
+    padding: 20,
+    backgroundColor: 'powderblue',
   },
   fadingText: {
     fontSize: 28,
-    textAlign: "center",
-    margin: 10
   },
   buttonRow: {
-    flexDirection: "row",
-    marginVertical: 16
-  }
+    flexBasis: 100,
+    justifyContent: 'space-evenly',
+    marginVertical: 16,
+  },
 });
 
 export default App;
 ```
-
-</TabItem>
-<TabItem value="classical">
-
-```SnackPlayer name=Animated
-import React, { Component } from "react";
-import { Animated, Text, View, StyleSheet, Button } from "react-native";
-
-class App extends Component {
-  // fadeAnim will be used as the value for opacity. Initial Value: 0
-  state = {
-    fadeAnim: new Animated.Value(0)
-  };
-
-  fadeIn = () => {
-    // Will change fadeAnim value to 1 in 5 seconds
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 1,
-      duration: 5000
-    }).start();
-  };
-
-  fadeOut = () => {
-    // Will change fadeAnim value to 0 in 5 seconds
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 0,
-      duration: 5000
-    }).start();
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Animated.View
-          style={[
-            styles.fadingContainer,
-            {
-              opacity: this.state.fadeAnim // Bind opacity to animated value
-            }
-          ]}
-        >
-          <Text style={styles.fadingText}>Fading View!</Text>
-        </Animated.View>
-        <View style={styles.buttonRow}>
-          <Button title="Fade In" onPress={this.fadeIn} />
-          <Button title="Fade Out" onPress={this.fadeOut} />
-        </View>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  fadingContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    backgroundColor: "powderblue"
-  },
-  fadingText: {
-    fontSize: 28,
-    textAlign: "center",
-    margin: 10
-  },
-  buttonRow: {
-    flexDirection: "row",
-    marginVertical: 16
-  }
-});
-
-export default App;
-```
-
-</TabItem>
-</Tabs>
 
 你可以在[动画](animations#animated-api)文档中看到更多实际的例子。
 
@@ -290,8 +202,8 @@ Animated.timing({}).start(({finished}) => {
 
 ### `decay()`
 
-```jsx
-static decay(value, config)
+```tsx
+static decay(value, config): CompositeAnimation;
 ```
 
 推动一个值以一个初始的速度和一个衰减系数逐渐变为 0。
@@ -307,8 +219,8 @@ Config 参数有以下这些属性：
 
 ### `timing()`
 
-```jsx
-static timing(value, config)
+```tsx
+static timing(value, config): CompositeAnimation;
 ```
 
 推动一个值按照一个缓动曲线而随时间变化。[`Easing`](easing)模块定义了一大堆曲线，你也可以使用你自己的函数。
@@ -325,8 +237,8 @@ Config 参数有以下这些属性：
 
 ### `spring()`
 
-```jsx
-static spring(value, config)
+```tsx
+static spring(value, config): CompositeAnimation;
 ```
 
 根据基于[阻尼谐振动 damped harmonic oscillation](https://en.wikipedia.org/wiki/Harmonic_oscillator#Damped_harmonic_oscillator)的弹性模型生成一个动画值。它会在`toValue`值更新的同时跟踪当前的速度状态，以确保动画连贯。可以链式调用。
@@ -342,19 +254,19 @@ friction/tension 或 bounciness/speed 选项符合[Facebook Pop](https://github.
 - `speed`: 控制动画速度。默认值 12.
 - `bounciness`: 控制弹性。默认值 8.
 
-如果指定 stiffness/damping/mass 参数，makes `Animated.spring` use an analytical spring model based on the motion equations of a [damped harmonic oscillator](https://en.wikipedia.org/wiki/Harmonic_oscillator#Damped_harmonic_oscillator). This behavior is slightly more precise and faithful to the physics behind spring dynamics, and closely mimics the implementation in iOS's CASpringAnimation.
+指定 stiffness/damping/mass 作为参数，使`Animated.spring`使用基于[阻尼谐振子](https://en.wikipedia.org/wiki/Harmonic_oscillator#Damped_harmonic_oscillator)的运动方程的解析弹簧模型。这种行为略微更精确，更忠实于弹簧动力学背后的物理原理，并且更贴近 iOS 的 CASpringAnimation 中的实现。
 
-- `stiffness`: The spring stiffness coefficient. 默认值 100.
-- `damping`: Defines how the spring’s motion should be damped due to the forces of friction. 默认值 10.
-- `mass`: The mass of the object attached to the end of the spring. 默认值 1.
+- `stiffness`: 弹簧刚度系数。默认值 100.
+- `damping`: 定义了弹簧运动由于摩擦力而应受到的阻尼。 默认值 10.
+- `mass`: 弹簧末端附着物体的质量。默认值 1.
 
 还有一些其他的配置参数：
 
-- `velocity`: The initial velocity of the object attached to the spring. 默认值 0 (object is at rest).
-- `overshootClamping`: Boolean indiciating whether the spring should be clamped and not bounce. Default false.
-- `restDisplacementThreshold`: The threshold of displacement from rest below which the spring should be considered at rest. Default 0.001.
-- `restSpeedThreshold`: The speed at which the spring should be considered at rest in pixels per second. 默认值 0.001.
-- `delay`: Start the animation after delay (milliseconds). 默认值 0.
+- `velocity`: 物体附着在弹簧上的初始速度。默认值为 0（物体静止）。
+- `overshootClamping`：布尔值，指示是否应该夹紧弹簧而不反弹。默认为 false。
+- `restDisplacementThreshold`：从静止状态开始的位移阈值，低于此阈值时应将弹簧视为处于静止状态。默认为 0.001。
+- `restSpeedThreshold`：以像素/秒表示的弹簧被认为处于静止状态的速度。 默认值 0.001。
+- `delay`：延迟后启动动画（毫秒）。 默认值 0。
 - `isInteraction`: 指定本动画是否在`InteractionManager`的队列中注册以影响其任务调度。默认值为 true。
 - `useNativeDriver`: 启用原生动画驱动。默认不启用(false)。
 
@@ -362,8 +274,8 @@ friction/tension 或 bounciness/speed 选项符合[Facebook Pop](https://github.
 
 ### `add()`
 
-```jsx
-static add(a, b)
+```tsx
+static add(a: Animated, b: Animated): AnimatedAddition;
 ```
 
 将两个动画值相加计算，得出一个新的动画值。
@@ -372,8 +284,8 @@ static add(a, b)
 
 ### `subtract()`
 
-```jsx
-static subtract(a, b)
+```tsx
+static subtract(a: Animated, b: Animated): AnimatedSubtraction;
 ```
 
 将两个动画值相减计算，得出一个新的动画值。
@@ -382,8 +294,8 @@ static subtract(a, b)
 
 ### `divide()`
 
-```jsx
-static divide(a, b)
+```tsx
+static divide(a: Animated, b: Animated): AnimatedDivision;
 ```
 
 将两个动画值相除计算，得出一个新的动画值。
@@ -392,8 +304,8 @@ static divide(a, b)
 
 ### `multiply()`
 
-```jsx
-static multiply(a, b)
+```tsx
+static multiply(a: Animated, b: Animated): AnimatedMultiplication;
 ```
 
 将两个动画值相乘计算，得出一个新的动画值。
@@ -402,8 +314,8 @@ static multiply(a, b)
 
 ### `modulo()`
 
-```jsx
-static modulo(a, modulus)
+```tsx
+static modulo(a: Animated, modulus: number): AnimatedModulo;
 ```
 
 将两个动画值做取模（取余数）计算，得出一个新的动画值。
@@ -412,11 +324,11 @@ static modulo(a, modulus)
 
 ### `diffClamp()`
 
-```jsx
-static diffClamp(a, min, max)
+```tsx
+static diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
 ```
 
-Create a new Animated value that is limited between 2 values. It uses the difference between the last value so even if the value is far from the bounds it will start changing when the value starts getting closer again. (`value = clamp(value + diff, min, max)`).
+创建一个新的动画值，该值限制在两个特定的数值之间。它使用上一次数值与当前数值之差，因此即使该数值远离边界，在接近边界时也会开始变化（`value = clamp(value + diff, min, max)`）。
 
 这在滚动事件中很有用，例如，在向上滚动时显示导航条，向下滚动时隐藏导航条。
 
@@ -424,8 +336,8 @@ Create a new Animated value that is limited between 2 values. It uses the differ
 
 ### `delay()`
 
-```jsx
-static delay(time)
+```tsx
+static delay(time: number): CompositeAnimation;
 ```
 
 在指定的延迟之后开始动画。
@@ -434,8 +346,8 @@ static delay(time)
 
 ### `sequence()`
 
-```jsx
-static sequence(animations)
+```tsx
+static sequence(animations: CompositeAnimation[]): CompositeAnimation;
 ```
 
 按顺序执行一个动画数组里的动画，等待一个完成后再执行下一个。如果当前的动画被中止，后面的动画则不会继续执行。
@@ -444,8 +356,11 @@ static sequence(animations)
 
 ### `parallel()`
 
-```jsx
-static parallel(animations, config?)
+```tsx
+static parallel(
+  animations: CompositeAnimation[],
+  config?: ParallelConfig
+): CompositeAnimation;
 ```
 
 同时开始一个动画数组里的全部动画。默认情况下，如果有任何一个动画停止了，其余的也会被停止。你可以通过`stopTogether`选项来改变这个效果。
@@ -454,8 +369,11 @@ static parallel(animations, config?)
 
 ### `stagger()`
 
-```jsx
-static stagger(time, animations)
+```tsx
+static stagger(
+  time: number,
+  animations: CompositeAnimation[]
+): CompositeAnimation;
 ```
 
 一个动画数组，里面的动画有可能会同时执行（重叠），不过会以指定的延迟来开始。适用于制作拖尾效果。
@@ -464,22 +382,28 @@ static stagger(time, animations)
 
 ### `loop()`
 
-```jsx
-static loop(animation, config?)
+```tsx
+static loop(
+  animation: CompositeAnimation[],
+  config?: LoopAnimationConfig
+): CompositeAnimation;
 ```
 
 无限循环一个指定的动画，从头到尾周而复始。如果此循环的子动画设置了`useNativeDriver: true`则不会阻塞 JS 线程的执行。此外循环可能导致基于`VirtualizedList`的列表不能加载更多行，此时可以在子动画中设置`isInteraction: false`来修复此问题。
 
-Config is an object that may have the following options:
+Config 是一个对象，它具有以下选项：
 
-- `iterations`: Number of times the animation should loop. Default `-1` (infinite).
+- `iterations`：动画应循环的次数。默认值为 `-1`（无限）。
 
 ---
 
 ### `event()`
 
-```jsx
-static event(argMapping, config?)
+```tsx
+static event(
+  argMapping: Mapping[],
+  config?: EventConfig
+): (...args: any[]) => void;
 ```
 
 接受一个映射的数组，对应的解开每个值，然后调用所有对应的输出的`setValue`方法。例如：
@@ -507,36 +431,36 @@ Config 参数有以下这些属性：
 ### `forkEvent()`
 
 ```jsx
-static forkEvent(event, listener)
+static forkEvent(event: AnimatedEvent, listener: Function): AnimatedEvent;
 ```
 
-Advanced imperative API for snooping on animated events that are passed in through props. It permits to add a new javascript listener to an existing `AnimatedEvent`. If `animatedEvent` is a javascript listener, it will merge the 2 listeners into a single one, and if `animatedEvent` is null/undefined, it will assign the javascript listener directly. Use values directly where possible.
+高级命令式 API，用于监听通过 props 传递的动画事件。它允许向现有的`AnimatedEvent`添加新的 JavaScript 监听器。如果`animatedEvent`是一个 JavaScript 监听器，则会将这两个监听器合并为一个；如果`animatedEvent`为空/未定义，则直接分配 JavaScript 监听器。尽可能直接使用值。
 
 ---
 
 ### `unforkEvent()`
 
 ```jsx
-static unforkEvent(event, listener)
+static unforkEvent(event: AnimatedEvent, listener: Function);
 ```
 
 ---
 
 ### `start()`
 
-```jsx
-static start([callback]: ?(result?: {finished: boolean}) => void)
+```tsx
+static start(callback?: (result: {finished: boolean}) => void);
 ```
 
-Animations are started by calling start() on your animation. start() takes a completion callback that will be called when the animation is done or when the animation is done because stop() was called on it before it could finish.
+通过在动画上调用`start()`来启动动画。 `start()`接受一个完成回调函数，当动画完成或因在它完成之前调用`stop()`而结束时将被调用。
 
 **参数：**
 
-| 名称     | 类型                            | Required | 说明                                                                                                                                                            |
-| -------- | ------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| callback | ?(result?: {finished: boolean}) | No       | Function that will be called after the animation finished running normally or when the animation is done because stop() was called on it before it could finish |
+| 名称     | 类型                                  | 必填 | 说明                                                                          |
+| -------- | ------------------------------------- | ---- | ----------------------------------------------------------------------------- |
+| callback | (result: {finished: boolean}) => void | No   | 在动画正常完成或因为在它完成之前调用了 stop()而被强制停止时，将会调用该函数。 |
 
-Start example with callback:
+使用回调函数的示例：
 
 ```jsx
 Animated.timing({}).start(({finished}) => {
@@ -570,7 +494,7 @@ static reset()
 
 驱动动画运行的一维标量值。一般使用`new Animated.Value(0);`来初始化。
 
-You can read more about `Animated.Value` API on the separate [page](animatedvalue).
+您可以在单独的[页面](animatedvalue)上阅读有关`Animated.Value` API 的更多信息。
 
 ---
 
@@ -578,19 +502,19 @@ You can read more about `Animated.Value` API on the separate [page](animatedvalu
 
 驱动 2D 动画运行的二维向量值，比如用在手势动画中。
 
-You can read more about `Animated.ValueXY` API on the separate [page](animatedvaluexy).
+您可以在单独的[页面](animatedvaluexy)上阅读有关`Animated.ValueXY` API 的更多信息。
 
 ---
 
 ### `Interpolation`
 
-Exported to use the Interpolation type in flow.
+此插值类型仅导出以在 Flow 中使用。
 
 ---
 
 ### `Node`
 
-Exported for ease of type checking. All animated values derive from this class.
+为了方便类型检查而导出。所有动画值都源自于这个类。
 
 ---
 
@@ -602,4 +526,4 @@ Exported for ease of type checking. All animated values derive from this class.
 
 ### `attachNativeEvent`
 
-Imperative API to attach an animated value to an event on a view. Prefer using `Animated.event` with `useNativeDriver: true` if possible.
+将动画值附加到视图事件的命令式 API。如果可能，请优先使用带有`useNativeDriver: true`的`Animated.event`。
