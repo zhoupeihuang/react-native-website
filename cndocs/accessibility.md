@@ -26,7 +26,7 @@ iOS 和 Android 都提供了便于残障人士无障碍使用 App 的 API。此�
 
 在上面这个例子中，当父视图开启无障碍属性后，我们就无法单独选中'text one'和'text two'，而只能选中整个父视图。
 
-### 无障碍标签 `accessibilityLabel`
+### `accessibilityLabel`
 
 当一个视图启用无障碍属性后，最好再加上一个 accessibilityLabel（无障碍标签），这样可以让使用 VoiceOver 的人们清楚地知道自己选中了什么。VoiceOver 会读出选中元素的无障碍标签。
 
@@ -47,22 +47,22 @@ iOS 和 Android 都提供了便于残障人士无障碍使用 App 的 API。此�
 
 ### `accessibilityLabelledBy` <div class="label android">Android</div>
 
-A reference to another element [nativeID](view.md#nativeid) used to build complex forms.
-The value of `accessibilityLabelledBy` should match the `nativeID` of the related element:
+引用另一个元素[nativeID](view.md#nativeid)来构建复杂的表单。
+`accessibilityLabelledBy`的值应该与相关元素的`nativeID`匹配：
 
 ```jsx
 <View>
-  <Text nativeID="formLabel">Label for Input Field</Text>
+  <Text nativeID="formLabel">用于输入字段标签的编辑框</Text>
   <TextInput
-    accessibilityLabel="input"
+    accessibilityLabel="输入"
     accessibilityLabelledBy="formLabel"
   />
 </View>
 ```
 
-In the above example, the screenreader announces `Input, Edit Box for Label for Input Field` when focusing on the TextInput.
+在上面的例子中，当焦点位于 TextInput 上时，屏幕阅读器会提示`输入，用于输入字段标签的编辑框`。
 
-### 无障碍提示 `accessibilityHint`
+### `accessibilityHint`
 
 无障碍提示用于帮助用户理解操作可能导致什么后果，尤其是当这些后果并不能从无障碍标签中清楚地了解时。
 
@@ -75,20 +75,33 @@ In the above example, the screenreader announces `Input, Edit Box for Label for 
   accessibilityHint="返回到上一个页面"
   onPress={this._onPress}>
   <View style={styles.button}>
-    <Text style={styles.buttonText}>Back</Text>
+    <Text style={styles.buttonText}>返回</Text>
   </View>
 </TouchableOpacity>
 ```
 
-在上面这个例子里，iOS 的 VoiceOver will read the hint after the label, if the user has hints enabled in the device's VoiceOver settings. Read more about guidelines for accessibilityHint in the [iOS Developer Docs](https://developer.apple.com/documentation/objectivec/nsobject/1615093-accessibilityhint)
+在上面这个例子里，iOS 的 VoiceOver 会在标签后读取提示，如果用户在设备的VoiceOver设置中启用了提示。有关accessibilityHint指南的更多信息，请阅读[iOS开发者文档](https://developer.apple.com/documentation/objectivec/nsobject/1615093-accessibilityhint)。
 
-在上面这个例子里，Android 的 Talkback will read the hint after the label. At this time, hints cannot be turned off on Android.
+在上面这个例子里，Android 的 Talkback将在标签后读取提示。目前，Android 上无法关闭提示。
 
-### 忽略反转色 `accessibilityIgnoresInvertColors` <div class="label ios">iOS</div>
+### `accessibilityLanguage` <div class="label ios">iOS</div>
 
-Inverting screen colors is an Accessibility feature that makes the iPhone and iPad easier on the eyes for some people with a sensitivity to brightness, easier to distinguish for some people with color blindness, and easier to make out for some people with low vision. However, sometimes you have views such as photos that you don't want to be inverted. In this case, you can set this property to be false so that these specific views won't have their colors inverted.
+通过使用 `accessibilityLanguage` 属性，屏幕阅读器将了解在阅读元素的 **标签**、**值** 和 **提示** 时要使用哪种语言。提供的字符串值必须遵循 [BCP 47 规范](https://www.rfc-editor.org/info/bcp47)。
 
-### 无障碍的动态区域 `accessibilityLiveRegion` <div class="label android">Android</div>
+```tsx
+<View
+  accessible={true}
+  accessibilityLabel="Pizza"
+  accessibilityLanguage="it-IT">
+  <Text>🍕</Text>
+</View>
+```
+
+### `accessibilityIgnoresInvertColors` <div class="label ios">iOS</div>
+
+反转屏幕颜色是一项辅助功能，它使得 iPhone 和 iPad 对于某些对亮度敏感的人更加舒适，对于某些色盲患者更容易区分，对于视力低下的人来说更容易识别。然而，有时您会查看照片等视图，并不希望其被反转。在这种情况下，您可以将此属性设置为 false，以便这些特定视图不会反转其颜色。
+
+### `accessibilityLiveRegion` <div class="label android">Android</div>
 
 组件发生动态变化时，我们希望 TalkBack 能够提醒用户。这一行为可以通过设置`accessibilityLiveRegion`属性来实现。具体值可以设置为`none`，`polite`以及`assertive`：
 
@@ -109,7 +122,7 @@ Inverting screen colors is an Accessibility feature that makes the iPhone and iP
 
 上面这个例子中，\_addOne 方法会改变 state.count 这个变量。那么只要用户点击了 TouchableWithoutFeedback，TalkBack 就会读出 Text 组件中的值，因为它设置了`accessibilityLiveRegion="polite"`属性。
 
-### 无障碍角色 `accessibilityRole`
+### `accessibilityRole`
 
 `accessibilityRole` communicates the purpose of a component to the user of an assistive technology.
 
