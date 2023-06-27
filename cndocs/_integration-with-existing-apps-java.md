@@ -387,9 +387,10 @@ $ yarn start
 
 ### 在 Android Studio 中打包
 
-你也可以使用 Android Studio 来打 release 包！其步骤基本和原生应用一样，只是在每次编译打包之前需要先执行 js 文件的打包(即生成离线的 jsbundle 文件)。具体的 js 打包命令如下：
+你也可以使用 Android Studio 来打 release 包！其步骤基本和原生应用一样，只是如果你**没有**使用 React Native Gradle Plugin 的话，则在每次编译打包之前需要先执行 js 文件的打包(即生成离线的 jsbundle 文件)。具体的 js 打包命令如下：
 
 ```shell
+# 注：如果你使用了 React Native Gradle Plugin，则其会自动执行以下命令，不需要手动执行
 $ npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/com/your-company-name/app-package-name/src/main/assets/index.android.bundle --assets-dest android/com/your-company-name/app-package-name/src/main/res/
 ```
 
