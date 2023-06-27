@@ -75,6 +75,12 @@ $ brew install cocoapods
 
 ![Before RN Integration](/docs/assets/react-native-existing-app-integration-ios-before.png)
 
+### Xcode 命令行工具
+
+安装Xcode命令行工具。在Xcode菜单中选择**Settings... (或者是 Preferences...)**，进入 Locations 面板并通过在 Command Line Tools 下拉菜单中选择最新版本来安装工具。
+
+![Xcode Command Line Tools](/docs/assets/GettingStartedXcodeCommandLineTools.png)
+
 ### 配置 CocoaPods 的依赖
 
 > 提示，此部分说明可能落后于最新版本。建议使用`npx react-native init NewProject`创建一个最新版本的纯 RN 项目，去参考其 Podfile 的配置。
@@ -89,39 +95,8 @@ React Native 框架整体是作为 node 模块安装到项目中的。下一步�
 $ pod init
 ```
 
-`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这样（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
-
-```
-source 'https://github.com/CocoaPods/Specs.git'
-
-# 对于Swift应用来说下面两句是必须的
-platform :ios, '8.0'
-use_frameworks!
-
-# target的名字一般与你的项目名字相同
-target 'swift-2048' do
-
-  # 'node_modules'目录一般位于根目录中
-  # 但是如果你的结构不同，那你就要根据实际路径修改下面的`:path
-  pod 'React', :path => '../node_modules/react-native', :subspecs => [
-    'Core',
-    'CxxBridge', # Include this for RN >= 0.47
-    'DevSupport', # Include this to enable In-App Devmenu if RN >= 0.43
-    'RCTText',
-    'RCTNetwork',
-    'RCTWebSocket', # needed for debugging
-    # Add any other subspecs you want to use in your project
-  ]
-  # Explicitly include Yoga if you are using RN >= 0.42.0
-  pod "Yoga", :path => "../node_modules/react-native/ReactCommon/yoga"
-
-  # Third party deps podspec link
-  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
-  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
-  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
-end
-```
+`Podfile`会创建在执行命令的目录中。你需要调整其内容以满足你的集成需求。调整后的`Podfile`的内容看起来类似下面这个模板文件（也可以用`npx react-native init 项目名`命令创建一个纯 RN 项目，然后去参考其 ios 目录中的 Podfile 文件）：
+[Podfile 示范模板](https://github.com/facebook/react-native/blob/main/packages/react-native/template/ios/Podfile)
 
 创建好了`Podfile`后，就可以开始安装 React Native 的 pod 包了。
 
@@ -142,7 +117,7 @@ Sending stats
 Pod installation complete! There are 3 dependencies from the Podfile and 1 total pod installed.
 ```
 
-> If this fails with errors mentioning `xcrun`, make sure that in Xcode in **Preferences > Locations** the Command Line Tools are assigned.
+> 如果出现提到 `xcrun` 的错误，请确保在 Xcode 中的 **Preferences > Locations** 中分配了命令行工具。
 
 > 如果你看到类似"_The `swift-2048 [Debug]` target overrides the `FRAMEWORK_SEARCH_PATHS` build setting defined in `Pods/Target Support Files/Pods-swift-2048/Pods-swift-2048.debug.xcconfig`. This can lead to problems with the CocoaPods installation_"的警告，请查看 Xcode 的`Build Settings`中的`Framework Search Paths`选项，确保其中的`Debug`和`Release`都只包含`$(inherited)`。
 
@@ -156,7 +131,7 @@ Pod installation complete! There are 3 dependencies from the Podfile and 1 total
 
 ##### 1. 创建一个`index.js`文件
 
-首先在项目根目录下创建一个空的`index.js`文件。（注意在 0.49 版本之前是 index.ios.js 文件）
+首先在项目根目录下创建一个空的`index.js`文件。
 
 `index.js`是 React Native 应用在 iOS 上的入口文件。而且它是不可或缺的！它可以是个很简单的文件，简单到可以只包含一行`require/import`导入语句。本教程中为了简单示范，把全部的代码都写到了`index.js`里（当然实际开发中我们并不推荐这样做）。
 
@@ -214,13 +189,13 @@ AppRegistry.registerComponent('RNHighScores', () => RNHighScores);
 
 #### 核心组件：`RCTRootView`
 
-现在我们已经在`index.js`中创建了 React Native 组件，下一步就是把这个组件添加给一个新的或已有的`ViewController`。 The easiest path to take is to optionally create an event path to your component and then add that component to an existing `ViewController`.
+现在我们已经在`index.js`中创建了 React Native 组件，下一步就是把这个组件添加给一个新的或已有的`ViewController`。最简单的方法是可选地为您的组件创建一个事件路径，然后将该组件添加到现有的“ViewController”中。
 
-We will tie our React Native component with a new native view in the `ViewController` that will actually contain it called `RCTRootView` .
+我们将把React Native组件与名为“RCTRootView”的新原生视图绑定在一起，该视图实际上包含它。
 
-##### 1. Create an Event Path
+##### 1. 创建一个事件路径
 
-You can add a new link on the main game menu to go to the "High Score" React Native page.
+你可以在主游戏菜单上添加一个新链接，以便前往 "High Score" 的 React Native 页面。
 
 ![Event Path](/docs/assets/react-native-add-react-native-integration-link.png)
 
@@ -263,21 +238,21 @@ import React
 }
 ```
 
-> Note that `RCTRootView bundleURL` starts up a new JSC VM. To save resources and simplify the communication between RN views in different parts of your native app, you can have multiple views powered by React Native that are associated with a single JS runtime. To do that, instead of using `RCTRootView bundleURL`, use [`RCTBridge initWithBundleURL`](https://github.com/facebook/react-native/blob/master/React/Base/RCTBridge.h#L89) to create a bridge and then use `RCTRootView initWithBridge`.
+> 请注意，`RCTRootView bundleURL`会启动一个新的JSC VM。为了节省资源并简化本机应用程序中不同部分的RN视图之间的通信，您可以拥有由React Native驱动的多个视图与单个JS运行时相关联。要做到这一点，而不是使用 `RCTRootView bundleURL`，请使用 [`RCTBridge initWithBundleURL`](https://github.com/facebook/react-native/blob/master/React/Base/RCTBridge.h#L89) 创建桥接器，然后使用 `RCTRootView initWithBridge`。
 
-> When moving your app to production, the `NSURL` can point to a pre-bundled file on disk via something like `let mainBundle = NSBundle(URLForResource: "main" withExtension:"jsbundle")`. You can use the `react-native-xcode.sh` script in `node_modules/react-native/scripts/` to generate that pre-bundled file.
+> 将应用程序移至生产环境时，NSURL 可以通过类似于 `let mainBundle = NSBundle(URLForResource: "main" withExtension:"jsbundle")` 的方式指向磁盘上预打包文件。 您可以在 `node_modules/react-native/scripts/` 中使用 `react-native-xcode.sh` 脚本生成该预打包文件。
 
-##### 3. Wire Up
+##### 3. 连接起来
 
-Wire up the new link in the main menu to the newly added event handler method.
+将主菜单中的新链接与新增的事件处理程序方法连接起来。
 
 ![Event Path](/docs/assets/react-native-add-react-native-integration-wire-up.png)
 
-> One of the easier ways to do this is to open the view in the storyboard and right click on the new link. Select something such as the `Touch Up Inside` event, drag that to the storyboard and then select the created method from the list provided.
+> 其中一种更简单的方法是在Storyboard中打开视图，右键单击新链接。选择诸如“Touch Up Inside”事件之类的内容，将其拖到Storyboard上，然后从提供的列表中选择所创建的方法。
 
 ### 测试集成结果
 
-You have now done all the basic steps to integrate React Native with your current application. Now we will start the [Metro bundler][metro] to build the `index.bundle` package and the server running on `localhost` to serve it.
+您现在已经完成了将 React Native 与当前应用程序集成的所有基本步骤。现在我们将启动[Metro bundler][metro]来构建`index.bundle`包，并运行服务器以在`localhost`上提供服务。
 
 ##### 1. 添加 App Transport Security 例外
 
@@ -316,17 +291,17 @@ $ npm start
 $ npx react-native run-ios
 ```
 
-In our sample application, you should see the link to the "High Scores" and then when you click on that you will see the rendering of your React Native component.
+在我们的示例应用程序中，您应该会看到"High Scores"链接，然后当您单击它时，将会看到 React Native 组件的呈现。
 
-Here is the _native_ application home screen:
+这是应用_原生_部分的主页面：
 
 ![Home Screen](/docs/assets/react-native-add-react-native-integration-example-home-screen.png)
 
-Here is the _React Native_ high score screen:
+这是应用_React Native_部分的 high score 页面:
 
 ![High Scores](/docs/assets/react-native-add-react-native-integration-example-high-scores.png)
 
-> If you are getting module resolution issues when running your application please see [this GitHub issue](https://github.com/facebook/react-native/issues/4968) for information and possible resolution. [This comment](https://github.com/facebook/react-native/issues/4968#issuecomment-220941717) seemed to be the latest possible resolution.
+> 如果在运行应用时遇到模块解析问题，请参阅[此 GitHub 问题](https://github.com/facebook/react-native/issues/4968)以获取信息和可能的解决方案。 [这个评论](https://github.com/facebook/react-native/issues/4968#issuecomment-220941717)似乎是最新的可能解决方案。
 
 ### 然后呢？
 
