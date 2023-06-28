@@ -19,7 +19,7 @@ title: 快速刷新
 
 如果出现了**组件内部发生的运行时错误**，在你修复错误之后，快速刷新会话*也*将继续进行。在这种情况下，React 将会使用更新后的代码重新挂载你的应用。
 
-如果你在代码中使用了[error boundaries](https://zh-hans.reactjs.org/docs/error-boundaries.html)(which is a good idea for graceful failures in production), they will retry rendering on the next edit after a redbox. In that sense, having an error boundary can prevent you from always getting kicked out to the root app screen. However, keep in mind that error boundaries shouldn't be _too_ granular. They are used by React in production, and should always be designed intentionally.
+如果你在代码中使用了[error boundaries](https://zh-hans.reactjs.org/docs/error-boundaries.html)（这对于在生产环境中优雅地处理失败是一个好主意），它们将在红框之后的下一次编辑时重新尝试渲染。从这个意义上说，拥有错误边界可以防止您总是被踢出到根应用程序屏幕。然而，请记住错误边界不应该过于细粒度。它们由React在生产环境中使用，并且始终应该经过有意设计。
 
 ## 限制
 
@@ -36,12 +36,12 @@ title: 快速刷新
 - 快速刷新默认保持函数组件（和 Hooks）的本地 state。
 - 有时候你可能想要 _强制_ 状态被重置，某个组件被重新挂载。例如你正在调试一个发生在挂载期间的动画，这种情况是很有用的。为了做到这一点，你可以在文件的任何地方增加 `// @refresh reset`。这个指令是文件的本地指令，指示快速刷新在每次编辑时重新加载该文件中定义的组件。
 
-## Fast Refresh and Hooks
+## Fast Refresh 与 Hooks
 
-Fast Refresh 会尽可能的在编辑刷新时保留组件的状态。In particular, `useState` and `useRef` preserve their previous values as long as you don't change their arguments or the order of the Hook calls.
+Fast Refresh 会尽可能的在编辑刷新时保留组件的状态。特别是`useState`和`useRef`会保持它们的先前值，只要您不更改它们的参数或Hook调用的顺序。
 
- 像 `useEffect`, `useMemo`, 以及 `useCallback` 这些带有依赖的 Hooks will _always_ update during Fast Refresh. Their list of dependencies will be ignored while Fast Refresh is happening.
+具有依赖关系的Hooks（例如`useEffect`、 `useMemo`和 `useCallback`）将始终在快速刷新期间更新。在进行快速刷新时，它们的依赖列表将被忽略。
 
-For example, when you edit `useMemo(() => x * 2, [x])` to `useMemo(() => x * 10, [x])`, it will re-run even though `x` (the dependency) has not changed. If React didn't do that, your edit wouldn't reflect on the screen!
+例如，当您将 `useMemo(() => x * 2, [x])` 编辑为 `useMemo(() => x * 10, [x])`, 即使 `x`(依赖项) 没有改变，它也会重新运行。如果React不这样做，则您所做的编辑不会反映在屏幕上！
 
-Sometimes, this can lead to unexpected results. For example, even a `useEffect` with an empty array of dependencies would still re-run once during Fast Refresh. However, writing code resilient to an occasional re-running of `useEffect` is a good practice even without Fast Refresh. This makes it easier for you to later introduce new dependencies to it.
+有时候，这可能导致意外结果。例如，即使使用空数组作为依赖项，在快速刷新期间仍然会重新运行一次 `useEffect`. 然而，编写能够适应偶尔重新运行 `useEffect` 的代码是一个好习惯，即使没有快速刷新也是如此。这样可以更轻松地引入新的依赖项到其中。
