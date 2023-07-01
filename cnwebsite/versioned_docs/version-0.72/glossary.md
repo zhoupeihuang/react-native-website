@@ -13,7 +13,7 @@ React Native 嵌入的平台，比如 Android、iOS、Windows、macOS。
 
 ## 宿主视图树（Host View Tree）
 
-宿主视图树就是一系列的宿主视图。宿主平台有 Android 平台、iOS 平台等等。在 Android 上，宿主视图就是 android.view.ViewGroup 实例、 android.widget.TextView 实例等等。宿主视图就像积木一样地构成了宿主视图树。每个宿主视图的大小和坐标位置基于的是 LayoutMetrics，而 LayoutMetrics 是通过布局引擎 Yoga 计算出来的。宿主视图的样式和内容信息，是从 React 影子树中得到的。
+宿主视图树就是一系列的宿主视图。宿主平台有 Android 平台、iOS 平台等等。在 Android 上，宿主视图就是 android.view.ViewGroup实例、 android.widget.TextView实例等等。宿主视图就像积木一样地构成了宿主视图树。每个宿主视图的大小和坐标位置基于的是 LayoutMetrics，而  LayoutMetrics是通过布局引擎 Yoga 计算出来的。宿主视图的样式和内容信息，是从 React 影子树中得到的。
 
 ## JavaScript Interfaces (JSI)
 

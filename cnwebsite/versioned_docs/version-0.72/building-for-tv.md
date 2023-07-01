@@ -35,13 +35,13 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
 - _JavaScript 端_: 对于电视设备的检测代码已经加入到了`Platform`模块中。你可以使用下面的代码来检测当前运行设备是否是电视设备：
 
 ```js
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 const running_on_tv = Platform.isTV;
 ```
 
 ## 代码修改
 
-- _访问可点击的控件_：在 Android TV 上运行时，Android 框架将根据视图中可聚焦元素的相对位置自动应用定向导航方案。`Touchable`系列组件添加了检测焦点变化的代码，并使用现有方法正确设置组件的样式，以及在使用电视遥控器选择视图时启动正确的操作，因此`TouchableWithoutFeedback`、`TouchableHighlight`、`TouchableOpacity`和`TouchableNativeFeedback`将按预期工作。特别地：
+- _访问可点击的控件_：在Android TV上运行时，Android 框架将根据视图中可聚焦元素的相对位置自动应用定向导航方案。`Touchable`系列组件添加了检测焦点变化的代码，并使用现有方法正确设置组件的样式，以及在使用电视遥控器选择视图时启动正确的操作，因此`TouchableWithoutFeedback`、`TouchableHighlight`、`TouchableOpacity`和`TouchableNativeFeedback`将按预期工作。特别地：
 
   - `onFocus`会在可触摸视图成为焦点时执行
   - `onBlur`会在可触摸视图失去焦点时执行
@@ -108,7 +108,7 @@ class Game2048 extends React.Component {
 - _JavaScript 端_: 对于电视设备的检测代码已经加入到了`Platform`模块中。你可以使用下面的代码来检测当前运行设备是否是电视设备：
 
 ```jsx
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
 const running_on_tv = Platform.isTV;
 
 // 如果你想更精确地针对tvOS设备（即排除Android设备），
@@ -138,15 +138,15 @@ class Game2048 extends React.Component {
 
   _enableTVEventHandler() {
     this._tvEventHandler = new TVEventHandler();
-    this._tvEventHandler.enable(this, function (cmp, evt) {
+    this._tvEventHandler.enable(this, function(cmp, evt) {
       if (evt && evt.eventType === 'right') {
-        cmp.setState({board: cmp.state.board.move(2)});
+        cmp.setState({ board: cmp.state.board.move(2) });
       } else if (evt && evt.eventType === 'up') {
-        cmp.setState({board: cmp.state.board.move(1)});
+        cmp.setState({ board: cmp.state.board.move(1) });
       } else if (evt && evt.eventType === 'left') {
-        cmp.setState({board: cmp.state.board.move(0)});
+        cmp.setState({ board: cmp.state.board.move(0) });
       } else if (evt && evt.eventType === 'down') {
-        cmp.setState({board: cmp.state.board.move(3)});
+        cmp.setState({ board: cmp.state.board.move(3) });
       } else if (evt && evt.eventType === 'playPause') {
         cmp.restartGame();
       }

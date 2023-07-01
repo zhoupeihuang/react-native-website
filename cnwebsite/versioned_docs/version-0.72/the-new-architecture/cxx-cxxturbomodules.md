@@ -10,27 +10,27 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 <NewArchitectureWarning/>
 
-本指南将向您展示如何仅使用 C++ 实现 Turbo 原生模块，以便与任何支持的平台（Android、iOS、macOS 或 Windows）共享相同的实现。
+本指南将向您展示如何仅使用 C++ 实现Turbo 原生模块，以便与任何支持的平台（Android、iOS、macOS或Windows）共享相同的实现。
 
 在继续本指南之前，请阅读[Turbo Native Modules](./pillars-turbomodule.md)部分。作为进一步参考，我们为 RNTester 应用准备了一个示例（[NativeCxxModuleExample](https://github.com/facebook/react-native/tree/main/packages/rn-tester/NativeCxxModuleExample)），并在我们的社区代码库中提供了另一个示例（[run/pure-cxx-module](https://github.com/react-native-community/RNNewArchitectureApp/tree/run/pure-cxx-module)）。
 
 :::caution 注意
-C++ Turbo Native Modules work with the **New Architecture** enabled.
-To migrate to the **New Architecture**, follow the [Migration guide](../new-architecture-intro)
+使用 C++ Turbo 原生模块需要启用**新架构**。
+要迁移到**新架构**，请按照[迁移指南](../new-architecture-intro)进行操作。
 :::
 
-## How to Create a C++ Turbo Native Module
+## 如何创建 C++ Turbo 原生模块
 
-To create a C++ Turbo Native Module, you need to:
+要创建 C++ Turbo 原生模块，您需要：
 
-1. Define the JavaScript specification.
-2. Configure Codegen to generate the scaffolding.
-3. Register the native module.
-4. Write the native code to finish implementing the module.
+1. 定义JavaScript规范。
+2. 配置Codegen以生成脚手架。
+3. 注册本地模块。
+4. 编写本机代码来完成模块的实现。
 
-### Setup a Test App for the New Architecture
+### 为新架构设置一个测试应用
 
-As first step, create a new application:
+第一步，创建一个新的应用程序：
 
 ```sh
 npx react-native init CxxTurboModulesGuide
@@ -38,22 +38,22 @@ cd CxxTurboModulesGuide
 yarn install
 ```
 
-On Android enable the New Architecture by modifying the `android/gradle.properties` file:
+在 Android 上通过修改 `android/gradle.properties` 文件来启用新架构：
 
 ```diff
 - newArchEnabled=false
 + newArchEnabled=true
 ```
 
-On iOS enable the New Architecture when running `pod install` in the `ios` folder:
+在 iOS 上，在 `ios` 文件夹中运行 `pod install` 时启用新架构：
 
 ```sh
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-### Turbo Module Folder Setup
+### Turbo 模块文件夹设置
 
-Create a `tm` folder inside the project. It will contain all C++ TurboModules of your application. The final result should look like this:
+在项目中创建一个`tm`文件夹。它将包含您的应用程序的所有C++ Turbo模块。最终结果应该如下所示：
 
 ```sh
 CxxTurboModulesGuide
@@ -63,9 +63,9 @@ CxxTurboModulesGuide
 └── tm
 ```
 
-## 1. JavaScript Specification
+## 1. JavaScript 规范
 
-Create the following spec inside the `tm` folder:
+在 `tm` 文件夹中创建以下规范：
 
 <Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">
@@ -105,13 +105,13 @@ export default (TurboModuleRegistry.getEnforcing<Spec>(
 </TabItem>
 </Tabs>
 
-## 2. Codegen Configuration
+## 2. Codegen 配置
 
-Next, you need to add some configuration for [**Codegen**](pillars-codegen.md).
+接下来，您需要为 [**Codegen**](pillars-codegen.md) 添加一些配置。
 
-# Application
+# 应用
 
-Update your app's `package.json` file with the following entries:
+请在您的应用的 `package.json` 文件中更新以下条目：
 
 ```json title="package.json"
 {
@@ -132,15 +132,15 @@ Update your app's `package.json` file with the following entries:
 }
 ```
 
-It adds necessary properties which we will later re-use in the iOS `podspec` file and configures **Codegen** to search for specs inside the `tm` folder.
+它添加了必要的属性，我们将在 iOS 的 `podspec` 文件中重新使用，并配置 **Codegen** 在 `tm` 文件夹内搜索规范。
 
-:::caution
-C++ Turbo Native Modules don't autolink and need to be manually included into the app with the described steps below.
+:::caution 注意
+C++ Turbo 原生模块不会自动链接，需要按照下面描述的步骤手动包含到应用程序中。
 :::
 
-### iOS: Create the `podspec` file
+### iOS: 创建 `podspec` 文件
 
-For iOS, you'll need to create a `AppTurboModules.podspec` file in the `tm` folder - which will look like:
+在 iOS 上，您需要在`tm`文件夹中创建一个名为`AppTurboModules.podspec`的文件 - 它将如下所示：
 
 ```ruby title="AppTurboModules.podspec"
 require "json"
@@ -165,7 +165,7 @@ Pod::Spec.new do |s|
 end
 ```
 
-You need to add it as a dependency to your application in `ios/Podfile`, e.g., after the `use_react_native!(...)` section:
+你需要将它作为依赖项添加到你的应用程序中的 `ios/Podfile` 文件中，例如，在 `use_react_native!(...)` 部分之后：
 
 ```ruby
 if ENV['RCT_NEW_ARCH_ENABLED'] == '1'
@@ -175,7 +175,7 @@ end
 
 ### Android: `build.gradle`, `CMakeLists.txt`, `Onload.cpp`
 
-For Android, you'll need to create a `CMakeLists.txt` file in the `tm` folder - which will look like:
+对于 Android，您需要在`tm`文件夹中创建一个名为`CMakeLists.txt`的文件 - 其内容如下：
 
 ```cmake
 cmake_minimum_required(VERSION 3.13)
@@ -198,9 +198,9 @@ target_link_libraries(tm
         react_codegen_AppSpecs)
 ```
 
-It defines the `tm` folder as a source for native code and sets up necessary dependencies.
+它将`tm`文件夹定义为本地代码的来源，并设置了必要的依赖项。
 
-You need to add it as a dependency to your application in `android/app/build.gradle`, e.g., at the very end of that file:
+您需要将其添加为应用程序的依赖项，例如在`android/app/build.gradle`文件的末尾：
 
 ```kotlin title="build.gradle"
 android {
@@ -212,15 +212,15 @@ android {
 }
 ```
 
-:::note
-Ensure to pick the correct **android/app/build.gradle** file and not android/build.gradle.
+:::note 备注
+确保选择正确的 **android/app/build.gradle** 文件，而不是 android/build.gradle。
 :::
 
-## 3. Module Registration
+## 3. 注册模块
 
 ### iOS
 
-To register a C++ Turbo Native Module in your app you will need to update `ios/CxxTurboModulesGuide/AppDelegate.mm` with the following entries:
+要在您的应用程序中注册一个C++ Turbo 原生模块，您需要在`ios/CxxTurboModulesGuide/AppDelegate.mm`文件中更新以下条目：
 
 ```diff
 #import "AppDelegate.h"
@@ -252,17 +252,16 @@ To register a C++ Turbo Native Module in your app you will need to update `ios/C
 + }
 ```
 
-This will instantiante a `NativeSampleModule` associated with the name `NativeSampleModule` as defined in our JavaScript spec file earlier.
+这将实例化一个与之前在我们的 JavaScript 规范文件中定义的名称为`NativeSampleModule`的`NativeSampleModule`相关联的对象。
 
 ### Android
 
-Android apps aren't setup for native code compilation by default.
+Android应用默认情况下没有设置原生代码编译。
 
-1.) Create the folder `android/app/src/main/jni`
+1. 创建文件夹 `android/app/src/main/jni`
+2. 从[node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/main/packages/react-native/ReactAndroid/cmake-utils/default-app-setup)复制`CMakeLists.txt`和`Onload.cpp`到 `android/app/src/main/jni` 文件夹中。
 
-2.) Copy `CMakeLists.txt` and `Onload.cpp` from [node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup](https://github.com/facebook/react-native/tree/main/packages/react-native/ReactAndroid/cmake-utils/default-app-setup) into the `android/app/src/main/jni` folder.
-
-Update `Onload.cpp` with the following entries:
+使用以下条目更新 `Onload.cpp`:
 
 ```diff
 // ...
@@ -285,7 +284,7 @@ std::shared_ptr<TurboModule> cxxModuleProvider(
 // ...
 ```
 
-Update `CMakeLists.txt` with the following entries, e.g., at the very end of that file:
+更新`CMakeLists.txt`文件，添加以下条目，例如，在该文件的末尾处：
 
 ```diff
 // ...
@@ -298,55 +297,55 @@ include(${REACT_ANDROID_DIR}/cmake-utils/ReactNative-application.cmake)
 + target_link_libraries(${CMAKE_PROJECT_NAME} tm)
 ```
 
-This will instantiante a `NativeSampleModule` associated with the name `NativeSampleModule` as defined in our JavaScript spec file earlier.
+这将实例化一个与之前在我们的 JavaScript 规范文件中定义的名称为`NativeSampleModule`的`NativeSampleModule`相关联的对象。
 
-## 4. C++ Native Code
+## 4. C++ 原生代码
 
-For the final step, you'll need to write some native code to connect the JavaScript side to the native platforms. This process requires two main steps:
+在最后一步中，您需要编写一些原生代码来连接JavaScript端和本地平台。这个过程包括两个主要步骤：
 
-- Run **Codegen** to see what it generates.
-- Write your native code, implementing the generated interfaces.
+- 运行**Codegen**以查看它生成了什么。
+- 编写您的原生代码，实现生成的接口。
 
-### Run Codegen
+### 运行 Codegen
 
-:::info
-Follow the [Codegen](./pillars-codegen) guide for general information.
+:::info 提示
+阅读 [Codegen](./pillars-codegen) 指南获取更多信息。
 :::
 
-On iOS Codegen is run each time you execute in the `ios` folder:
+在iOS上，每次在`ios`文件夹中执行时都会运行Codegen：
 
 ```sh
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-You can inspect the generated `AppSpecsJSI.h` and `AppSpecsJSI-generated.cpp` files inside the `CxxTurboModulesGuide/ios/build/generated/ios` folder.
+您可以检查位于`CxxTurboModulesGuide/ios/build/generated/ios`文件夹内的生成的 `AppSpecsJSI.h` 和 `AppSpecsJSI-generated.cpp` 文件。
 
-Those files are prefixed with `AppSpecs` as this matches the `codegenConfig.name` parameter added earlier to `package.json`.
+这些文件以 `AppSpecs` 为前缀，因为这与之前添加到 `package.json` 的 `codegenConfig.name` 参数匹配。
 
-On Android Codegen is run each time you execute:
+在 Android 上，每次执行以下命令时都会运行 Codegen：
 
 ```sh
 yarn android
 ```
 
-You can inspect the generated `AppSpecsJSI.h` and `AppSpecsJSI-generated.cpp` files inside the `CxxTurboModulesGuide/android/app/build/generated/source/codegen/jni` folder.
+您可以检查位于 `CxxTurboModulesGuide/android/app/build/generated/source/codegen/jni` 文件夹内的生成的 `AppSpecsJSI.h` 和 `AppSpecsJSI-generated.cpp` 文件。
 
-You only need to re-run codegen if you have changed your JavaScript spec.
+只有当您更改了 JavaScript 规范时才需要重新运行codegen。
 
-The C++ function generated for our JavaScript spec file looks like:
+JavaScript 规范文件生成的C++函数如下：
 
 ```cpp
 virtual jsi::String reverseString(jsi::Runtime &rt, jsi::String input) = 0;
 ```
 
-You can directly work with the lower level `jsi::` types - but for convience C++ Turbo Native Modules automatically `bridge` into `std::` types for you.
+你可以直接使用较低级别的 `jsi::` 类型进行工作，但为了方便起见，C++ Turbo Native 模块会自动将其桥接到 `std::` 类型。
 
-### Implementation
+### 实现
 
-Now create a `NativeSampleModule.h` file with the following content:
+现在创建一个名为 `NativeSampleModule.h` 的文件，内容如下：
 
-:::note
-Due to current differences in the CMake and CocoaPod setup we need some creativity to include the correct Codegen header on each platform.
+:::note 备注
+由于 CMake 和 CocoaPod 设置的当前差异，我们需要一些技巧来在每个平台上包含正确的 Codegen 头文件。
 :::
 
 ```cpp
@@ -372,9 +371,9 @@ class NativeSampleModule : public NativeSampleModuleCxxSpec<NativeSampleModule> 
 } // namespace facebook::react
 ```
 
-In this case you can use any C++ type which `bridges` to a `jsi::String` - default or [custom one](./cxx-custom-types.md). You can't specify an incompatible type such as `bool`, `float` or `std::vector<>` as it does not `bridge` to `jsi::String` and hence results in a compilation error.
+在这种情况下，您可以使用任何与`jsi::String`相对应的C++类型 - 默认类型或[自定义类型](./cxx-custom-types.md)。但是，您不能指定不兼容的类型，例如`bool`、`float`或者 `std::vector<>`，因为它们无法与 `jsi::String` 进行“桥接”，从而导致编译错误。
 
-Now add a `NativeSampleModule.cpp` file with an implementation for it:
+现在，请添加一个名为 `NativeSampleModule.cpp` 的文件，并对其进行实现：
 
 ```cpp
 #include "NativeSampleModule.h"
@@ -391,15 +390,15 @@ std::string NativeSampleModule::reverseString(jsi::Runtime& rt, std::string inpu
 } // namespace facebook::react
 ```
 
-As we have added new C++ files run in the `ios` folder:
+我们在`ios`文件夹中添加了新的C++文件，如下所示：
 
 ```sh
 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install
 ```
 
-for iOS. In Xcode they appear under the `Pods` target in the `Development Pods \ TurboModules` subfolder.
+对于iOS来说，在Xcode中它们会出现在`Pods`目标下的`Development Pods \ TurboModules`子文件夹中。
 
-You should now be able to compile your app both on Android and iOS.
+现在你应该能够同时编译你的Android和iOS应用程序了。
 
 ```sh
 CxxTurboModulesGuide
@@ -424,9 +423,9 @@ CxxTurboModulesGuide
     └── TurboModules.podspec
 ```
 
-## 5. Adding the C++ Turbo Native Module to your App
+## 5. 将C++ Turbo 原生模块添加到您的应用程序
 
-For demo purposes we can update our app's `App.tsx|jsx` with the following entries:
+为了演示目的，我们可以在我们的应用程序的`App.tsx|jsx`中更新以下条目：
 
 ```diff
 //...
@@ -456,11 +455,11 @@ import {
 //...
 ```
 
-Run the app to see your C++ Turbo Native Module in action!
+运行应用以查看您的C++ Turbo 原生模块的效果！
 
-## App TurboModuleProvider [Optional]
+## App TurboModuleProvider [可选]
 
-You can avoid some code duplication once you added multiple C++ Turbo Native Modules by declaring an AppTurboModuleProvider:
+通过声明一个AppTurboModuleProvider，您可以避免在添加多个C++ Turbo 原生模块时出现一些代码重复：
 
 ```cpp title="AppTurboModuleProvider.h"
 #pragma once
@@ -481,7 +480,7 @@ class AppTurboModuleProvider {
 } // namespace facebook::react
 ```
 
-And implementing it:
+相应实现：
 
 ```cpp title="AppTurboModuleProvider.cpp"
 #include "AppTurboModuleProvider.h"
@@ -502,21 +501,19 @@ std::shared_ptr<TurboModule> AppTurboModuleProvider::getTurboModule(
 } // namespace facebook::react
 ```
 
-And then re-using it in `OnLoad.cpp` for Android and `AppDelegate.mm` for iOS, e.g., via:
+然后在Android的`OnLoad.cpp`和iOS的`AppDelegate.mm`相应的函数中复用它：
 
 ```cpp
 static facebook::react::AppTurboModuleProvider appTurboModuleProvider;
 return appTurboModuleProvider.getTurboModule(name, jsInvoker);
 ```
 
-in the corresponding functions.
+## 调用特定操作系统的 API
 
-## Calling OS specific APIs
+您仍然可以在编译单元中调用特定于操作系统的函数（例如，在苹果上使用`NS/CF` API或在Windows上使用`Win32/WinRT` API），只要方法签名只使用 `std::` 或 `jsi::` 类型。
 
-You can still call OS specific functions in the compilation unit (e.g., `NS/CF` APIs on Apple or `Win32/WinRT` APIs on Windows) as long as the method signatures only use `std::` or `jsi::` types.
+对于苹果特定的API，您需要将实现文件的扩展名从`.cpp`更改为`.mm`，以便能够使用 `NS/CF` API。
 
-For Apple specific APIs you need to change the extension of your implementation file from `.cpp` to `.mm` to be able to consume `NS/CF` APIs.
+## 扩展 C++ Turbo 原生模块
 
-## Extending C++ Turbo Native Modules
-
-If you need to support some types that are not supported yet, have a look at [this other guide](./cxx-custom-types.md).
+如果您需要支持尚未支持的某些类型，请参阅[此其他指南](./cxx-custom-types.md)。

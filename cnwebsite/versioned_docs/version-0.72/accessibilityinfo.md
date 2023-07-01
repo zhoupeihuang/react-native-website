@@ -74,6 +74,7 @@ export default App;
 
 ## 方法
 
+
 ### `addEventListener()`
 
 ```tsx
@@ -87,16 +88,16 @@ static addEventListener(
 
 添加一个监听函数，支持的事件类型如下：
 
-| 事件名称                                                                             | 描述                                                                                                                                                                               |
-| ------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `accessibilityServiceChanged`<br/><div class="label two-lines android">Android</div> | 当启用某些服务（如 TalkBack、其他 Android 辅助技术和第三方辅助功能服务）时触发。事件处理程序的参数是一个布尔值。当启用一些辅助功能服务时，该布尔值为`true`，否则为`false`。        |
+| 事件名称                                                                           | 描述                                                                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `accessibilityServiceChanged`<br/><div class="label two-lines android">Android</div> | 当启用某些服务（如TalkBack、其他Android辅助技术和第三方辅助功能服务）时触发。事件处理程序的参数是一个布尔值。当启用一些辅助功能服务时，该布尔值为`true`，否则为`false`。                          |
 | `announcementFinished`<br/><div class="label two-lines ios">iOS</div>                | 当屏幕阅读器完成公告时触发。事件处理程序的参数是一个带有以下键的字典：<ul><li>`announcement`：屏幕阅读器宣布的字符串。</li><li>`success`：指示公告是否成功进行的布尔值。</li></ul> |
-| `boldTextChanged`<br/><div class="label two-lines ios">iOS</div>                     | 当加粗文本切换状态改变时触发。事件处理程序的参数是一个布尔值。当启用加粗文本时，布尔值为`true`，否则为`false`。                                                                    |
-| `grayscaleChanged`<br/><div class="label two-lines ios">iOS</div>                    | 当灰度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用灰度时，布尔值为`true`，否则为`false`。                                                                          |
-| `invertColorsChanged`<br/><div class="label two-lines ios">iOS</div>                 | 当反转颜色切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用反转颜色时，布尔值为`true`，否则为`false`。                                                                  |
-| `reduceMotionChanged`                                                                | 当减少动画的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少动画（或在“开发者选项”中，“转换动画比例”为“关闭动画”）时，布尔值为`true`，否则为`false`。                    |
-| `reduceTransparencyChanged`<br/><div class="label two-lines ios">iOS</div>           | 当减少透明度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少透明度时，布尔值为`true`，否则为`false`。                                                              |
-| `screenReaderChanged`                                                                | 当屏幕阅读器的状态发生变化时触发。事件处理程序的参数是一个布尔值。当启用屏幕阅读器时，该布尔值为`true`，否则为`false`。                                                            |
+| `boldTextChanged`<br/><div class="label two-lines ios">iOS</div>                     | 当加粗文本切换状态改变时触发。事件处理程序的参数是一个布尔值。当启用加粗文本时，布尔值为`true`，否则为`false`。                                                                                                                             |
+| `grayscaleChanged`<br/><div class="label two-lines ios">iOS</div>                    | 当灰度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用灰度时，布尔值为`true`，否则为`false`。                                                                                                                         |
+| `invertColorsChanged`<br/><div class="label two-lines ios">iOS</div>                 | 当反转颜色切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用反转颜色时，布尔值为`true`，否则为`false`。                                                                                                                     |
+| `reduceMotionChanged`                                                                | 当减少动画的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少动画（或在“开发者选项”中，“转换动画比例”为“关闭动画”）时，布尔值为`true`，否则为`false`。                                  |
+| `reduceTransparencyChanged`<br/><div class="label two-lines ios">iOS</div>           | 当减少透明度切换的状态改变时触发。事件处理程序的参数是一个布尔值。当启用减少透明度时，布尔值为`true`，否则为`false`。                                                                                                         |
+| `screenReaderChanged`                                                                | 当屏幕阅读器的状态发生变化时触发。事件处理程序的参数是一个布尔值。当启用屏幕阅读器时，该布尔值为`true`，否则为`false`。                                                                                                                          |
 
 ---
 
@@ -123,9 +124,9 @@ static announceForAccessibilityWithOptions(
 
 **参数:**
 
-| 名称                                                          | 类型   | 描述                                                                    |
-| ------------------------------------------------------------- | ------ | ----------------------------------------------------------------------- |
-| announcement <div class="label basic required">Required</div> | string | 要发送的字符串                                                          |
+| 名称                                                          | 类型   | 描述                                                                              |
+| ------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------- |
+| announcement <div class="label basic required">Required</div> | string | 要发送的字符串                                                               |
 | options <div class="label basic required">Required</div>      | object | `queue` - 在正在进行的语音后面排队发布 <div class="label ios">iOS</div> |
 
 ---
@@ -141,8 +142,8 @@ static getRecommendedTimeoutMillis(originalTimeout: number): Promise<number>;
 
 **参数:**
 
-| 名称                                                             | 类型   | 描述                                                           |
-| ---------------------------------------------------------------- | ------ | -------------------------------------------------------------- |
+| 名称                                                             | 类型   | 描述                                                                           |
+| ---------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------- |
 | originalTimeout <div class="label basic required">Required</div> | number | 如果未设置“辅助功能超时”，则返回的超时时间。以毫秒为单位指定。 |
 
 ---

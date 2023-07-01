@@ -81,8 +81,8 @@ const icon = this.props.active
 
 ```jsx
 <Image
-  source={{uri: 'app_icon'}}
-  style={{width: 40, height: 40}}
+  source={{ uri: 'app_icon' }}
+  style={{ width: 40, height: 40 }}
 />
 ```
 
@@ -90,8 +90,8 @@ const icon = this.props.active
 
 ```jsx
 <Image
-  source={{uri: 'asset:/app_icon.png'}}
-  style={{width: 40, height: 40}}
+  source={{ uri: 'asset:/app_icon.png' }}
+  style={{ width: 40, height: 40 }}
 />
 ```
 
@@ -120,11 +120,11 @@ const icon = this.props.active
     uri: 'https://facebook.github.io/react/logo-og.png',
     method: 'POST',
     headers: {
-      Pragma: 'no-cache',
+      Pragma: 'no-cache'
     },
-    body: 'Your Body goes here',
+    body: 'Your Body goes here'
   }}
-  style={{width: 400, height: 400}}
+  style={{ width: 400, height: 400 }}
 />
 ```
 
@@ -140,10 +140,10 @@ const icon = this.props.active
   style={{
     width: 51,
     height: 51,
-    resizeMode: 'contain',
+    resizeMode: 'contain'
   }}
   source={{
-    uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg==',
+    uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAEXRFWHRTb2Z0d2FyZQBwbmdjcnVzaEB1SfMAAABQSURBVGje7dSxCQBACARB+2/ab8BEeQNhFi6WSYzYLYudDQYGBgYGBgYGBgYGBgYGBgZmcvDqYGBgmhivGQYGBgYGBgYGBgYGBgYGBgbmQw+P/eMrC5UTVAAAAABJRU5ErkJggg=='
   }}
 />
 ```
@@ -161,9 +161,9 @@ const icon = this.props.active
 <Image
   source={{
     uri: 'https://facebook.github.io/react/logo-og.png',
-    cache: 'only-if-cached',
+    cache: 'only-if-cached'
   }}
-  style={{width: 400, height: 400}}
+  style={{ width: 400, height: 400 }}
 />
 ```
 
@@ -192,7 +192,7 @@ iOS 会为同一张图片在相册中保存多个不同尺寸的副本。为了�
 在 React Native 中，另一个值得一提的变动是我们把`src`属性改为了`source`属性，而且并不接受字符串，正确的值是一个带有`uri`属性的对象。
 
 ```jsx
-<Image source={{uri: 'something.jpg'}} />
+<Image source={{ uri: 'something.jpg' }} />
 ```
 
 深层次的考虑是，这样可以使我们在对象中添加一些元数据(metadata)。假设你在使用`require('./my-icon.png')`，那么我们就会在其中添加真实文件路径以及尺寸等信息（这只是举个例子，未来的版本中 require 的具体行为可能会变化）。此外这也是考虑了未来的扩展性，比如我们可能会加入精灵图（sprites）的支持：在输出`{uri: ...}`的基础上，我们可以进一步输出裁切信息`{uri: ..., crop: {left: 10, top: 50, width: 20, height: 40}}`，这样理论上就可以在现有的代码中无缝支持精灵图的切分。

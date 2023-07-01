@@ -10,9 +10,9 @@ Headless JS 是一种使用 js 在后台执行任务的方法。它可以用来�
 首先我们要通过`AppRegistry`来注册一个异步函数，这个函数我们称之为“任务”。注册方式类似在 index.js 中注册 RN 应用：
 
 ```jsx
-import {AppRegistry} from 'react-native';
+import { AppRegistry } from 'react-native';
 AppRegistry.registerHeadlessTask('SomeTaskName', () =>
-  require('SomeTaskName'),
+  require('SomeTaskName')
 );
 ```
 
@@ -114,14 +114,13 @@ If you wish all errors to cause a retry attempt, you will need to catch them and
 ## 注意事项
 
 - The function passed to `setTimeout` does not always behave as expected. Instead the function is called only when the application is launched again. If you just need to wait, use the retry functionality.
-
 * 默认情况下，如果应用正在前台运行时尝试执行任务，那么应用会崩溃。这是为了防止开发者在任务中处理太多逻辑而拖慢用户界面。如果你必须要这么做，那么可以设置第四个参数为`false`来更改这一限制。
 * 如果你是通过`BroadcastReceiver`来启动的服务，那么谨记在从`onReceive()`返回之前要调用`HeadlessJsTaskService.acquireWakeLockNow()`。
 
 ## 示例
 
 我们可以使用 Java API 来开启一个 service。首先你需要考虑好 Service 启动的时机，并据此实现相关逻辑。下面是一个使用 Service 来处理网络连接变化的简单范例。
-接下来的几行代码展示了如何在 Android Manifest 文件中注册一个 Broadcast Receiver。
+接下来的几行代码展示了如何在 Android Manifest 文件中注册一个Broadcast Receiver。
 
 ```xml
 <receiver android:name=".NetworkChangeReceiver" >
@@ -131,7 +130,7 @@ If you wish all errors to cause a retry attempt, you will need to catch them and
 </receiver>
 ```
 
-这个 Broadcast Receiver 主要在 onReceive 函数中处理广播 Intent 。这是一个让你确认 App 是否在前台工作的绝佳时机。如果 App 当前不在前台工作，那么我们就可以开始准备我们用来启动 Service 的 Intent 了。额外提及一点：如果有信息需要传递给 Service，可以使用 putExtra 方法把信息打包成 bundle 携带。当然也可以不传递任何信息（但是，始终谨记 bundle 只能够承载那些 parcelable 的值）。在最后，Service 将获取到 wakelock 并启动起来。
+这个 Broadcast Receiver 主要在 onReceive 函数中处理广播 Intent 。这是一个让你确认 App 是否在前台工作的绝佳时机。如果 App 当前不在前台工作，那么我们就可以开始准备我们用来启动 Service 的 Intent 了。额外提及一点：如果有信息需要传递给Service，可以使用 putExtra 方法把信息打包成 bundle携带。当然也可以不传递任何信息（但是，始终谨记 bundle 只能够承载那些 parcelable 的值）。在最后，Service 将获取到 wakelock 并启动起来。
 
 ```java
 public class NetworkChangeReceiver extends BroadcastReceiver {

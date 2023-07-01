@@ -20,7 +20,7 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 C++ Turbo 原生模块尚不支持`int64_t`数字 - 因为 JavaScript 不支持大于`2^53`的数字。
 
-我们无法将 > `2^53` 的数字表示为 JavaScript 的`number`类型，但我们可以将它们表示为 JavaScript 的`string`类型并通过在`tm`文件夹中创建名为`Int64.h`的自定义桥接头文件来自动把它们转换到 C++ 的`int64_t`类型:
+我们无法将 > `2^53` 的数字表示为JavaScript 的`number`类型，但我们可以将它们表示为 JavaScript 的`string`类型并通过在`tm`文件夹中创建名为`Int64.h`的自定义桥接头文件来自动把它们转换到 C++ 的`int64_t`类型: 
 
 ```cpp Int64.h
 #pragma once
@@ -61,7 +61,7 @@ struct Bridging<int64_t> {
 
 省略任一函数都会使你的桥接头文件成为 _只读_ 或 _只写_ 。
 
-现在，您可以向 JavaScript 规范添加以下函数：
+现在，您可以向JavaScript规范添加以下函数：
 
 <Tabs groupId="turbomodule-specs" queryString defaultValue={constants.defaultJavaScriptSpecLanguages} values={constants.javaScriptSpecLanguages}>
 <TabItem value="typescript">

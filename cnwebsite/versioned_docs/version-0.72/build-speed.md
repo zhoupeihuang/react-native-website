@@ -3,25 +3,24 @@ id: build-speed
 title: 优化编译速度
 ---
 
-Building your React Native app could be **expensive** and take several minutes of developers time.
-This can be problematic as your project grows and generally in bigger organizations with multiple React Native developers.
+构建React Native应用可能会非常**昂贵**，并且需要开发人员花费数分钟的时间。
+随着项目规模的增长以及在拥有多个React Native开发人员的大型组织中，这可能成为一个问题。
 
-With [the New React Native Architecture](/docs/next/new-architecture-app-modules-android), this problem is becoming more critical
-as you might have to compile some native C++ code in your project with the Android NDK in addition to the native code already necessary for the iOS and Android platforms.
+为了减轻性能损失，本页面提供了一些建议来**改善您的构建时间**。
 
-To mitigate this performance hit, this page shares some suggestions on how to **improve your build time**.
+:::info
+如果您注意到使用新架构在 Android 上构建时间较慢，请尽量升级 React Native 到最新版本。
+:::
 
-## Build only one ABI during development (Android-only)
+## 仅在开发过程中构建一个ABI（仅适用于Android）
 
-When building your android app locally, by default you build all the 4 [Application Binary Interfaces (ABIs)](https://developer.android.com/ndk/guides/abis) : `armeabi-v7a`, `arm64-v8a`, `x86` & `x86_64`.
+在本地构建Android应用程序时，默认情况下会构建所有4个[应用程序二进制接口（ABIs）](https://developer.android.com/ndk/guides/abis)：`armeabi-v7a`，`arm64-v8a`，`x86`和 `x86_64`.
 
-However, you probably don't need to build all of them if you're building locally and testing your emulator or on a physical device.
+然而，如果您正在本地构建并测试模拟器或物理设备，则可能不需要构建所有这些ABI。
 
-This should reduce your build time by a **~75% factor**.
+这将减少约75％的**本机编译时间**。
 
-If you're using the React Native CLI, you can use the `--active-arch-only` flag together with the `run-android` command.
-This flag will make sure the correct ABI is picked up from either the running emulator or the plugged in phone.
-To confirm that this approach is working fine, you'll see a message like `info Detected architectures arm64-v8a` on console.
+如果您使用React Native CLI，请向 `run-android` 命令添加 `--active-arch-only` 标志。此标志将确保从运行的模拟器或插入的手机中选择正确的ABI。要确认此方法是否正常工作，您将在控制台上看到类似于 `info Detected architectures arm64-v8a` 的消息。
 
 ```
 $ yarn react-native run-android --active-arch-only
@@ -34,17 +33,17 @@ info Detected architectures arm64-v8a
 info Installing the app...
 ```
 
-This mechanism relies on the `reactNativeArchitectures` Gradle property.
+这个机制依赖于`reactNativeArchitectures` Gradle 属性。
 
-Therefore, if you're building directly with Gradle from the command line and without the CLI, you can specify the ABI you want to build as follows:
+因此，如果你直接从命令行使用 Gradle 构建而不使用 CLI，你可以按照以下方式指定要构建的 ABI：
 
 ```
 $ ./gradlew :app:assembleDebug -PreactNativeArchitectures=x86,x86_64
 ```
 
-This can be useful if you wish to build your Android App on a CI and use a matrix to parallelize the build of the different architectures.
+如果您希望在 CI 上构建 Android 应用程序并使用矩阵来并行化构建不同的架构，这将非常有用。
 
-If you wish, you can also override this value locally, using the `gradle.properties` file you have in the [top-level folder](https://github.com/facebook/react-native/blob/19cf70266eb8ca151aa0cc46ac4c09cb987b2ceb/template/android/gradle.properties#L30-L33) of your project:
+如果您愿意，您还可以在本地覆盖此值，在项目的[顶级文件夹](https://github.com/facebook/react-native/blob/19cf70266eb8ca151aa0cc46ac4c09cb987b2ceb/template/android/gradle.properties#L30-L33)中使用`gradle.properties`文件：
 
 ```
 # Use this property to specify which architecture you want to build.
@@ -53,55 +52,51 @@ If you wish, you can also override this value locally, using the `gradle.propert
 reactNativeArchitectures=armeabi-v7a,arm64-v8a,x86,x86_64
 ```
 
-Once you build a **release version** of your app, don't forget to remove those flags as you want to build an apk/app bundle that works for all the ABIs and not only for the one you're using in your daily development workflow.
+一旦你构建了应用的**发布版本**，不要忘记移除这些标志，因为你希望构建一个适用于所有 ABI 而不仅仅是在日常开发流程中使用的那个的 apk/app bundle。
 
-## Use a compiler cache
+## 使用编译器缓存
 
-If you're running frequent native builds (either C++ or Objective-C), you might benefit from using a **compiler cache**.
+如果您经常运行本地构建（无论是 C++ 还是 Objective-C），您可能会从使用**编译器缓存**中受益。
 
-Specifically you can use two type of caches: local compiler caches and distributed compiler caches.
+具体而言，您可以使用两种类型的缓存：本地编译器缓存和分布式编译器缓存。
 
-### Local caches
+### 本地缓存
 
-:::info 提示
-The following instructions will work for **both Android & iOS**.
-If you're building only Android apps, you should be good to go.
-If you're building also iOS apps, please follow the instructions in the [XCode Specific Setup](#xcode-specific-setup) section below.
+:::info 提示                        
+以下说明适用于**Android和iOS**。
+如果您只构建Android应用程序，那么您可以继续进行。
+如果您还要构建iOS应用程序，请按照下面的[XCode特定设置](#xcode-specific-setup)部分中的说明操作。
 :::
 
-We suggest to use [**ccache**](https://ccache.dev/) to cache the compilation of your native builds.
-Ccache works by wrapping the C++ compilers, storing the compilation results, and skipping the compilation
-if an intermediate compilation result was originally stored.
+我们建议使用[**ccache**](https://ccache.dev/)来缓存您的本地构建编译过程。
+Ccache 通过包装 C++ 编译器，存储编译结果，并在原始存储了中间编译结果的情况下跳过编译。
 
-To install it, you can follow the [official installation instructions](https://github.com/ccache/ccache/blob/master/doc/INSTALL.md).
-
-On Mac OS, we can install ccache with `brew install ccache`.
-Once installed you can configure it as follows to cache NDK compile results:
+要安装它，您可以按照[官方安装说明](https://github.com/ccache/ccache/blob/master/doc/INSTALL.md)进行操作。在 macOS 上，我们可以使用 `brew install ccache` 命令来安装 ccache。一旦安装完成，您可以按照以下步骤配置以缓存 NDK 的编译结果：
 
 ```
-ln -s ccache /usr/local/bin/gcc
-ln -s ccache /usr/local/bin/g++
-ln -s ccache /usr/local/bin/cc
-ln -s ccache /usr/local/bin/c++
-ln -s ccache /usr/local/bin/clang
-ln -s ccache /usr/local/bin/clang++
+ln -s $(which ccache) /usr/local/bin/gcc
+ln -s $(which ccache) /usr/local/bin/g++
+ln -s $(which ccache) /usr/local/bin/cc
+ln -s $(which ccache) /usr/local/bin/c++
+ln -s $(which ccache) /usr/local/bin/clang
+ln -s $(which ccache) /usr/local/bin/clang++
 ```
 
-This will create symbolic links to `ccache` inside the `/usr/local/bin/` which are called `gcc`, `g++`, and so on.
+这将在`/usr/local/bin/`目录下创建名为`gcc`、`g++`等的符号链接，指向 `ccache`.
 
-This works as long as `/usr/local/bin/` comes first than `/usr/bin/` inside your `$PATH` variable, which is the default.
+只要 `/usr/local/bin/` 在 `$PATH` 变量中位于 `/usr/bin/` 之前（这是默认设置），它就能正常工作。
 
-You can verify that it works using the `which` command:
+您可以使用 `which` 命令验证其是否有效：
 
 ```
 $ which gcc
 /usr/local/bin/gcc
 ```
 
-If the results is `/usr/local/bin/gcc`, then you're effectively calling `ccache` which will wrap the `gcc` calls.
+如果结果是 `/usr/local/bin/gcc`, 那么实际上您正在调用包装了 `gcc` 的 `ccache`.
 
 :::caution 注意
-Please note that this setup of `ccache` will affect all the compilations that you're running on your machine, not only those related to React Native. Use it at your own risk. If you're failing to install/compile other software, this might be the reason. If that is the case, you can remove the symlink you created with:
+请注意，这个`ccache`的设置将影响到您在计算机上运行的所有编译过程，不仅限于React Native相关的编译。使用时请自行承担风险。如果您无法安装/编译其他软件，可能是因为这个原因。如果是这种情况，您可以通过以下命令删除所创建的符号链接：
 
 ```
 unlink /usr/local/bin/gcc
@@ -112,11 +107,11 @@ unlink /usr/local/bin/clang
 unlink /usr/local/bin/clang++
 ```
 
-to revert your machine to the original status and use the default compilers.
+以恢复计算机到原始状态并使用默认编译器。
 :::
 
-You can then do two clean builds (e.g. on Android you can first run `yarn react-native run-android`, delete the `android/app/build` folder and run the first command once more). You will notice that the second build was way faster than the first one (it should take seconds rather than minutes).
-While building, you can verify that `ccache` works correctly and check the cache hits/miss rate `ccache -s`
+然后你可以进行两次干净的构建（例如在Android上，你可以先运行`yarn react-native run-android`，删除`android/app/build`文件夹，然后再次运行第一个命令）。你会注意到第二次构建比第一次快得多（只需要几秒而不是几分钟）。
+在构建过程中，你可以验证`ccache`是否正常工作，并检查缓存命中/未命中率 `ccache -s`
 
 ```
 $ ccache -s
@@ -127,25 +122,25 @@ Summary:
   Misses:          2872
     Direct:        3068
     Preprocessed:  2872
-  Uncacheable:        1
+Uncacheable:       	1
 Primary storage:
-  Hits:             196 /  6136 (3.19 %)
-  Misses:          5940
-  Cache size (GB): 0.60 / 20.00 (3.00 %)
+Hits：             	196 /  	6136 （3.19%）
+Misses：           	5940 
+Cache size (GB)：  	0.60 /  	20.00 （3.00%）
 ```
 
-Note that `ccache` aggregates the stats over all builds. You can use `ccache --zero-stats` to reset them before a build to verify the cache-hit ratio.
+请注意，`ccache`将统计数据聚合到所有构建中。您可以使用 `ccache --zero-stats` 在构建之前重置它们以验证缓存命中率。
 
-Should you need to wipe your cache, you can do so with `ccache --clear`
+如果需要清除缓存，请使用 `ccache --clear`
 
-#### XCode Specific Setup
+#### XCode 特定设置
 
-To make sure `ccache` works correctly with iOS and XCode, you need to follow a couple of extra steps:
+为了确保`ccache`在iOS和XCode中正常工作，您需要遵循一些额外的步骤：
 
-1. You must alter the way Xcode and `xcodebuild` call for the compiler command. By default they use _fully specified paths_ to the compiler binaries, so the symbolic links installed in `/usr/local/bin` will not be used. You may configure Xcode to use _relative_ names for the compilers using either of these two options:
+1. 您必须修改Xcode和`xcodebuild`调用编译器命令的方式。默认情况下，它们使用_完全指定路径_来调用编译器二进制文件，因此不会使用安装在`/usr/local/bin`中的符号链接。您可以通过以下两种选项之一配置Xcode以使用相对名称来调用编译器：
 
-- environment variables prefixed on the command line if you use a direct command line: `CLANG=clang CLANGPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ xcodebuild <rest of xcodebuild command line>`
-- A `post_install` section in your `ios/Podfile` that alters the compiler in your Xcode workspace during the `pod install` step:
+- 如果您使用直接命令行，则可以在命令行上添加环境变量前缀： `CLANG=clang CLANGPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ xcodebuild <rest of xcodebuild command line>`
+- 在您的 `ios/Podfile` 中添加一个 `post_install` 部分，在 `pod install` 步骤期间更改Xcode工作区中的编译器：
 
 ```ruby
   post_install do |installer|
@@ -167,7 +162,7 @@ To make sure `ccache` works correctly with iOS and XCode, you need to follow a c
   end
 ```
 
-2. You need a ccache configuration that allows for a certain level of sloppiness and cache behavior such that ccache registers cache hits during Xcode compiles. The ccache configuration variables that are different from standard are as follows if configured by environment variable:
+2. 你需要一个ccache配置，允许一定程度的松散和缓存行为，以便在Xcode编译过程中注册缓存命中。如果通过环境变量进行配置，则与标准不同的ccache配置变量如下：
 
 ```bash
 export CCACHE_SLOPPINESS=clang_index_store,file_stat_matches,include_file_ctime,include_file_mtime,ivfsoverlay,pch_defines,modules,system_headers,time_macros
@@ -176,60 +171,23 @@ export CCACHE_DEPEND=true
 export CCACHE_INODECACHE=true
 ```
 
-The same may be configured in a `ccache.conf` file or any other mechanism ccache provides. More on this can be found in the [official ccache manual](https://ccache.dev/manual/4.3.html).
+相同的设置也可以在`ccache.conf`文件或任何其他ccache提供的机制中进行配置。更多信息请参阅[官方ccache手册](https://ccache.dev/manual/4.3.html)。
 
-#### Using this approach on a CI
+#### 在 CI 上使用这种方法
 
-Ccache uses the `/Users/$USER/Library/Caches/ccache` folder on macOS to store the cache.
-Therefore you could save & restore the corresponding folder also on CI to speedup your builds.
+Ccache 使用 macOS 上的 `/Users/$USER/Library/Caches/ccache` 文件夹来存储缓存。
+因此，您可以在 CI 上保存和恢复相应的文件夹，以加快构建速度。
 
-However, there are a couple of things to be aware:
+然而，有几点需要注意：
 
-1. On CI, we recommend to do a full clean build, to avoid poisoned cache problems. If you follow the approach mentioned in the previous paragraph, you should be able to parallelize the native build on 4 different ABIs and you will most likely not need `ccache` on CI.
+1. 在 CI 上，我们建议进行完全清理构建，以避免缓存污染问题。如果按照前面提到的方法进行操作，则应该能够将本机构建并行化为 4 种不同的 ABI，并且很可能不需要在 CI 上使用 `ccache`。
 
-2. `ccache` relies on timestamps to compute a cache hit. This doesn't work well on CI as files are re-downloaded at every CI run. To overcome this, you'll need to use the `compiler_check content` option which relies instead on [hashing the content of the file](https://ccache.dev/manual/4.3.html).
+2. `ccache` 依赖于时间戳来计算缓存命中。这在 CI 上效果不佳，因为文件会在每次运行时重新下载。为了解决这个问题，您需要使用 `compiler_check content` 选项，该选项改用[对文件内容进行哈希](https://ccache.dev/manual/4.3.html)。
 
-### Distributed caches
+### 分布式缓存
 
-Similar to local caches, you might want to consider using a distributed cache for your native builds.
-This could be specifically useful in bigger organizations that are doing frequent native builds.
+与本地缓存类似，您可能希望考虑为原生构建使用分布式缓存。
+这在频繁进行原生构建的大型组织中特别有用。
 
-We recommend to use [sccache](https://github.com/mozilla/sccache) to achieve this.
-We defer to the sccache [distributed compilation quickstart](https://github.com/mozilla/sccache/blob/main/docs/DistributedQuickstart.md) for instructions on how to setup and use this tool.
-
-## Troubleshooting
-
-Please find instructions on how to solve some of the most common build performance issue in this section.
-
-### Clean Android build with `--active-arch-only` is failing.
-
-If you're using the `--active-arch-only` flag on a clean Android build (e.g. after having cloned a project or after having created a new project) you might experience a build failures as follows:
-
-```
-Android NDK: ERROR:/.../android/app/src/main/jni/Android.mk:fb: LOCAL_SRC_FILES points to a missing file
-Android NDK: Check that /.../android/app/build/react-ndk/exported/armeabi-v7a/libfb.so exists or that its path is correct
-
-/.../Android/sdk/ndk/24.0.8079956/build/core/prebuilt-library.mk:51: *** Android NDK: Aborting    .  Stop.
-```
-
-To overcome this, you can either:
-
-1. Run a full build before without `--active-arch-only`. Subsequent builds with `--active-arch-only` will work correctly.
-2. Add an `abiFilter` block inside your `android/app/build.gradle` file [as follows](https://github.com/facebook/react-native/commit/5dff920177220ae5f4e37c662c63c27ebf696c83):
-
-```diff
-  android {
-    defaultConfig {
-
-      // ...
-
-+     if (!enableSeparateBuildPerCPUArchitecture) {
-+       ndk {
-+         abiFilters (*reactNativeArchitectures())
-+       }
-+     }
-    }
-  }
-```
-
-Projects created with React Native 0.69 and subsequent versions already contain this fix.
+我们推荐使用[sccache](https://github.com/mozilla/sccache)来实现这一目标。
+关于如何设置和使用该工具，请参阅sccache的[分布式编译快速入门指南](https://github.com/mozilla/sccache/blob/main/docs/DistributedQuickstart.md)。

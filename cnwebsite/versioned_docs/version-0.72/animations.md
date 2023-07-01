@@ -76,7 +76,7 @@ export default () => {
 Animated.timing(this.state.xPosition, {
   toValue: 100,
   easing: Easing.back(),
-  duration: 2000,
+  duration: 2000
 }).start();
 ```
 
@@ -93,19 +93,19 @@ Animated.sequence([
   // decay, then spring to start and twirl
   Animated.decay(position, {
     // coast to a stop
-    velocity: {x: gestureState.vx, y: gestureState.vy}, // velocity from gesture release
-    deceleration: 0.997,
+    velocity: { x: gestureState.vx, y: gestureState.vy }, // velocity from gesture release
+    deceleration: 0.997
   }),
   Animated.parallel([
     // after decay, in parallel:
     Animated.spring(position, {
-      toValue: {x: 0, y: 0}, // return to start
+      toValue: { x: 0, y: 0 } // return to start
     }),
     Animated.timing(twirl, {
       // and twirl
-      toValue: 360,
-    }),
-  ]),
+      toValue: 360
+    })
+  ])
 ]).start(); // start the sequence group
 ```
 
@@ -124,7 +124,7 @@ const a = new Animated.Value(1);
 const b = Animated.divide(1, a);
 
 Animated.spring(a, {
-  toValue: 2,
+  toValue: 2
 }).start();
 ```
 
@@ -137,7 +137,7 @@ Animated.spring(a, {
 ```jsx
 value.interpolate({
   inputRange: [0, 1],
-  outputRange: [0, 100],
+  outputRange: [0, 100]
 });
 ```
 
@@ -160,7 +160,7 @@ value.interpolate({
 ```jsx
 value.interpolate({
   inputRange: [-300, -100, 0, 100, 101],
-  outputRange: [300, 0, 1, 0, 0],
+  outputRange: [300, 0, 1, 0, 0]
 });
 ```
 
@@ -186,7 +186,7 @@ value.interpolate({
 ```jsx
 value.interpolate({
   inputRange: [0, 360],
-  outputRange: ['0deg', '360deg'],
+  outputRange: ['0deg', '360deg']
 });
 ```
 
@@ -197,12 +197,12 @@ value.interpolate({
 动画中所设的值还可以通过跟踪别的值得到。你只要把 toValue 设置成另一个动态值而不是一个普通数字就行了。比如我们可以用弹跳动画来实现聊天头像的闪动，又比如通过`timing`设置`duration:0`来实现快速的跟随。他们还可以使用插值来进行组合：
 
 ```jsx
-Animated.spring(follower, {toValue: leader}).start();
+Animated.spring(follower, { toValue: leader }).start();
 Animated.timing(opacity, {
   toValue: pan.x.interpolate({
     inputRange: [0, 300],
-    outputRange: [1, 0],
-  }),
+    outputRange: [1, 0]
+  })
 }).start();
 ```
 
@@ -669,7 +669,7 @@ const styles = StyleSheet.create({
 Animated.timing(this.state.animatedValue, {
   toValue: 1,
   duration: 500,
-  useNativeDriver: true, // <-- 加上这一行
+  useNativeDriver: true // <-- 加上这一行
 }).start();
 ```
 
@@ -684,11 +684,11 @@ Animated.timing(this.state.animatedValue, {
     [
       {
         nativeEvent: {
-          contentOffset: {y: this.state.animatedValue},
-        },
-      },
+          contentOffset: { y: this.state.animatedValue }
+        }
+      }
     ],
-    {useNativeDriver: true}, // <-- 加上这一行
+    { useNativeDriver: true } // <-- 加上这一行
   )}>
   {content}
 </Animated.ScrollView>
@@ -710,10 +710,10 @@ Animated.timing(this.state.animatedValue, {
 <Animated.View
   style={{
     transform: [
-      {scale: this.state.scale},
-      {rotateY: this.state.rotateY},
-      {perspective: 1000}, // without this line this Animation will not render on Android while working fine on iOS
-    ],
+      { scale: this.state.scale },
+      { rotateY: this.state.rotateY },
+      { perspective: 1000 } // without this line this Animation will not render on Android while working fine on iOS
+    ]
   }}
 />
 ```

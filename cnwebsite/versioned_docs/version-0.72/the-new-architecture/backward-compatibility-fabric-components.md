@@ -27,14 +27,14 @@ import NewArchitectureWarning from '../\_markdown-new-architecture-warning.mdx';
 
 我们将在本指南中使用以下**术语**：
 
-- **传统原生组件** - 用于指代运行在旧版 React Native 架构上的组件。
-- **Fabric 原生组件** - 用于指代已经适配新版原生渲染器 Fabric 的组件。为简洁起见，我们称之为**Fabric 组件**。
+- **传统原生组件** - 用于指代运行在旧版React Native架构上的组件。
+- **Fabric原生组件** - 用于指代已经适配新版原生渲染器Fabric的组件。为简洁起见，我们称之为**Fabric组件**。
 
 :::
 
 <BetaTS />
 
-虽然最后一步对于所有平台都是相同的，但前两步在 iOS 和 Android 上是不同的。
+虽然最后一步对于所有平台都是相同的，但前两步在iOS和Android上是不同的。
 
 ## 配置 Fabric 原生组件依赖
 
@@ -131,7 +131,8 @@ end
 
 ### Android
 
-要创建一个在两种架构中都能使用的原生组件，您需要配置 Gradle 以根据所选架构选择哪些文件需要编译。这可以通过在 Gradle 配置中使用**不同的 sourceSets**来实现。
+要创建一个在两种架构中都能使用的原生组件，您需要配置 Gradle 以根据所选架构选择哪些文件需要编译。这可以通过在Gradle配置中使用**不同的 sourceSets**来实现。
+
 
 :::note 注意
 请注意，这是目前建议的方法。虽然可能会导致一些代码重复，但它将确保与两种架构的最大兼容性。您将在下一节中了解如何减少重复。
@@ -255,7 +256,7 @@ Class<RCTComponentViewProtocol> MyComponentViewCls(void)
 
 在实现文件中，应将相同的两行代码添加为第一行和最后一行。
 
-上面的片段使用了与前一个[部分](#dependencies-ios)中使用的`RCT_NEW_ARCH_ENABLED`标志相同。当未设置此标志时，Xcode 在编译期间跳过`#ifdef`内的代码，并且不将其包含到已编译二进制文件中。已编译二进制文件将具有 `RNMyComponentView.o` 对象，但它将是一个空对象。
+上面的片段使用了与前一个[部分](#dependencies-ios)中使用的`RCT_NEW_ARCH_ENABLED`标志相同。当未设置此标志时，Xcode在编译期间跳过`#ifdef`内的代码，并且不将其包含到已编译二进制文件中。已编译二进制文件将具有 `RNMyComponentView.o` 对象，但它将是一个空对象。
 
 ### Android
 

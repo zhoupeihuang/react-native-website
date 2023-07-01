@@ -80,9 +80,9 @@ iOS 和 Android 都提供了便于残障人士无障碍使用 App 的 API。此�
 </TouchableOpacity>
 ```
 
-在上面这个例子里，iOS 的 VoiceOver 会在标签后读取提示，如果用户在设备的 VoiceOver 设置中启用了提示。有关 accessibilityHint 指南的更多信息，请阅读[iOS 开发者文档](https://developer.apple.com/documentation/objectivec/nsobject/1615093-accessibilityhint)。
+在上面这个例子里，iOS 的 VoiceOver 会在标签后读取提示，如果用户在设备的VoiceOver设置中启用了提示。有关accessibilityHint指南的更多信息，请阅读[iOS开发者文档](https://developer.apple.com/documentation/objectivec/nsobject/1615093-accessibilityhint)。
 
-在上面这个例子里，Android 的 Talkback 将在标签后读取提示。目前，Android 上无法关闭提示。
+在上面这个例子里，Android 的 Talkback将在标签后读取提示。目前，Android 上无法关闭提示。
 
 ### `accessibilityLanguage` <div class="label ios">iOS</div>
 
@@ -211,7 +211,7 @@ For example, in a window that contains sibling views `A` and `B`, setting `acces
       top: 10,
       right: 10,
       height: 100,
-      backgroundColor: 'green',
+      backgroundColor: 'green'
     }}
     importantForAccessibility="yes">
     <Text> First layout </Text>
@@ -223,7 +223,7 @@ For example, in a window that contains sibling views `A` and `B`, setting `acces
       top: 10,
       right: 10,
       height: 100,
-      backgroundColor: 'yellow',
+      backgroundColor: 'yellow'
     }}
     importantForAccessibility="no-hide-descendant">
     <Text> Second layout </Text>
@@ -278,11 +278,11 @@ To handle action requests, a component must implement an `onAccessibilityAction`
 <View
   accessible={true}
   accessibilityActions={[
-    {name: 'cut', label: 'cut'},
-    {name: 'copy', label: 'copy'},
-    {name: 'paste', label: 'paste'},
+    { name: 'cut', label: 'cut' },
+    { name: 'copy', label: 'copy' },
+    { name: 'paste', label: 'paste' }
   ]}
-  onAccessibilityAction={event => {
+  onAccessibilityAction={(event) => {
     switch (event.nativeEvent.actionName) {
       case 'cut':
         Alert.alert('Alert', 'cut action success');

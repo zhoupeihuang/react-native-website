@@ -10,7 +10,7 @@ import Tabs from '@theme/Tabs'; import TabItem from '@theme/TabItem'; import con
 > 对于 React 函数组件，我们更推荐使用[`useWindowDimensions`](usewindowdimensions)这个 Hook API。和 `Dimensions` 不同，它会在屏幕尺寸变化时自动更新。
 
 ```jsx
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 ```
 
 你可以用下面的方法来获取设备的宽高：
@@ -157,7 +157,7 @@ static get(dim)
 
 **参数：**
 
-| 名称                                                               | 类型   | 说明                                                                              |
+| 名称                                                               | 类型   | 说明                                                                       |
 | ------------------------------------------------------------------ | ------ | --------------------------------------------------------------------------------- |
 | dim <div className="label basic required two-lines">Required</div> | string | Name of dimension as defined when calling `set`. Returns value for the dimension. |
 
@@ -185,7 +185,7 @@ This should only be called from native code by sending the `didUpdateDimensions`
 
 **参数：**
 
-| 名称                                                      | 类型   | 说明                                      |
+| 名称                                                      | 类型   | 说明                               |
 | --------------------------------------------------------- | ------ | ----------------------------------------- |
 | dims <div className="label basic required">Required</div> | object | String-keyed object of dimensions to set. |
 

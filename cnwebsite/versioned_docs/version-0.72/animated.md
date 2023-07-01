@@ -3,6 +3,7 @@ id: animated
 title: Animated
 ---
 
+
 `Animated`库旨在使动画变得流畅，强大并易于构建和维护。`Animated`侧重于输入和输出之间的声明性关系，以及两者之间的可配置变换，此外还提供了简单的 `start/stop`方法来控制基于时间的动画执行。
 
 创建动画最基本的工作流程是先创建一个 `Animated.Value` ，将它连接到动画组件的一个或多个样式属性，然后使用`Animated.timing()`通过动画效果展示数据的变化：
@@ -262,9 +263,9 @@ friction/tension 或 bounciness/speed 选项符合[Facebook Pop](https://github.
 
 还有一些其他的配置参数：
 
-- `velocity`: 物体附着在弹簧上的初始速度。默认值为 0（物体静止）。
-- `overshootClamping`：布尔值，指示是否应该夹紧弹簧而不反弹。默认为 false。
-- `restDisplacementThreshold`：从静止状态开始的位移阈值，低于此阈值时应将弹簧视为处于静止状态。默认为 0.001。
+- `velocity`: 物体附着在弹簧上的初始速度。默认值为0（物体静止）。
+- `overshootClamping`：布尔值，指示是否应该夹紧弹簧而不反弹。默认为false。
+- `restDisplacementThreshold`：从静止状态开始的位移阈值，低于此阈值时应将弹簧视为处于静止状态。默认为0.001。
 - `restSpeedThreshold`：以像素/秒表示的弹簧被认为处于静止状态的速度。 默认值 0.001。
 - `delay`：延迟后启动动画（毫秒）。 默认值 0。
 - `isInteraction`: 指定本动画是否在`InteractionManager`的队列中注册以影响其任务调度。默认值为 true。
@@ -454,11 +455,12 @@ static start(callback?: (result: {finished: boolean}) => void);
 
 通过在动画上调用`start()`来启动动画。 `start()`接受一个完成回调函数，当动画完成或因在它完成之前调用`stop()`而结束时将被调用。
 
+
 **参数：**
 
-| 名称     | 类型                                  | 必填 | 说明                                                                          |
-| -------- | ------------------------------------- | ---- | ----------------------------------------------------------------------------- |
-| callback | (result: {finished: boolean}) => void | No   | 在动画正常完成或因为在它完成之前调用了 stop()而被强制停止时，将会调用该函数。 |
+| 名称     | 类型                            | 必填 | 说明                                                                                                                                                            |
+| -------- | ------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| callback | (result: {finished: boolean}) => void | No       | 在动画正常完成或因为在它完成之前调用了stop()而被强制停止时，将会调用该函数。 |
 
 使用回调函数的示例：
 
@@ -494,7 +496,7 @@ static reset()
 
 驱动动画运行的一维标量值。一般使用`new Animated.Value(0);`来初始化。
 
-您可以在单独的[页面](animatedvalue)上阅读有关`Animated.Value` API 的更多信息。
+您可以在单独的[页面](animatedvalue)上阅读有关`Animated.Value` API的更多信息。
 
 ---
 
@@ -502,13 +504,13 @@ static reset()
 
 驱动 2D 动画运行的二维向量值，比如用在手势动画中。
 
-您可以在单独的[页面](animatedvaluexy)上阅读有关`Animated.ValueXY` API 的更多信息。
+您可以在单独的[页面](animatedvaluexy)上阅读有关`Animated.ValueXY` API的更多信息。
 
 ---
 
 ### `Interpolation`
 
-此插值类型仅导出以在 Flow 中使用。
+此插值类型仅导出以在Flow中使用。
 
 ---
 
@@ -526,4 +528,4 @@ static reset()
 
 ### `attachNativeEvent`
 
-将动画值附加到视图事件的命令式 API。如果可能，请优先使用带有`useNativeDriver: true`的`Animated.event`。
+将动画值附加到视图事件的命令式API。如果可能，请优先使用带有`useNativeDriver: true`的`Animated.event`。

@@ -21,8 +21,8 @@ static addMenuItem(title, handler)
 
 **参数：**
 
-| 名称                                                       | 类型     |
-| ---------------------------------------------------------- | -------- |
+| 名称                                                           | 类型     |
+| -------------------------------------------------------------- | -------- |
 | title <div className="label basic required">必需</div>     | string   |
 | component <div className="label basic required">必需</div> | function |
 
