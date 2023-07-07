@@ -66,7 +66,7 @@ React Native 使用 React Native Gradle Plugin 来配置您的依赖项和项目
 首先，让我们通过添加以下行来编辑您的`settings.gradle`文件：
 
 ```groovy
-includeBuild('../node_modules/react-native-gradle-plugin')
+includeBuild('../node_modules/@react-native/gradle-plugin')
 ```
 
 然后你需要打开顶层的 `build.gradle` 文件并添加这一行：
